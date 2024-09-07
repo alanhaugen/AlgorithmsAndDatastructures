@@ -10,6 +10,8 @@
 #PDF with self reflection (most interesting AND most challenging aspect to implement).
 
 
+#ideas: Make a stack for the menu etc. Look at the book data structures for games. Be inspired and have fun!
+
 [<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
 [more loot] no ->[<end>e]
 
