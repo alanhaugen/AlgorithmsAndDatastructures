@@ -12,7 +12,6 @@
 #ideas: Make a stack for the menu etc. Look at the book data structures for games. Be inspired and have fun!
 # Have AI stuff in there! Pathfinding! Min-Max algorithm. Commands! Design patterns!
 # Redo, undo, the discard pile
-# Design patterns
 # Look at json
 
 [Dwarves - Gem Chase|
@@ -26,7 +25,9 @@
   [Action tracking piece (1x)]--
   [Dice (1x)]--
   [Discard Pile (1x)]
-  [Players (Array, max 6, min 2)|Gem store|Random first player|Turn, goes clockwise|Unique Colour (6 different colours available)]--[Hand (linked list with cards!)]
+  [Players (Array, max 6, min 2)|Gem store|Secret mission card|Random first player|Turn, goes clockwise|Unique Colour (6 different colours available)]--[Hand (linked list with cards!)]
+  [Turn|hasSpecialCardPickedUp|Actions Queue (4)|]
+  [Action|Command|A Move]
   [Commands]-:>[Undo/redo]
   [Min max]
   [Background]
