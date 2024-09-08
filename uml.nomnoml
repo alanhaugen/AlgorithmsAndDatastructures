@@ -9,29 +9,42 @@
 #PDF or PNG (high quality) with UML class diagrams.
 #PDF with self reflection (most interesting AND most challenging aspect to implement).
 
-
 #ideas: Make a stack for the menu etc. Look at the book data structures for games. Be inspired and have fun!
 # Have AI stuff in there! Pathfinding! Min-Max algorithm. Commands! Design patterns!
 # Redo, undo, the discard pile
 # Design patterns
+# Look at json
 
 [Dwarves - Gem Chase|
-  [Mission Cards (9x)]--
-  [Chance Cards (18x)]--
-  [Game Board| Spaces (connected, how many? What structure?)]--
-  [Red Path Blocking Game Pieces]--
+  [Mission Cards (9x)|Stack]--
+  [Chance Cards (18x)|Stack]--
+  [Game Board| Linked list with 188 Spaces (connected, how? What structure?)]--
+  [Red Path Blocking Game Pieces (2x)]--
   [Dwarf Pieces (18x, 3x per player)]--
   [Dragon egg (1x)]--
   [Gemstones (36x)]--
   [Action tracking piece (1x)]--
   [Dice (1x)]--
   [Discard Pile (1x)]
-  [Players|Random first player|Turn, goes clockwise]--[Hand (linked list with cards!)]
+  [Players (Array, max 6, min 2)|Gem store|Random first player|Turn, goes clockwise|Unique Colour (6 different colours available)]--[Hand (linked list with cards!)]
   [Commands]-:>[Undo/redo]
   [Min max]
+  [Background]
+  [Menus|
+  Start Game|
+  Stacks]
+  [Stack<>|Push|Pop|Randomize]
+  [Space|Special|Gems|Dwarves]
 ]
 
-#[Game engine]
+#[Game engine|
+#[AI]--
+#[Audio]--
+#[Filesystem]--
+#[Physics]--
+#[Renderer]--
+#[Script]
+#]
 
 # [<table>mischief| bawl | sing || yell | drink ]
 # [<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
@@ -94,7 +107,7 @@
 #* When moving out of your ship, the first space is marked ① .
 #* You can only move your dwarves in the direction marked on the map.
 #* Your dwarves may share the same space on the game board.
-#* If you move to a place with\r gems, you can use 1 action point per gem to pick them up! Put the gems into your ship.
+#* If you move to a place with gems, you can use 1 action point per gem to pick them up! Put the gems into your ship.
 #* When one of your dwarves reaches a yellow area you can pick up a chance card FOR FREE! (Only one chance card can be picked up per turn)
 #* Only players with three gems (of any colour) in their ship can pick up the dragon egg - pick up and carry the dragon egg with
 #a dwarf by moving a dwarf over to it and placing the egg onto the dwarves' open arms. Picking up the dragon egg does not cost any action points.
@@ -102,7 +115,7 @@
 #for the remaining action points) The game ends when a player has taken the dragon egg all the way to their Home Base, the egg is worth 10 gems 
 #but the winner might still be the one with the most gems.
 #* A dwarf landing on another team's dwarf sends the enemy dwarf back to their home base and you can steal one gem for 0 action points from the other player.
-#* By landing on a dwarf holding the dragon egg, you can choose\r to simply send the enemy dwarf\r back to their home base, or to also take the dragon egg
+#* By landing on a dwarf holding the dragon egg, you can choose to simply send the enemy dwarf back to their home base, or to also take the dragon egg
 #with you, carried by your dwarf, if you have at least 3 gems (of any colour) in your gem store.
 #
 #Always remember:
