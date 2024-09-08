@@ -11,21 +11,95 @@
 
 
 #ideas: Make a stack for the menu etc. Look at the book data structures for games. Be inspired and have fun!
+# Have AI stuff in there! Pathfinding! Min-Max algorithm. Commands! Design patterns!
 
-[<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
-[more loot] no ->[<end>e]
+#[Dwarves: Gem Chase is a board game for two to six players.
+#The game takes place on a mountain where greedy dwarves fight to become the wealthiest dwarf of them all.
+#The mountain is scattered with gemstones of great value, and a golden dragon egg at the very tip of the mountain.
+#All gemstones are placed on the map and picked up during the game.
+#
+#At the beginning of the game, each player chooses a color and a corner to be their home base and places their coloured player pieces (dwarves) there.
+#They will also receive a secret mission card. Players take turns moving their game pieces and collecting gemstones.
+#If the dragon egg is collected and brought back to a dwarf's home base, the game ends.
+#To pick up the dragon egg, a player must first possess a minimum of three gemstones.
+#If all the gemstones are picked up, the game ends. The game also ends if a player completes their secret mission.
+#
+#The winner is the player with the most gemstones when the game ends, alternatively the player who has completed their secret mission.
+#
+#END STATES: 
+#* Dragon egg has been taken to a home base.
+#* A player completes their secret mission.
+#* All gems gone from the game board.
+#
+#VICTORY: 
+#* The winner is the player with the most gems in their home base.
+#* Alternatively, the player who finishes their mission is the winner.
+#* Dragon egg is worth 10 gems if at a player’s home base.
+#
+#For 2 - 6 players.
+#Playtime: 25 min.
+#
+#Get Started (In this version of the game, the board has already been set up for you)
+#
+#* Place the gems on the game board where there are gem icons.
+#* Put the dragon egg in the middle of the board.
+#
+#Choose a colour!
+#* Take your dwarf pieces and put them in your colour's start ship.
+#(In this version, simply choose a colour, you can change your colour by pressing the icon at the top right of the screen)
+#
+#Let's go.
+#Decide on who starts by rolling a die! Player with the highest number starts.
+#
+#The game goes in turns clockwise.
+#
+#Before you begin ...
+#* Each player takes a mission card from the mission card pile. (Remember to shuffle the cards! Keep your mission secret)
+#
+#Start your turn
+#* You receive 4 action points at the beginning of each turn.
+#* To use a card on your hand costs 1 action point.
+#* To move one of your dwarves costs 1 action point per space.
+#* When moving out of your ship, the first space is marked ① .
+#* You can only move your dwarves in the direction marked on the map.
+#* Your dwarves may share the same space on the game board.
+#* If you move to a place with\r gems, you can use 1 action point per gem to pick them up! Put the gems into your ship.
+#* When one of your dwarves reaches a yellow area you can pick up a chance card FOR FREE! (Only one chance card can be picked up per turn)
+#* Only players with three gems (of any colour) in their ship can pick up the dragon egg - pick up and carry the dragon egg with
+#a dwarf by moving a dwarf over to it and placing the egg onto the dwarves' open arms. Picking up the dragon egg does not cost any action points.
+#While carrying the dragon egg, movement is limited to two spaces for that dwarf (Remember, you can still move other dwarf pieces and use cards
+#for the remaining action points) The game ends when a player has taken the dragon egg all the way to their Home Base, the egg is worth 10 gems 
+#but the winner might still be the one with the most gems.
+#* A dwarf landing on another team's dwarf sends the enemy dwarf back to their home base and you can steal one gem for 0 action points from the other player.
+#* By landing on a dwarf holding the dragon egg, you can choose\r to simply send the enemy dwarf\r back to their home base, or to also take the dragon egg
+#with you, carried by your dwarf, if you have at least 3 gems (of any colour) in your gem store.
+#
+#Always remember:
+#* The dragon egg is worth 10 gems. It has to be in your home base to count towards your score.
+#* A dwarf carrying the dragon egg can only move two spaces per turn.
+#* You receive a chance card FOR FREE by passing yellow spaces with a dwarf. Only one per turn."]
 
 [Dwarves - Gem Chase|
-  [beard]--[parrot]
+  [Mission Cards (9x)]--
+  [Chance Cards (18x)]--
+  [Game Board]--
+  [Red Path Blocking Game Pieces]--
+  [Dwarf Pieces (18x, 3x per player)]--
+  [Dragon egg (1x)]--
+  [Gemstones (36x)]--
+  [Action tracking piece (1x)]--
+  [Dice (1x)]--
+  [Player]--[Hand (linked list with cards!)]
   [beard]-:>[foul mouth]
 ]
 
-[<table>mischief| bawl | sing || yell | drink ]
-
-[<abstract>Marauder]<:--[Pirate]
-[Pirate] - 0..7[mischief]
-[<actor id=sailor>Jolly;Sailor]
-[sailor]->[Pirate]
-[sailor]->[rum]
-[Pirate]-> *[rum|tastiness: Int|swig()]
+# [<table>mischief| bawl | sing || yell | drink ]
+# [<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
+# [more loot] no ->[<end>e]
+# [<abstract>Marauder]<:--[Pirate]
+# [Pirate] - 0..7[mischief]
+# [<actor id=sailor>Jolly;Sailor]
+# [sailor]->[Pirate]
+# [sailor]->[rum]
+# [Pirate]-> *[rum|tastiness: Int|swig()]
 
