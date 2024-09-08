@@ -12,6 +12,37 @@
 
 #ideas: Make a stack for the menu etc. Look at the book data structures for games. Be inspired and have fun!
 # Have AI stuff in there! Pathfinding! Min-Max algorithm. Commands! Design patterns!
+# Redo, undo, the discard pile
+# Design patterns
+
+[Dwarves - Gem Chase|
+  [Mission Cards (9x)]--
+  [Chance Cards (18x)]--
+  [Game Board| Spaces (connected, how many? What structure?)]--
+  [Red Path Blocking Game Pieces]--
+  [Dwarf Pieces (18x, 3x per player)]--
+  [Dragon egg (1x)]--
+  [Gemstones (36x)]--
+  [Action tracking piece (1x)]--
+  [Dice (1x)]--
+  [Discard Pile (1x)]
+  [Players|Random first player|Turn, goes clockwise]--[Hand (linked list with cards!)]
+  [Commands]-:>[Undo/redo]
+  [Min max]
+]
+
+#[Game engine]
+
+# [<table>mischief| bawl | sing || yell | drink ]
+# [<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
+# [more loot] no ->[<end>e]
+# [<abstract>Marauder]<:--[Pirate]
+# [Pirate] - 0..7[mischief]
+# [<actor id=sailor>Jolly;Sailor]
+# [sailor]->[Pirate]
+# [sailor]->[rum]
+# [Pirate]-> *[rum|tastiness: Int|swig()]
+
 
 #[Dwarves: Gem Chase is a board game for two to six players.
 #The game takes place on a mountain where greedy dwarves fight to become the wealthiest dwarf of them all.
@@ -79,27 +110,4 @@
 #* A dwarf carrying the dragon egg can only move two spaces per turn.
 #* You receive a chance card FOR FREE by passing yellow spaces with a dwarf. Only one per turn."]
 
-[Dwarves - Gem Chase|
-  [Mission Cards (9x)]--
-  [Chance Cards (18x)]--
-  [Game Board]--
-  [Red Path Blocking Game Pieces]--
-  [Dwarf Pieces (18x, 3x per player)]--
-  [Dragon egg (1x)]--
-  [Gemstones (36x)]--
-  [Action tracking piece (1x)]--
-  [Dice (1x)]--
-  [Player]--[Hand (linked list with cards!)]
-  [beard]-:>[foul mouth]
-]
-
-# [<table>mischief| bawl | sing || yell | drink ]
-# [<start>start] -> [<state>plunder] -> [<choice>more loot] -> [start]
-# [more loot] no ->[<end>e]
-# [<abstract>Marauder]<:--[Pirate]
-# [Pirate] - 0..7[mischief]
-# [<actor id=sailor>Jolly;Sailor]
-# [sailor]->[Pirate]
-# [sailor]->[rum]
-# [Pirate]-> *[rum|tastiness: Int|swig()]
 
