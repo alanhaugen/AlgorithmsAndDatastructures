@@ -31,6 +31,8 @@
   -Players : Array<Player>
 
   -Replay : Queue<Command>
+
+  -GameBoard : Board
   |
   +Init() : void
   
