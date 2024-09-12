@@ -1,0 +1,13 @@
+# Discuss which aspect of implementing a board game you find most interesting, and which most challenging
+
+I have implemented chess with my own game engine before. The game plays itself. I have not implemented advanced AI (or even semi-advanced) nor have I succeeded in turning into an interactive game beyond letting the player pause the game and going back and forth, stepwise, through the moves the AI does.
+
+I have the ability to click on the pieces. I just need to implement a neat way to move the pieces. Either with a mouse, or keyboard, or similar. I think the best would be by mouse, and simply dragging the piece over where you want it.
+
+But Arne suggested making a new board game, so that is what I tried to make a UML class diagram of. I am not very good at making UML-diagrams. Alexander gave me some really good feedback which improved the diagram a lot, but I think it can still become a lot better. So that is what I will spend my weekend on. Writing a better diagram and doing reserach on UML class diagrams. I have a book called UML distilled. I got it from the library. I will look at it a bit more.
+
+I am most exited to write games in C++ and to write an improved AI. I am looking forwards to having a prorotype of the game with A* and everything, and to start writing AI for the game.
+
+The game Arne suggested is a lot like chess. But instead of having a set of chesss pieces, you select them before the game begins. The pieces have cool properties, such as nobleness and different move sets. You only have a certian amount of money to spend on pieces. Once you can't afford any more, you put them out on your side of the map as you please, and then play for a given amount of turns. The goal is to be the player with the most noble (valuable) pieces left at the end of the game.
+
+It is a very novel idea, and would be fun to see how it might play. The game also seems very simple to explain and understand.

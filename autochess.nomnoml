@@ -79,7 +79,13 @@
   
   +Score : Integer
   
-  +Gold : Integer]
+  +Gold : Integer
+  
+  +Colour : Integer
+  
+  +Avatar : Bitmap
+  
+  +isComputer : Boolean]
   [Autochess]o-[Shop |
   +PossiblePieces : Array<Piece>
   
@@ -99,6 +105,8 @@
   +Price : Integer
   
   +isFlying : Boolean
+  
+  +isActive : Boolean
   
   +Nobility : Integer
   
