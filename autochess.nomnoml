@@ -20,7 +20,7 @@
   +id : unsigned int
   
   +components : Array<Component>
-  
+  |
   +Init() : virtual void
   
   +Update() : virtual void
@@ -28,14 +28,16 @@
   +UpdateAfterPhyics() : virtual void
   ]<-
   [Autochess|
+  -Players : Array<Player>
+
+  -Replay : Queue<Command>
+  |
   +Init() : void
   
   +Update() : void
   
   +UpdateAfterPhysics() : void
-  |
-  -Players : Array<Player>
-  -Replay : Queue<Command>]o-
+  ]o-
   [Board |
   +BG : Background
   
@@ -47,19 +49,23 @@
   
   -CalculatePerpendicularWeightsForA-Star() : void]o-
   [SplashScreen|
-  +MenuOptions : Menu
   
+  -BackgroundDemoGame : Board
+
+  -MenuOptions : Menu
+  | 
   +Init() : void
   
   +Update() : void
   
   +UpdateAfterPhysics() : void
-  
-  +BackgroundDemoGame : Board]o-[Menu]
+  ]o-[Menu]
   [Board]o-[Tile |
   +Type : EnumTile (empty, unit1, unit2, ...)
   
-  +Weight : Integer]
+  +Weight : Integer
+  |
+  ]
   [Board]o-[Background |
   +front : Bitmap
   
@@ -71,7 +77,9 @@
   
   +left : bitmap
   
-  +right : bitmap]
+  +right : bitmap
+  |
+  ]
  [Shop]o-[Piece]
  [Move]o-[Piece]
   [Autochess]o-[Player |
@@ -85,13 +93,17 @@
   
   +Avatar : Bitmap
   
-  +isComputer : Boolean]
+  +isComputer : Boolean
+  |
+  ]
   [Autochess]o-[Shop |
   +PossiblePieces : Array<Piece>
   
   +Pieces : LinkedList<Piece>
   
-  +WildcardPiece : Stack<Piece>]
+  +WildcardPiece : Stack<Piece>
+  |
+  ]
   [Player]o-
   [Piece |
   +Name : String
@@ -112,21 +124,25 @@
   
   +MovePattern : Array<Vector2D>
   
-  +Weights : Array<Weight>]o-
+  +Weights : Array<Weight>
+  |
+  ]o-
   [Weight |
-  +Position : Vector2D]
+  +Position : Vector2D
+  |
+  ]
   
   
   [MainMenu|
   
-  +MenuOptions : Stack<Menu>
+  -MenuOptions : Stack<Menu>
   
-  +StartMenu : Menu
+  -StartMenu : Menu
   
-  +LoadMenu : Menu
+  -LoadMenu : Menu
   
-  +AudioMenu : Menu
-  
+  -AudioMenu : Menu
+  |
   +Init() : void
   
   +Update() : void
@@ -134,36 +150,46 @@
   +UpdateAfterPhysics() : void
   ]o-
   [Menu|
-  +Options : Array<MenuItem>]o-[MenuItem]
+  +Options : Array<MenuItem>
+  |
+  ]o-[MenuItem]
   
-  [MenuItem]
-  [Button : MenuItem|
+  [MenuItem||+Update() : void]
+  [Button|
   
   +TextBackground : Bitmap
   
-  +OptionText : String]->[MenuItem]
-  [Text : MenuItem|
-  +Text : String]->[MenuItem]
+  +OptionText : String
+  |
+  ]->[MenuItem]
+  [Text|
+  +Text : String
+  |
+  ]->[MenuItem]
   [MainMenu]->[Scene]
   
   
   [Minimax|
-  +MovesTree : Tree<Move>|
-  -FindBestMove() : Move]o-[Move]
+  +MovesTree : Tree<Move>
+  |
+  -FindBestMove() : Move
+  ]o-[Move]
   [Autochess]o-
   [Command |
+  -NewMove : Move
+  
+  -OldMove : Move
+  |
   +Redo() : void
   
   +Undo() : void
-  |
-  -NewMove : Move
-  
-  -OldMove : Move]o-
+  ]o-
   [Move |
   +MovedPiece : Piece*
   
-  +Position : Vector2D]
-  
+  +Position : Vector2D
+  |
+  ]
   
   [SplashScreen]->[Scene]
 ]
