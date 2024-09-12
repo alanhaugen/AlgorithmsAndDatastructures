@@ -14,7 +14,8 @@
 # Redo, undo, the discard pile
 # Look at json
 
-[Autochess|
+[Game Application|
+
   [Scene|
   +id : unsigned int
   
@@ -26,6 +27,15 @@
   
   +UpdateAfterPhyics() : virtual void
   ]<-
+  [Autochess|
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
+  |
+  -Players : Array<Player>
+  -Replay : Queue<Command>]o-
   [Board |
   +BG : Background
   
@@ -36,7 +46,17 @@
   -CalculateWeightsForA-Star() : void
   
   -CalculatePerpendicularWeightsForA-Star() : void]o-
-  [Tile |
+  [SplashScreen|
+  +MenuOptions : Menu
+  
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
+  
+  +BackgroundDemoGame : Board]o-[Menu]
+  [Board]o-[Tile |
   +Type : EnumTile (empty, unit1, unit2, ...)
   
   +Weight : Integer]
@@ -52,20 +72,21 @@
   +left : bitmap
   
   +right : bitmap]
-  [Players : Array<Player>]--
-  PlayerTurn
-  [Player |
+ [Shop]o-[Piece]
+ [Move]o-[Piece]
+  [Autochess]o-[Player |
   +Pieces : Array<Piece>
   
   +Score : Integer
   
-  +Gold : Integer]--
-  [Shop |
+  +Gold : Integer]
+  [Autochess]o-[Shop |
   +PossiblePieces : Array<Piece>
   
   +Pieces : LinkedList<Piece>
   
-  +WildcardPiece : Stack<Piece>]--
+  +WildcardPiece : Stack<Piece>]
+  [Player]o-
   [Piece |
   +Name : String
   
@@ -83,34 +104,30 @@
   
   +MovePattern : Array<Vector2D>
   
-  +Weights : Array<Weight>]--
+  +Weights : Array<Weight>]o-
   [Weight |
   +Position : Vector2D]
-  [Min max : Tree]--
-  [Move : Command |
-  +MovedPiece : Piece*
   
-  +NewPosition : Vector2D
   
-  +OldPosition : Vector2D]->
-  [Commands : LinkedList |
-  +Redo() : void
-  
-  +Undo() : void]o-
-  [Replay : Queue<Command>]o-
-  [Replays : LinkedList<Replay>]
-  [SplashScreen|
-  +Options : Stack<Menu>]o-[Menu]
   [MainMenu|
-  +Options : Array<Menu>
   
-  +StartMenu : Stack<Menu>
+  +MenuOptions : Stack<Menu>
   
-  +LoadMenu : Stack<Menu>
+  +StartMenu : Menu
   
-  +AudioMenu : Stack<Menu>]o-
+  +LoadMenu : Menu
+  
+  +AudioMenu : Menu
+  
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
+  ]o-
   [Menu|
   +Options : Array<MenuItem>]o-[MenuItem]
+  
   [MenuItem]
   [Button : MenuItem|
   
@@ -119,6 +136,28 @@
   +OptionText : String]->[MenuItem]
   [Text : MenuItem|
   +Text : String]->[MenuItem]
+  [MainMenu]->[Scene]
+  
+  
+  [Minimax|
+  +MovesTree : Tree<Move>|
+  -FindBestMove() : Move]o-[Move]
+  [Autochess]o-
+  [Command |
+  +Redo() : void
+  
+  +Undo() : void
+  |
+  -NewMove : Move
+  
+  -OldMove : Move]o-
+  [Move |
+  +MovedPiece : Piece*
+  
+  +Position : Vector2D]
+  
+  
+  [SplashScreen]->[Scene]
 ]
 
 [Game engine|
@@ -206,6 +245,7 @@
 #* The dragon egg is worth 10 gems. It has to be in your home base to count towards your score.
 #* A dwarf carrying the dragon egg can only move two spaces per turn.
 #* You receive a chance card FOR FREE by passing yellow spaces with a dwarf. Only one per turn."]
+
 
 
 
