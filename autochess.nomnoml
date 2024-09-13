@@ -13,10 +13,17 @@
 # Have AI stuff in there! Pathfinding! Min-Max algorithm. Commands! Design patterns!
 # Redo, undo, the discard pile
 # Look at json
-
 [Game Application|
-
-  [Scene|
+[
+<<Abstract class>>
+  Scene]<-[SplashScreen]
+  [
+  <<Abstract class>>
+  Scene]<-[MainMenu]
+  [
+  <<Abstract class>>
+  Scene
+  |
   +id : unsigned int
   
   +components : Array<Component>
@@ -34,11 +41,11 @@
 
   -GameBoard : Board
   |
-  +Init() : void
+  +Init() : virtual void
   
-  +Update() : void
+  +Update() : virtual void
   
-  +UpdateAfterPhysics() : void
+  +UpdateAfterPhysics() : virtual void
   ]o-
   [Board |
   +BG : Background
@@ -49,18 +56,24 @@
   |
   -CalculateWeightsForA-Star() : void
   
-  -CalculatePerpendicularWeightsForA-Star() : void]o-
+  -CalculatePerpendicularWeightsForA-Star() : void
+  
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void]o-
   [SplashScreen|
   
   -BackgroundDemoGame : Board
 
   -MenuOptions : Menu
   | 
-  +Init() : void
+  +Init() : virtual void
   
-  +Update() : void
+  +Update() : virtual void
   
-  +UpdateAfterPhysics() : void
+  +UpdateAfterPhysics() : virtual void
   ]o-[Menu]
   [Board]o-[Tile |
   +Type : EnumTile (empty, unit1, unit2, ...)
@@ -81,6 +94,11 @@
   
   +right : bitmap
   |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]
  [Shop]o-[Piece]
  [Move]o-[Piece]
@@ -97,6 +115,11 @@
   
   +isComputer : Boolean
   |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]
   [Autochess]o-[Shop |
   +PossiblePieces : Array<Piece>
@@ -104,7 +127,14 @@
   +Pieces : LinkedList<Piece>
   
   +WildcardPiece : Stack<Piece>
+  
+  +ShopFront : Bitmap
   |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]
   [Player]o-
   [Piece |
@@ -126,12 +156,13 @@
   
   +MovePattern : Array<Vector2D>
   
-  +Weights : Array<Weight>
+  +Weights : Array<Vector2D>
   |
-  ]o-
-  [Weight |
-  +Position : Vector2D
-  |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]
   
   
@@ -145,11 +176,11 @@
   
   -AudioMenu : Menu
   |
-  +Init() : void
+  +Init() : virtual void
   
-  +Update() : void
+  +Update() : virtual void
   
-  +UpdateAfterPhysics() : void
+  +UpdateAfterPhysics() : virutal void
   ]o-
   [Menu|
   +Options : Array<MenuItem>
@@ -163,25 +194,29 @@
   
   +OptionText : String
   |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]->[MenuItem]
   [Text|
   +Text : String
   |
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
   ]->[MenuItem]
-  [MainMenu]->[Scene]
-  
-  
-  [Minimax|
-  +MovesTree : Tree<Move>
-  |
-  -FindBestMove() : Move
-  ]o-[Move]
   [Autochess]o-
   [Command |
   -NewMove : Move
   
   -OldMove : Move
   |
+  +Execute() : void
+  
   +Redo() : void
   
   +Undo() : void
@@ -193,13 +228,68 @@
   |
   ]
   
-  [SplashScreen]->[Scene]
+  [Minimax]-o[AIPlayer]
+  [AIPlayer|-AIController : Minimax|
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void
+  ]->[Player]
+  [Minimax|
+  +MovesTree : Tree<Move>
+  |
+  -FindBestMove() : Move
+  ]o-[Move]
+  
+  
 ]
 
-[Game engine|
-[AI]
-[Audio]
-[Filesystem]
+[Game Engine|
+[PortaudioAudio|
+|
+Init() : virtual bool
+ 
+Shutdown() : virtual bool
+ 
+Stop() : virtual void
+ 
+PlaySound(const char *sound) : virtual void
+ 
+Update() : virtual void
+]->[Audio]
+[NullAudio|
+|
+Init() : virtual bool
+ 
+Shutdown() : virtual bool
+ 
+Stop() : virtual void
+ 
+PlaySound(const char *sound) : virtual void
+ 
+Update() : virtual void
+]->[Audio]
+[Audio|
+|
+Init() : virtual bool
+ 
+Shutdown() : virtual bool
+ 
+Stop() : virtual void
+ 
+PlaySound(const char *sound) : virtual void
+ 
+Update() : virtual void
+]
+[Filesystem|
+virtual bool 	Init ()=0
+ 
+virtual bool 	Shutdown ()=0
+ 
+virtual IFile * 	Open (URL url, const unsigned int fileType=DATA)=0
+]
+[Input]
 [Physics]
 [Renderer]
 [Script]
