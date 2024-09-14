@@ -40,6 +40,10 @@
   -Replay : Queue<Command>
 
   -GameBoard : Board
+  
+  +NextTurnSound : AudioClip
+  
+  -BackgroundMusic : AudioClip
   |
   +Init() : virtual void
   
@@ -144,13 +148,23 @@
   
   +Description : String
   
-  +3DModel : Mesh
-  
   +Price : Integer
   
   +Nobility : Integer
   
   +Range : Integer
+  
+  +3DModelIdle : Mesh
+  
+  +3DModelAttack : Mesh
+  
+  +3DModelDie : Mesh
+  
+  +FoostepSound : AudioClip
+  
+  +AttackSound : AudioClip
+  
+  +DieSound : AudioClip
   
   +isFlying : Boolean
   
@@ -215,6 +229,10 @@
   +TextBackground : Bitmap
   
   +OptionText : String
+  
+  +ClickedSoundEffect : AudioClip
+  
+  +HoverSoundEffect : AudioClip
   |
   +Init() : void
   
@@ -289,7 +307,7 @@ Audio]<-[NullAudio|
 +Shutdown() : virtual bool
  
 +Stop() : virtual void
- 
+
 +PlaySound(sound : const char*) : virtual void
  
 +Update() : virtual void
@@ -395,18 +413,77 @@ Audio|
 [
 <<Abstract class>> Physics]<-[NullPhysics]
 
-[NullPhysics]<-[BulletPhysics]
+[NullPhysics]<-[BulletPhysics
+|
+|
++Update() : void
+]
 
-[NullPhysics]<-[BouncePhysics]
+[NullPhysics
+|
+There are a host of fast algorthims at https://www.realtimerendering.com/intersections.html.
+|
++bool 	Intersect (const Ray &r, const HitBox *hitbox)
+ 
++Collider * 	Collide (HitBox *hitbox, const char *type="Box Collidable")
+ 
++HitBox * 	CreateHitBox (glm::vec3 dimensions, Mat *matrix, const char *type)
+ 
++void 	RemoveHitBox (HitBox *hitbox)
+ 
++void 	Update ()
+]<-[BouncePhysics
+|
+\#Array< Ptr< IPhysics::Collider * > > 	colliders
+|
+bool 	Intersect (const Ray &r, const HitBox *hitbox)
+ 	There are a host of fast algorthims at https://www.realtimerendering.com/intersections.html.
+ 
+Collider * 	Collide (HitBox *hitbox=NULL, const char *type="solid")
+ 
+HitBox * 	CreateHitBox (glm::vec3 dimensions, Mat *matrix, const char *type)
+ 
+void 	Update ()
+ 
+
+]
 
 [
-<<Abstract class>> Physics]o-[Collider]
+<<Abstract class>> Physics]o-[Collider
+|
++collisions : Array< HitBox * >
+ 
++direction : glm::vec3
+ 
++hitbox : HitBox*
+|
+]o-[HitBox]
 
 [
-<<Abstract class>> Physics]o-[HitBox]
+<<Abstract class>> Physics]o-[HitBox
+|
++type : const char*
+ 
++dimensions : glm::vec3
+ 
++position : glm::vec3*
+ 
++oldPosition : glm::vec3
+|
+]
 
 [
-<<Abstract class>> Physics]o-[Ray]
+<<Abstract class>> Physics]o-[Ray
+|
++origin : glm::vec3
+ 
++dir : glm::vec3
+ 
++invdir : glm::vec3
+ 
++sign : Array<Integer>
+|
+]
 
 [
 <<Abstract class>> Renderer
