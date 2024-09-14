@@ -531,18 +531,183 @@ BouncePhysics]--[There are a host of fast intersection algorithms at https://www
  
 +Draw (drawable : IDrawable*) : virtual void
 ]
-[NullRenderer]<-[DX11Renderer]
+[NullRenderer]<-[DX11Renderer
+|
+|
+\#PreRender() : void
+ 
+\#PostRender() : void
+]
 [
-NullRenderer]<-[GLES2Renderer]
+NullRenderer
+|
+|
+\#PreRender() : virtual void
+ 
+\#PostRender() : virtual void
+
++Init(fullscreen : Boolean, windowTitle: const char*, windowLength : const unsigned int, windowHeight : const unsigned int) : virtual Boolean
+ 
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+ 
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+ 
++Resize(length : Integer, height : Integer) : virtual void
+ 
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=Array< ITexture * >() : Array< ITexture * >) : virtual IDrawable *
+ 
++CeateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : virtual IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : virtual void
+ 
++CreateTexture(filename : String) : virtual ITexture*
+ 
++CreateTexture(front : String, back : String, top : String, bottom : String, left : String, right : String) : virtual ITexture*
+ 
++CreateTexture(width : Integer, height : Integer) : virtual ITexture*
+ 
++RemoveTexture(texture : ITexture*) : virtual void
+ 
++SetDirectionalLight(direction : glm::vec3, light : ILight*) : virtual void
+ 
++ResetDirectionalLight() : virtual void
+ 
++AddPointLight(position : glm::vec3, quadricEquation : glm::vec3, light : ILight*) : virtual ILight *
+ 
++RemovePointLight(light : ILight*) : virtual void
+ 
++CreateCamera(viewport : Integer, position : glm::vec3, orientation : glm::vec3) : virtual ICamera*
+ 
++RemoveCamera (camera : ICamera*) : virtual void
+ 
++Draw (drawable : IDrawable*) : virtual void
+]<-[GLES2Renderer
+|
+\#vaos : Array<GLuint>
+ 
+\#buffers : Array<GLuint>
+|
+\#GetError() : void
+ 
+\#GetError() : void
+
++Init(fullscreen : Boolean, windowTitle : const char*, windowLength : const unsigned Integer, windowHeight : const unsigned Integer) : virtual Boolean
+
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+
++Resize(width : Integer, height : Integer) : virtual void
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures : Array< ITexture * >) : IDrawable*
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : void
+
++CreateTexture(filename : String) : ITexture *
+
++CreateTexture (front : String, back : String, top : String, bottom : String, left : String, right : String) : ITexture*
+
++CreateTexture (width : Integer, height : Integer) : ITexture*
+
++RemoveTexture(texture : ITexture*) : void
+
++ClearDrawables() : void
+
++ClearTextures() : void
+
++Init (fullscreen : Boolean, windowTitle : const char*, windowLength : const unsigned Integer, windowHeight : const unsigned Integer) : Boolean
+
++Resize(width : Integer, height : Integer) : void
+
++Render() : void
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=NULL : Array< IFile * >*) : IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : void
+
++ClearDrawables() : void
+]
 [
 <<Abstract class>> Renderer]<-[NullRenderer]
 
 [Containers|
-[LinkedList]
-[Array]
-[Tree]
-[Queue]
-[Stack]
+[Array
+|
++array : Datatype*
+|
+\#Init() : void
+ 
+\#Copy(fromArray : const Datatype*, toArray : Datatype*, elements : const int) : void
+ 
++Size() : unsigned Integer
+ 
++Empty() : unsigned Integer
+ 
++Resize (newSize : const unsigned) : void
+ 
++Insert (item : Datatype, index : const unsigned) : void
+ 
++Add (item : Datatype) : void
+ 
++RemoveAt(const unsigned i) : void
+ 
++Clear() : void
+]
+[LinkedList
+|
+\#unsigned int 	count
+|
+\#Append (node : LinkedNode*) : void
+ 
+\#Remove (node : LinkedNode*) : void
+
++Begin() : Iterator
+ 
++End() : Iterator
+ 
++Empty() : Boolean
+ 
++Count() : Integer
+ 
++Append (val : Datatype) : void
+ 
++RemoveAt (index : Integer) : void
+ 
++Clear() : void
+]
+
+[LinkedList]<-[Queue
+|
+|
++Enqueue(data : Datatype) : void
+ 
++Dequeue() : Datatype
+ 
++Front() : Datatype
+ 
++Count() : Integer
+]
+[LinkedList]<-[Stack
+|
+|
++Push (data : Datatype) : void
+ 
++Pop() : Datatype
+ 
++Top() : Datatype
+ 
++Size() : Integer
+ 
++Empty() : Integer
+]
+[LinkedList]o-[Iterator
+|
+|
++Item() : Datatype*
+]
+
 ]
 
 ]
