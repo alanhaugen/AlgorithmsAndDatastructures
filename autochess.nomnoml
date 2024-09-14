@@ -284,9 +284,7 @@
 ]
 
 [Game Application]+-[Game Engine|
-[
-<<Abstract class>>
-Audio]<-[PortaudioAudio|
+[NullAudio]<-[PortaudioAudio|
 |
 +Init() : virtual bool
  
@@ -399,7 +397,7 @@ Audio|
 <<Abstract class>> Physics
 |
 |
-+Collide(HitBox *hitbox=NULL, const char *type="solid") : virtual Collider*
++Collide(hitbox=NULL : HitBox*, type="solid" : const char*) : virtual Collider*
  
 +Intersect(ray : const Ray&, hitbox : const HitBox*) : virtual bool
  
@@ -419,33 +417,32 @@ Audio|
 +Update() : void
 ]
 
+[
+BouncePhysics]--[There are a host of fast intersection algorithms at https://www.realtimerendering.com/intersections.html.]
+
 [NullPhysics
 |
-There are a host of fast algorthims at https://www.realtimerendering.com/intersections.html.
 |
-+bool 	Intersect (const Ray &r, const HitBox *hitbox)
++Intersect(r : const Ray&, hitbox : const HitBox*) : Boolean
  
-+Collider * 	Collide (HitBox *hitbox, const char *type="Box Collidable")
++Collide(hitbox : HitBox*, type="Box Collidable" : const char*) : Collider*
  
-+HitBox * 	CreateHitBox (glm::vec3 dimensions, Mat *matrix, const char *type)
++CreateHitBox(dimensions : glm::vec3, matrix : Mat*, type : const char*) : HitBox*
  
-+void 	RemoveHitBox (HitBox *hitbox)
++RemoveHitBox(hitbox : HitBox*) : void
  
-+void 	Update ()
++Update() : void
 ]<-[BouncePhysics
 |
-\#Array< Ptr< IPhysics::Collider * > > 	colliders
+\#colliders : Array< Ptr< IPhysics::Collider * > >
 |
-bool 	Intersect (const Ray &r, const HitBox *hitbox)
- 	There are a host of fast algorthims at https://www.realtimerendering.com/intersections.html.
- 
-Collider * 	Collide (HitBox *hitbox=NULL, const char *type="solid")
- 
-HitBox * 	CreateHitBox (glm::vec3 dimensions, Mat *matrix, const char *type)
- 
-void 	Update ()
- 
++Intersect (r : const Ray&, hitbox : const HitBox*) : Boolean
 
++Collide (hitbox=NULL : HitBox*, type="solid" : const char*) : Collider*
+ 
++CreateHitBox (dimensions : glm::vec3, matrix : Mat*, type : const char*) : HitBox *
+ 
++Update() : void
 ]
 
 [
@@ -534,8 +531,7 @@ void 	Update ()
  
 +Draw (drawable : IDrawable*) : virtual void
 ]
-[
-<<Abstract class>> Renderer]<-[DX11Renderer]
+[NullRenderer]<-[DX11Renderer]
 [
 NullRenderer]<-[GLES2Renderer]
 [
