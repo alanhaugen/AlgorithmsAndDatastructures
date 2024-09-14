@@ -15,7 +15,7 @@
 # Look at json
 [Game Application|
 [
-<<Abstract class>>
+  <<Abstract class>>
   Scene]<-[SplashScreen]
   [
   <<Abstract class>>
@@ -115,11 +115,11 @@
   
   +isComputer : Boolean
   |
-  +Init() : void
+  +Init() : virtual void
   
-  +Update() : void
+  +Update() : virtual void
   
-  +UpdateAfterPhysics() : void
+  +UpdateAfterPhysics() : virtual void
   ]
   [Autochess]o-[Shop |
   +PossiblePieces : Array<Piece>
@@ -148,11 +148,13 @@
   
   +Price : Integer
   
+  +Nobility : Integer
+  
+  +Range : Integer
+  
   +isFlying : Boolean
   
   +isActive : Boolean
-  
-  +Nobility : Integer
   
   +MovePattern : Array<Vector2D>
   
@@ -163,8 +165,28 @@
   +Update() : void
   
   +UpdateAfterPhysics() : void
+  
+  +PossibleMoves : Array<Move>
+  
+  +WalingAnimation : Animation
   ]
   
+  [Piece]o-[Animation|
+  +StartPosition : Vector2D
+  
+  +EndPosition : Vector2D
+  
+  +AnimationMesh : Mesh
+  
+  +AStarPath : Queue<Vector2D>
+  |
+  -CalculatePathA-Star() : void
+  
+  +Init() : void
+  
+  +Update() : void
+  
+  +UpdateAfterPhysics() : void]
   
   [MainMenu|
   
@@ -230,69 +252,226 @@
   
   [Minimax]-o[AIPlayer]
   [AIPlayer|-AIController : Minimax|
-  +Init() : void
+  +Init() : virtual void
   
-  +Update() : void
+  +Update() : virtual void
   
-  +UpdateAfterPhysics() : void
+  +UpdateAfterPhysics() : virtual void
   ]->[Player]
   [Minimax|
   +MovesTree : Tree<Move>
   |
   -FindBestMove() : Move
   ]o-[Move]
-  
-  
 ]
 
-[Game Engine|
-[PortaudioAudio|
+[Game Application]+-[Game Engine|
+[
+<<Abstract class>>
+Audio]<-[PortaudioAudio|
 |
-Init() : virtual bool
++Init() : virtual bool
  
-Shutdown() : virtual bool
++Shutdown() : virtual bool
  
-Stop() : virtual void
++Stop() : virtual void
  
-PlaySound(const char *sound) : virtual void
++PlaySound(sound : const char*) : virtual void
  
-Update() : virtual void
-]->[Audio]
-[NullAudio|
-|
-Init() : virtual bool
- 
-Shutdown() : virtual bool
- 
-Stop() : virtual void
- 
-PlaySound(const char *sound) : virtual void
- 
-Update() : virtual void
-]->[Audio]
-[Audio|
-|
-Init() : virtual bool
- 
-Shutdown() : virtual bool
- 
-Stop() : virtual void
- 
-PlaySound(const char *sound) : virtual void
- 
-Update() : virtual void
++Update() : virtual void
 ]
-[Filesystem|
-virtual bool 	Init ()=0
+[
+<<Abstract class>>
+Audio]<-[NullAudio|
+|
++Init() : virtual bool
  
-virtual bool 	Shutdown ()=0
++Shutdown() : virtual bool
  
-virtual IFile * 	Open (URL url, const unsigned int fileType=DATA)=0
++Stop() : virtual void
+ 
++PlaySound(sound : const char*) : virtual void
+ 
++Update() : virtual void
 ]
-[Input]
-[Physics]
-[Renderer]
-[Script]
+[
+<<Abstract class>>
+Audio|
+|
++Init() : virtual bool
+ 
++Shutdown() : virtual bool
+ 
++Stop() : virtual void
+ 
++PlaySound(sound : const char*) : virtual void
+ 
++Update() : virtual void
+]
+[
+<<Abstract class>> Filesystem|
+|
++Init() : virtual bool
+ 
++Shutdown() : virtual bool
+ 
++Open(url : URL, fileType=DATA : const unsigned int) : virtual IFile *
+]
+[
+<<Abstract class>> Filesystem]<-[NullFilesystem|
+|
++Init() : virtual bool
+ 
++Shutdown() : virtual bool
+ 
++Open(url : URL, fileType=DATA : const unsigned int) : virtual NullFile *
+]
+[NullFilesystem]<-[StdFilesystem|
+|
++Shutdown() : bool
+ 
++Open(path : URL, dataType=DATA : const unsigned int) : StdFile *
+]
+
+[Input
+|
++Key : EnumKeyMap
+
++Mouse : MouseStruct
+|
++Define(controlName : const String &, key : unsigned int) : void
+
++Update() : void
+
++Held(key : const unsigned Integer) : Boolean
+
++Held(controlName : String) : Boolean
+ 
++Pressed(key : const unsigned Integer) : Boolean
+
++Pressed(controlName : String) : Boolean
+
++Released(key : const unsigned Integer) : Boolean
+ 
++Released(controlName : String) : Boolean
+ 
++OnButton(button : const unsigned Integer, isDown : const Boolean) : void
+]o-[MouseStruct|
++x : Integer
+
++y : Integer
+
++deltaX : Integer
+
++deltaY : Integer
+
++Up : Boolean
+
++Down : Boolean
+
++Pressed : Boolean
+
++Released : Boolean
+
++Hidden : Boolean
+
++Dragging : Boolean|]
+
+[
+<<Abstract class>> Physics
+|
+|
++Collide(HitBox *hitbox=NULL, const char *type="solid") : virtual Collider*
+ 
++Intersect(ray : const Ray&, hitbox : const HitBox*) : virtual bool
+ 
++CreateHitBox(dimensions : glm::vec3, matrix : Mat*, type="solid" : const char*) : virtual HitBox*
+ 
++RemoveHitBox(hitbox : HitBox*) : virtual void
+
++Update () : virtual void
+]
+
+[
+<<Abstract class>> Physics]<-[NullPhysics]
+
+[NullPhysics]<-[BulletPhysics]
+
+[NullPhysics]<-[BouncePhysics]
+
+[
+<<Abstract class>> Physics]o-[Collider]
+
+[
+<<Abstract class>> Physics]o-[HitBox]
+
+[
+<<Abstract class>> Physics]o-[Ray]
+
+[
+<<Abstract class>> Renderer
+|
++windowWidth : Integer
+ 
++windowHeight : Integer
+ 
++framebufferdata : Integer*
+|
+\#PreRender() : virtual void
+ 
+\#PostRender() : virtual void
+
++Init(fullscreen : Boolean, windowTitle: const char*, windowLength : const unsigned int, windowHeight : const unsigned int) : virtual Boolean
+ 
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+ 
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+ 
++Resize(length : Integer, height : Integer) : virtual void
+ 
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=Array< ITexture * >() : Array< ITexture * >) : virtual IDrawable *
+ 
++CeateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : virtual IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : virtual void
+ 
++CreateTexture(filename : String) : virtual ITexture*
+ 
++CreateTexture(front : String, back : String, top : String, bottom : String, left : String, right : String) : virtual ITexture*
+ 
++CreateTexture(width : Integer, height : Integer) : virtual ITexture*
+ 
++RemoveTexture(texture : ITexture*) : virtual void
+ 
++SetDirectionalLight(direction : glm::vec3, light : ILight*) : virtual void
+ 
++ResetDirectionalLight() : virtual void
+ 
++AddPointLight(position : glm::vec3, quadricEquation : glm::vec3, light : ILight*) : virtual ILight *
+ 
++RemovePointLight(light : ILight*) : virtual void
+ 
++CreateCamera(viewport : Integer, position : glm::vec3, orientation : glm::vec3) : virtual ICamera*
+ 
++RemoveCamera (camera : ICamera*) : virtual void
+ 
++Draw (drawable : IDrawable*) : virtual void
+]
+[
+<<Abstract class>> Renderer]<-[DX11Renderer]
+[
+NullRenderer]<-[GLES2Renderer]
+[
+<<Abstract class>> Renderer]<-[NullRenderer]
+
+[Containers|
+[LinkedList]
+[Array]
+[Tree]
+[Queue]
+[Stack]
+]
+
 ]
 
 # [<table>mischief| bawl | sing || yell | drink ]
