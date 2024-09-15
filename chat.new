@@ -1,0 +1,17 @@
+In the past, I have successfully implemented a chess game using my own game engine. The game plays itself autonomously, though it lacks advanced or even semi-advanced AI. I have not yet managed to make it fully interactive beyond allowing players to pause the game and navigate through moves made by the AI step by step.
+
+One area where I made progress is enabling the player to click on the pieces. However, I still need to implement an intuitive way to move them, whether by mouse or keyboard. I believe the most user-friendly approach would be dragging pieces with the mouse. Improving input handling and achieving a smooth game feel are aspects I find particularly interesting to work on.
+
+Recently, I received a suggestion from Arne to design a new board game. This led me to create a UML class diagram for it. Although UML diagrams are not my strong suit, Alexander provided helpful feedback, which improved my design considerably. Despite this, I believe the diagram can be refined further. Over the weekend, I focused on improving it and conducting additional research. I also started reading "UML Distilled," a book I borrowed from the library, to deepen my understanding.
+
+Looking ahead, I am most excited about writing games in C++ and enhancing the AI. I plan to incorporate A* and Minimax algorithms and eventually improve the AI to create a more challenging experience. Developing a strong AI is a goal I find both exciting and challenging. I came across a useful website, chessengines.org, which offers insights into building chess (and possibly other board game) AIs.
+
+As for the board game Arne suggested, it bears some resemblance to chess. However, players select their pieces before the game begins, each with unique properties such as nobility and different movement abilities. With a limited budget, players must strategically choose their pieces and place them on their side of the board. The game lasts for a set number of turns, and the winner is the player with the most valuable pieces remaining. It’s an interesting concept, simple to explain yet potentially deep in strategy, and I’m excited to explore how it plays out.
+
+I have also modeled the core components of my game engine in the UML diagram, including services such as rendering, filesystem management, audio, and physics, as well as the input system and various data structures (LinkedList, Array, Queue, Stack). I’ve invested significant effort into this diagram and my engine, and I hope it reflects the work I've put into it.
+
+You can check out my chess game made with this engine here.
+
+Lastly, I own a Tilt5, which would be an exciting challenge to support in future projects. I look forward to continuing my work in game development, and I am particularly eager to refine the AI and input systems for a more polished experience.
+
+
