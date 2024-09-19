@@ -27,7 +27,7 @@ void mainmenu::Update()
         Application::Quit();
     }
 
-    if (input.Mouse.Down)
+    if (input.Mouse.Pressed)
     {
         if ((input.Mouse.x > 123 && input.Mouse.y > 121) &&
             (input.Mouse.x < 380 && input.Mouse.y < 180))
