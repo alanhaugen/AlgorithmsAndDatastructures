@@ -9,6 +9,7 @@ void mainmenu::Init()
 {
     cam = new Camera();
     image = new Sprite("data/MainMenuScene.png", -256, -256, 0.5, 0.5);
+    cords = new Text("X, Y");
     components.Add(image);
     components.Add(cam);
 };
@@ -23,4 +24,7 @@ void mainmenu::Update()
     {
         Application::Quit();
     }
+    delete cords;
+    cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
+    cords->Update();
 };
