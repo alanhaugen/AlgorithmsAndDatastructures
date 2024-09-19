@@ -1,4 +1,0 @@
-[submodule "solid"]
-	path = solid
-	url = git@github.com:alanhaugen/solid.git
-	branch = algorithms

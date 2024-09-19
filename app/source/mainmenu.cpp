@@ -24,6 +24,7 @@ void mainmenu::Update()
     {
         Application::Quit();
     }
+
     delete cords;
     cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     cords->Update();
