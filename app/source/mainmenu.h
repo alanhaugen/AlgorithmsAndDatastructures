@@ -10,6 +10,7 @@ class mainmenu : public IScene
 {
 public:
     Sprite* image;
+    Sprite* cursor;
     Camera* cam;
     Text* cords;
     mainmenu();
