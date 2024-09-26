@@ -8,7 +8,7 @@ MenuTree::MenuTree(Menu* firstMenu)
 
 void MenuTree::Update()
 {
-    root->Update();
+    activeMenu->Update();
 }
 
 void MenuTree::UpdateAfterPhysics()

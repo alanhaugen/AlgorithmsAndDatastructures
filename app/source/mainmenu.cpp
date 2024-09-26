@@ -17,11 +17,13 @@ void mainmenu::Init()
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, 10, 300);
     firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", 10, 400);
     mainMenuTree = new MenuTree(firstMenu);
+    title = new Sprite("data/Title.png");
 
     cursor = new Sprite("data/BlackCursor.png", -256, -256, 1.0, 1.0);
     cords = new Text("X, Y");
 
     components.Add(mainMenuTree);
+    components.Add(title);
     components.Add(cam);
     components.Add(cursor);
 };
