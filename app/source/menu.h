@@ -13,6 +13,8 @@ private:
     Sprite* background;
     Array<Sprite*> buttons;
 
+    Menu* tempButtonMenu;
+
 public:
     Menu(Stack<Menu*>* menuStack_);
     void SetBackground(String image);

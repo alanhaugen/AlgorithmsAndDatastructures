@@ -9,9 +9,15 @@ void mainmenu::Init()
 {
     cam = new Camera();
 
+    Menu* playMenu = new Menu(&menus);
+    playMenu->SetBackground("data/BackgroundImage.png");
+    playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", -7, 100);
+    playMenu->AddNextSceneButton("data/Button-2_Player.png", -7, 200);
+    playMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
+
     Menu* firstMenu = new Menu(&menus);
     firstMenu->SetBackground("data/BackgroundImage.png");
-    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", -7, 100);
+    firstMenu->AddMenuButton("data/Button-Play_Game.png", playMenu, -7, 100);
     firstMenu->AddMenuButton("data/Button-Settings.png", NULL, -7, 200);
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, -7, 300);
     firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);

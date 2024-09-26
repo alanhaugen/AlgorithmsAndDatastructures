@@ -5,6 +5,8 @@ Menu::Menu(Stack<Menu*> *menuStack_)
 {
     menuStack  = menuStack_;
     background = NULL;
+
+    tempButtonMenu = NULL;
 }
 
 void Menu::SetBackground(String image)
@@ -24,6 +26,11 @@ void Menu::AddMenuButton(String image, Menu *menu, int x, int y)
     Sprite* buttonSprite = new Sprite(image, x, y, 0.5, 0.5);
     buttonSprite->tag = "menu";
     buttons.Add(buttonSprite);
+
+    if (tempButtonMenu == NULL)
+    {
+        tempButtonMenu = menu;
+    }
 }
 
 void Menu::AddQuitButton(String image, int x, int y)
@@ -50,10 +57,18 @@ void Menu::Update()
                 }
                 if (buttons[i]->tag == "menu")
                 {
+                    menuStack->Push(tempButtonMenu);
                 }
                 if (buttons[i]->tag == "quit")
                 {
-                    Application::Quit();
+                    if (menuStack->Size() == 1)
+                    {
+                        Application::Quit();
+                    }
+                    else
+                    {
+                        menuStack->Pop();
+                    }
                 }
             }
         }
