@@ -1,5 +1,6 @@
 #include <core/application.h>
 #include "mainmenu.h"
+#include "menu.h"
 
 mainmenu::mainmenu()
 {
@@ -8,10 +9,18 @@ mainmenu::mainmenu()
 void mainmenu::Init()
 {
     cam = new Camera();
-    image = new Sprite("data/MainMenuScene.png", -256, -256, 0.5, 0.5);
+
+    Menu* firstMenu = new Menu();
+    firstMenu->SetBackground("data/BackgroundImage.png");
+    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", 10, 120);
+    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, 10, 220);
+    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", 10, 320);
+    mainMenuTree = new MenuTree(firstMenu);
+
     cursor = new Sprite("data/BlackCursor.png", -256, -256, 1.0, 1.0);
     cords = new Text("X, Y");
-    components.Add(image);
+
+    components.Add(mainMenuTree);
     components.Add(cam);
     components.Add(cursor);
 };
@@ -27,25 +36,10 @@ void mainmenu::Update()
         Application::Quit();
     }
 
-    if (input.Mouse.Pressed)
-    {
-        if ((input.Mouse.x > 123 && input.Mouse.y > 121) &&
-            (input.Mouse.x < 380 && input.Mouse.y < 180))
-        {
-            Application::NextScene();
-        }
-
-        if ((input.Mouse.x > 129 && input.Mouse.y > 419) &&
-            (input.Mouse.x < 383 && input.Mouse.y < 471))
-        {
-            Application::Quit();
-        }
-    }
-
     *cursor->matrix.x = input.Mouse.x;
     *cursor->matrix.y = input.Mouse.y;
 
     //delete cords;
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     //cords->Update();
-};
+}

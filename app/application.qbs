@@ -39,6 +39,9 @@ solid {
             "source/main.h",
             "source/mainmenu.cpp",
             "source/mainmenu.h",
+            "source/menu.cpp",
+            "source/menu.h",
+            "source/menutree.cpp",
         ]
 
         Depends { name: "core"  }
