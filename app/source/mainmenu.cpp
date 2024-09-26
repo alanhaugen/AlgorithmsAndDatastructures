@@ -12,9 +12,10 @@ void mainmenu::Init()
 
     Menu* firstMenu = new Menu();
     firstMenu->SetBackground("data/BackgroundImage.png");
-    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", 10, 120);
-    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, 10, 220);
-    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", 10, 320);
+    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", 10, 100);
+    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, 10, 200);
+    firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, 10, 300);
+    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", 10, 400);
     mainMenuTree = new MenuTree(firstMenu);
 
     cursor = new Sprite("data/BlackCursor.png", -256, -256, 1.0, 1.0);
