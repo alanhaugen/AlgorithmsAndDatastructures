@@ -4,14 +4,15 @@
 #include <core/x-platform/scene.h>
 #include <core/components/sprite.h>
 #include <core/components/camera.h>
+#include <core/containers/stack.h>
 #include <core/components/text.h>
-#include "menutree.h"
+#include "menu.h"
 
 class mainmenu : public IScene
 {
 public:
+    Stack<Menu*> menus;
     Sprite* title;
-    MenuTree* mainMenuTree;
     Sprite* cursor;
     Camera* cam;
     Text* cords;

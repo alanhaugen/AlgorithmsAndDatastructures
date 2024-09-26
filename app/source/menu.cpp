@@ -1,8 +1,9 @@
 #include <core/application.h>
 #include "menu.h"
 
-Menu::Menu()
+Menu::Menu(Stack<Menu*> *menuStack_)
 {
+    menuStack  = menuStack_;
     background = NULL;
 }
 
