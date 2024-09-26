@@ -11,10 +11,10 @@ void mainmenu::Init()
 
     Menu* firstMenu = new Menu(&menus);
     firstMenu->SetBackground("data/BackgroundImage.png");
-    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", 10, 100);
-    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, 10, 200);
-    firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, 10, 300);
-    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", 10, 400);
+    firstMenu->AddNextSceneButton("data/Button-Play_Game.png", -7, 100);
+    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, -7, 200);
+    firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, -7, 300);
+    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
     menus.Push(firstMenu);
 
     title = new Sprite("data/Title.png");
