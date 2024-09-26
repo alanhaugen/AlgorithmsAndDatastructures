@@ -5,11 +5,12 @@
 #include <core/components/sprite.h>
 #include <core/components/camera.h>
 #include <core/components/text.h>
+#include "menutree.h"
 
 class mainmenu : public IScene
 {
 public:
-    Sprite* image;
+    MenuTree* mainMenuTree;
     Sprite* cursor;
     Camera* cam;
     Text* cords;
