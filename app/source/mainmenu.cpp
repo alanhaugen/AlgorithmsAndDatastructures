@@ -8,25 +8,30 @@ mainmenu::mainmenu()
 void mainmenu::Init()
 {
     cam = new Camera();
+    bg = new Sprite("data/BackgroundImage.png", -256.0f, -256.0f, 0.5f, 0.5f);
 
     Menu* playMenu = new Menu(&menus);
-    playMenu->SetBackground("data/BackgroundImage.png");
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", -7, 100);
     playMenu->AddNextSceneButton("data/Button-2_Player.png", -7, 200);
     playMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
 
+    Menu* settingsMenu = new Menu(&menus);
+    settingsMenu->AddNextSceneButton("data/Button-Audio.png", -7, 100);
+    settingsMenu->AddNextSceneButton("data/Button-Graphics.png", -7, 200);
+    settingsMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
+
     Menu* firstMenu = new Menu(&menus);
-    firstMenu->SetBackground("data/BackgroundImage.png");
     firstMenu->AddMenuButton("data/Button-Play_Game.png", playMenu, -7, 100);
-    firstMenu->AddMenuButton("data/Button-Settings.png", NULL, -7, 200);
+    firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, -7, 200);
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, -7, 300);
     firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
     menus.Push(firstMenu);
 
-    title = new Sprite("data/Title.png");
+    title = new Sprite("data/Title.png", -250.0f, -50.0f, 0.5f, 0.5f);
     cursor = new Sprite("data/BlackCursor.png", -256, -256, 1.0, 1.0);
     cords = new Text("X, Y");
 
+    components.Add(bg);
     components.Add(title);
     components.Add(cam);
     components.Add(cursor);

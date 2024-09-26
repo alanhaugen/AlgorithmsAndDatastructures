@@ -1,5 +1,5 @@
-#include <core/application.h>
 #include "menu.h"
+#include "button.h"
 
 Menu::Menu(Stack<Menu*> *menuStack_)
 {
@@ -9,35 +9,26 @@ Menu::Menu(Stack<Menu*> *menuStack_)
     tempButtonMenu = NULL;
 }
 
-void Menu::SetBackground(String image)
-{
-    background = new Sprite(image, -256, -256, 0.5, 0.5);
-}
-
 void Menu::AddNextSceneButton(String image, int x, int y)
 {
-    Sprite* buttonSprite = new Sprite(image, x, y, 0.5, 0.5);
-    buttonSprite->tag = "nextscene";
-    buttons.Add(buttonSprite);
+    Button* button = new Button(image, x, y, menuStack);
+    button->tag = "nextscene";
+    buttons.Add(button);
 }
 
 void Menu::AddMenuButton(String image, Menu *menu, int x, int y)
 {
-    Sprite* buttonSprite = new Sprite(image, x, y, 0.5, 0.5);
-    buttonSprite->tag = "menu";
-    buttons.Add(buttonSprite);
-
-    if (tempButtonMenu == NULL)
-    {
-        tempButtonMenu = menu;
-    }
+    Button* button = new Button(image, x, y, menuStack);
+    button->tag = "menu";
+    button->gotoMenu = menu;
+    buttons.Add(button);
 }
 
 void Menu::AddQuitButton(String image, int x, int y)
 {
-    Sprite* buttonSprite = new Sprite(image, x, y, 0.5, 0.5);
-    buttonSprite->tag = "quit";
-    buttons.Add(buttonSprite);
+    Button* button = new Button(image, x, y, menuStack);
+    button->tag = "quit";
+    buttons.Add(button);
 }
 
 void Menu::Update()
@@ -45,36 +36,7 @@ void Menu::Update()
     for (unsigned int i = 0; i < buttons.Size(); i++)
     {
         buttons[i]->Update();
-
-        if (input.Mouse.Pressed)
-        {
-            if ((input.Mouse.x > *buttons[i]->matrix.x + (526 / 4) && input.Mouse.y > *buttons[i]->matrix.y + (120 / 4)) &&
-                (input.Mouse.x < *buttons[i]->matrix.x + (526-132) && input.Mouse.y < *buttons[i]->matrix.y + (120-30)))
-            {
-                if (buttons[i]->tag == "nextscene")
-                {
-                    Application::NextScene();
-                }
-                if (buttons[i]->tag == "menu")
-                {
-                    menuStack->Push(tempButtonMenu);
-                }
-                if (buttons[i]->tag == "quit")
-                {
-                    if (menuStack->Size() == 1)
-                    {
-                        Application::Quit();
-                    }
-                    else
-                    {
-                        menuStack->Pop();
-                    }
-                }
-            }
-        }
     }
-
-    background->Update();
 }
 
 void Menu::UpdateAfterPhysics()

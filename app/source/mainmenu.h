@@ -13,6 +13,7 @@ class mainmenu : public IScene
 public:
     Stack<Menu*> menus;
     Sprite* title;
+    Sprite* bg;
     Sprite* cursor;
     Camera* cam;
     Text* cords;
