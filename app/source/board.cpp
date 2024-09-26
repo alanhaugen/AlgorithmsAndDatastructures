@@ -15,7 +15,7 @@ void board::Init()
 
 void board::Update()
 {
-    if (input.Pressed(input.Key.ESCAPE))
+    if (input.Pressed(input.Key.BACKSPACE))
     {
         Application::Quit();
     }
