@@ -40,8 +40,8 @@ void Menu::Update()
 
         if (input.Mouse.Pressed)
         {
-            if ((input.Mouse.x > *buttons[i]->matrix.x && input.Mouse.y > *buttons[i]->matrix.y) &&
-                (input.Mouse.x < *buttons[i]->matrix.x + (526 / 2) && input.Mouse.y < *buttons[i]->matrix.y + (120 / 2)))
+            if ((input.Mouse.x > *buttons[i]->matrix.x + (526 / 4) && input.Mouse.y > *buttons[i]->matrix.y + (120 / 4)) &&
+                (input.Mouse.x < *buttons[i]->matrix.x + (526-132) && input.Mouse.y < *buttons[i]->matrix.y + (120-30)))
             {
                 if (buttons[i]->tag == "nextscene")
                 {
