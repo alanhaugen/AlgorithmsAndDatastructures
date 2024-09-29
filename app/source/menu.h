@@ -12,10 +12,7 @@ class Menu : public Component
 {
 private:
     Stack<Menu*>* menuStack;
-    Sprite* background;
     Array<Button*> buttons;
-
-    Menu* tempButtonMenu;
 
 public:
     Menu(Stack<Menu*>* menuStack_);

@@ -4,9 +4,6 @@
 Menu::Menu(Stack<Menu*> *menuStack_)
 {
     menuStack  = menuStack_;
-    background = NULL;
-
-    tempButtonMenu = NULL;
 }
 
 void Menu::AddNextSceneButton(String image, int x, int y)

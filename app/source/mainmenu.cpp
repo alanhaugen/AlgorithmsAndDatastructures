@@ -13,18 +13,26 @@ void mainmenu::Init()
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", -7, 100);
     playMenu->AddNextSceneButton("data/Button-2_Player.png", -7, 200);
-    playMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
+    playMenu->AddQuitButton("data/Button-Back.png", -7, 400);
+
+    Menu* graphicsMenu = new Menu(&menus);
+    graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, -7, 100);
+    graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, -7, 200);
+    graphicsMenu->AddQuitButton("data/Button-Back.png", -7, 400);
+
+    Menu* audioMenu = new Menu(&menus);
+    audioMenu->AddQuitButton("data/Button-Back.png", -7, 400);
 
     Menu* settingsMenu = new Menu(&menus);
-    settingsMenu->AddNextSceneButton("data/Button-Audio.png", -7, 100);
-    settingsMenu->AddNextSceneButton("data/Button-Graphics.png", -7, 200);
-    settingsMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
+    settingsMenu->AddMenuButton("data/Button-Audio.png", audioMenu, -7, 100);
+    settingsMenu->AddMenuButton("data/Button-Graphics.png", graphicsMenu, -7, 200);
+    settingsMenu->AddQuitButton("data/Button-Back.png", -7, 400);
 
     Menu* firstMenu = new Menu(&menus);
     firstMenu->AddMenuButton("data/Button-Play_Game.png", playMenu, -7, 100);
     firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, -7, 200);
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, -7, 300);
-    firstMenu->AddQuitButton("data/Button-Quit_to_Menu.png", -7, 400);
+    firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", -7, 400);
     menus.Push(firstMenu);
 
     title = new Sprite("data/Title.png", -250.0f, -50.0f, 0.5f, 0.5f);
