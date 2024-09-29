@@ -7,8 +7,8 @@ BEGIN
   BEGIN
     BLOCK "080904E4"
     BEGIN
-      VALUE "Huldra", "Huldra Games"
-      VALUE "FileDescription", "The Castle"
+      VALUE "AAA", "AAA Games"
+      VALUE "FileDescription", "Fight of Kings"
       VALUE "FileVersion", "1.0"
       VALUE "InternalName", "solid"
       VALUE "LegalCopyright", "Alan Haugen"

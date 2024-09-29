@@ -27,8 +27,6 @@ solid {
             "data/cubemap.vert",
             "data/gouraud.frag",
             "data/gouraud.vert",
-            "data/app.rc",
-            "data/app.res",
             "data/gui.frag",
             "data/gui.vert",
             "data/icon.png",
