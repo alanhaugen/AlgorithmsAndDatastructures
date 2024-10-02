@@ -16,8 +16,8 @@ void mainmenu::Init()
     playMenu->AddQuitButton("data/Button-Back.png", -7, 400);
 
     Menu* graphicsMenu = new Menu(&menus);
-    graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, -7, 100);
-    graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, -7, 200);
+    graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, -7, 100, "fullscreen");
+    graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, -7, 200, "windowed");
     graphicsMenu->AddQuitButton("data/Button-Back.png", -7, 400);
 
     Menu* audioMenu = new Menu(&menus);

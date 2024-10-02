@@ -20,6 +20,14 @@ void Button::Update()
             {
                 Application::NextScene();
             }
+            if (tag == "fullscreen")
+            {
+                Locator::renderer->Fullscreen();
+            }
+            if (tag == "windowed")
+            {
+                Locator::renderer->Windowed();
+            }
             if (gotoMenu != NULL)
             {
                 menuStack->Push(gotoMenu);

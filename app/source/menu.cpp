@@ -13,10 +13,10 @@ void Menu::AddNextSceneButton(String image, int x, int y)
     buttons.Add(button);
 }
 
-void Menu::AddMenuButton(String image, Menu *menu, int x, int y)
+void Menu::AddMenuButton(String image, Menu *menu, int x, int y, String type)
 {
     Button* button = new Button(image, x, y, menuStack);
-    button->tag = "menu";
+    button->tag = type;
     button->gotoMenu = menu;
     buttons.Add(button);
 }
