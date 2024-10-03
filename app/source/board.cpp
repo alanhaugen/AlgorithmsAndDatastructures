@@ -3,8 +3,6 @@
 
 Board::Board()
 {
-    cam = new Camera();
-
     background = new Sprite("data/BackgroundImage.png", 0, 0, 0.5, 0.5);
 
     bool isWhiteTile = true;
@@ -49,8 +47,6 @@ Board::Board()
 
         isWhiteTile = !isWhiteTile;
     }
-
-    cursor = new Sprite("data/BlackCursor.png", 0, 0, 1.0, 1.0);
 }
 
 void Board::Update()
@@ -61,8 +57,6 @@ void Board::Update()
     }
 
     background->Update();
-
-    //Physics::IPhysics::Ray cameraRay = cam->ScreenPointToRay(input.Mouse.x, input.Mouse.y);
 
     for (unsigned int i = 0; i < tiles.Size(); i++)
     {
@@ -78,19 +72,7 @@ void Board::Update()
                 Log(String(tiles[i].x) + " " + String(tiles[i].y));
             }
         }
-
-        /*if (physics->Intersect(cameraRay, tiles[i].sprite->collisionBox))
-        {
-            activePiece = piece;
-            activePiece->Uniform("colour", glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-            dragging = true;
-            break;
-        }*/
     }
-
-    *cursor->matrix.x = input.Mouse.x;
-    *cursor->matrix.y = input.Mouse.y;
-    cursor->Update();
 }
 
 void Board::UpdateAfterPhysics()

@@ -8,12 +8,19 @@
 
 class Autochess : public IScene
 {
+private:
+    Sprite* whiteCursor;
+    Sprite* blackCursor;
+    Sprite* activeCursor;
+
 public:
     Autochess();
     Board* gameBoard;
     Shop* shop;
 
     Array<Player> players;
+
+    bool isWhitesTurn;
 
     void Init();
     void Update();
