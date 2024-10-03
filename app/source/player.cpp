@@ -1,10 +1,22 @@
 #include "player.h"
 
+Player::Player()
+{
+
+}
+
 Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 {
-    isComputer = false;
+    Init();
+
     isWhite    = isWhitePlayer;
     isComputer = isAIComputerPlayer;
+}
+
+void Player::Init()
+{
+    isComputer = false;
+    isWhite    = false;
     gold       = 1000;
     score      = 0;
 }

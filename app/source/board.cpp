@@ -7,8 +7,8 @@ Board::Board()
 
 void Board::Init()
 {
-    image = new Sprite("data/BoardScene.png", 0, 0, 0.5, 0.5);
-    components.Add(image);
+    background = new Sprite("data/BoardScene.png", 0, 0, 0.5, 0.5);
+    components.Add(background);
 }
 
 void Board::Update()
@@ -18,5 +18,5 @@ void Board::Update()
         Application::Quit();
     }
 
-    image->Update();
+    background->Update();
 }

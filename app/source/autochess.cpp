@@ -6,6 +6,7 @@ autochess::autochess()
 
 void autochess::Init()
 {
+    players = Array<Player>(2);
     board = new Board();
     board->Init();
 }

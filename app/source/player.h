@@ -16,7 +16,10 @@ public:
     Sprite* avatar;
     bool isComputer;
 
+    Player();
     Player(bool isWhitePlayer, bool isAIComputerPlayer);
+
+    void Init();
 
     void Update();
     void UpdateAfterPhysics();

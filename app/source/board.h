@@ -8,7 +8,7 @@
 class Board : public IScene
 {
 public:
-    Sprite* image;
+    Sprite* background;
     Board();
 
     void Init();

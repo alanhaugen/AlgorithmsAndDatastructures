@@ -1,13 +1,14 @@
 #include "shop.h"
 
-shop::shop()
+Shop::Shop()
+{
+    possiblePieces = Array<Piece*>(15);
+}
+
+void Shop::Update()
 {
 }
 
-void shop::Update()
-{
-}
-
-void shop::UpdateAfterPhysics()
+void Shop::UpdateAfterPhysics()
 {
 }
