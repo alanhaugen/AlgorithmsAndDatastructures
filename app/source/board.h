@@ -10,9 +10,7 @@ class Board : public Component
 {
 public:
     Sprite* background;
-    Sprite* cursor;
     Array<Tile> tiles;
-    Camera* cam;
     Board();
 
     void Update();
