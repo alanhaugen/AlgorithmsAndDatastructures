@@ -11,7 +11,6 @@ public:
     Sprite* background;
     Board();
 
-    void Init();
     void Update();
     void UpdateAfterPhysics();
 };

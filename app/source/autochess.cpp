@@ -1,23 +1,23 @@
 #include "autochess.h"
 
-autochess::autochess()
+Autochess::Autochess()
 {
 }
 
-void autochess::Init()
+void Autochess::Init()
 {
     players = Array<Player>(2);
     gameBoard = new Board();
     shop = new Shop();
-    gameBoard->Init();
 }
 
-void autochess::Update()
+void Autochess::Update()
 {
     gameBoard->Update();
+    shop->Update();
 }
 
-void autochess::UpdateAfterPhysics()
+void Autochess::UpdateAfterPhysics()
 {
 }
 

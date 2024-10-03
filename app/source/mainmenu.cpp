@@ -1,11 +1,11 @@
 #include <core/application.h>
 #include "mainmenu.h"
 
-mainmenu::mainmenu()
+Mainmenu::Mainmenu()
 {
 };
 
-void mainmenu::Init()
+void Mainmenu::Init()
 {
     cam = new Camera();
     bg = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 0.5f, 0.5f);
@@ -45,7 +45,7 @@ void mainmenu::Init()
     components.Add(cursor);
 };
 
-void mainmenu::Update()
+void Mainmenu::Update()
 {
     if (input.Pressed(input.Key.ENTER))
     {

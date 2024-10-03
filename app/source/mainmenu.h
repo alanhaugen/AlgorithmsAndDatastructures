@@ -8,7 +8,7 @@
 #include <core/components/text.h>
 #include "menu.h"
 
-class mainmenu : public IScene
+class Mainmenu : public IScene
 {
 public:
     Stack<Menu*> menus;
@@ -17,7 +17,7 @@ public:
     Sprite* cursor;
     Camera* cam;
     Text* cords;
-    mainmenu();
+    Mainmenu();
 
     void Init();
     void Update();

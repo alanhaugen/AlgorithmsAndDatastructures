@@ -5,8 +5,8 @@
 int main(int argc, char **argv)
 {
     Application application(argc, argv);
-    application.AddScene(new mainmenu());
-    application.AddScene(new autochess());
+    application.AddScene(new Mainmenu());
+    application.AddScene(new Autochess());
 
     return application.Exec();
 }

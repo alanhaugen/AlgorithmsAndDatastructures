@@ -6,10 +6,10 @@
 #include "board.h"
 #include "shop.h"
 
-class autochess : public IScene
+class Autochess : public IScene
 {
 public:
-    autochess();
+    Autochess();
     Board* gameBoard;
     Shop* shop;
 
