@@ -11,7 +11,7 @@ Cursor::Cursor()
 void Cursor::Update()
 {
     *activeCursor->matrix.x = input.Mouse.x - 5;
-    *activeCursor->matrix.y = input.Mouse.y - 4;
+    *activeCursor->matrix.y = input.Mouse.y - 5;
 
     activeCursor->Update();
 }

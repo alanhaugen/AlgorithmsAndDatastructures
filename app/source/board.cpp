@@ -84,7 +84,7 @@ void Board::Update()
 
         if (input.Mouse.Pressed)
         {
-            if ((input.Mouse.x > *sprite->matrix.x && input.Mouse.y > *sprite->matrix.y) &&
+            if ((input.Mouse.x >= *sprite->matrix.x && input.Mouse.y >= *sprite->matrix.y) &&
                     (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
