@@ -70,10 +70,13 @@ void Board::Update()
 
         Sprite* sprite = tiles[i].sprite;
 
-        if ((input.Mouse.x > *sprite->matrix.x && input.Mouse.y > *sprite->matrix.y) &&
-            (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
+        if (input.Mouse.Pressed)
         {
-            Log(String(tiles[i].x) + " " + String(tiles[i].y));
+            if ((input.Mouse.x > *sprite->matrix.x && input.Mouse.y > *sprite->matrix.y) &&
+                    (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
+            {
+                Log(String(tiles[i].x) + " " + String(tiles[i].y));
+            }
         }
 
         /*if (physics->Intersect(cameraRay, tiles[i].sprite->collisionBox))
