@@ -13,8 +13,8 @@ void Button::Update()
 
     if (input.Mouse.Pressed)
     {
-        if ((input.Mouse.x > *buttonImage->matrix.x + (526 / 4) && input.Mouse.y > *buttonImage->matrix.y + (120 / 4)) &&
-            (input.Mouse.x < *buttonImage->matrix.x + (526-132) && input.Mouse.y < *buttonImage->matrix.y + (120-30)))
+        if ((input.Mouse.x > *buttonImage->matrix.x && input.Mouse.y > *buttonImage->matrix.y) &&
+            (input.Mouse.x < *buttonImage->matrix.x + (buttonImage->width * buttonImage->scaleX) && input.Mouse.y < *buttonImage->matrix.y + (buttonImage->height * buttonImage->scaleY)))
         {
             if (tag == "nextscene")
             {

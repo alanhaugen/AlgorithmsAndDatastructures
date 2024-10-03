@@ -8,7 +8,7 @@ board::board()
 void board::Init()
 {
     cam = new Camera();
-    image = new Sprite("data/BoardScene.png", -256, -256, 0.5, 0.5);
+    image = new Sprite("data/BoardScene.png", 0, 0, 0.5, 0.5);
     components.Add(image);
     components.Add(cam);
 };

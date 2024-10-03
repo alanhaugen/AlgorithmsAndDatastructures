@@ -51,8 +51,8 @@ void main()
     float halfScreenWidth  = float(screenWidth)  / 2.0f;
     float halfScreenHeight = float(screenHeight) / 2.0f;
 
-    gl_Position.x += -1.0 + (float(width) / 2.0f) / halfScreenWidth  + pos.x / halfScreenWidth;
-    gl_Position.y -= -1.0 + (float(height) / 2.0f) / halfScreenHeight + pos.y / halfScreenHeight;// - 11)); // 11 is the top of a window on windows
+    gl_Position.x += -1.0 + (float(width  * scaleX) / 2.0f) / halfScreenWidth   + pos.x / (halfScreenWidth);
+    gl_Position.y -= -1.0 + (float(height * scaleY) / 2.0f) / halfScreenHeight  + pos.y / (halfScreenHeight);// - 11)); // 11 is the top of a window on windows
 
     if (vGlyph == -1)
     {

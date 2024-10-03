@@ -1,5 +1,5 @@
 #version 330 core
-//es
+// es
 //core
 
 // ES requires setting precision qualifier
