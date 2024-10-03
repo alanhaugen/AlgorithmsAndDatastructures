@@ -50,7 +50,7 @@ void Board::GenerateTiles()
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
 
             tile.sprite = sprite;
-            tiles.Add(tile);
+            tiles.Append(tile);
 
             isWhiteTile = !isWhiteTile;
         }
@@ -61,11 +61,34 @@ void Board::GenerateTiles()
 
 void Board::HideDots()
 {
-    for (unsigned int i = 0; i < tiles.Size(); i++)
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    for (; node != tiles.End(); ++node)
     {
-        tiles[i].moveDot->Hide();
+        (*node).moveDot->Hide();
     }
 }
+
+Tile* Board::GetBoardPieceUnderMouse()
+{
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    for (; node != tiles.End(); ++node)
+    {
+        Sprite* sprite = (*node).sprite;
+
+        (*node).moveDot->Hide();
+
+        if ((input.Mouse.x >= *sprite->matrix.x && input.Mouse.y >= *sprite->matrix.y) &&
+                (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
+        {
+            return &(*node);
+        }
+    }
+
+    return nullptr;
+}
+
 
 void Board::Update()
 {
@@ -76,11 +99,12 @@ void Board::Update()
 
     background->Update();
 
-    for (unsigned int i = 0; i < tiles.Size(); i++)
-    {
-        tiles[i].Update();
+    LinkedList<Tile>::Iterator node = tiles.Begin();
 
-        Sprite* sprite = tiles[i].sprite;
+    for (; node != tiles.End(); ++node)
+    {
+        (*node).Update();
+        Sprite* sprite = (*node).sprite;
 
         if (input.Mouse.Pressed)
         {
@@ -88,8 +112,8 @@ void Board::Update()
                     (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
-                *highlight->matrix.x = *tiles[i].sprite->matrix.x;
-                *highlight->matrix.y = *tiles[i].sprite->matrix.y;
+                *highlight->matrix.x = *(*node).sprite->matrix.x;
+                *highlight->matrix.y = *(*node).sprite->matrix.y;
             }
         }
     }

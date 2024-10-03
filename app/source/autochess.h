@@ -10,10 +10,13 @@
 class Autochess : public IScene
 {
 public:
+    Piece* piece;
+
     Autochess();
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
+    Tile* previousTile;
 
     Array<Player> players;
 

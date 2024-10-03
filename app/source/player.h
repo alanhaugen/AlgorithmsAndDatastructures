@@ -9,7 +9,7 @@
 class Player : public Component
 {
 public:
-    Array<Piece> pieces;
+    LinkedList<Piece> pieces;
     int score;
     int gold;
     bool isWhite;

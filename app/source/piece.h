@@ -10,7 +10,6 @@ class Piece : public Component
 {
 private:
     String name;
-    Sprite* icon;
     String description;
     int price;
     int nobility;
@@ -20,6 +19,8 @@ private:
     String dieSound;
 
 public:
+    Sprite* icon;
+    Piece();
     Piece(String name_,
           String iconPath,
           String description_,

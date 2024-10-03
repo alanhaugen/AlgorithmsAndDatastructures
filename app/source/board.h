@@ -10,12 +10,13 @@ class Board : public Component
 {
 public:
     Sprite* background;
-    Array<Tile> tiles;
+    LinkedList<Tile> tiles;
     Sprite* highlight;
     Board();
 
     void GenerateTiles();
     void HideDots();
+    Tile* GetBoardPieceUnderMouse();
 
     void Update();
     void UpdateAfterPhysics();

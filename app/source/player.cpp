@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-
+    Init();
 }
 
 Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
