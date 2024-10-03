@@ -1,5 +1,5 @@
-#ifndef piece_H
-#define piece_H
+#ifndef PIECE_H
+#define PIECE_H
 
 #include <core/components/component.h>
 #include <core/components/sprite.h>

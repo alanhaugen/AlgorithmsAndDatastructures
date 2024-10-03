@@ -1,5 +1,5 @@
-#ifndef mainmenu_H
-#define mainmenu_H
+#ifndef MAINMENU_H
+#define MAINMENU_H
 
 #include <core/x-platform/scene.h>
 #include <core/components/sprite.h>

@@ -1,5 +1,5 @@
-#ifndef autochess_H
-#define autochess_H
+#ifndef AUTOCHESS_H
+#define AUTOCHESS_H
 
 #include <core/x-platform/scene.h>
 #include "player.h"

@@ -1,5 +1,5 @@
-#ifndef board_H
-#define board_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <core/components/component.h>
 #include <core/components/sprite.h>
