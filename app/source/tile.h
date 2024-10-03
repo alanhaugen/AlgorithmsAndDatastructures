@@ -9,6 +9,7 @@ class Tile : public Component
 public:
     int x,y;
     Sprite* sprite;
+    Sprite* moveDot;
 
     Tile();
 

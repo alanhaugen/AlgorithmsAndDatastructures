@@ -13,6 +13,9 @@ public:
     Array<Tile> tiles;
     Board();
 
+    void GenerateTiles();
+    void HideDots();
+
     void Update();
     void UpdateAfterPhysics();
 };

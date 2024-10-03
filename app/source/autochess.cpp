@@ -11,6 +11,8 @@ void Autochess::Init()
     shop = new Shop();
     isWhitesTurn = true;
 
+    players[1].isWhite = false;
+
     whiteCursor = new Sprite("data/WhiteCursor.png", 0, 0, 1.0, 1.0);
     blackCursor = new Sprite("data/BlackCursor.png", 0, 0, 1.0, 1.0);
 
@@ -45,4 +47,3 @@ void Autochess::Update()
 void Autochess::UpdateAfterPhysics()
 {
 }
-

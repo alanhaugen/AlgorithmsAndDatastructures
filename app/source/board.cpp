@@ -1,13 +1,20 @@
 #include <core/application.h>
 #include "board.h"
+#include "main.h"
 
 Board::Board()
 {
     background = new Sprite("data/BackgroundImage.png", 0, 0, 0.5, 0.5);
 
+    GenerateTiles();
+    HideDots();
+}
+
+void Board::GenerateTiles()
+{
     bool isWhiteTile = true;
 
-    float scale = 0.25;
+    float scale = tileScale;
 
     Sprite* tile;
     tile = new Sprite("data/WhiteTile.png", 0, 0, scale, scale);
@@ -36,6 +43,8 @@ Board::Board()
                 sprite = new Sprite("data/BlackTile.png", 0, 0, scale, scale);
             }
 
+            tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
+
             *sprite->matrix.x = x * (sprite->width  * sprite->scaleX) + offsetX;
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
 
@@ -46,6 +55,14 @@ Board::Board()
         }
 
         isWhiteTile = !isWhiteTile;
+    }
+}
+
+void Board::HideDots()
+{
+    for (unsigned int i = 0; i < tiles.Size(); i++)
+    {
+        tiles[i].moveDot->Hide();
     }
 }
 
