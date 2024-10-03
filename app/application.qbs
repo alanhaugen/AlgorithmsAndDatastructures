@@ -66,6 +66,8 @@ solid {
             "source/move.h",
             "source/piece.cpp",
             "source/piece.h",
+            "source/player.cpp",
+            "source/player.h",
             "source/shop.cpp",
             "source/shop.h",
         ]
