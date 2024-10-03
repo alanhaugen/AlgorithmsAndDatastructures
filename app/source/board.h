@@ -5,12 +5,11 @@
 #include <core/components/sprite.h>
 #include <core/components/camera.h>
 
-class board : public IScene
+class Board : public IScene
 {
 public:
     Sprite* image;
-    Camera* cam;
-    board();
+    Board();
 
     void Init();
     void Update();
