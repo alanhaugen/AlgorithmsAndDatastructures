@@ -8,32 +8,40 @@
 
 class Piece : public Component
 {
-public:
+private:
     String name;
     Sprite* icon;
     String description;
     int price;
     int nobility;
     int range;
+    String footstepSound;
+    String attackSound;
+    String dieSound;
+
+public:
+    Piece(String name_,
+          String iconPath,
+          String description_,
+          int price_,
+          int range_);
+
     Sprite* idleSprite;
     Sprite* walkingSprite;
     Sprite* attackSprite;
     Sprite* deathSprite;
-    String footstepSound;
-    String attackSound;
-    String dieSound;
-    bool isFlying;
-    bool isActive;
+
     Array<glm::vec2> movePattern;
     Array<glm::vec2> weights;
-
-    Piece();
 
     void Update();
     void UpdateAfterPhysics();
 
     Array<Move> PossibleMoves();
     Queue<glm::vec2> walkingPath;
+
+    bool isFlying;
+    bool isActive;
 };
 
 #endif
