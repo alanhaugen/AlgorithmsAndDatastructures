@@ -8,6 +8,7 @@ Board::Board()
 
     GenerateTiles();
     HideDots();
+    highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
 }
 
 void Board::GenerateTiles()
@@ -86,10 +87,14 @@ void Board::Update()
             if ((input.Mouse.x > *sprite->matrix.x && input.Mouse.y > *sprite->matrix.y) &&
                     (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
             {
-                Log(String(tiles[i].x) + " " + String(tiles[i].y));
+                //Log(String(tiles[i].x) + " " + String(tiles[i].y));
+                *highlight->matrix.x = *tiles[i].sprite->matrix.x;
+                *highlight->matrix.y = *tiles[i].sprite->matrix.y;
             }
         }
     }
+
+    highlight->Update();
 }
 
 void Board::UpdateAfterPhysics()

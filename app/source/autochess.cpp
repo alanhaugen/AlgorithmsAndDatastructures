@@ -13,21 +13,15 @@ void Autochess::Init()
 
     players[1].isWhite = false;
 
-    whiteCursor = new Sprite("data/WhiteCursor.png", 0, 0, 1.0, 1.0);
-    blackCursor = new Sprite("data/BlackCursor.png", 0, 0, 1.0, 1.0);
-
-    activeCursor = whiteCursor;
+    cursor = new Cursor();
+    cursor->SetCursorToWhiteColour(true);
+    components.Add(cursor);
 }
 
 void Autochess::Update()
 {
     gameBoard->Update();
     shop->Update();
-
-    *activeCursor->matrix.x = input.Mouse.x;
-    *activeCursor->matrix.y = input.Mouse.y;
-
-    activeCursor->Update();
 
     /*if (input.Mouse.Pressed)
     {

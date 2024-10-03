@@ -2,19 +2,16 @@
 #define AUTOCHESS_H
 
 #include <core/x-platform/scene.h>
+#include "cursor.h"
 #include "player.h"
 #include "board.h"
 #include "shop.h"
 
 class Autochess : public IScene
 {
-private:
-    Sprite* whiteCursor;
-    Sprite* blackCursor;
-    Sprite* activeCursor;
-
 public:
     Autochess();
+    Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
 

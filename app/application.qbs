@@ -58,6 +58,8 @@ solid {
             "source/board.h",
             "source/button.cpp",
             "source/button.h",
+            "source/cursor.cpp",
+            "source/cursor.h",
             "source/main.cpp",
             "source/main.h",
             "source/mainmenu.cpp",

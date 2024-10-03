@@ -7,6 +7,7 @@
 #include <core/containers/stack.h>
 #include <core/components/text.h>
 #include "menu.h"
+#include "cursor.h"
 
 class Mainmenu : public IScene
 {
@@ -14,7 +15,7 @@ public:
     Stack<Menu*> menus;
     Sprite* title;
     Sprite* bg;
-    Sprite* cursor;
+    Cursor* cursor;
     Camera* cam;
     Text* cords;
     Mainmenu();

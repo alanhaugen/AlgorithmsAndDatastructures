@@ -36,7 +36,7 @@ void Mainmenu::Init()
     menus.Push(firstMenu);
 
     title = new Sprite("data/Title.png", 5.0f, 15.0f, 0.5f, 0.5f);
-    cursor = new Sprite("data/BlackCursor.png", 0, 0, 1.0, 1.0);
+    cursor = new Cursor();
     cords = new Text("X, Y");
 
     components.Add(bg);
@@ -57,9 +57,6 @@ void Mainmenu::Update()
     }
 
     menus.Top()->Update();
-
-    *cursor->matrix.x = input.Mouse.x;
-    *cursor->matrix.y = input.Mouse.y;
 
     //delete cords;
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));

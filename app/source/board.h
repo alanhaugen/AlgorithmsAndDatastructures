@@ -11,6 +11,7 @@ class Board : public Component
 public:
     Sprite* background;
     Array<Tile> tiles;
+    Sprite* highlight;
     Board();
 
     void GenerateTiles();
