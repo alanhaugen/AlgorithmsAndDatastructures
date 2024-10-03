@@ -7,13 +7,14 @@ autochess::autochess()
 void autochess::Init()
 {
     players = Array<Player>(2);
-    board = new Board();
-    board->Init();
+    gameBoard = new Board();
+    shop = new Shop();
+    gameBoard->Init();
 }
 
 void autochess::Update()
 {
-    board->Update();
+    gameBoard->Update();
 }
 
 void autochess::UpdateAfterPhysics()

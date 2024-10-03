@@ -4,12 +4,14 @@
 #include <core/x-platform/scene.h>
 #include "player.h"
 #include "board.h"
+#include "shop.h"
 
 class autochess : public IScene
 {
 public:
     autochess();
-    Board* board;
+    Board* gameBoard;
+    Shop* shop;
 
     Array<Player> players;
 

@@ -8,7 +8,6 @@ Board::Board()
 void Board::Init()
 {
     background = new Sprite("data/BoardScene.png", 0, 0, 0.5, 0.5);
-    components.Add(background);
 }
 
 void Board::Update()
@@ -19,4 +18,8 @@ void Board::Update()
     }
 
     background->Update();
+}
+
+void Board::UpdateAfterPhysics()
+{
 }
