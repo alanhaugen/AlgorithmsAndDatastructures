@@ -1,3 +1,4 @@
+#include <core/application.h>
 #include "autochess.h"
 
 Autochess::Autochess()
@@ -26,6 +27,11 @@ void Autochess::Update()
 {
     gameBoard->Update();
     shop->Update();
+
+    if (input.Pressed(input.Key.ESCAPE))
+    {
+        Application::LoadScene(0);
+    }
 
     if (input.Mouse.Pressed)
     {

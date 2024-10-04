@@ -1,4 +1,3 @@
-#include <core/application.h>
 #include "board.h"
 #include "main.h"
 
@@ -106,11 +105,6 @@ Tile* Board::GetBoardPieceUnderMouse()
 
 void Board::Update()
 {
-    if (input.Pressed(input.Key.BACKSPACE))
-    {
-        Application::Quit();
-    }
-
     background->Update();
 
     LinkedList<Tile>::Iterator tile = tiles.Begin();

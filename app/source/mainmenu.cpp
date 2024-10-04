@@ -9,6 +9,7 @@ void Mainmenu::Init()
 {
     cam = new Camera();
     bg = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 0.5f, 0.5f);
+    menus.Clear();
 
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", 125, 130);
@@ -47,15 +48,6 @@ void Mainmenu::Init()
 
 void Mainmenu::Update()
 {
-    if (input.Pressed(input.Key.ENTER))
-    {
-        Application::NextScene();
-    }
-    if (input.Pressed(input.Key.ESCAPE))
-    {
-        Application::Quit();
-    }
-
     menus.Top()->Update();
 
     //delete cords;
