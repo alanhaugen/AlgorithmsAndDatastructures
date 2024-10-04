@@ -42,12 +42,13 @@ void Autochess::Update()
 
         if (tile != nullptr)
         {
-            tile->piece = piece;
-            if (previousTile != nullptr)
+            if (piece->currentTile)
             {
-                previousTile->piece = nullptr;
+                piece->currentTile->piece = nullptr;
             }
-            previousTile = tile;
+
+            piece->currentTile = tile;
+            tile->piece = piece;
         }
     }
 
