@@ -26,7 +26,7 @@ public:
           String iconPath,
           String description_,
           int price_,
-          int range_);
+          int nobility);
 
     void Init();
 

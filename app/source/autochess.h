@@ -10,8 +10,21 @@
 class Autochess : public IScene
 {
 public:
-    Piece* piece1;
-    Piece* piece2;
+    Piece* king;
+    Piece* prince;
+    Piece* princess;
+    Piece* shield;
+    Piece* queen;
+    Piece* monster;
+    Piece* peasant;
+    Piece* knight;
+    Piece* bishop;
+    Piece* stallion;
+    Piece* jester;
+    Piece* fence;
+    Piece* hydra;
+    Piece* rogue;
+    Piece* cannon;
     Piece* activePiece;
 
     Autochess();
