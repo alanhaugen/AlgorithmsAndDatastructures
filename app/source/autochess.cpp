@@ -14,7 +14,7 @@ void Autochess::Init()
                                    "Rook like in chess",
                                    1,
                                    0));*/
-    king = new Piece("king",
+    king = new Piece("King",
                      "data/Piece-WhiteRook.png",
                      "Moves like a king in chess. Can move 1 tile in any direction.",
                      200,
@@ -109,17 +109,17 @@ void Autochess::Update()
     gameBoard->Update();
     shop->Update();
 
-    if (piece1->currentTile == nullptr)
+    if (king->currentTile == nullptr)
     {
-        *piece1->icon->matrix.x = 200;
-        *piece1->icon->matrix.y = 430;
-        piece1->icon->Update();
+        *king->icon->matrix.x = 200;
+        *king->icon->matrix.y = 430;
+        king->icon->Update();
     }
-    if (piece2->currentTile == nullptr)
+    if (prince->currentTile == nullptr)
     {
-        *piece2->icon->matrix.x = 250;
-        *piece2->icon->matrix.y = 430;
-        piece2->icon->Update();
+        *prince->icon->matrix.x = 250;
+        *prince->icon->matrix.y = 430;
+        prince->icon->Update();
     }
 
     if (input.Mouse.Pressed)
@@ -136,18 +136,18 @@ void Autochess::Update()
             activePiece->currentTile = tile;
             tile->piece = activePiece;
         }
-        if (piece1->currentTile == nullptr)
+        if (king->currentTile == nullptr)
         {
-            if (piece1->icon->IsPressed())
+            if (king->icon->IsPressed())
             {
-                activePiece = piece1;
+                activePiece = king;
             }
         }
-        if (piece2->currentTile == nullptr)
+        if (prince->currentTile == nullptr)
         {
-            if (piece2->icon->IsPressed())
+            if (prince->icon->IsPressed())
             {
-                activePiece = piece2;
+                activePiece = prince;
             }
         }
     }

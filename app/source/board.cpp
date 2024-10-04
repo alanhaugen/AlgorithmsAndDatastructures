@@ -75,7 +75,7 @@ void Board::UpdateDots(int x, int y, String type)
 
     for (; tile != tiles.End(); ++tile)
     {
-        if (type == "Rook")
+        if (type == "King")
         {
             if ((*tile).x == x || (*tile).y == y)
             {
@@ -131,10 +131,7 @@ void Board::Update()
 
                 if ((*tile).piece)
                 {
-                    if ((*tile).piece->name == "Rook")
-                    {
-                        UpdateDots((*tile).x, (*tile).y, "Rook");
-                    }
+                    UpdateDots((*tile).x, (*tile).y, (*tile).piece->name);
                 }
             }
         }
