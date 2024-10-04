@@ -138,16 +138,14 @@ void Autochess::Update()
         }
         if (piece1->currentTile == nullptr)
         {
-            if ((input.Mouse.x >= *piece1->icon->matrix.x && input.Mouse.y >= *piece1->icon->matrix.y) &&
-                (input.Mouse.x < *piece1->icon->matrix.x + (piece1->icon->width * piece1->icon->scaleX) && input.Mouse.y < *piece1->icon->matrix.y + (piece1->icon->height * piece1->icon->scaleY)))
+            if (piece1->icon->IsPressed())
             {
                 activePiece = piece1;
             }
         }
         if (piece2->currentTile == nullptr)
         {
-            if ((input.Mouse.x >= *piece2->icon->matrix.x && input.Mouse.y >= *piece2->icon->matrix.y) &&
-                (input.Mouse.x < *piece2->icon->matrix.x + (piece2->icon->width * piece2->icon->scaleX) && input.Mouse.y < *piece2->icon->matrix.y + (piece2->icon->height * piece2->icon->scaleY)))
+            if (piece2->icon->IsPressed())
             {
                 activePiece = piece2;
             }

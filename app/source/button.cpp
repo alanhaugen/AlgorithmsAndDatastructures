@@ -5,7 +5,7 @@ Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
 {
     buttonImage = new Sprite(filePath, x, y, 0.5f, 0.5f);
     menuStack = menuStack_;
-};
+}
 
 void Button::Update()
 {
@@ -13,8 +13,7 @@ void Button::Update()
 
     if (input.Mouse.Pressed)
     {
-        if ((input.Mouse.x > *buttonImage->matrix.x && input.Mouse.y > *buttonImage->matrix.y) &&
-            (input.Mouse.x < *buttonImage->matrix.x + (buttonImage->width * buttonImage->scaleX) && input.Mouse.y < *buttonImage->matrix.y + (buttonImage->height * buttonImage->scaleY)))
+        if (buttonImage->IsPressed())
         {
             if (tag == "nextscene")
             {
@@ -45,8 +44,8 @@ void Button::Update()
             }
         }
     }
-};
+}
 
 void Button::UpdateAfterPhysics()
 {
-};
+}

@@ -93,8 +93,7 @@ Tile* Board::GetBoardPieceUnderMouse()
     {
         Sprite* sprite = (*node).sprite;
 
-        if ((input.Mouse.x >= *sprite->matrix.x && input.Mouse.y >= *sprite->matrix.y) &&
-                (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
+        if (sprite->IsPressed())
         {
             return &(*node);
         }
@@ -122,8 +121,7 @@ void Board::Update()
 
         if (input.Mouse.Pressed)
         {
-            if ((input.Mouse.x >= *sprite->matrix.x && input.Mouse.y >= *sprite->matrix.y) &&
-                    (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
+            if (sprite->IsPressed())
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
                 *highlight->matrix.x = *(*tile).sprite->matrix.x;
