@@ -14,7 +14,6 @@ public:
     Move();
 
     void Update();
-    void UpdateAfterPhysics();
 };
 
 #endif

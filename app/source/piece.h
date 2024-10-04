@@ -41,7 +41,6 @@ public:
     Array<glm::vec2> weights;
 
     void Update();
-    void UpdateAfterPhysics();
 
     Array<Move> PossibleMoves();
     Queue<glm::vec2> walkingPath;

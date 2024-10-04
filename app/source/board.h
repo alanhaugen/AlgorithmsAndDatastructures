@@ -20,7 +20,6 @@ public:
     Tile* GetBoardPieceUnderMouse();
 
     void Update();
-    void UpdateAfterPhysics();
 };
 
 #endif

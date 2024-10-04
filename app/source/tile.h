@@ -18,7 +18,6 @@ public:
     Tile();
 
     void Update();
-    void UpdateAfterPhysics();
 };
 
 #endif

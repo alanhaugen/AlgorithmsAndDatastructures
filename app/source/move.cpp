@@ -7,7 +7,3 @@ Move::Move()
 void Move::Update()
 {
 }
-
-void Move::UpdateAfterPhysics()
-{
-}

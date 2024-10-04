@@ -20,7 +20,3 @@ void Tile::Update()
         piece->Update();
     }
 }
-
-void Tile::UpdateAfterPhysics()
-{
-}

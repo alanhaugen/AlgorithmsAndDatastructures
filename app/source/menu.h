@@ -21,7 +21,6 @@ public:
     void AddQuitButton(String image, int x, int y);
 
     void Update();
-    void UpdateAfterPhysics();
 };
 
 #endif

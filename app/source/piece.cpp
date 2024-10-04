@@ -36,8 +36,3 @@ void Piece::Update()
 {
     icon->Update();
 }
-
-void Piece::UpdateAfterPhysics()
-{
-}
-

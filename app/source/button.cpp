@@ -45,7 +45,3 @@ void Button::Update()
         }
     }
 }
-
-void Button::UpdateAfterPhysics()
-{
-}

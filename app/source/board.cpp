@@ -9,6 +9,7 @@ Board::Board()
     GenerateTiles();
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
+    highlight->Hide();
 }
 
 void Board::GenerateTiles()
@@ -124,6 +125,7 @@ void Board::Update()
             if (sprite->IsPressed())
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
+                highlight->Show();
                 *highlight->matrix.x = *(*tile).sprite->matrix.x;
                 *highlight->matrix.y = *(*tile).sprite->matrix.y;
 
@@ -138,8 +140,4 @@ void Board::Update()
     }
 
     highlight->Update();
-}
-
-void Board::UpdateAfterPhysics()
-{
 }

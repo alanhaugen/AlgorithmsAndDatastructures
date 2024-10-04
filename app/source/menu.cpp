@@ -35,7 +35,3 @@ void Menu::Update()
         buttons[i]->Update();
     }
 }
-
-void Menu::UpdateAfterPhysics()
-{
-};
