@@ -10,7 +10,9 @@
 class Autochess : public IScene
 {
 public:
-    Piece* piece;
+    Piece* piece1;
+    Piece* piece2;
+    Piece* activePiece;
 
     Autochess();
     Cursor* cursor;

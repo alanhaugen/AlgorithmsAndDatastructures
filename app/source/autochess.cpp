@@ -14,11 +14,19 @@ void Autochess::Init()
                                    "Rook like in chess",
                                    1,
                                    0));*/
-    piece = new Piece("Rook",
+    piece1 = new Piece("Rook",
                       "data/Piece-WhiteRook.png",
                       "Rook like in chess",
                       1,
                       0);
+    piece2 = new Piece("Rook",
+                      "data/Piece-WhiteRook.png",
+                      "Rook like in chess",
+                      1,
+                      0);
+
+    activePiece = nullptr;
+
     isWhitesTurn = true;
 
     players[1].isWhite = false;
@@ -36,19 +44,48 @@ void Autochess::Update()
     gameBoard->Update();
     shop->Update();
 
+    if (piece1->currentTile == nullptr)
+    {
+        *piece1->icon->matrix.x = 200;
+        *piece1->icon->matrix.y = 430;
+        piece1->icon->Update();
+    }
+    if (piece2->currentTile == nullptr)
+    {
+        *piece2->icon->matrix.x = 250;
+        *piece2->icon->matrix.y = 430;
+        piece2->icon->Update();
+    }
+
     if (input.Mouse.Pressed)
     {
         Tile* tile = gameBoard->GetBoardPieceUnderMouse();
 
-        if (tile != nullptr)
+        if (tile && activePiece)
         {
-            if (piece->currentTile)
+            if (activePiece->currentTile)
             {
-                piece->currentTile->piece = nullptr;
+                activePiece->currentTile->piece = nullptr;
             }
 
-            piece->currentTile = tile;
-            tile->piece = piece;
+            activePiece->currentTile = tile;
+            tile->piece = activePiece;
+        }
+        if (piece1->currentTile == nullptr)
+        {
+            if ((input.Mouse.x >= *piece1->icon->matrix.x && input.Mouse.y >= *piece1->icon->matrix.y) &&
+                (input.Mouse.x < *piece1->icon->matrix.x + (piece1->icon->width * piece1->icon->scaleX) && input.Mouse.y < *piece1->icon->matrix.y + (piece1->icon->height * piece1->icon->scaleY)))
+            {
+                activePiece = piece1;
+            }
+        }
+        if (piece2->currentTile == nullptr)
+        {
+            if ((input.Mouse.x >= *piece2->icon->matrix.x && input.Mouse.y >= *piece2->icon->matrix.y) &&
+                (input.Mouse.x < *piece2->icon->matrix.x + (piece2->icon->width * piece2->icon->scaleX) && input.Mouse.y < *piece2->icon->matrix.y + (piece2->icon->height * piece2->icon->scaleY)))
+            {
+                activePiece = piece2;
+            }
         }
     }
 

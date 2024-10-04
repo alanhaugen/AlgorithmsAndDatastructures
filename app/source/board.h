@@ -16,6 +16,7 @@ public:
 
     void GenerateTiles();
     void HideDots();
+    void UpdateDots(int x, int y, String type);
     Tile* GetBoardPieceUnderMouse();
 
     void Update();

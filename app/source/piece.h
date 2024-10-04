@@ -10,7 +10,7 @@ class Tile;
 
 class Piece : public Component
 {
-private:
+public:
     String name;
     String description;
     int price;

@@ -61,11 +61,27 @@ void Board::GenerateTiles()
 
 void Board::HideDots()
 {
-    LinkedList<Tile>::Iterator node = tiles.Begin();
+    LinkedList<Tile>::Iterator tile = tiles.Begin();
 
-    for (; node != tiles.End(); ++node)
+    for (; tile != tiles.End(); ++tile)
     {
-        (*node).moveDot->Hide();
+        (*tile).moveDot->Hide();
+    }
+}
+
+void Board::UpdateDots(int x, int y, String type)
+{
+    LinkedList<Tile>::Iterator tile = tiles.Begin();
+
+    for (; tile != tiles.End(); ++tile)
+    {
+        if (type == "Rook")
+        {
+            if ((*tile).x == x || (*tile).y == y)
+            {
+                (*tile).moveDot->Show();
+            }
+        }
     }
 }
 
@@ -76,8 +92,6 @@ Tile* Board::GetBoardPieceUnderMouse()
     for (; node != tiles.End(); ++node)
     {
         Sprite* sprite = (*node).sprite;
-
-        (*node).moveDot->Hide();
 
         if ((input.Mouse.x >= *sprite->matrix.x && input.Mouse.y >= *sprite->matrix.y) &&
                 (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
@@ -99,12 +113,12 @@ void Board::Update()
 
     background->Update();
 
-    LinkedList<Tile>::Iterator node = tiles.Begin();
+    LinkedList<Tile>::Iterator tile = tiles.Begin();
 
-    for (; node != tiles.End(); ++node)
+    for (; tile != tiles.End(); ++tile)
     {
-        (*node).Update();
-        Sprite* sprite = (*node).sprite;
+        (*tile).Update();
+        Sprite* sprite = (*tile).sprite;
 
         if (input.Mouse.Pressed)
         {
@@ -112,8 +126,18 @@ void Board::Update()
                     (input.Mouse.x < *sprite->matrix.x + (sprite->width * sprite->scaleX) && input.Mouse.y < *sprite->matrix.y + (sprite->height * sprite->scaleY)))
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
-                *highlight->matrix.x = *(*node).sprite->matrix.x;
-                *highlight->matrix.y = *(*node).sprite->matrix.y;
+                *highlight->matrix.x = *(*tile).sprite->matrix.x;
+                *highlight->matrix.y = *(*tile).sprite->matrix.y;
+
+                HideDots();
+
+                if ((*tile).piece)
+                {
+                    if ((*tile).piece->name == "Rook")
+                    {
+                        UpdateDots((*tile).x, (*tile).y, "Rook");
+                    }
+                }
             }
         }
     }
