@@ -43,7 +43,7 @@ void Autochess::Update()
             if (shop->activePiece)
             {
                 activePiece = shop->activePiece;
-                shop->pieces.Remove(shop->activePiece->listNode);
+                shop->items.Remove(shop->activePiece->listNode);
                 shop->activePiece = nullptr;
             }
 

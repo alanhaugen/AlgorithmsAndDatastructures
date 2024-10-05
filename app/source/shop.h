@@ -12,13 +12,15 @@ class Shop : public Component
 public:
     Shop();
 
-    Array<Piece*> possiblePieces;
-    LinkedList<Piece*> pieces;
+    LinkedList<Piece*> items;
     Piece* wildcardPiece = nullptr;
-    Sprite* shopFront = nullptr;
+    Sprite* shopFront    = nullptr;
+    Piece* activePiece   = nullptr;
 
-    Piece* activePiece = nullptr;
+    const int PIECE_TYPES_QUANTITY = 15;
 
+    Piece* CreateRandomPiece();
+    void FillShopItems();
     void Update();
 };
 
