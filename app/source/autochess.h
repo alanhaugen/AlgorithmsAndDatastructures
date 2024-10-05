@@ -14,7 +14,8 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
-    Tile* previousTile;
+
+    Piece* activePiece = nullptr;
 
     Array<Player> players;
 

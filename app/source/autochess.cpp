@@ -19,7 +19,6 @@ void Autochess::Init()
     cursor->SetCursorToWhiteColour(true);
     components.Add(cursor);
 
-    previousTile = nullptr;
     input.Mouse.Pressed = false;
 }
 
@@ -35,17 +34,36 @@ void Autochess::Update()
 
     if (input.Mouse.Pressed)
     {
-        Tile* tile = gameBoard->GetBoardPieceUnderMouse();
-        
-        if (tile != nullptr && shop->activePiece != nullptr)
+        Tile* tile = gameBoard->GetBoardTileUnderMouse();
+
+        // Check if user has clicked on an empty tile
+        if (tile != nullptr && tile->piece == nullptr)
         {
-            if (shop->activePiece->currentTile != nullptr)
+            // Activate piece from the shop
+            if (shop->activePiece)
             {
-                shop->activePiece->currentTile->piece = nullptr;
+                activePiece = shop->activePiece;
+                shop->pieces.Remove(shop->activePiece->listNode);
+                shop->activePiece = nullptr;
             }
 
-            shop->activePiece->currentTile = tile;
-            tile->piece = shop->activePiece;
+            // Move an activated piece to tile
+            if (activePiece != nullptr)
+            {
+                if (activePiece->currentTile != nullptr)
+                {
+                    activePiece->currentTile->piece = nullptr;
+                }
+
+                activePiece->currentTile = tile;
+                tile->piece = activePiece;
+            }
+        }
+        // Activate piece from board
+        else if (tile != nullptr)
+        {
+            activePiece = tile->piece;
+            shop->activePiece = nullptr;
         }
     }
 

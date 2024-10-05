@@ -85,7 +85,7 @@ void Board::UpdateDots(int x, int y, String type)
     }
 }
 
-Tile* Board::GetBoardPieceUnderMouse()
+Tile* Board::GetBoardTileUnderMouse()
 {
     LinkedList<Tile>::Iterator node = tiles.Begin();
 

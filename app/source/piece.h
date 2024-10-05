@@ -17,6 +17,8 @@ public:
     int nobility = 0;
     int range = 0;
 
+    LinkedList<Piece*>::LinkedNode* listNode = nullptr;
+
 public:
     Piece();
     Piece(String name_,
