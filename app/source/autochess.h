@@ -22,6 +22,7 @@ public:
     bool isWhitesTurn;
 
     void Init();
+    void SetTile(Tile* tile);
     void Update();
 };
 

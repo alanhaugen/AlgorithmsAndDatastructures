@@ -22,6 +22,12 @@ void Autochess::Init()
     input.Mouse.Pressed = false;
 }
 
+void Autochess::SetTile(Tile* tile)
+{
+    activePiece->currentTile = tile;
+    tile->piece = activePiece;
+}
+
 void Autochess::Update()
 {
     gameBoard->Update();
@@ -45,18 +51,23 @@ void Autochess::Update()
                 activePiece = shop->activePiece;
                 shop->items.Remove(shop->activePiece->listNode);
                 shop->activePiece = nullptr;
+
+                isWhitesTurn = !isWhitesTurn;
+                cursor->SetCursorToWhiteColour(isWhitesTurn);
+                shop->SetShopPiecesToWhite(isWhitesTurn);
+
+                SetTile(tile);
             }
 
-            // Move an activated piece to tile
-            if (activePiece != nullptr)
+            // Move an activated board piece to tile
+            else if (activePiece != nullptr && activePiece->isWhite == isWhitesTurn)
             {
                 if (activePiece->currentTile != nullptr)
                 {
                     activePiece->currentTile->piece = nullptr;
                 }
 
-                activePiece->currentTile = tile;
-                tile->piece = activePiece;
+                SetTile(tile);
             }
         }
         // Activate piece from board
@@ -66,18 +77,4 @@ void Autochess::Update()
             shop->activePiece = nullptr;
         }
     }
-
-    /*if (input.Mouse.Pressed)
-    {
-        isWhitesTurn = !isWhitesTurn;
-
-        if (isWhitesTurn)
-        {
-            activeCursor = whiteCursor;
-        }
-        else
-        {
-            activeCursor = blackCursor;
-        }
-    }*/
 }

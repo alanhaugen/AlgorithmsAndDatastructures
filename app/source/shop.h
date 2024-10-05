@@ -20,6 +20,7 @@ public:
     const int PIECE_TYPES_QUANTITY = 15;
 
     Piece* CreateRandomPiece();
+    void SetShopPiecesToWhite(bool isWhite);
     void FillShopItems();
     void Update();
 };
