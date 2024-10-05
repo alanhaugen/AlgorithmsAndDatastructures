@@ -13,12 +13,9 @@ class Piece : public Component
 public:
     String name;
     String description;
-    int price;
-    int nobility;
-    int range;
-    String footstepSound;
-    String attackSound;
-    String dieSound;
+    int price = 0;
+    int nobility = 0;
+    int range = 0;
 
 public:
     Piece();
@@ -28,25 +25,28 @@ public:
           int price_,
           int nobility);
 
-    void Init();
+    Sprite* icon = nullptr;
 
-    Sprite* icon;
-    Tile* currentTile;
-    Sprite* idleSprite;
-    Sprite* walkingSprite;
-    Sprite* attackSprite;
-    Sprite* deathSprite;
+    Tile* currentTile = nullptr;
+    Sprite* idleSprite = nullptr;
+    Sprite* walkingSprite = nullptr;
+    Sprite* attackSprite = nullptr;
+    Sprite* deathSprite = nullptr;
+
+    String footstepSound;
+    String attackSound;
+    String dieSound;
 
     Array<glm::vec2> movePattern;
     Array<glm::vec2> weights;
 
-    void Update();
-
     Array<Move> PossibleMoves();
     Queue<glm::vec2> walkingPath;
 
-    bool isFlying;
-    bool isActive;
+    bool isFlying = false;
+    bool isActive = false;
+
+    void Update();
 };
 
 #endif

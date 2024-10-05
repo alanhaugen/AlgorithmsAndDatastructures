@@ -12,12 +12,12 @@ class Shop : public Component
 public:
     Shop();
 
-    Array<Piece> possiblePieces;
+    Array<Piece*> possiblePieces;
     LinkedList<Piece*> pieces;
-    Piece* wildcardPiece;
-    Sprite* shopFront;
+    Piece* wildcardPiece = nullptr;
+    Sprite* shopFront = nullptr;
 
-    Piece* activePiece;
+    Piece* activePiece = nullptr;
 
     void Update();
 };
