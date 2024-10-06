@@ -16,7 +16,7 @@ void Autochess::Init()
     players[1].isWhite = false;
 
     cursor = new Cursor();
-    cursor->SetCursorToWhiteColour(true);
+    cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
     input.Mouse.Pressed = false;
