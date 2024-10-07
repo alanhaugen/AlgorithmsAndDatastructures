@@ -70,14 +70,19 @@ Piece* Shop::CreateRandomPiece()
             piece->movePattern.Add(glm::vec2(-i,-i));
         }
 
-        for (int i = 1; i <= 3; i++)
+        for (int y = 1; y <= 3; y++)
         {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
+            for (int x = 1; x <= 3; x++)
+            {
+                piece->movePattern.Add(glm::vec2(x,0));
+                piece->movePattern.Add(glm::vec2(0,y));
+                piece->movePattern.Add(glm::vec2(-x,0));
+                piece->movePattern.Add(glm::vec2(0,-y));
+                piece->movePattern.Add(glm::vec2(x,y));
+                piece->movePattern.Add(glm::vec2(-x,y));
+                piece->movePattern.Add(glm::vec2(x,-y));
+                piece->movePattern.Add(glm::vec2(-x,-y));
+            }
         }
 
         break;
