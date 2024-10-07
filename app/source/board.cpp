@@ -69,15 +69,15 @@ void Board::HideDots()
     }
 }
 
-void Board::UpdateDots(int x, int y, String type)
+void Board::UpdateDots(int x, int y, Array<glm::vec2> pattern)
 {
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
     for (; tile != tiles.End(); ++tile)
     {
-        if (type == "King")
+        for (unsigned int i = 0; i < pattern.Size(); i++)
         {
-            if ((*tile).x == x || (*tile).y == y)
+            if ((*tile).x == pattern[i].x + x && (*tile).y == pattern[i].y + y)
             {
                 (*tile).moveDot->Show();
             }
@@ -127,7 +127,7 @@ void Board::Update()
 
                 if ((*tile).piece)
                 {
-                    UpdateDots((*tile).x, (*tile).y, (*tile).piece->name);
+                    UpdateDots((*tile).x, (*tile).y, (*tile).piece->movePattern);
                 }
             }
         }

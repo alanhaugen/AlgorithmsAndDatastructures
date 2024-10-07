@@ -16,7 +16,7 @@ public:
 
     void GenerateTiles();
     void HideDots();
-    void UpdateDots(int x, int y, String type);
+    void UpdateDots(int x, int y, Array<glm::vec2> patterns);
     Tile* GetBoardTileUnderMouse();
 
     void Update();

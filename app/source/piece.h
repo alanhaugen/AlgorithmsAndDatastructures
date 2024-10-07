@@ -45,6 +45,7 @@ public:
     String dieSound;
 
     Array<glm::vec2> movePattern;
+    Array<glm::vec2> secondMovePattern;
     Array<glm::vec2> weights;
 
     Array<Move> PossibleMoves();

@@ -14,6 +14,7 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
+    Queue<Move> replay;
 
     Piece* activePiece = nullptr;
 
