@@ -198,8 +198,12 @@ Piece* Shop::CreateRandomPiece()
         // TODO: is flying (over fences...)
         piece->movePattern.Add(glm::vec2(1,2));
         piece->movePattern.Add(glm::vec2(1,-2));
+        piece->movePattern.Add(glm::vec2(-1,-2));
+        piece->movePattern.Add(glm::vec2(-1,2));
         piece->movePattern.Add(glm::vec2(2,1));
+        piece->movePattern.Add(glm::vec2(2,-1));
         piece->movePattern.Add(glm::vec2(-2,1));
+        piece->movePattern.Add(glm::vec2(-2,-1));
 
         break;
     case 10:
