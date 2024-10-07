@@ -100,7 +100,7 @@ Piece* Shop::CreateRandomPiece()
 
         break;
     case 4:
-        return new Piece("Queen",
+        piece = new Piece("Queen",
                          "data/Piece-WhiteQueen.png",
                          "data/Piece-BlackQueen.png",
                          "Moves like a queen in chess.",
@@ -213,8 +213,8 @@ Piece* Shop::CreateRandomPiece()
         break;
     case 10:
         piece = new Piece("Jester",
-                          "data/Piece-WhiteRook.png",
-                          "data/Piece-BlackRook.png",
+                          "data/Piece-WhiteJester.png",
+                          "data/Piece-BlackJester.png",
                           "Moves diagonally 2 spaces in any direction.",
                           75,
                           3);
@@ -230,8 +230,8 @@ Piece* Shop::CreateRandomPiece()
         break;
     case 11:
         piece = new Piece("Fence",
-                          "data/Piece-WhiteJester.png",
-                          "data/Piece-BlackJester.png",
+                          "data/Piece-WhiteFence.png",
+                          "data/Piece-BlackFence.png",
                           "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. CAn only be placed horizontally.",
                           40,
                           0);
