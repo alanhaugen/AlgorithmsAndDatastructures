@@ -11,36 +11,33 @@ void Button::Update()
 {
     buttonImage->Update();
 
-    if (input.Mouse.Pressed)
+    if (buttonImage->IsPressed())
     {
-        if (buttonImage->IsPressed())
+        if (tag == "nextscene")
         {
-            if (tag == "nextscene")
+            Application::NextScene();
+        }
+        if (tag == "fullscreen")
+        {
+            Locator::renderer->Fullscreen();
+        }
+        if (tag == "windowed")
+        {
+            Locator::renderer->Windowed();
+        }
+        if (gotoMenu != NULL)
+        {
+            menuStack->Push(gotoMenu);
+        }
+        if (tag == "quit")
+        {
+            if (menuStack->Size() == 1)
             {
-                Application::NextScene();
+                Application::Quit();
             }
-            if (tag == "fullscreen")
+            else
             {
-                Locator::renderer->Fullscreen();
-            }
-            if (tag == "windowed")
-            {
-                Locator::renderer->Windowed();
-            }
-            if (gotoMenu != NULL)
-            {
-                menuStack->Push(gotoMenu);
-            }
-            if (tag == "quit")
-            {
-                if (menuStack->Size() == 1)
-                {
-                    Application::Quit();
-                }
-                else
-                {
-                    menuStack->Pop();
-                }
+                menuStack->Pop();
             }
         }
     }
