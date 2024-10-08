@@ -123,6 +123,7 @@ Array<Move> Board::UpdateDots(Tile* tile)
     }
 
     Tile searchTile;
+    int frontier = 1;
 
     while (searchTiles.Empty() == false)
     {
@@ -174,6 +175,12 @@ Array<Move> Board::UpdateDots(Tile* tile)
             }
 
             nextLayerTiles.Clear();
+            frontier++;
+        }
+
+        if (tile->piece->range != 0 && frontier > tile->piece->range)
+        {
+            break;
         }
     }
 

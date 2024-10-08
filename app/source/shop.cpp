@@ -137,6 +137,7 @@ Piece* Shop::CreateRandomPiece()
                          0);
 
         // TODO: Is flying?
+        piece->range = 5;
 
         for (int y = 1; y <= 5; y++)
         {
@@ -167,25 +168,25 @@ Piece* Shop::CreateRandomPiece()
         break;
     case 7:
         piece = new Piece("Knight",
-                         "data/Piece-WhiteKnight.png",
-                         "data/Piece-BlackKnight.png",
+                         "data/Piece-WhiteRook.png",
+                         "data/Piece-BlackRook.png",
                           "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
                           50,
                           2);
 
         for (int i = 1; i <= 5; i++)
         {
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
+            piece->movePattern.Add(glm::vec2(i,0));
+            piece->movePattern.Add(glm::vec2(-i,0));
+            piece->movePattern.Add(glm::vec2(0,i));
+            piece->movePattern.Add(glm::vec2(0,-i));
         }
 
         break;
     case 8:
         piece = new Piece("Bishop",
-                          "data/Piece-WhiteRook.png",
-                          "data/Piece-BlackRook.png",
+                          "data/Piece-WhiteBishop.png",
+                          "data/Piece-BlackBishop.png",
                           "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
                           80,
                           4);
