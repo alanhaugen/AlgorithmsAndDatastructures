@@ -12,8 +12,10 @@ public:
     Piece* movedPiece;
     glm::vec2 newPosition;
     glm::vec2 oldPosition;
+    bool isCapture;
 
-    Move(Piece* piece, glm::vec2 position);
+    Move();
+    Move(Piece* piece, glm::vec2 position, bool isCapture_ = false);
 
     void Update();
 

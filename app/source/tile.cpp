@@ -13,6 +13,10 @@ void Tile::Update()
     *moveDot->matrix.y = *sprite->matrix.y;
     moveDot->Update();
 
+    *attackBorder->matrix.x = *sprite->matrix.x;
+    *attackBorder->matrix.y = *sprite->matrix.y;
+    attackBorder->Update();
+
     if (piece != nullptr)
     {
         *piece->icon->matrix.x = *sprite->matrix.x;

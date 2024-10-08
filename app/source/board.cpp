@@ -45,6 +45,7 @@ void Board::GenerateTiles()
             }
 
             tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
+            tile.attackBorder = new Sprite("data/TileBorder-Red.png", 0, 0, scale, scale);
 
             *sprite->matrix.x = x * (sprite->width  * sprite->scaleX) + offsetX;
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
@@ -66,10 +67,11 @@ void Board::HideDots()
     for (; tile != tiles.End(); ++tile)
     {
         (*tile).moveDot->Hide();
+        (*tile).attackBorder->Hide();
     }
 }
 
-void Board::UpdateDots(Tile* tile)
+Array<Move> Board::UpdateDots(Tile* tile)
 {
     int x = tile->x;
     int y = tile->y;
@@ -78,24 +80,31 @@ void Board::UpdateDots(Tile* tile)
 
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
+    Array<Move> moves;
+
     if (tile->piece->isJumping)
     {
         for (node = tiles.Begin(); node != tiles.End(); ++node)
         {
-            // Make sure there is no piece here (TODO: make that an attack if the piece is opposite colour)
-            if ((*node).piece == nullptr)
+            for (unsigned int i = 0; i < pattern.Size(); i++)
             {
-                for (unsigned int i = 0; i < pattern.Size(); i++)
+                if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
                 {
-                    if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
+                    if ((*node).piece == nullptr)
                     {
                         (*node).moveDot->Show();
+                        moves.Add(Move(tile->piece, glm::vec2((*node).x, (*node).y)));
+                    }
+                    else if (tile->piece->isWhite != (*node).piece->isWhite)
+                    {
+                        (*node).attackBorder->Show();
+                        moves.Add(Move(tile->piece, glm::vec2((*node).x, (*node).y), true));
                     }
                 }
             }
         }
 
-        return;
+        return moves;
     }
 
     // The following is Dijkstra’s Algorithm: takes into account movement costs
@@ -121,7 +130,7 @@ void Board::UpdateDots(Tile* tile)
 
         for (node = tiles.Begin(); node != tiles.End(); ++node)
         {
-            if ((*node).searched == false && (*node).piece == nullptr)
+            if ((*node).searched == false)
             {
                 if (    (searchTile.x     == (*node).x && searchTile.y - 1 == (*node).y) ||
                         (searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
@@ -134,15 +143,20 @@ void Board::UpdateDots(Tile* tile)
                 {
                     (*node).searched = true;
 
-                    // Make sure there is no piece here (TODO: make that an attack if the piece is opposite colour)
-                    if ((*node).piece == nullptr)
+                    for (unsigned int i = 0; i < pattern.Size(); i++)
                     {
-                        for (unsigned int i = 0; i < pattern.Size(); i++)
+                        if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
                         {
-                            if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
+                            if ((*node).piece == nullptr)
                             {
                                 (*node).moveDot->Show();
                                 nextLayerTiles.Append((*node));
+                                moves.Add(Move(tile->piece, glm::vec2((*node).x, (*node).y)));
+                            }
+                            else if (tile->piece->isWhite != (*node).piece->isWhite)
+                            {
+                                (*node).attackBorder->Show();
+                                moves.Add(Move(tile->piece, glm::vec2((*node).x, (*node).y), true));
                             }
                         }
                     }
@@ -168,6 +182,8 @@ void Board::UpdateDots(Tile* tile)
     {
         (*node).searched = false;
     }
+
+    return moves;
 }
 
 Tile *Board::GetTile(int x, int y)

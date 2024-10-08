@@ -1,11 +1,17 @@
 #include "move.h"
 #include "piece.h"
 
-Move::Move(Piece* piece, glm::vec2 position)
+Move::Move()
+{
+    movedPiece = nullptr;
+}
+
+Move::Move(Piece* piece, glm::vec2 position, bool isCapture_)
 {
     movedPiece = piece;
     oldPosition = glm::vec2(*piece->matrix.x, *piece->matrix.y);
     newPosition = position;
+    isCapture = isCapture_;
 }
 
 void Move::Update()

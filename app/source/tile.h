@@ -11,6 +11,7 @@ public:
     int x,y;
     Sprite* sprite;
     Sprite* moveDot;
+    Sprite* attackBorder;
     Piece* piece;
     bool blockedSouth;
     bool blockedNorth;
