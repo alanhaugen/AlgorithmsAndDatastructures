@@ -5,6 +5,7 @@
 #include <core/components/sprite.h>
 #include <core/components/camera.h>
 #include "tile.h"
+#include "tree.h"
 
 class Board : public Component
 {
@@ -16,7 +17,8 @@ public:
 
     void GenerateTiles();
     void HideDots();
-    void UpdateDots(int x, int y, Array<glm::vec2> patterns);
+    void UpdateDots(Tile *tile);
+    Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 
     void Update();

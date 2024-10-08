@@ -20,3 +20,8 @@ void Tile::Update()
         piece->Update();
     }
 }
+
+int Tile::ManhattenDistanceToOrigin(int originX, int originY)
+{
+    return abs(x - originX) + abs(y - originY);
+}

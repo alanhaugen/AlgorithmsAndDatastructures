@@ -76,6 +76,7 @@ solid {
             "source/shop.h",
             "source/tile.cpp",
             "source/tile.h",
+            "source/tree.h",
         ]
 
         Depends { name: "core"  }

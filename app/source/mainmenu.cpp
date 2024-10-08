@@ -8,7 +8,7 @@ Mainmenu::Mainmenu()
 void Mainmenu::Init()
 {
     cam = new Camera();
-    bg = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 0.5f, 0.5f);
+    bg  = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 0.5f, 0.5f);
     menus.Clear();
 
     Menu* playMenu = new Menu(&menus);

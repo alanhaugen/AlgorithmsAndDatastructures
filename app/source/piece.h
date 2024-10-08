@@ -51,7 +51,7 @@ public:
     Array<Move> PossibleMoves();
     Queue<glm::vec2> walkingPath;
 
-    bool isFlying = false;
+    bool isJumping = false;
     bool isActive = false;
 
     void Update();

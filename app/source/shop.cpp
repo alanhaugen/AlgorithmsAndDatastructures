@@ -27,6 +27,11 @@ Piece* Shop::CreateRandomPiece()
             piece->movePattern.Add(glm::vec2(-i,0));
             piece->movePattern.Add(glm::vec2(0,i));
             piece->movePattern.Add(glm::vec2(0,-i));
+
+            piece->movePattern.Add(glm::vec2(i,i));
+            piece->movePattern.Add(glm::vec2(i,-i));
+            piece->movePattern.Add(glm::vec2(-i,i));
+            piece->movePattern.Add(glm::vec2(-i,-i));
         }
 
         break;
@@ -38,7 +43,9 @@ Piece* Shop::CreateRandomPiece()
                          90,
                          6);
 
-        // TODO: Add attack after move phase, add jumping (flying) property (fences only?)
+        piece->isJumping = true;
+
+        // TODO: Add attack after move phase
         for (int i = 1; i <= 4; i++)
         {
             piece->movePattern.Add(glm::vec2(i,0));
@@ -200,7 +207,7 @@ Piece* Shop::CreateRandomPiece()
                           60,
                           1);
 
-        // TODO: is flying (over fences...)
+        piece->isJumping = true;
         piece->movePattern.Add(glm::vec2(1,2));
         piece->movePattern.Add(glm::vec2(1,-2));
         piece->movePattern.Add(glm::vec2(-1,-2));

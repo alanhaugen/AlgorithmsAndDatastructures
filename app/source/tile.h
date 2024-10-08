@@ -14,10 +14,13 @@ public:
     Piece* piece;
     bool blockedSouth;
     bool blockedNorth;
+    int weight = 0;
+    bool searched = false;
 
     Tile();
 
     void Update();
+    int ManhattenDistanceToOrigin(int originX, int originY);
 };
 
 #endif

@@ -69,20 +69,120 @@ void Board::HideDots()
     }
 }
 
-void Board::UpdateDots(int x, int y, Array<glm::vec2> pattern)
+void Board::UpdateDots(Tile* tile)
 {
-    LinkedList<Tile>::Iterator tile = tiles.Begin();
+    int x = tile->x;
+    int y = tile->y;
 
-    for (; tile != tiles.End(); ++tile)
+    Array<glm::vec2> pattern = tile->piece->movePattern;
+
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    if (tile->piece->isJumping)
     {
-        for (unsigned int i = 0; i < pattern.Size(); i++)
+        for (node = tiles.Begin(); node != tiles.End(); ++node)
         {
-            if ((*tile).x == pattern[i].x + x && (*tile).y == pattern[i].y + y)
+            // Make sure there is no piece here (TODO: make that an attack if the piece is opposite colour)
+            if ((*node).piece == nullptr)
             {
-                (*tile).moveDot->Show();
+                for (unsigned int i = 0; i < pattern.Size(); i++)
+                {
+                    if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
+                    {
+                        (*node).moveDot->Show();
+                    }
+                }
             }
         }
+
+        return;
     }
+
+    // The following is Dijkstra’s Algorithm: takes into account movement costs
+    Queue<Tile> searchTiles; // TODO: Use a priority queue instead (can use only one container)
+    Queue<Tile> nextLayerTiles;
+
+    Tile startTile = *tile;
+
+    searchTiles.Append(startTile);
+
+    int yDirectionInvert = 1;
+
+    if (startTile.piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
+
+    Tile searchTile;
+
+    while (searchTiles.Empty() == false)
+    {
+        searchTile = searchTiles.Dequeue();
+
+        for (node = tiles.Begin(); node != tiles.End(); ++node)
+        {
+            if ((*node).searched == false && (*node).piece == nullptr)
+            {
+                if (    (searchTile.x     == (*node).x && searchTile.y - 1 == (*node).y) ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y) ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))
+                {
+                    (*node).searched = true;
+
+                    // Make sure there is no piece here (TODO: make that an attack if the piece is opposite colour)
+                    if ((*node).piece == nullptr)
+                    {
+                        for (unsigned int i = 0; i < pattern.Size(); i++)
+                        {
+                            if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
+                            {
+                                (*node).moveDot->Show();
+                                nextLayerTiles.Append((*node));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (searchTiles.Empty() == true && nextLayerTiles.Empty() == false)
+        {
+            LinkedList<Tile>::Iterator nodeNext = nextLayerTiles.Begin();
+
+            for (; nodeNext != nextLayerTiles.End(); ++nodeNext)
+            {
+                searchTiles.Append((*nodeNext)); // copy over
+            }
+
+            nextLayerTiles.Clear();
+        }
+    }
+
+    // Reset tile state
+    for (node = tiles.Begin(); node != tiles.End(); ++node)
+    {
+        (*node).searched = false;
+    }
+}
+
+Tile *Board::GetTile(int x, int y)
+{
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    for (; node != tiles.End(); ++node)
+    {
+        if ((*node).x == x && (*node).y == y)
+        {
+            return &(*node);
+        }
+    }
+
+    return nullptr;
 }
 
 Tile* Board::GetBoardTileUnderMouse()
@@ -127,7 +227,7 @@ void Board::Update()
 
                 if ((*tile).piece)
                 {
-                    UpdateDots((*tile).x, (*tile).y, (*tile).piece->movePattern);
+                    UpdateDots(&(*tile));
                 }
             }
         }
