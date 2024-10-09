@@ -390,7 +390,14 @@ void Shop::Update()
             activePiece->listNode = piece.curNode;
         }
 
-        (*piece)->icon->Update();
+        (*piece)->Update();
+
+        if ((*piece)->icon->IsHoveredOver())
+        {
+            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10;
+            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10;
+            (*piece)->costText->Update();
+        }
     }
 
     background->Update();
