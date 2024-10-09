@@ -16,7 +16,7 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
     if (isWhite)
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, 410, 0.4, 0.4);
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, 385, 0.4, 0.4);
         goldText = new Text("WHITE GOLD: " + String(gold), 20, 400, 0.4, 0.4);
         goldText->y = 100;
 

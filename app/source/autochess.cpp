@@ -203,10 +203,11 @@ void Autochess::Update()
     {
         moves.Clear();
 
+        white->nobilityText->Update();
+        black->nobilityText->Update();
+
         if (time->TimeSinceStarted() < 900.0f)
         {
-            white->nobilityText->Update();
-            black->nobilityText->Update();
             return;
         }
 
