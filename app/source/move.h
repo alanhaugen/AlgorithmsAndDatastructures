@@ -13,12 +13,10 @@ public:
     Piece* movedPiece;
     Tile* oldTile;
     Tile* tileToMoveTo;
-    glm::vec2 newPosition;
-    glm::vec2 oldPosition;
     bool isCapture;
 
     Move();
-    Move(Piece* piece, Tile* tile, glm::vec2 position, bool isCapture_ = false);
+    Move(Piece* piece, Tile* tile, bool isCapture_ = false);
 
     void Update();
 

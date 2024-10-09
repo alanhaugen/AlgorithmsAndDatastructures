@@ -114,6 +114,21 @@ void Autochess::Update()
         if (white->isReady && black->isReady)
         {
             state = GameState::Placing;
+
+            if (white->gold > black->gold)
+            {
+                if (isWhitesTurn == false)
+                {
+                    NextPlayer();
+                }
+            }
+            else
+            {
+                if (isWhitesTurn)
+                {
+                    NextPlayer();
+                }
+            }
         }
     }
     else
@@ -184,32 +199,37 @@ void Autochess::Update()
 
         for (; tile != gameBoard->tiles.End(); ++tile)
         {
-            if ((*tile).piece != nullptr && (*tile).piece->isWhite == isWhitesTurn)
+            if ((*tile).piece != nullptr)
             {
-                moves += gameBoard->UpdateDots(&(*tile));
-
-                /*if ((*tile).piece->isWhite)
+                if ((*tile).piece->isWhite)
                 {
                     isAnyWhitePieces = true;
                 }
                 else if ((*tile).piece->isWhite == false)
                 {
                     isAnyBlackPieces = true;
-                }*/
+                }
+
+                if ((*tile).piece->isWhite == isWhitesTurn)
+                {
+                    moves += gameBoard->UpdateDots(&(*tile));
+                }
             }
         }
 
-        Move nextMove = moves[random.RandomRange(0, moves.Size())];
-        nextMove.Execute();
+        if (moves.Empty() == false)
+        {
+            moves[random.RandomRange(0, moves.Size())].Execute();
+        }
 
         gameBoard->HideDots();
 
         NextPlayer();
 
-        /*if (isAnyWhitePieces == false || isAnyBlackPieces == false)
+        if (isAnyWhitePieces == false || isAnyBlackPieces == false)
         {
             state = GameState::Done;
-        }*/
+        }
     }
     else if (state == GameState::Done)
     {

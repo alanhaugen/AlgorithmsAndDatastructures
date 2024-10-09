@@ -94,12 +94,12 @@ Array<Move> Board::UpdateDots(Tile* tile)
                     if ((*node).piece == nullptr)
                     {
                         (*node).moveDot->Show();
-                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), glm::vec2((*node).x, (*node).y)));
+                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                     }
                     else if (tile->piece->isWhite != (*node).piece->isWhite)
                     {
                         (*node).attackBorder->Show();
-                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), glm::vec2((*node).x, (*node).y), true));
+                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                     }
                 }
             }
@@ -153,12 +153,12 @@ Array<Move> Board::UpdateDots(Tile* tile)
                             {
                                 (*node).moveDot->Show();
                                 nextLayerTiles.Append((*node));
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), glm::vec2((*node).x, (*node).y)));
+                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite)
                             {
                                 (*node).attackBorder->Show();
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), glm::vec2((*node).x, (*node).y), true));
+                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                             }
                         }
                     }
