@@ -24,16 +24,16 @@ public:
     Shop* shop;
     Queue<Move> replay;
     Array<Move> moves;
-    bool swapPlayers = true;
+    bool swapPlayers;
 
     Text* playerWhiteWins;
     Text* playerBlackWins;
-    bool isAnyWhitePieces = false;
-    bool isAnyBlackPieces = false;
+    bool isAnyWhitePieces;
+    bool isAnyBlackPieces;
 
     ITime* time;
 
-    Piece* activePiece = nullptr;
+    Piece* activePiece;
 
     Array<Player*> players;
     Player* white;
@@ -44,7 +44,7 @@ public:
 
     bool isWhitesTurn;
 
-    GameState state = GameState::Shopping;
+    GameState state;
 
     void Init();
     void SetTile(Tile* tile);

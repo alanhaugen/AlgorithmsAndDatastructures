@@ -20,7 +20,10 @@ public:
 
     bool isReady;
 
+    int totalNobility;
+
     Text* goldText;
+    Text* nobilityText;
 
     Piece* activePiece;
 

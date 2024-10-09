@@ -46,6 +46,13 @@ void Autochess::Init()
     input.Mouse.Pressed = false;
 
     time = Application::GetTime("wait time");
+
+    swapPlayers = true;
+    isAnyWhitePieces = false;
+    isAnyBlackPieces = false;
+    activePiece = nullptr;
+
+    state = GameState::Shopping;
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -194,7 +201,7 @@ void Autochess::Update()
     {
         moves.Clear();
 
-        if (time->TimeSinceStarted() < 200.0f)
+        if (time->TimeSinceStarted() < 900.0f)
         {
             return;
         }

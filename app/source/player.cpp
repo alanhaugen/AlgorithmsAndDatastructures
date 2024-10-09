@@ -16,6 +16,7 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
     if (isWhite)
     {
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, 410, 0.4, 0.4);
         goldText = new Text("WHITE GOLD: " + String(gold), 20, 400, 0.4, 0.4);
         goldText->y = 100;
 
@@ -24,6 +25,7 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
     }
     else
     {
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 40, 100, 0.4, 0.4);
         goldText = new Text("BLACK GOLD: " + String(gold), 40, 90, 0.4, 0.4);
         *buttonReady->matrix.x = 350;
         *buttonReady->matrix.y = 90;
@@ -44,6 +46,8 @@ void Player::Init()
     goldText    = new Text("");
 
     activePiece = nullptr;
+
+    totalNobility = 0;
 }
 
 void Player::Update()
@@ -83,9 +87,8 @@ void Player::Update()
 
     if (isReady == false)
     {
-
-
         buttonReady->Update();
         goldText->Update();
+        nobilityText->Update();
     }
 }
