@@ -1,5 +1,6 @@
 #include <core/application.h>
 #include "autochess.h"
+#include "main.h"
 
 Autochess::Autochess()
 {
@@ -158,7 +159,7 @@ void Autochess::Update()
 
     if (input.Pressed(input.Key.ESCAPE))
     {
-        Application::LoadScene(0);
+        Application::LoadScene(Scenes::MainMenu);
     }
 
 }

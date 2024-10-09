@@ -3,6 +3,7 @@
 
 #include <core/components/component.h>
 #include <core/components/sprite.h>
+#include <core/components/text.h>
 #include <core/containers/queue.h>
 #include "move.h"
 
@@ -17,6 +18,7 @@ public:
     int nobility = 0;
     int range = 0;
     bool isWhite = true;
+    Text* costText = nullptr;
 
     LinkedList<Piece*>::LinkedNode* listNode = nullptr;
 
