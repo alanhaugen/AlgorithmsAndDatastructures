@@ -60,6 +60,12 @@ void Autochess::Update()
 
         if (input.Mouse.Pressed)
         {
+            if (activePlayer->buttonReady->IsPressed())
+            {
+                activePlayer->isReady = true;
+                NextPlayer();
+            }
+
             if (shop->activePiece)
             {
                 bool success = false;

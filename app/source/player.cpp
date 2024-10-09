@@ -82,10 +82,7 @@ void Player::Update()
 
     if (isReady == false)
     {
-        if (buttonReady->IsPressed())
-        {
-            isReady = true;
-        }
+
 
         buttonReady->Update();
         goldText->Update();

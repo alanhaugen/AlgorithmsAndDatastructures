@@ -359,14 +359,14 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::FillShopItems()
 {
-    int y = 230;
+    int y = 200;
     for (int i = 0; i < 10; i++)
     {
         Piece* piece = CreateRandomPiece();
 
         if (i > 0 && i % 5 == 0)
         {
-            y += 30;
+            y += 90;
         }
 
         *piece->iconWhite->matrix.x = 140 + ((i % 5) * 50);
