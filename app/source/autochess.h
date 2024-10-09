@@ -31,6 +31,8 @@ public:
     bool isAnyWhitePieces = false;
     bool isAnyBlackPieces = false;
 
+    ITime* time;
+
     Piece* activePiece = nullptr;
 
     Array<Player*> players;

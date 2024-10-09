@@ -44,6 +44,8 @@ void Autochess::Init()
     playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20, 0.5, 0.5);
 
     input.Mouse.Pressed = false;
+
+    time = Application::GetTime("wait time");
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -192,6 +194,13 @@ void Autochess::Update()
     {
         moves.Clear();
 
+        if (time->TimeSinceStarted() < 200.0f)
+        {
+            return;
+        }
+
+        time->Reset();
+
         isAnyWhitePieces = false;
         isAnyBlackPieces = false;
 
@@ -217,9 +226,24 @@ void Autochess::Update()
             }
         }
 
+        bool moved = false;
+
         if (moves.Empty() == false)
         {
-            moves[random.RandomRange(0, moves.Size())].Execute();
+            for (unsigned int i = 0; i < moves.Size(); i++)
+            {
+                if (moves[i].isCapture)
+                {
+                    moves[i].Execute();
+                    moved = true;
+                    break;
+                }
+            }
+
+            if (moved == false)
+            {
+                moves[random.RandomRange(0, moves.Size())].Execute();
+            }
         }
 
         gameBoard->HideDots();
