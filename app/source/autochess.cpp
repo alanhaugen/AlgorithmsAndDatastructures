@@ -64,7 +64,12 @@ void Autochess::Update()
             if (activePlayer->buttonReady->IsPressed())
             {
                 activePlayer->isReady = true;
-                NextPlayer();
+
+                if (swapPlayers)
+                {
+                    NextPlayer();
+                    swapPlayers = false;
+                }
             }
 
             if (shop->activePiece)
@@ -95,7 +100,10 @@ void Autochess::Update()
                     shop->items.Remove(shop->activePiece->listNode);
                     shop->activePiece = nullptr;
 
-                    NextPlayer();
+                    if (swapPlayers)
+                    {
+                        NextPlayer();
+                    }
                 }
             }
         }

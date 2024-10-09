@@ -23,6 +23,7 @@ public:
     Board* gameBoard;
     Shop* shop;
     Queue<Move> replay;
+    bool swapPlayers = true;
 
     Piece* activePiece = nullptr;
 

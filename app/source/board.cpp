@@ -3,7 +3,7 @@
 
 Board::Board()
 {
-    background = new Sprite("data/BackgroundImage.png", 0, 0, 0.5, 0.5);
+    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.5, 0.5);
 
     GenerateTiles();
     HideDots();
