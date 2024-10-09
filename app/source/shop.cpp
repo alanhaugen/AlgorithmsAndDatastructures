@@ -2,6 +2,8 @@
 
 Shop::Shop()
 {
+    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.5, 0.5);
+
     FillShopItems();
 }
 
@@ -357,7 +359,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::FillShopItems()
 {
-    int y = 430;
+    int y = 230;
     for (int i = 0; i < 10; i++)
     {
         Piece* piece = CreateRandomPiece();
@@ -390,4 +392,6 @@ void Shop::Update()
 
         (*piece)->icon->Update();
     }
+
+    background->Update();
 }

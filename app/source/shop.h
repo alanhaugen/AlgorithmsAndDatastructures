@@ -12,6 +12,7 @@ class Shop : public Component
 public:
     Shop();
 
+    Sprite* background;
     LinkedList<Piece*> items;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;

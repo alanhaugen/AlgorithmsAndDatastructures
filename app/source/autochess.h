@@ -7,6 +7,14 @@
 #include "board.h"
 #include "shop.h"
 
+enum GameState
+{
+    Shopping,
+    Placing,
+    Playing,
+    Done
+};
+
 class Autochess : public IScene
 {
 public:
@@ -18,9 +26,16 @@ public:
 
     Piece* activePiece = nullptr;
 
-    Array<Player> players;
+    Array<Player*> players;
+    Player* white;
+    Player* black;
+    Player* activePlayer;
+
+    void NextPlayer();
 
     bool isWhitesTurn;
+
+    GameState state = GameState::Shopping;
 
     void Init();
     void SetTile(Tile* tile);

@@ -11,16 +11,83 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
     isWhite    = isWhitePlayer;
     isComputer = isAIComputerPlayer;
+
+    delete goldText;
+
+    if (isWhite)
+    {
+        goldText = new Text("WHITE GOLD: " + String(gold), 20, 400, 0.4, 0.4);
+        goldText->y = 100;
+
+        *buttonReady->matrix.x = 350;
+        *buttonReady->matrix.y = 400;
+    }
+    else
+    {
+        goldText = new Text("BLACK GOLD: " + String(gold), 40, 90, 0.4, 0.4);
+        *buttonReady->matrix.x = 350;
+        *buttonReady->matrix.y = 90;
+    }
+
+    goldText->x = 20;
 }
 
 void Player::Init()
 {
     isComputer = false;
     isWhite    = false;
+    isReady    = false;
     gold       = 1000;
     score      = 0;
+
+    buttonReady = new Sprite("data/Button-Ready.png", 0.0f, 0.0f, 0.25f, 0.25f);
+    goldText    = new Text("");
+
+    activePiece = nullptr;
 }
 
 void Player::Update()
 {
+    if (piecesInHand.Empty() == false)
+    {
+        int x = 50;
+        int y = 20;
+
+        if (isWhite)
+        {
+            y = 420;
+        }
+
+        LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
+        for (; piece != piecesInHand.End(); ++piece)
+        {
+            *(*piece)->icon->matrix.x = x;
+            *(*piece)->icon->matrix.y = y;
+            (*piece)->Update();
+
+            if ((*piece)->icon->IsPressed())
+            {
+                activePiece = (*piece);
+            }
+
+            x += 50;
+            if (x > 400)
+            {
+                y += 30;
+                x = 50;
+            }
+        }
+    }
+
+    if (isReady == false)
+    {
+        if (buttonReady->IsPressed())
+        {
+            isReady = true;
+        }
+
+        buttonReady->Update();
+        goldText->Update();
+    }
 }
