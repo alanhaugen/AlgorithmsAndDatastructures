@@ -25,7 +25,7 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
     }
     else
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 40, 100, 0.4, 0.4);
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 40, 75, 0.4, 0.4);
         goldText = new Text("BLACK GOLD: " + String(gold), 40, 90, 0.4, 0.4);
         *buttonReady->matrix.x = 350;
         *buttonReady->matrix.y = 90;
@@ -50,6 +50,25 @@ void Player::Init()
     totalNobility = 0;
 }
 
+void Player::UpdateNobilityText(int nobility)
+{
+    if (nobility == -1)
+    {
+        Update();
+    }
+    else
+    {
+        totalNobility = nobility;
+    }
+
+    int x = *nobilityText->matrix.x;
+    int y = *nobilityText->matrix.y;
+
+    delete nobilityText;
+    nobilityText = new Text("NOBILITY: " + String(totalNobility), x, y, 0.4, 0.4);
+    nobilityText->Update();
+}
+
 void Player::Update()
 {
     if (piecesInHand.Empty() == false)
@@ -61,6 +80,8 @@ void Player::Update()
         {
             y = 420;
         }
+
+        totalNobility = 0;
 
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
@@ -75,6 +96,8 @@ void Player::Update()
             {
                 activePiece = (*piece);
             }
+
+            totalNobility += (*piece)->nobility;
 
             x += 50;
             if (x > 400)

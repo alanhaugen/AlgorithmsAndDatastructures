@@ -112,6 +112,8 @@ void Autochess::Update()
                     shop->items.Remove(shop->activePiece->listNode);
                     shop->activePiece = nullptr;
 
+                    activePlayer->UpdateNobilityText();
+
                     if (swapPlayers)
                     {
                         NextPlayer();
@@ -203,6 +205,8 @@ void Autochess::Update()
 
         if (time->TimeSinceStarted() < 900.0f)
         {
+            white->nobilityText->Update();
+            black->nobilityText->Update();
             return;
         }
 
@@ -212,6 +216,8 @@ void Autochess::Update()
         isAnyBlackPieces = false;
 
         LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+        int nobility = 0;
 
         for (; tile != gameBoard->tiles.End(); ++tile)
         {
@@ -228,9 +234,19 @@ void Autochess::Update()
 
                 if ((*tile).piece->isWhite == isWhitesTurn)
                 {
+                    nobility += (*tile).piece->nobility;
                     moves += gameBoard->UpdateDots(&(*tile));
                 }
             }
+        }
+
+        if (isWhitesTurn)
+        {
+            white->UpdateNobilityText(nobility);
+        }
+        else
+        {
+            black->UpdateNobilityText(nobility);
         }
 
         bool moved = false;
@@ -278,5 +294,4 @@ void Autochess::Update()
     {
         Application::LoadScene(Scenes::MainMenu);
     }
-
 }

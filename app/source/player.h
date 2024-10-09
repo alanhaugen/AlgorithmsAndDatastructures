@@ -31,6 +31,7 @@ public:
     Player(bool isWhitePlayer, bool isAIComputerPlayer);
 
     void Init();
+    void UpdateNobilityText(int nobility = -1);
 
     void Update();
 };
