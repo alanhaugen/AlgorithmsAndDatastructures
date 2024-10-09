@@ -62,6 +62,7 @@ void Player::Update()
 
         for (; piece != piecesInHand.End(); ++piece)
         {
+            (*piece)->listNode = piece.curNode;
             *(*piece)->icon->matrix.x = x;
             *(*piece)->icon->matrix.y = y;
             (*piece)->Update();

@@ -3,7 +3,8 @@
 
 #include <core/components/component.h>
 #include <core/components/sprite.h>
-#include "piece.h"
+
+class Piece;
 
 class Tile : public Component
 {

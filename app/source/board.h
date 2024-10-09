@@ -7,6 +7,8 @@
 #include "tile.h"
 #include "tree.h"
 
+class Move;
+
 class Board : public Component
 {
 public:

@@ -23,7 +23,13 @@ public:
     Board* gameBoard;
     Shop* shop;
     Queue<Move> replay;
+    Array<Move> moves;
     bool swapPlayers = true;
+
+    Text* playerWhiteWins;
+    Text* playerBlackWins;
+    bool isAnyWhitePieces = false;
+    bool isAnyBlackPieces = false;
 
     Piece* activePiece = nullptr;
 

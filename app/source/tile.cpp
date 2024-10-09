@@ -1,5 +1,6 @@
 #include "tile.h"
 #include "main.h"
+#include "piece.h"
 
 Tile::Tile()
 {

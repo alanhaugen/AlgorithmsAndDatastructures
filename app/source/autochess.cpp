@@ -40,6 +40,9 @@ void Autochess::Init()
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
+    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,20, 0.5, 0.5);
+    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20, 0.5, 0.5);
+
     input.Mouse.Pressed = false;
 }
 
@@ -131,7 +134,7 @@ void Autochess::Update()
                 if (activePlayer->activePiece)
                 {
                     activePiece = activePlayer->activePiece;
-                    //activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
+                    activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
                     activePlayer->activePiece = nullptr;
 
                     NextPlayer();
@@ -157,12 +160,67 @@ void Autochess::Update()
                 activePlayer->activePiece = nullptr;
             }
         }
+
+        if (white->piecesInHand.Empty() && black->piecesInHand.Empty())
+        {
+            state = GameState::Playing;
+            Log("Playing!");
+        }
+
+        if (activePlayer->piecesInHand.Empty())
+        {
+            NextPlayer();
+        }
+
     }
     else if (state == GameState::Playing)
     {
+        moves.Clear();
+
+        isAnyWhitePieces = false;
+        isAnyBlackPieces = false;
+
+        LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+        for (; tile != gameBoard->tiles.End(); ++tile)
+        {
+            if ((*tile).piece != nullptr && (*tile).piece->isWhite == isWhitesTurn)
+            {
+                moves += gameBoard->UpdateDots(&(*tile));
+
+                /*if ((*tile).piece->isWhite)
+                {
+                    isAnyWhitePieces = true;
+                }
+                else if ((*tile).piece->isWhite == false)
+                {
+                    isAnyBlackPieces = true;
+                }*/
+            }
+        }
+
+        Move nextMove = moves[random.RandomRange(0, moves.Size())];
+        nextMove.Execute();
+
+        gameBoard->HideDots();
+
+        NextPlayer();
+
+        /*if (isAnyWhitePieces == false || isAnyBlackPieces == false)
+        {
+            state = GameState::Done;
+        }*/
     }
     else if (state == GameState::Done)
     {
+        if (isAnyBlackPieces)
+        {
+            playerBlackWins->Update();
+        }
+        if (isAnyWhitePieces)
+        {
+            playerWhiteWins->Update();
+        }
     }
 
     if (input.Pressed(input.Key.ESCAPE))
