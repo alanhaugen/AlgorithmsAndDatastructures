@@ -181,7 +181,6 @@ void Autochess::Update()
         if (white->piecesInHand.Empty() && black->piecesInHand.Empty())
         {
             state = GameState::Playing;
-            Log("Playing!");
         }
 
         if (activePlayer->piecesInHand.Empty())
@@ -245,11 +244,15 @@ void Autochess::Update()
 
         if (moves.Empty() == false)
         {
+            Move newMove;
+
             for (unsigned int i = 0; i < moves.Size(); i++)
             {
                 if (moves[i].isCapture)
                 {
-                    moves[i].Execute();
+                    newMove = moves[i];
+                    newMove.Execute();
+                    history.Append(newMove);
                     moved = true;
                     break;
                 }
@@ -257,13 +260,32 @@ void Autochess::Update()
 
             if (moved == false)
             {
-                moves[random.RandomRange(0, moves.Size())].Execute();
+                newMove = moves[random.RandomRange(0, moves.Size())];
+                newMove.Execute();
+                history.Append(newMove);
             }
+
+            Log(newMove.movedPiece->name +
+                " moved to " +
+                String(newMove.tileToMoveTo->x) +
+                " " +
+                String(newMove.tileToMoveTo->y));
         }
 
         gameBoard->HideDots();
 
         NextPlayer();
+
+        /*LinkedList<Move>::Iterator event = history.Begin();
+
+        for (; event != history.End(); ++event)
+        {
+            Log((*event).movedPiece->name +
+                " moved to " +
+                String((*event).tileToMoveTo->x) +
+                " " +
+                String((*event).tileToMoveTo->y));
+        }*/
 
         if (isAnyWhitePieces == false || isAnyBlackPieces == false)
         {

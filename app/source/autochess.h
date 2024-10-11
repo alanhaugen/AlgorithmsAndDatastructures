@@ -2,6 +2,7 @@
 #define AUTOCHESS_H
 
 #include <core/x-platform/scene.h>
+#include <core/containers/stack.h>
 #include "cursor.h"
 #include "player.h"
 #include "board.h"
@@ -23,6 +24,7 @@ public:
     Board* gameBoard;
     Shop* shop;
     Queue<Move> replay;
+    LinkedList<Move> history;
     Array<Move> moves;
     bool swapPlayers;
 
