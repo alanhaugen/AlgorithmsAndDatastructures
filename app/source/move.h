@@ -11,6 +11,7 @@ class Move : public Command
 {
 public:
     Piece* movedPiece;
+    Piece* oldPiece = nullptr;
     Tile* oldTile;
     Tile* tileToMoveTo;
     bool isCapture;

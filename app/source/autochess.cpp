@@ -66,6 +66,11 @@ void Autochess::Update()
     white->Update();
     black->Update();
 
+    if (input.Pressed(input.Key.ESCAPE))
+    {
+        Application::LoadScene(Scenes::MainMenu);
+    }
+
     // Finite State Machine (FSM) for gameplay logic
     if (state == GameState::Shopping)
     {
@@ -265,31 +270,46 @@ void Autochess::Update()
                 history.Append(newMove);
             }
 
-            Log(newMove.movedPiece->name +
-                " moved to " +
-                String(newMove.tileToMoveTo->x) +
-                " " +
-                String(newMove.tileToMoveTo->y));
+            if (newMove.isCapture)
+            {
+                Log(newMove.movedPiece->name +
+                    " moved to " +
+                    String(newMove.tileToMoveTo->x + 1) +
+                    " " +
+                    String(newMove.tileToMoveTo->y + 1) +
+                    " and captures " +
+                    newMove.oldPiece->name);
+            }
+            else
+            {
+                Log(newMove.movedPiece->name +
+                    " moved to " +
+                    String(newMove.tileToMoveTo->x + 1) +
+                    " " +
+                    String(newMove.tileToMoveTo->y + 1));
+            }
         }
 
         gameBoard->HideDots();
 
         NextPlayer();
 
-        /*LinkedList<Move>::Iterator event = history.Begin();
-
-        for (; event != history.End(); ++event)
-        {
-            Log((*event).movedPiece->name +
-                " moved to " +
-                String((*event).tileToMoveTo->x) +
-                " " +
-                String((*event).tileToMoveTo->y));
-        }*/
-
         if (isAnyWhitePieces == false || isAnyBlackPieces == false)
         {
             state = GameState::Done;
+
+            LinkedList<Move>::Iterator event = history.Begin();
+
+            for (; event != history.End(); ++event)
+            {
+                /*Log((*event).movedPiece->name +
+                    " moved to " +
+                    String((*event).tileToMoveTo->x) +
+                    " " +
+                    String((*event).tileToMoveTo->y));*/
+                replay.Enqueue((*event));
+            }
+
         }
     }
     else if (state == GameState::Done)
@@ -302,10 +322,5 @@ void Autochess::Update()
         {
             playerWhiteWins->Update();
         }
-    }
-
-    if (input.Pressed(input.Key.ESCAPE))
-    {
-        Application::LoadScene(Scenes::MainMenu);
     }
 }

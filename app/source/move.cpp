@@ -20,6 +20,7 @@ void Move::Update()
 
 void Move::Execute()
 {
+    oldPiece = tileToMoveTo->piece;
     tileToMoveTo->piece = movedPiece;
     oldTile->piece = nullptr;
     movedPiece->currentTile = tileToMoveTo;
@@ -27,7 +28,7 @@ void Move::Execute()
 
 void Move::Undo()
 {
-    tileToMoveTo->piece = nullptr;
+    tileToMoveTo->piece = oldPiece;
     oldTile->piece = movedPiece;
     movedPiece->currentTile = oldTile;
 }

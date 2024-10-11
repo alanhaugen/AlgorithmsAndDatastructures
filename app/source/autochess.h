@@ -23,7 +23,6 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
-    Queue<Move> replay;
     LinkedList<Move> history;
     Array<Move> moves;
     bool swapPlayers;
