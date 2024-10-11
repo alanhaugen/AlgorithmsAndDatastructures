@@ -52,6 +52,8 @@ void Autochess::Init()
     isAnyBlackPieces = false;
     activePiece = nullptr;
 
+    movesCompleted = 0;
+
     state = GameState::Shopping;
 }
 
@@ -295,15 +297,32 @@ void Autochess::Update()
                     " " +
                     String(newMove.tileToMoveTo->y + 1));
             }
+
+            movesCompleted++;
         }
 
         gameBoard->HideDots();
 
         NextPlayer();
 
-        if (isAnyWhitePieces == false || isAnyBlackPieces == false)
+        if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= 50)
         {
             state = GameState::Done;
+
+            if (isAnyWhitePieces == true && isAnyBlackPieces == true)
+            {
+                isAnyWhitePieces = false;
+                isAnyBlackPieces = false;
+
+                if (white->totalNobility > black->totalNobility)
+                {
+                    isAnyWhitePieces = true;
+                }
+                else
+                {
+                    isAnyBlackPieces = true;
+                }
+            }
 
             LinkedList<Move>::Iterator event = history.Begin();
 
@@ -316,7 +335,6 @@ void Autochess::Update()
                     String((*event).tileToMoveTo->y));*/
                 replay.Enqueue((*event));
             }
-
         }
     }
     else if (state == GameState::Done)

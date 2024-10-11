@@ -27,6 +27,8 @@ public:
     Array<Move> moves;
     bool swapPlayers;
 
+    int movesCompleted;
+
     Text* playerWhiteWins;
     Text* playerBlackWins;
     bool isAnyWhitePieces;
