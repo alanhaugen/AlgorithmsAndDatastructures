@@ -18,7 +18,7 @@ public:
     Sprite* shopFront    = nullptr;
     Piece* activePiece   = nullptr;
 
-    const int PIECE_TYPES_QUANTITY = 15;
+    const int PIECE_TYPES_QUANTITY = 16;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);

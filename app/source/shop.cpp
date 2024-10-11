@@ -325,6 +325,28 @@ Piece* Shop::CreateRandomPiece()
         }
 
         break;
+    case 15:
+        piece = new Piece("Deserter",
+                          "data/Piece-WhiteRook.png",
+                          "data/Piece-BlackRook.png",
+                          "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
+                          50,
+                          0);
+
+        for (int i = 1; i <= 4; i++)
+        {
+            piece->movePattern.Add(glm::vec2(i,0));
+            piece->movePattern.Add(glm::vec2(-i,0));
+            piece->movePattern.Add(glm::vec2(0,i));
+            piece->movePattern.Add(glm::vec2(0,-i));
+
+            piece->movePattern.Add(glm::vec2(i,i));
+            piece->movePattern.Add(glm::vec2(i,-i));
+            piece->movePattern.Add(glm::vec2(-i,i));
+            piece->movePattern.Add(glm::vec2(-i,-i));
+        }
+
+        break;
 
     default:
         LogError("Failed to create a piece for shop");
