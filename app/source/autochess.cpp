@@ -122,19 +122,10 @@ void Autochess::Update()
         {
             state = GameState::Placing;
 
-            if (white->gold > black->gold)
+            // Player white starts placeing out pieces
+            if (isWhitesTurn == false)
             {
-                if (isWhitesTurn == false)
-                {
-                    NextPlayer();
-                }
-            }
-            else
-            {
-                if (isWhitesTurn)
-                {
-                    NextPlayer();
-                }
+                NextPlayer();
             }
         }
     }
@@ -186,6 +177,22 @@ void Autochess::Update()
         if (white->piecesInHand.Empty() && black->piecesInHand.Empty())
         {
             state = GameState::Playing;
+
+            // The player with the most gold remaining gets to play first
+            if (white->gold > black->gold)
+            {
+                if (isWhitesTurn == false)
+                {
+                    NextPlayer();
+                }
+            }
+            else
+            {
+                if (isWhitesTurn)
+                {
+                    NextPlayer();
+                }
+            }
         }
 
         if (activePlayer->piecesInHand.Empty())
