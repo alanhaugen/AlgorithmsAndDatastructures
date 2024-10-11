@@ -180,6 +180,8 @@ void Autochess::Update()
         {
             state = GameState::Playing;
 
+            Log("Started Playing a New Game");
+
             // The player with the most gold remaining gets to play first
             if (white->gold > black->gold)
             {

@@ -128,7 +128,11 @@ void Player::Update()
 
     if (isReady == false)
     {
-        buttonReady->Update();
+        if (piecesInHand.Empty() == false)
+        {
+            buttonReady->Update();
+        }
+
         goldText->Update();
         nobilityText->Update();
     }
