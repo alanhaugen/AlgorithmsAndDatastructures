@@ -1,6 +1,6 @@
 #pragma once
 
-static float tileScale = 0.25;
+static float tileScale = 0.4;
 
 enum Scenes
 {

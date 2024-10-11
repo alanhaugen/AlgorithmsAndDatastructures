@@ -40,8 +40,8 @@ void Autochess::Init()
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
-    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,20, 0.5, 0.5);
-    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20, 0.5, 0.5);
+    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,20);
+    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20);
 
     input.Mouse.Pressed = false;
 
@@ -93,16 +93,7 @@ void Autochess::Update()
                     activePlayer->gold -= shop->activePiece->price;
                     activePlayer->piecesInHand.Append(shop->activePiece);
 
-                    delete activePlayer->goldText;
-
-                    if (activePlayer->isWhite)
-                    {
-                        activePlayer->goldText = new Text("WHITE GOLD: " + String(activePlayer->gold), 20, 400, 0.4, 0.4);
-                    }
-                    else
-                    {
-                        black->goldText = new Text("BLACK GOLD: " + String(activePlayer->gold), 40, 90, 0.4, 0.4);
-                    }
+                    activePlayer->UpdateGoldText();
 
                     success = true;
                 }

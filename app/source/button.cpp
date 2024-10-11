@@ -3,7 +3,7 @@
 
 Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
 {
-    buttonImage = new Sprite(filePath, x, y, 0.5f, 0.5f);
+    buttonImage = new Sprite(filePath, x, y, 0.75f, 0.75f);
     menuStack = menuStack_;
 }
 

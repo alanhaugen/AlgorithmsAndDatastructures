@@ -2,7 +2,7 @@
 
 Shop::Shop()
 {
-    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.5, 0.5);
+    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
 
     FillShopItems();
 }
@@ -359,19 +359,19 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::FillShopItems()
 {
-    int y = 200;
+    int y = 150 * 1.75;
     for (int i = 0; i < 10; i++)
     {
         Piece* piece = CreateRandomPiece();
 
         if (i > 0 && i % 5 == 0)
         {
-            y += 90;
+            y += 90 * 1.75;
         }
 
-        *piece->iconWhite->matrix.x = 140 + ((i % 5) * 50);
+        *piece->iconWhite->matrix.x = (100 + ((i % 5) * 50))*1.75;
         *piece->iconWhite->matrix.y = y;
-        *piece->iconBlack->matrix.x = 140 + ((i % 5) * 50);
+        *piece->iconBlack->matrix.x = (100 + ((i % 5) * 50))*1.75;
         *piece->iconBlack->matrix.y = y;
 
         items.Append(piece);
@@ -394,8 +394,8 @@ void Shop::Update()
 
         if ((*piece)->icon->IsHoveredOver())
         {
-            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10;
-            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10;
+            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
             (*piece)->costText->Update();
         }
     }

@@ -16,21 +16,20 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
     if (isWhite)
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, 385, 0.4, 0.4);
-        goldText = new Text("WHITE GOLD: " + String(gold), 20, 400, 0.4, 0.4);
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, renderer->windowHeight - 40);
+        goldText = new Text("WHITE GOLD: " + String(gold), 20, renderer->windowHeight - 190);
         goldText->y = 100;
 
-        *buttonReady->matrix.x = 350;
-        *buttonReady->matrix.y = 400;
+        *buttonReady->matrix.y = renderer->windowHeight - 80;
     }
     else
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 40, 75, 0.4, 0.4);
-        goldText = new Text("BLACK GOLD: " + String(gold), 40, 90, 0.4, 0.4);
-        *buttonReady->matrix.x = 350;
-        *buttonReady->matrix.y = 90;
+        nobilityText = new Text("NOBILITY: " + String(totalNobility), 40, 0);
+        goldText = new Text("BLACK GOLD: " + String(gold), 40, 140);
+        *buttonReady->matrix.y = 85;
     }
 
+    *buttonReady->matrix.x = renderer->windowWidth - 300;
     goldText->x = 20;
 }
 
@@ -42,7 +41,7 @@ void Player::Init()
     gold       = 1000;
     score      = 0;
 
-    buttonReady = new Sprite("data/Button-Ready.png", 0.0f, 0.0f, 0.25f, 0.25f);
+    buttonReady = new Sprite("data/Button-Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
     goldText    = new Text("");
 
     activePiece = nullptr;
@@ -65,20 +64,39 @@ void Player::UpdateNobilityText(int nobility)
     int y = *nobilityText->matrix.y;
 
     delete nobilityText;
-    nobilityText = new Text("NOBILITY: " + String(totalNobility), x, y, 0.4, 0.4);
+    nobilityText = new Text("NOBILITY: " + String(totalNobility), x, y);
     nobilityText->Update();
+}
+
+void Player::UpdateGoldText()
+{
+    int x = *goldText->matrix.x;
+    int y = *goldText->matrix.y;
+
+    delete goldText;
+
+    if (isWhite)
+    {
+        goldText = new Text("WHITE GOLD: " + String(gold), x, y);
+    }
+    else
+    {
+        goldText = new Text("BLACK GOLD: " + String(gold), x, y);
+    }
+
+    goldText->Update();
 }
 
 void Player::Update()
 {
     if (piecesInHand.Empty() == false)
     {
-        int x = 50;
-        int y = 20;
+        int x = 70;
+        int y = 30;
 
         if (isWhite)
         {
-            y = 420;
+            y = renderer->windowHeight - 100;
         }
 
         totalNobility = 0;
@@ -100,7 +118,7 @@ void Player::Update()
             totalNobility += (*piece)->nobility;
 
             x += 50;
-            if (x > 400)
+            if (x > renderer->windowWidth - 100)
             {
                 y += 30;
                 x = 50;
