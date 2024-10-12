@@ -31,8 +31,11 @@ public:
 
     Text* playerWhiteWins;
     Text* playerBlackWins;
+    Text* playerDraw;
     bool isAnyWhitePieces;
     bool isAnyBlackPieces;
+
+    bool isDraw;
 
     ITime* time;
 

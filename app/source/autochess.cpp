@@ -42,6 +42,7 @@ void Autochess::Init()
 
     playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,20);
     playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20);
+    playerDraw      = new Text("DRAW", 50,20);
 
     input.Mouse.Pressed = false;
 
@@ -53,6 +54,7 @@ void Autochess::Init()
     activePiece = nullptr;
 
     movesCompleted = 0;
+    isDraw = false;
 
     state = GameState::Shopping;
 }
@@ -320,9 +322,13 @@ void Autochess::Update()
                 {
                     isAnyWhitePieces = true;
                 }
-                else
+                else if (white->totalNobility < black->totalNobility)
                 {
                     isAnyBlackPieces = true;
+                }
+                else
+                {
+                    isDraw = true;
                 }
             }
 
@@ -341,11 +347,15 @@ void Autochess::Update()
     }
     else if (state == GameState::Done)
     {
-        if (isAnyBlackPieces)
+        if (isDraw)
+        {
+            playerDraw->Update();
+        }
+        else if (isAnyBlackPieces)
         {
             playerBlackWins->Update();
         }
-        if (isAnyWhitePieces)
+        else if (isAnyWhitePieces)
         {
             playerWhiteWins->Update();
         }
