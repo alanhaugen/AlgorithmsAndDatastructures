@@ -357,10 +357,7 @@ Piece* Shop::CreateRandomPiece()
 
 void Shop::SetShopPiecesToWhite(bool isWhite)
 {
-    if (items.Empty())
-    {
-        FillShopItems();
-    }
+    Update();
 
     LinkedList<Piece*>::Iterator piece = items.Begin();
 
@@ -402,6 +399,11 @@ void Shop::FillShopItems()
 
 void Shop::Update()
 {
+    if (items.Empty())
+    {
+        FillShopItems();
+    }
+
     LinkedList<Piece*>::Iterator piece = items.Begin();
 
     for (; piece != items.End(); ++piece)
