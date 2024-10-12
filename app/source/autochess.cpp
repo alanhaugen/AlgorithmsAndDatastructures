@@ -190,6 +190,8 @@ void Autochess::Update()
 
             Log("Started Playing a New Game");
 
+            activePiece = nullptr;
+
             // The player with the most gold remaining gets to play first
             if (white->gold > black->gold)
             {
@@ -206,8 +208,7 @@ void Autochess::Update()
                 }
             }
         }
-
-        if (activePlayer->piecesInHand.Empty())
+        else if (activePlayer->piecesInHand.Empty())
         {
             NextPlayer();
         }
@@ -222,6 +223,83 @@ void Autochess::Update()
 
         if (isTwoPlayer)
         {
+            if (input.Mouse.Pressed)
+            {
+                Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
+
+                if (clickedTile == nullptr)
+                {
+                    return;
+                }
+
+                // Check if user has clicked on tile with a piece
+                if (clickedTile->piece != nullptr)
+                {
+                    // Activate piece from the player hand
+                    if (activePlayer->isWhite == clickedTile->piece->isWhite)
+                    {
+                        activePiece = clickedTile->piece;
+                    }
+                }
+
+                if (activePiece != nullptr)
+                {
+                    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+                    for (; tile != gameBoard->tiles.End(); ++tile)
+                    {
+                        if ((*tile).piece != nullptr)
+                        {
+                            if ((*tile).piece->isWhite == isWhitesTurn)
+                            {
+                                moves += gameBoard->UpdateDots(&(*tile));
+                            }
+                        }
+                    }
+
+                    for (unsigned int i = 0; i < moves.Size(); i++)
+                    {
+                        if (moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y)
+                        {
+                            moves[i].Execute();
+                            NextPlayer();
+
+                            activePiece = nullptr;
+
+                            moves.Clear();
+
+                            LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+                            for (; tile != gameBoard->tiles.End(); ++tile)
+                            {
+                                if ((*tile).piece != nullptr)
+                                {
+                                    if ((*tile).piece->isWhite == isWhitesTurn)
+                                    {
+                                        moves += gameBoard->UpdateDots(&(*tile));
+                                    }
+                                }
+                            }
+
+                            if (moves.Empty())
+                            {
+                                isAnyBlackPieces = activePlayer->isWhite;
+                                isAnyWhitePieces = !activePlayer->isWhite;
+                                state = GameState::Done;
+                            }
+
+                            gameBoard->HideDots();
+
+                            return;
+                        }
+                    }
+
+                    //activePiece = nullptr;
+                }
+            }
+
+            gameBoard->Update();
+
             return;
         }
 
