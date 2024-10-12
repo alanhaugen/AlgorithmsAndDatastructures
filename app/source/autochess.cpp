@@ -10,7 +10,11 @@ void Autochess::NextPlayer()
 {
     isWhitesTurn = !isWhitesTurn;
     cursor->SetCursorToWhiteColour(isWhitesTurn);
-    shop->SetShopPiecesToWhite(isWhitesTurn);
+
+    if (state == GameState::Shopping)
+    {
+        shop->SetShopPiecesToWhite(isWhitesTurn);
+    }
 
     if (isWhitesTurn)
     {
@@ -147,7 +151,7 @@ void Autochess::Update()
             // Check if user has clicked on an empty tile
             if (tile != nullptr && tile->piece == nullptr)
             {
-                // Activate piece from the shop
+                // Activate piece from the player hand
                 if (activePlayer->activePiece)
                 {
                     activePiece = activePlayer->activePiece;
