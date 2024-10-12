@@ -2,6 +2,8 @@
 #include "autochess.h"
 #include "main.h"
 
+extern bool isTwoPlayer;
+
 Autochess::Autochess()
 {
 }
@@ -217,6 +219,11 @@ void Autochess::Update()
 
         white->nobilityText->Update();
         black->nobilityText->Update();
+
+        if (isTwoPlayer)
+        {
+            return;
+        }
 
         if (time->TimeSinceStarted() < 900.0f)
         {

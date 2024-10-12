@@ -16,16 +16,16 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
     if (isWhite)
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 20, renderer->windowHeight - 55);
-        goldText = new Text("WHITE GOLD: " + String(gold), 20, renderer->windowHeight - 160);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 20, renderer->windowHeight - 55);
+        goldText = new Text("White Gold: " + String(gold), 20, renderer->windowHeight - 160);
         goldText->y = 100;
 
         *buttonReady->matrix.y = renderer->windowHeight - 80;
     }
     else
     {
-        nobilityText = new Text("NOBILITY: " + String(totalNobility), 52, 20);
-        goldText = new Text("BLACK GOLD: " + String(gold), 52, 112);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 20);
+        goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 85;
     }
 
@@ -64,7 +64,7 @@ void Player::UpdateNobilityText(int nobility)
     int y = *nobilityText->matrix.y;
 
     delete nobilityText;
-    nobilityText = new Text("NOBILITY: " + String(totalNobility), x, y);
+    nobilityText = new Text("Nobility: " + String(totalNobility), x, y);
     nobilityText->Update();
 }
 
@@ -77,11 +77,11 @@ void Player::UpdateGoldText()
 
     if (isWhite)
     {
-        goldText = new Text("WHITE GOLD: " + String(gold), x, y);
+        goldText = new Text("White Gold: " + String(gold), x, y);
     }
     else
     {
-        goldText = new Text("BLACK GOLD: " + String(gold), x, y);
+        goldText = new Text("Black Gold: " + String(gold), x, y);
     }
 
     goldText->Update();

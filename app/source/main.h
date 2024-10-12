@@ -1,8 +1,8 @@
-#pragma once
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <core/containers/queue.h>
-
-class Move;
+#include "move.h"
 
 static float tileScale = 0.4;
 static Queue<Move> replay;
@@ -12,3 +12,5 @@ enum Scenes
     MainMenu = 0,
     Game
 };
+
+#endif

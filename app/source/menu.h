@@ -16,7 +16,7 @@ private:
 
 public:
     Menu(Stack<Menu*>* menuStack_);
-    void AddNextSceneButton(String image, int x, int y);
+    void AddNextSceneButton(String image, int x, int y, String type = "nextscene");
     void AddMenuButton(String image, Menu* menu, int x, int y, String type = 0);
     void AddQuitButton(String image, int x, int y);
 

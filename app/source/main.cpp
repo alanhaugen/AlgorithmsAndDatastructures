@@ -2,6 +2,8 @@
 #include "mainmenu.h"
 #include "autochess.h"
 
+bool isTwoPlayer;
+
 int main(int argc, char **argv)
 {
     Application application(argc, argv);

@@ -1,6 +1,8 @@
 #include <core/application.h>
 #include "button.h"
 
+extern bool isTwoPlayer;
+
 Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
 {
     buttonImage = new Sprite(filePath, x, y, 0.75f, 0.75f);
@@ -13,6 +15,16 @@ void Button::Update()
 
     if (buttonImage->IsPressed())
     {
+        if (tag == "vsAI")
+        {
+            isTwoPlayer = false;
+            Application::NextScene();
+        }
+        if (tag == "vsPlayer")
+        {
+            isTwoPlayer = true;
+            Application::NextScene();
+        }
         if (tag == "nextscene")
         {
             Application::NextScene();

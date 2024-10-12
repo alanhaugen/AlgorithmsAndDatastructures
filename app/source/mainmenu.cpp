@@ -12,8 +12,8 @@ void Mainmenu::Init()
     menus.Clear();
 
     Menu* playMenu = new Menu(&menus);
-    playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", 190, 130 * (1.75));
-    playMenu->AddNextSceneButton("data/Button-2_Player.png", 190, 210 * (1.75));
+    playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", 190, 130 * (1.75), "vsAI");
+    playMenu->AddNextSceneButton("data/Button-2_Player.png", 190, 210 * (1.75), "vsPlayer");
     playMenu->AddQuitButton("data/Button-Back.png", 190, 370 * (1.75));
 
     Menu* graphicsMenu = new Menu(&menus);
@@ -38,7 +38,7 @@ void Mainmenu::Init()
 
     title = new Sprite("data/Title.png", 5.0f * (1.75), 15.0f * (1.75), 0.75f, 0.75f);
     cursor = new Cursor();
-    cords = new Text("X, Y");
+    cords = new Text("X,Y");
 
     components.Add(bg);
     components.Add(title);
