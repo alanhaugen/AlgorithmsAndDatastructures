@@ -7,3 +7,5 @@ Button text(
   size: 36
   color: #FFFFFF
   )
+
+The game uses Monocraft font: https://github.com/IdreesInc/Monocraft
