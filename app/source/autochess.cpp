@@ -212,7 +212,6 @@ void Autochess::Update()
         {
             NextPlayer();
         }
-
     }
     else if (state == GameState::Playing)
     {
@@ -259,7 +258,8 @@ void Autochess::Update()
 
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
-                        if (moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y)
+                        if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
+                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
                         {
                             moves[i].Execute();
                             NextPlayer();
@@ -288,13 +288,11 @@ void Autochess::Update()
                                 state = GameState::Done;
                             }
 
-                            gameBoard->HideDots();
+                            gameBoard->Update();
 
                             return;
                         }
                     }
-
-                    //activePiece = nullptr;
                 }
             }
 
