@@ -37,12 +37,12 @@ void Mainmenu::Init()
     firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", 190, 370 * (1.75));
     menus.Push(firstMenu);
 
-    title = new Sprite("data/Title.png", 54.0f * (1.75), 25.0f * (1.75), 0.55f, 0.55f);
+    title = new Sprite("data/Title.png", 5.0f * (1.75), 15.0f * (1.75), 0.75f, 0.75f);
     cursor = new Cursor();
     cords = new Text("X,Y");
 
     components.Add(bg);
-    components.Add(banner);
+    //components.Add(banner);
     components.Add(title);
     components.Add(cam);
     components.Add(cursor);

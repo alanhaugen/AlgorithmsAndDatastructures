@@ -20,16 +20,16 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
         goldText = new Text("White Gold: " + String(gold), 20, renderer->windowHeight - 160);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = renderer->windowHeight - 80;
+        *buttonReady->matrix.y = renderer->windowHeight - 140;
     }
     else
     {
         nobilityText = new Text("Nobility: " + String(totalNobility), 52, 20);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
-        *buttonReady->matrix.y = 85;
+        *buttonReady->matrix.y = 35;
     }
 
-    *buttonReady->matrix.x = renderer->windowWidth - 300;
+    *buttonReady->matrix.x = renderer->windowWidth - 170;
     goldText->x = 20;
 }
 
@@ -41,7 +41,7 @@ void Player::Init()
     gold       = 1000;
     score      = 0;
 
-    buttonReady = new Sprite("data/Button-Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
+    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 0.1f, 0.1f);
     goldText    = new Text("");
 
     activePiece = nullptr;
