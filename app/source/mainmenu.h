@@ -14,6 +14,7 @@ class Mainmenu : public IScene
 public:
     Stack<Menu*> menus;
     Sprite* title;
+    Sprite* banner;
     Sprite* bg;
     Cursor* cursor;
     Camera* cam;

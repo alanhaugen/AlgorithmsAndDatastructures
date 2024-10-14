@@ -22,6 +22,7 @@ in float o_totalwidth;
 in float o_totalheight;
 in float o_flip;
 in float o_flipVertical;
+in float o_time;
 
 void main ()
 {

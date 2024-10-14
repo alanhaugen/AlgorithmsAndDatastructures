@@ -270,12 +270,15 @@ void Autochess::Update()
 
                             LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
+                            int nobility = 0;
+
                             for (; tile != gameBoard->tiles.End(); ++tile)
                             {
                                 if ((*tile).piece != nullptr)
                                 {
                                     if ((*tile).piece->isWhite == isWhitesTurn)
                                     {
+                                        nobility += tile->piece->nobility;
                                         moves += gameBoard->UpdateDots(&(*tile));
                                     }
                                 }
@@ -287,6 +290,16 @@ void Autochess::Update()
                                 isAnyWhitePieces = !activePlayer->isWhite;
                                 state = GameState::Done;
                             }
+
+                            if (isWhitesTurn)
+                            {
+                                white->UpdateNobilityText(nobility);
+                            }
+                            else
+                            {
+                                black->UpdateNobilityText(nobility);
+                            }
+
 
                             gameBoard->Update();
 
