@@ -41,7 +41,7 @@ void Player::Init()
     gold       = 1000;
     score      = 0;
 
-    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 0.1f, 0.1f);
+    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
     goldText    = new Text("");
 
     activePiece = nullptr;

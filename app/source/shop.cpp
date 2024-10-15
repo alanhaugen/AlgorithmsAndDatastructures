@@ -99,10 +99,11 @@ Piece* Shop::CreateRandomPiece()
         piece = new Piece("Shield Man",
                          "data/Piece-WhiteShield.png",
                          "data/Piece-BlackShield.png",
-                         "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tile in front will become heavy.",
+                         "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
                          50,
                          1);
 
+        // TODO: Special weight quality and capture quality
         piece->movePattern.Add(glm::vec2(0, 1));
         piece->movePattern.Add(glm::vec2(1, 0));
         piece->movePattern.Add(glm::vec2(-1, 0));
