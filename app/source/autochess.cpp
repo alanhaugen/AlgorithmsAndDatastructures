@@ -63,6 +63,9 @@ void Autochess::Init()
     isDraw = false;
 
     state = GameState::Shopping;
+
+    cam = new Camera();
+    components.Add(cam);
 }
 
 void Autochess::SetTile(Tile* tile)

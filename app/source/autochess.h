@@ -20,6 +20,7 @@ class Autochess : public IScene
 {
 public:
     Autochess();
+    Camera* cam;
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
