@@ -5,12 +5,12 @@ Player::Player()
     Init();
 }
 
-Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
+Player::Player(bool isWhitePlayer)
 {
     Init();
 
     isWhite    = isWhitePlayer;
-    isComputer = isAIComputerPlayer;
+    //isComputer = isAIComputerPlayer;
 
     delete goldText;
 
@@ -35,7 +35,7 @@ Player::Player(bool isWhitePlayer, bool isAIComputerPlayer)
 
 void Player::Init()
 {
-    isComputer = false;
+    //isComputer = false;
     isWhite    = false;
     isReady    = false;
     gold       = 1000;

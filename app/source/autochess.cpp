@@ -33,8 +33,8 @@ void Autochess::Init()
     gameBoard = new Board();
     shop      = new Shop();
 
-    white = new Player(true, false);
-    black = new Player(false, false);
+    white = new Player(true);
+    black = new Player(false);
 
     players.Add(white);
     players.Add(black);
@@ -50,14 +50,14 @@ void Autochess::Init()
     playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20);
     playerDraw      = new Text("DRAW", 50,20);
 
-    input.Mouse.Pressed = false;
+    input.Mouse.Pressed = false; // hack.
 
     time = Application::GetTime("wait time");
 
-    swapPlayers = true;
+    swapPlayers      = true;
     isAnyWhitePieces = false;
     isAnyBlackPieces = false;
-    activePiece = nullptr;
+    activePiece      = nullptr;
 
     movesCompleted = 0;
     isDraw = false;

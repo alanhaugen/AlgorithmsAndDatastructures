@@ -9,7 +9,6 @@ void Mainmenu::Init()
 {
     cam = new Camera();
     bg  = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 0.75f, 0.75f);
-    banner = new Sprite("data/BANNERWIDE_DARK.png", 0.0f, 0.0f, 0.75f, 0.75f);
     menus.Clear();
 
     Menu* playMenu = new Menu(&menus);
@@ -42,7 +41,6 @@ void Mainmenu::Init()
     cords = new Text("X,Y");
 
     components.Add(bg);
-    //components.Add(banner);
     components.Add(title);
     components.Add(cam);
     components.Add(cursor);

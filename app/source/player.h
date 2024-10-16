@@ -16,7 +16,7 @@ public:
     bool isWhite;
     Sprite* avatar;
     Sprite* buttonReady;
-    bool isComputer;
+    //bool isComputer;
 
     bool isReady;
 
@@ -28,7 +28,7 @@ public:
     Piece* activePiece;
 
     Player();
-    Player(bool isWhitePlayer, bool isAIComputerPlayer);
+    Player(bool isWhitePlayer);
 
     void Init();
     void UpdateNobilityText(int nobility = -1);
