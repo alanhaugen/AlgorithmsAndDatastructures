@@ -91,7 +91,7 @@ void Player::Update()
 {
     if (piecesInHand.Empty() == false)
     {
-        int x = 70;
+        int x = 100;
         int y = 30;
 
         if (isWhite)

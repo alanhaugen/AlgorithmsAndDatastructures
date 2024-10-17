@@ -4,7 +4,11 @@
 
 Board::Board()
 {
-    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
+    background = new Sprite("data/BackgroundImage.png", 0, 0, 0.75, 0.75);
+
+    blueBanner   = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
+    blackBanner  = new Sprite("data/FightOfKingsBlueBanner.png", 650, 530, 0.75, 0.75);
+    bannerPieces = new Sprite("data/Bannerwide_dark.png", 0, 600, 0.75, 0.75);
 
     GenerateTiles();
     HideDots();
@@ -230,6 +234,10 @@ Tile* Board::GetBoardTileUnderMouse()
 void Board::Update()
 {
     background->Update();
+
+    blueBanner->Update();
+    blackBanner->Update();
+    bannerPieces->Update();
 
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
