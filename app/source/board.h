@@ -18,7 +18,7 @@ public:
     Board();
 
     Sprite* blueBanner;
-    Sprite* blackBanner;
+    Sprite* yellowBanner;
     Sprite* bannerPieces;
 
     void GenerateTiles();

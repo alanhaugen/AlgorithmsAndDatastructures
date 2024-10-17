@@ -50,7 +50,7 @@ void Mainmenu::Update()
 {
     menus.Top()->Update();
 
-    delete cords;
-    cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
-    cords->Update();
+    //delete cords;
+    //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
+    //cords->Update();
 }
