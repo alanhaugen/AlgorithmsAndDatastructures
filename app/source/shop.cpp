@@ -306,7 +306,7 @@ Piece* Shop::CreateRandomPiece()
         piece = new Piece("Cannon",
                           "data/Piece-WhiteCannon.png",
                           "data/Piece-BlackCannon.png",
-                          "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. TYhe cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
+                          "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                           350,
                           1);
 

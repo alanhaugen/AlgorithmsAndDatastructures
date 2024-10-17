@@ -19,7 +19,7 @@ public:
 
     Sprite* blueBanner;
     Sprite* yellowBanner;
-    Sprite* bannerPieces;
+    Sprite* turnsLeftBanner;
 
     void GenerateTiles();
     void HideDots();

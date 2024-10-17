@@ -15,6 +15,8 @@ public:
 
         Node()
         {
+            data   = NULL;
+            parent = NULL;
         }
     };
 

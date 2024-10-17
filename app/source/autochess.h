@@ -38,6 +38,9 @@ public:
 
     bool isDraw;
 
+    Sprite* whitePiecesBanner;
+    Sprite* blackPiecesBanner;
+
     ITime* time;
 
     Piece* activePiece;

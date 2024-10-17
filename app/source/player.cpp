@@ -24,7 +24,7 @@ Player::Player(bool isWhitePlayer)
     }
     else
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 20);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 50);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 35;
     }
@@ -91,7 +91,7 @@ void Player::Update()
 {
     if (piecesInHand.Empty() == false)
     {
-        int x = 100;
+        int x = 150;
         int y = 30;
 
         if (isWhite)

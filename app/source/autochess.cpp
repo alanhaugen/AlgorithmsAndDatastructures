@@ -31,7 +31,11 @@ void Autochess::NextPlayer()
 void Autochess::Init()
 {
     gameBoard = new Board();
-    shop      = new Shop();
+
+    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 110, 635, 0.55, 0.55);
+    blackPiecesBanner = new Sprite("data/DarkBanner.png", 110, -5, 0.55, 0.55);
+
+    shop = new Shop();
 
     white = new Player(true);
     black = new Player(false);
@@ -215,6 +219,9 @@ void Autochess::Update()
         {
             NextPlayer();
         }
+
+        whitePiecesBanner->Update();
+        blackPiecesBanner->Update();
     }
     else if (state == GameState::Playing)
     {
@@ -262,7 +269,7 @@ void Autochess::Update()
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
                         if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
-                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
+                                (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
                         {
                             moves[i].Execute();
                             NextPlayer();
@@ -450,6 +457,9 @@ void Autochess::Update()
     }
     else if (state == GameState::Done)
     {
+        white->nobilityText->Update();
+        black->nobilityText->Update();
+
         if (isDraw)
         {
             playerDraw->Update();
