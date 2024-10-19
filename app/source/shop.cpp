@@ -361,6 +361,11 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
     LinkedList<Piece*>::Iterator piece = itemsStoreFront.Begin();
 
+    if (itemsStoreFront.Empty() == true)
+    {
+        return;
+    }
+
     for (; piece != itemsStoreFront.End(); ++piece)
     {
         if (isWhite)

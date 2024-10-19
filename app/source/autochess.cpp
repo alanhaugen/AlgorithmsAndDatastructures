@@ -112,6 +112,8 @@ void Autochess::Update()
                 }
             }
 
+            input.Mouse.Pressed = false;
+
             if (shop->activePiece != nullptr)
             {
                 bool success = false;
