@@ -417,13 +417,12 @@ void Autochess::Update()
                     " " +
                     String(newMove.tileToMoveTo->y + 1));
             }
-
-            movesCompleted++;
         }
 
         gameBoard->HideDots();
 
         NextPlayer();
+        movesCompleted++;
 
         if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= 50)
         {
@@ -448,16 +447,19 @@ void Autochess::Update()
                 }
             }
 
-            LinkedList<Move>::Iterator event = history.Begin();
-
-            for (; event != history.End(); ++event)
+            if (history.Empty() == false)
             {
-                /*Log((*event).movedPiece->name +
-                    " moved to " +
-                    String((*event).tileToMoveTo->x) +
-                    " " +
-                    String((*event).tileToMoveTo->y));*/
-                replay.Enqueue((*event));
+                LinkedList<Move>::Iterator event = history.Begin();
+
+                for (; event != history.End(); ++event)
+                {
+                    /*Log((*event).movedPiece->name +
+                        " moved to " +
+                        String((*event).tileToMoveTo->x) +
+                        " " +
+                        String((*event).tileToMoveTo->y));*/
+                    replay.Enqueue((*event));
+                }
             }
         }
     }

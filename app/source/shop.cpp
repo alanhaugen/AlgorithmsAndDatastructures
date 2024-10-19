@@ -234,15 +234,9 @@ Piece* Shop::CreateRandomPiece()
         piece = new Piece("Fence",
                           "data/Piece-WhiteFence.png",
                           "data/Piece-BlackFence.png",
-                          "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. CAn only be placed horizontally.",
+                          "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                           40,
                           0);
-
-        for (int i = 1; i <= 10; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-        }
 
         break;
     case 12:
