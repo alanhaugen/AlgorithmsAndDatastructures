@@ -19,6 +19,7 @@ public:
     int range = 0;
     bool isWhite = true;
     Text* costText = nullptr;
+    bool invinsible = false;
 
     LinkedList<Piece*>::LinkedNode* listNode = nullptr;
 

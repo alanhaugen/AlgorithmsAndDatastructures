@@ -250,6 +250,8 @@ Piece* Shop::CreateRandomPiece()
                           40,
                           0);
 
+        piece->invinsible = true;
+
         break;
     case 12:
         piece = new Piece("Hydra",

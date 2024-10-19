@@ -100,7 +100,7 @@ Array<Move> Board::UpdateDots(Tile* tile)
                         (*node).moveDot->Show();
                         moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                     }
-                    else if (tile->piece->isWhite != (*node).piece->isWhite)
+                    else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                     {
                         (*node).attackBorder->Show();
                         moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
@@ -159,7 +159,7 @@ Array<Move> Board::UpdateDots(Tile* tile)
                                 nextLayerTiles.Append((*node));
                                 moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                             }
-                            else if (tile->piece->isWhite != (*node).piece->isWhite)
+                            else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                             {
                                 (*node).attackBorder->Show();
                                 moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
