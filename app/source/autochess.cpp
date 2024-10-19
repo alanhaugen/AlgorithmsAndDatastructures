@@ -166,7 +166,14 @@ void Autochess::Update()
     {
         if (activePlayer->activePiece != nullptr)
         {
-            activePlayer->activePiece->tileBorderBlue->Update();
+            if (isWhitesTurn)
+            {
+                activePlayer->activePiece->tileBorderGold->Update();
+            }
+            else
+            {
+                activePlayer->activePiece->tileBorderBlue->Update();
+            }
         }
 
         if (input.Mouse.Pressed)
