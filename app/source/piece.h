@@ -42,6 +42,8 @@ public:
     Sprite* attackSprite = nullptr;
     Sprite* deathSprite = nullptr;
 
+    Sprite* tileBorderBlue = nullptr;
+
     String footstepSound;
     String attackSound;
     String dieSound;

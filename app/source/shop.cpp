@@ -410,7 +410,6 @@ void Shop::StockShopFront()
 
 void Shop::Update()
 {
-    Log(shopItems.Size());
     background->Update();
     activePiece = nullptr;
 

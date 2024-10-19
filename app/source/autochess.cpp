@@ -164,6 +164,11 @@ void Autochess::Update()
 
     if (state == GameState::Placing)
     {
+        if (activePlayer->activePiece != nullptr)
+        {
+            activePlayer->activePiece->tileBorderBlue->Update();
+        }
+
         if (input.Mouse.Pressed)
         {
             Tile* tile = gameBoard->GetBoardTileUnderMouse();
