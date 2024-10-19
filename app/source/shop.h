@@ -15,10 +15,17 @@ public:
 
     Stack<Piece*> shopItems;
 
+    bool isWhitesTurn;
+
+    int numberOfFences;
+    const int MAX_NUMBER_OF_FENCES = 3;
+
     Sprite* background;
-    LinkedList<Piece*> items;
+    LinkedList<Piece*> itemsStoreFront;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
+    Sprite* randomCard   = nullptr;
+    Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
 
     const int PIECE_TYPES_QUANTITY = 16;

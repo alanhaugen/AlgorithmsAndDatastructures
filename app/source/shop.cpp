@@ -3,6 +3,11 @@
 Shop::Shop()
 {
     background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
+    randomCard = new Sprite("data/Card-Random.png", 600, 300, 2.0, 2.0);
+    costTextRandomCard = new Text("Cost 50", 0,0, 0.4, 0.4);
+
+    numberOfFences = 0;
+    isWhitesTurn = true;
 
     for (int i = 0; i < 52; i++)
     {
@@ -231,6 +236,13 @@ Piece* Shop::CreateRandomPiece()
 
         break;
     case 11:
+        if (numberOfFences >= MAX_NUMBER_OF_FENCES)
+        {
+            return CreateRandomPiece();
+        }
+
+        numberOfFences++;
+
         piece = new Piece("Fence",
                           "data/Piece-WhiteFence.png",
                           "data/Piece-BlackFence.png",
@@ -343,11 +355,13 @@ Piece* Shop::CreateRandomPiece()
 
 void Shop::SetShopPiecesToWhite(bool isWhite)
 {
+    isWhitesTurn = isWhite;
+
     Update();
 
-    LinkedList<Piece*>::Iterator piece = items.Begin();
+    LinkedList<Piece*>::Iterator piece = itemsStoreFront.Begin();
 
-    for (; piece != items.End(); ++piece)
+    for (; piece != itemsStoreFront.End(); ++piece)
     {
         if (isWhite)
         {
@@ -366,14 +380,13 @@ void Shop::StockShopFront()
 {
     int y = 150 * 1.75;
 
-    if (shopItems.Empty())
-    {
-        LogWarning("Ran out of cards/pieces to fill the shop with.");
-        return;
-    }
-
     for (int i = 0; i < 10; i++)
     {
+        if (shopItems.Empty() == true)
+        {
+            return;
+        }
+
         Piece* piece = shopItems.Pop();
 
         if (i > 0 && i % 5 == 0)
@@ -386,20 +399,30 @@ void Shop::StockShopFront()
         *piece->iconBlack->matrix.x = (100 + ((i % 5) * 50))*1.75;
         *piece->iconBlack->matrix.y = y;
 
-        items.Append(piece);
+        itemsStoreFront.Append(piece);
     }
 }
 
 void Shop::Update()
 {
-    if (items.Empty())
+    Log(shopItems.Size());
+    background->Update();
+    activePiece = nullptr;
+
+    if (itemsStoreFront.Empty())
     {
         StockShopFront();
     }
 
-    LinkedList<Piece*>::Iterator piece = items.Begin();
+    if (itemsStoreFront.Empty())
+    {
+        activePiece = nullptr;
+        return;
+    }
 
-    for (; piece != items.End(); ++piece)
+    LinkedList<Piece*>::Iterator piece = itemsStoreFront.Begin();
+
+    for (; piece != itemsStoreFront.End(); ++piece)
     {
         if ((*piece)->icon->IsPressed())
         {
@@ -417,5 +440,27 @@ void Shop::Update()
         }
     }
 
-    background->Update();
+    if (shopItems.Empty() == false)
+    {
+        randomCard->Update();
+    }
+
+    if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
+    {
+        *costTextRandomCard->matrix.x = *randomCard->matrix.x - 10*1.75;
+        *costTextRandomCard->matrix.y = *randomCard->matrix.y - 10*1.75;
+        costTextRandomCard->Update();
+    }
+    if (randomCard->IsPressed() && shopItems.Empty() == false)
+    {
+        activePiece = shopItems.Pop();
+        activePiece->listNode = nullptr;
+        activePiece->price = 50;
+
+        if (isWhitesTurn == false)
+        {
+            activePiece->icon = activePiece->iconBlack;
+            activePiece->isWhite = false;
+        }
+    }
 }

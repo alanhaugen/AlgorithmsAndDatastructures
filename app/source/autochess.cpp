@@ -112,7 +112,7 @@ void Autochess::Update()
                 }
             }
 
-            if (shop->activePiece)
+            if (shop->activePiece != nullptr)
             {
                 bool success = false;
 
@@ -128,8 +128,11 @@ void Autochess::Update()
 
                 if (success)
                 {
-                    shop->items.Remove(shop->activePiece->listNode);
-                    shop->activePiece = nullptr;
+                    if (shop->activePiece->listNode != nullptr)
+                    {
+                        shop->itemsStoreFront.Remove(shop->activePiece->listNode);
+                        shop->activePiece = nullptr;
+                    }
 
                     activePlayer->UpdateNobilityText();
 
