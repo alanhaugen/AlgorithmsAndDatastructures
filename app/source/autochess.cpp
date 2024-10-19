@@ -266,8 +266,8 @@ void Autochess::Update()
                         if ((*tile).piece->isWhite == isWhitesTurn)
                         {
                             activePiece = (*tile).piece;
-                            gameBoard->highlight->matrix.x = (*tile).piece->icon->matrix.x;
-                            gameBoard->highlight->matrix.y = (*tile).piece->icon->matrix.y;
+                            *gameBoard->highlight->matrix.x = *(*tile).piece->icon->matrix.x;
+                            *gameBoard->highlight->matrix.y = *(*tile).piece->icon->matrix.y;
                             gameBoard->HideDots();
                             gameBoard->UpdateDots(&(*tile));
                             break;
