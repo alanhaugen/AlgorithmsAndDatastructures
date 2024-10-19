@@ -226,6 +226,8 @@ Piece* Shop::CreateRandomPiece()
                           75,
                           3);
 
+        piece->isJumping = true;
+
         for (int i = 1; i <= 2; i++)
         {
             piece->movePattern.Add(glm::vec2(i,i));
