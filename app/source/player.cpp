@@ -38,7 +38,7 @@ void Player::Init()
     //isComputer = false;
     isWhite    = false;
     isReady    = false;
-    gold       = 4000;
+    gold       = 1000;
     score      = 0;
 
     buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
@@ -100,6 +100,11 @@ void Player::Update()
         }
 
         totalNobility = 0;
+
+        if (activePiece == nullptr)
+        {
+            activePiece = *piecesInHand.Begin().Item();
+        }
 
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
