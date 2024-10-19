@@ -255,6 +255,27 @@ void Autochess::Update()
 
         if (isTwoPlayer)
         {
+            if (activePiece == nullptr)
+            {
+                LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+                for (; tile != gameBoard->tiles.End(); ++tile)
+                {
+                    if ((*tile).piece != nullptr)
+                    {
+                        if ((*tile).piece->isWhite == isWhitesTurn)
+                        {
+                            activePiece = (*tile).piece;
+                            gameBoard->highlight->matrix.x = (*tile).piece->icon->matrix.x;
+                            gameBoard->highlight->matrix.y = (*tile).piece->icon->matrix.y;
+                            gameBoard->HideDots();
+                            gameBoard->UpdateDots(&(*tile));
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (input.Mouse.Pressed)
             {
                 Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
