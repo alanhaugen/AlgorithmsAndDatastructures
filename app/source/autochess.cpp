@@ -68,6 +68,12 @@ void Autochess::Init()
 
     state = GameState::Shopping;
 
+    topPreviousMoves.Push(new Text("text1"));
+    topPreviousMoves.Push(new Text("text2"));
+    topPreviousMoves.Push(new Text("text3"));
+    topPreviousMoves.Push(new Text("text4"));
+    topPreviousMoves.Push(new Text("text5"));
+
     cam = new Camera();
     components.Add(cam);
 }

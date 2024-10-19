@@ -25,6 +25,7 @@ public:
     Board* gameBoard;
     Shop* shop;
     LinkedList<Move> history;
+    Stack<Text*> topPreviousMoves;
     Array<Move> moves;
     bool swapPlayers;
 

@@ -34,6 +34,7 @@ void Mainmenu::Init()
     firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, 190, 210 * (1.75));
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, 190, 290 * (1.75));
     firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", 190, 370 * (1.75));
+
     menus.Push(firstMenu);
 
     title = new Sprite("data/Title.png", 5.0f * (1.75), 15.0f * (1.75), 0.75f, 0.75f);

@@ -3,6 +3,7 @@
 
 #include <core/components/component.h>
 #include <core/containers/array.h>
+#include <core/containers/stack.h>
 #include <core/containers/linkedlist.h>
 #include <core/components/sprite.h>
 #include "piece.h"
@@ -11,6 +12,8 @@ class Shop : public Component
 {
 public:
     Shop();
+
+    Stack<Piece*> shopItems;
 
     Sprite* background;
     LinkedList<Piece*> items;
@@ -22,7 +25,7 @@ public:
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
-    void FillShopItems();
+    void StockShopFront();
     void Update();
 };
 

@@ -4,7 +4,12 @@ Shop::Shop()
 {
     background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
 
-    FillShopItems();
+    for (int i = 0; i < 52; i++)
+    {
+        shopItems.Push(CreateRandomPiece());
+    }
+
+    StockShopFront();
 }
 
 Piece* Shop::CreateRandomPiece()
@@ -65,8 +70,9 @@ Piece* Shop::CreateRandomPiece()
                          120,
                          8);
 
+        piece->isJumping = true;
         // TODO: Add special ability
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 3; i++)
         {
             piece->movePattern.Add(glm::vec2(i,0));
             piece->movePattern.Add(glm::vec2(-i,0));
@@ -77,21 +83,6 @@ Piece* Shop::CreateRandomPiece()
             piece->movePattern.Add(glm::vec2(i,-i));
             piece->movePattern.Add(glm::vec2(-i,i));
             piece->movePattern.Add(glm::vec2(-i,-i));
-        }
-
-        for (int y = 1; y <= 3; y++)
-        {
-            for (int x = 1; x <= 3; x++)
-            {
-                piece->movePattern.Add(glm::vec2(x,0));
-                piece->movePattern.Add(glm::vec2(0,y));
-                piece->movePattern.Add(glm::vec2(-x,0));
-                piece->movePattern.Add(glm::vec2(0,-y));
-                piece->movePattern.Add(glm::vec2(x,y));
-                piece->movePattern.Add(glm::vec2(-x,y));
-                piece->movePattern.Add(glm::vec2(x,-y));
-                piece->movePattern.Add(glm::vec2(-x,-y));
-            }
         }
 
         break;
@@ -328,8 +319,8 @@ Piece* Shop::CreateRandomPiece()
         break;
     case 15:
         piece = new Piece("Deserter",
-                          "data/Piece-WhiteRook.png",
-                          "data/Piece-BlackRook.png",
+                          "data/Piece-WhiteDeserter.png",
+                          "data/Piece-BlackDeserter.png",
                           "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
                           50,
                           0);
@@ -377,12 +368,19 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
     }
 }
 
-void Shop::FillShopItems()
+void Shop::StockShopFront()
 {
     int y = 150 * 1.75;
+
+    if (shopItems.Empty())
+    {
+        LogWarning("Ran out of cards/pieces to fill the shop with.");
+        return;
+    }
+
     for (int i = 0; i < 10; i++)
     {
-        Piece* piece = CreateRandomPiece();
+        Piece* piece = shopItems.Pop();
 
         if (i > 0 && i % 5 == 0)
         {
@@ -402,7 +400,7 @@ void Shop::Update()
 {
     if (items.Empty())
     {
-        FillShopItems();
+        StockShopFront();
     }
 
     LinkedList<Piece*>::Iterator piece = items.Begin();
