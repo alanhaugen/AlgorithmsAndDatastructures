@@ -453,7 +453,7 @@ void Shop::Update()
 
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
     {
-        *costTextRandomCard->matrix.x = *randomCard->matrix.x - 10*1.75;
+        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 30;
         *costTextRandomCard->matrix.y = *randomCard->matrix.y - 10*1.75;
         costTextRandomCard->Update();
     }
