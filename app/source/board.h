@@ -23,7 +23,7 @@ public:
 
     void GenerateTiles();
     void HideDots();
-    Array<Move> UpdateDots(Tile *tile);
+    Array<Move> UpdateDots(Tile *tile, bool showDot = true);
     Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 
