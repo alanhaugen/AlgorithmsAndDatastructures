@@ -16,15 +16,15 @@ Player::Player(bool isWhitePlayer)
 
     if (isWhite)
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 20, renderer->windowHeight - 55);
-        goldText = new Text("White Gold: " + String(gold), 20, renderer->windowHeight - 160);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 20, 768 - 55);
+        goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = renderer->windowHeight - 140;
+        *buttonReady->matrix.y = 768 - 140;
     }
     else
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 50);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 20);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 35;
     }

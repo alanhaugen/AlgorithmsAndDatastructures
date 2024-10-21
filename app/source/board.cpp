@@ -26,7 +26,7 @@ void Board::GenerateTiles()
     tile = new Sprite("data/WhiteTile.png", 0, 0, scale, scale);
 
     float offsetX = (renderer->windowWidth / 2) - (tile->width * tile->scaleX  * 5);
-    float offsetY = (renderer->windowHeight / 2) - (tile->height * tile->scaleY * 5);
+    float offsetY = (768 / 2) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
 
     delete tile;
 

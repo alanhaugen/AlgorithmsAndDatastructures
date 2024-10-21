@@ -50,9 +50,9 @@ void Autochess::Init()
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
-    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,20);
-    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,20);
-    playerDraw      = new Text("DRAW", 50,20);
+    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,50);
+    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,50);
+    playerDraw      = new Text("DRAW", 50,50);
 
     input.Mouse.Pressed = false; // hack.
 
