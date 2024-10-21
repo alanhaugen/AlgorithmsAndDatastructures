@@ -163,13 +163,21 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                         {
                             if ((*node).piece == nullptr)
                             {
-                                (*node).moveDot->Show();
+                                if (showDot)
+                                {
+                                    (*node).moveDot->Show();
+                                }
+
                                 nextLayerTiles.Append((*node));
                                 moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                             {
-                                (*node).attackBorder->Show();
+                                if (showDot)
+                                {
+                                    (*node).attackBorder->Show();
+                                }
+
                                 moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                             }
                         }
