@@ -294,6 +294,11 @@ void Autochess::Update()
                         gameBoard->HideDots();
                         gameBoard->UpdateDots(clickedTile, true);
                     }
+                    else
+                    {
+                        moves.Clear();
+                        gameBoard->HideDots();
+                    }
                 }
                 else
                 {
@@ -319,7 +324,7 @@ void Autochess::Update()
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
                         if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
-                                (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
+                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
                         {
                             moves[i].Execute();
                             NextPlayer();

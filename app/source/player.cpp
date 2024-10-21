@@ -92,11 +92,11 @@ void Player::Update()
     if (piecesInHand.Empty() == false)
     {
         int x = 150;
-        int y = 30;
+        int y = 35;
 
         if (isWhite)
         {
-            y = renderer->windowHeight - 100;
+            y = 768 - 95;
         }
 
         totalNobility = 0;
