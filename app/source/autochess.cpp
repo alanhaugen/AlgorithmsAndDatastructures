@@ -268,8 +268,7 @@ void Autochess::Update()
                             activePiece = (*tile).piece;
                             *gameBoard->highlight->matrix.x = *(*tile).piece->icon->matrix.x;
                             *gameBoard->highlight->matrix.y = *(*tile).piece->icon->matrix.y;
-                            gameBoard->HideDots();
-                            gameBoard->UpdateDots(&(*tile), false);
+                            gameBoard->UpdateDots(&(*tile), true);
                             break;
                         }
                     }
@@ -292,7 +291,14 @@ void Autochess::Update()
                     if (activePlayer->isWhite == clickedTile->piece->isWhite)
                     {
                         activePiece = clickedTile->piece;
+                        gameBoard->HideDots();
+                        gameBoard->UpdateDots(clickedTile, true);
                     }
+                }
+                else
+                {
+                    moves.Clear();
+                    gameBoard->HideDots();
                 }
 
                 if (activePiece != nullptr)
@@ -317,6 +323,8 @@ void Autochess::Update()
                         {
                             moves[i].Execute();
                             NextPlayer();
+
+                            gameBoard->HideDots();
 
                             activePiece = nullptr;
 

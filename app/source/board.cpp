@@ -271,12 +271,12 @@ void Board::Update()
                 *highlight->matrix.x = *(*tile).sprite->matrix.x;
                 *highlight->matrix.y = *(*tile).sprite->matrix.y;
 
-                HideDots();
+                //HideDots();
 
-                if ((*tile).piece)
+                /*if ((*tile).piece)
                 {
                     UpdateDots(&(*tile));
-                }
+                }*/
             }
         }
     }
