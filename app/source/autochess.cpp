@@ -269,7 +269,7 @@ void Autochess::Update()
                             *gameBoard->highlight->matrix.x = *(*tile).piece->icon->matrix.x;
                             *gameBoard->highlight->matrix.y = *(*tile).piece->icon->matrix.y;
                             gameBoard->HideDots();
-                            gameBoard->UpdateDots(&(*tile));
+                            gameBoard->UpdateDots(&(*tile), false);
                             break;
                         }
                     }
@@ -305,7 +305,7 @@ void Autochess::Update()
                         {
                             if ((*tile).piece->isWhite == isWhitesTurn)
                             {
-                                moves += gameBoard->UpdateDots(&(*tile));
+                                moves += gameBoard->UpdateDots(&(*tile), false);
                             }
                         }
                     }
@@ -333,7 +333,7 @@ void Autochess::Update()
                                     if ((*tile).piece->isWhite == isWhitesTurn)
                                     {
                                         nobility += tile->piece->nobility;
-                                        moves += gameBoard->UpdateDots(&(*tile));
+                                        moves += gameBoard->UpdateDots(&(*tile), false);
                                     }
                                 }
                             }
@@ -398,7 +398,7 @@ void Autochess::Update()
                 if ((*tile).piece->isWhite == isWhitesTurn)
                 {
                     nobility += (*tile).piece->nobility;
-                    moves += gameBoard->UpdateDots(&(*tile));
+                    moves += gameBoard->UpdateDots(&(*tile), false);
                 }
             }
         }
