@@ -2,6 +2,10 @@ intermediate
 *autosave*
 *~
 
+# From msvc
+*.ilk
+*.pdb
+
 # Library folder and link
 lib/
 lib
