@@ -4,7 +4,7 @@ Shop::Shop()
 {
     background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
     randomCard = new Sprite("data/Card-Random.png", 600, 300, 2.0, 2.0);
-    costTextRandomCard = new Text("Cost 50", 0,0, 0.4, 0.4);
+    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
     numberOfFences = 0;
     isWhitesTurn = true;
@@ -463,7 +463,7 @@ void Shop::Update()
     {
         activePiece = shopItems.Pop();
         activePiece->listNode = nullptr;
-        activePiece->price = 50;
+        activePiece->price = WildcardCost;
 
         if (isWhitesTurn == false)
         {
