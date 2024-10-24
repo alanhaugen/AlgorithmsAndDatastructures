@@ -512,7 +512,7 @@ void Autochess::Update()
                         String((*event).tileToMoveTo->x) +
                         " " +
                         String((*event).tileToMoveTo->y));*/
-                    replay.Enqueue((*event));
+                    // replay.Enqueue((*event));
                 }
             }
         }

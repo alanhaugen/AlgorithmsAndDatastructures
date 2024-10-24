@@ -1,6 +1,8 @@
 #include "replay.h"
 
+
+
 Replay::Replay()
 {
-    state = GameState::Playing;
+    // iterator = LinkedList<Move>::Iterator();
 }

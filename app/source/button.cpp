@@ -57,5 +57,9 @@ void Button::Update()
                 menuStack->Pop();
             }
         }
+        if (tag == "Replay")
+        {
+            Application::NextScene();
+        }
     }
 }
