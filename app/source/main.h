@@ -5,7 +5,6 @@
 #include "move.h"
 
 static float tileScale = 0.4;
-static Queue<Move> replay;
 
 enum Scenes
 {

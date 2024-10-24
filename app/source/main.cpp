@@ -3,6 +3,8 @@
 #include "autochess.h"
 
 bool isTwoPlayer;
+Queue<Move> replay;
+LinkedList<Queue<Move> > replays;
 
 int main(int argc, char **argv)
 {
