@@ -37,6 +37,9 @@ public:
     bool isAnyWhitePieces;
     bool isAnyBlackPieces;
 
+    Text* playerWhiteTurn;
+    Text* playerBlackTurn;
+
     bool isDraw;
 
     Sprite* whitePiecesBanner;
