@@ -1,5 +1,8 @@
 #include <core/application.h>
 #include "mainmenu.h"
+#include "replay.h"
+
+extern LinkedList<Replay> replays;
 
 Mainmenu::Mainmenu()
 {
@@ -29,10 +32,34 @@ void Mainmenu::Init()
     settingsMenu->AddMenuButton("data/Button-Graphics.png", graphicsMenu, 190, 210 * (1.75));
     settingsMenu->AddQuitButton("data/Button-Back.png", 190, 370 * (1.75));
 
+    replaysMenu = new Menu(&menus);
+    replayBG = new Sprite("data/ReplayMenuBackground.png", 190, 80, 0.75f, 0.75f);
+    replaysMenu->AddQuitButton("data/Button-Back.png", 190, 370 * (1.75));
+    replays.Append(Replay()); //for test, skal fjernes
+    replays.Append(Replay()); //for test, skal fjernes
+    replays.Append(Replay()); //for test, skal fjernes
+    replays.Append(Replay()); //for test, skal fjernes
+    replays.Append(Replay()); //for test, skal fjernes
+    replays.Append(Replay()); //for test, skal fjernes
+
+    LinkedList<Replay>::Iterator replayI = replays.Begin();
+    for(int i = 0; replayI != replays.End(); ++replayI)
+    {
+        if(replayI->WinColor == true)
+        {
+            replaysMenu->AddNextSceneButton("data/WhitePlayerReplayButton.png", 200, 90 + i*45, "Replay");
+        } else
+        {
+            replaysMenu->AddNextSceneButton("data/DarkPlayerReplayButton.png", 200, 90+i*45, "Replay");
+        }
+
+        i++;
+    }
+
     Menu* firstMenu = new Menu(&menus);
     firstMenu->AddMenuButton("data/Button-Play_Game.png", playMenu, 190, 130 * (1.75));
     firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, 190, 210 * (1.75));
-    firstMenu->AddMenuButton("data/Button-Load_Replay.png", NULL, 190, 290 * (1.75));
+    firstMenu->AddMenuButton("data/Button-Load_Replay.png", replaysMenu, 190, 290 * (1.75));
     firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", 190, 370 * (1.75));
 
     menus.Push(firstMenu);
@@ -50,7 +77,14 @@ void Mainmenu::Init()
 void Mainmenu::Update()
 {
     menus.Top()->Update();
-
+    if(menus.Top() == replaysMenu)
+    {
+        replayBG->Update();
+        title->Hide();
+    } else
+    {
+        title->Show();
+    }
     //delete cords;
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     //cords->Update();

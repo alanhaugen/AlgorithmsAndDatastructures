@@ -1,10 +1,11 @@
 #include <core/application.h>
 #include "mainmenu.h"
 #include "autochess.h"
+#include "replay.h"
 
 bool isTwoPlayer;
-Queue<Move> replay;
-LinkedList<Queue<Move> > replays;
+LinkedList<Move> replay;
+LinkedList<Replay> replays;
 
 int main(int argc, char **argv)
 {

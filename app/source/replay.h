@@ -1,11 +1,16 @@
 #ifndef REPLAY_H
 #define REPLAY_H
 
-#include "autochess.h"
+#include <core/x-platform/string.h>
+#include "move.h"
+#include <core/containers/linkedlist.h>
 
-class Replay : public Autochess
+class Replay
 {
 public:
+    //LinkedList<Move>::Iterator iterator;
+    bool WinColor;
+    String PlayDate;
     Replay();
 };
 
