@@ -12,9 +12,11 @@
 class Mainmenu : public IScene
 {
 public:
+    Menu* replaysMenu;
     Stack<Menu*> menus;
     Sprite* title;
     Sprite* bg;
+    Sprite* replayBG;
     Cursor* cursor;
     Camera* cam;
     Text* cords;

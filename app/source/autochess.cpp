@@ -167,6 +167,8 @@ void Autochess::Update()
 
     if (state == GameState::Placing)
     {
+        gameBoard->highlight->Hide();
+
         if (activePlayer->activePiece != nullptr)
         {
             if (isWhitesTurn)
@@ -251,6 +253,7 @@ void Autochess::Update()
     }
     else if (state == GameState::Playing)
     {
+        gameBoard->highlight->Show();
         moves.Clear();
 
         white->nobilityText->Update();
@@ -521,7 +524,7 @@ void Autochess::Update()
                         String((*event).tileToMoveTo->x) +
                         " " +
                         String((*event).tileToMoveTo->y));*/
-                    replay.Enqueue((*event));
+                    // replay.Enqueue((*event));
                 }
             }
         }

@@ -4,7 +4,7 @@ Shop::Shop()
 {
     background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
     randomCard = new Sprite("data/Card-Random.png", 600, 300, 2.0, 2.0);
-    costTextRandomCard = new Text("Cost 50", 0,0, 0.4, 0.4);
+    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
     numberOfFences = 0;
     isWhitesTurn = true;
@@ -19,7 +19,7 @@ Shop::Shop()
 
 Piece* Shop::CreateRandomPiece()
 {
-    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY - 1);
+    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
 
     Piece* piece = nullptr;
 
@@ -135,7 +135,6 @@ Piece* Shop::CreateRandomPiece()
                          150,
                          0);
 
-        // TODO: Is flying?
         piece->range = 5;
 
         for (int y = 1; y <= 5; y++)
@@ -161,6 +160,8 @@ Piece* Shop::CreateRandomPiece()
                          "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
                          20,
                          0);
+
+        // TODO: Add promotion when reaching other side of board
 
         piece->movePattern.Add(glm::vec2(0,1));
 
@@ -463,7 +464,7 @@ void Shop::Update()
     {
         activePiece = shopItems.Pop();
         activePiece->listNode = nullptr;
-        activePiece->price = 50;
+        activePiece->price = WildcardCost;
 
         if (isWhitesTurn == false)
         {

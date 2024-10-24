@@ -1,5 +1,6 @@
 #include <core/application.h>
 #include "button.h"
+#include "main.h"
 
 extern bool isTwoPlayer;
 
@@ -15,6 +16,10 @@ void Button::Update()
 
     if (buttonImage->IsPressed())
     {
+        if (tag == "replay")
+        {
+            Application::LoadScene(Scenes::MainMenu);
+        }
         if (tag == "vsAI")
         {
             isTwoPlayer = false;
@@ -51,6 +56,10 @@ void Button::Update()
             {
                 menuStack->Pop();
             }
+        }
+        if (tag == "Replay")
+        {
+            Application::NextScene();
         }
     }
 }

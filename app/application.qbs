@@ -74,6 +74,8 @@ solid {
             "source/player.h",
             "source/replay.cpp",
             "source/replay.h",
+            "source/replayscene.cpp",
+            "source/replayscene.h",
             "source/shop.cpp",
             "source/shop.h",
             "source/tile.cpp",

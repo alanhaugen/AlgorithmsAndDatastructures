@@ -19,6 +19,7 @@ public:
 
     int numberOfFences;
     const int MAX_NUMBER_OF_FENCES = 3;
+    const int WildcardCost = 100;
 
     Sprite* background;
     LinkedList<Piece*> itemsStoreFront;
