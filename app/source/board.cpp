@@ -267,7 +267,7 @@ void Board::Update()
             if (sprite->IsPressed())
             {
                 //Log(String(tiles[i].x) + " " + String(tiles[i].y));
-                highlight->Show();
+                //highlight->Show();
                 *highlight->matrix.x = *(*tile).sprite->matrix.x;
                 *highlight->matrix.y = *(*tile).sprite->matrix.y;
 

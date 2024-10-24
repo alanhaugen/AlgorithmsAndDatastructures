@@ -19,7 +19,7 @@ Shop::Shop()
 
 Piece* Shop::CreateRandomPiece()
 {
-    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY - 1);
+    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
 
     Piece* piece = nullptr;
 
@@ -135,7 +135,6 @@ Piece* Shop::CreateRandomPiece()
                          150,
                          0);
 
-        // TODO: Is flying?
         piece->range = 5;
 
         for (int y = 1; y <= 5; y++)
@@ -161,6 +160,8 @@ Piece* Shop::CreateRandomPiece()
                          "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
                          20,
                          0);
+
+        // TODO: Add promotion when reaching other side of board
 
         piece->movePattern.Add(glm::vec2(0,1));
 
