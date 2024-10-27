@@ -54,6 +54,9 @@ void Autochess::Init()
     playerBlackWins = new Text("PLAYER BLACK WINS!", 50,50);
     playerDraw      = new Text("DRAW", 50,50);
 
+    playerWhiteTurn = new Text("Player WHITE make a move", 150,60);
+    playerBlackTurn = new Text("Player BLACK make a move", 150,60);
+
     input.Mouse.Pressed = false; // hack.
 
     time = Application::GetTime("wait time");
@@ -255,6 +258,15 @@ void Autochess::Update()
 
         white->nobilityText->Update();
         black->nobilityText->Update();
+
+        if (isWhitesTurn)
+        {
+            playerWhiteTurn->Update();
+        }
+        else
+        {
+            playerBlackTurn->Update();
+        }
 
         if (isTwoPlayer)
         {
