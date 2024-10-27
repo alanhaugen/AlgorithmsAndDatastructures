@@ -69,7 +69,7 @@ void Board::HideDots()
 {
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
-    for (; tile != tiles.End(); ++tile)
+    for (; tile != NULL; ++tile)
     {
         (*tile).moveDot->Hide();
         (*tile).attackBorder->Hide();
@@ -89,7 +89,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
 
     if (tile->piece->isJumping)
     {
-        for (node = tiles.Begin(); node != tiles.End(); ++node)
+        for (node = tiles.Begin(); node != NULL; ++node)
         {
             for (unsigned int i = 0; i < pattern.Size(); i++)
             {
@@ -190,7 +190,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
         {
             LinkedList<Tile>::Iterator nodeNext = nextLayerTiles.Begin();
 
-            for (; nodeNext != nextLayerTiles.End(); ++nodeNext)
+            for (; nodeNext != NULL; ++nodeNext)
             {
                 searchTiles.Append((*nodeNext)); // copy over
             }
@@ -218,7 +218,7 @@ Tile *Board::GetTile(int x, int y)
 {
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
-    for (; node != tiles.End(); ++node)
+    for (; node != NULL; ++node)
     {
         if ((*node).x == x && (*node).y == y)
         {
@@ -233,7 +233,7 @@ Tile* Board::GetBoardTileUnderMouse()
 {
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
-    for (; node != tiles.End(); ++node)
+    for (; node != NULL; ++node)
     {
         Sprite* sprite = (*node).sprite;
 
@@ -257,7 +257,7 @@ void Board::Update()
 
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
-    for (; tile != tiles.End(); ++tile)
+    for (; tile != NULL; ++tile)
     {
         (*tile).Update();
         Sprite* sprite = (*tile).sprite;

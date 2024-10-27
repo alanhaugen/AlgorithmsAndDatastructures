@@ -108,7 +108,7 @@ void Player::Update()
 
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
-        for (; piece != piecesInHand.End(); ++piece)
+        for (; piece != NULL; ++piece)
         {
             (*piece)->listNode = piece.curNode;
             *(*piece)->icon->matrix.x = x;

@@ -371,7 +371,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
         return;
     }
 
-    for (; piece != itemsStoreFront.End(); ++piece)
+    for (; piece != NULL; ++piece)
     {
         if (isWhite)
         {
@@ -431,7 +431,7 @@ void Shop::Update()
 
     LinkedList<Piece*>::Iterator piece = itemsStoreFront.Begin();
 
-    for (; piece != itemsStoreFront.End(); ++piece)
+    for (; piece != NULL; ++piece)
     {
         if ((*piece)->icon->IsPressed())
         {
