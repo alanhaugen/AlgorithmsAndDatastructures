@@ -6,7 +6,7 @@ extern LinkedList<Replay> replays;
 
 Mainmenu::Mainmenu()
 {
-};
+}
 
 void Mainmenu::Init()
 {
@@ -43,7 +43,7 @@ void Mainmenu::Init()
     replays.Append(Replay()); //for test, skal fjernes
 
     LinkedList<Replay>::Iterator replayI = replays.Begin();
-    for(int i = 0; replayI != replays.End(); ++replayI)
+    for(int i = 0; replayI != NULL; ++replayI)
     {
         if(replayI->WinColor == true)
         {
@@ -72,7 +72,7 @@ void Mainmenu::Init()
     components.Add(title);
     components.Add(cam);
     components.Add(cursor);
-};
+}
 
 void Mainmenu::Update()
 {

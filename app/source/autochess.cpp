@@ -262,7 +262,7 @@ void Autochess::Update()
             {
                 LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
-                for (; tile != gameBoard->tiles.End(); ++tile)
+                for (; tile != NULL; ++tile)
                 {
                     if ((*tile).piece != nullptr)
                     {
@@ -313,7 +313,7 @@ void Autochess::Update()
                 {
                     LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
-                    for (; tile != gameBoard->tiles.End(); ++tile)
+                    for (; tile != NULL; ++tile)
                     {
                         if ((*tile).piece != nullptr)
                         {
@@ -342,7 +342,7 @@ void Autochess::Update()
 
                             int nobility = 0;
 
-                            for (; tile != gameBoard->tiles.End(); ++tile)
+                            for (; tile != NULL; ++tile)
                             {
                                 if ((*tile).piece != nullptr)
                                 {
@@ -398,7 +398,7 @@ void Autochess::Update()
 
         int nobility = 0;
 
-        for (; tile != gameBoard->tiles.End(); ++tile)
+        for (; tile != NULL; ++tile)
         {
             if ((*tile).piece != nullptr)
             {
@@ -505,7 +505,7 @@ void Autochess::Update()
             {
                 LinkedList<Move>::Iterator event = history.Begin();
 
-                for (; event != history.End(); ++event)
+                for (; event != NULL; ++event)
                 {
                     /*Log((*event).movedPiece->name +
                         " moved to " +
