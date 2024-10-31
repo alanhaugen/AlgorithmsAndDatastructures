@@ -61,6 +61,7 @@ public:
 
     Array<glm::vec2> movePattern;
     Array<glm::vec2> captureOnlyMovePattern;
+    Array<glm::vec2> weightPattern;
     Array<glm::vec2> weights;
 
     Array<Move> PossibleMoves();
