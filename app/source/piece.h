@@ -69,6 +69,7 @@ public:
 
     bool isJumping = false;
     bool isActive = false;
+    bool canCapture = true;
 
     void Update();
 };

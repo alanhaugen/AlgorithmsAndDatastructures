@@ -113,12 +113,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                     }
                     else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                     {
-                        if (showDot)
+                        if (tile->piece->canCapture)
                         {
-                            (*node).attackBorder->Show();
-                        }
+                            if (showDot)
+                            {
+                                (*node).attackBorder->Show();
+                            }
 
-                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                        }
                     }
                 }
             }
@@ -130,12 +133,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                     {
                         if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                         {
-                            if (showDot)
+                            if (tile->piece->canCapture)
                             {
-                                (*node).attackBorder->Show();
-                            }
+                                if (showDot)
+                                {
+                                    (*node).attackBorder->Show();
+                                }
 
-                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                            }
                         }
                     }
                 }
@@ -198,12 +204,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                             {
-                                if (showDot)
+                                if (tile->piece->canCapture)
                                 {
-                                    (*node).attackBorder->Show();
-                                }
+                                    if (showDot)
+                                    {
+                                        (*node).attackBorder->Show();
+                                    }
 
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                }
                             }
                         }
                     }
@@ -216,12 +225,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                             {
                                 if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                                 {
-                                    if (showDot)
+                                    if (tile->piece->canCapture)
                                     {
-                                        (*node).attackBorder->Show();
-                                    }
+                                        if (showDot)
+                                        {
+                                            (*node).attackBorder->Show();
+                                        }
 
-                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                    }
                                 }
                             }
                         }

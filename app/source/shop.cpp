@@ -205,9 +205,17 @@ Piece* Shop::CreateShieldMan()
                      1);
 
     // TODO: Special weight quality and capture quality
+    piece->canCapture = false;
+
     piece->movePattern.Add(glm::vec2(0, 1));
     piece->movePattern.Add(glm::vec2(1, 0));
     piece->movePattern.Add(glm::vec2(-1, 0));
+
+    piece->weightPattern.Add(glm::vec2(1,0));
+    piece->weightPattern.Add(glm::vec2(-1,1));
+    piece->weightPattern.Add(glm::vec2(1,1));
+    piece->weightPattern.Add(glm::vec2(0,1));
+    piece->weightPattern.Add(glm::vec2(-1,1));
 
     return piece;
 }
