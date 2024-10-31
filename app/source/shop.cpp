@@ -210,7 +210,6 @@ Piece* Shop::CreateShieldMan()
     piece->movePattern.Add(glm::vec2(-1, 0));
 
     return piece;
-
 }
 
 Piece* Shop::CreateStallion()
@@ -278,8 +277,8 @@ Piece* Shop::CreateFence()
 Piece* Shop::CreateKnight()
 {
     Piece* piece = new Piece("Knight",
-                     "data/Piece-WhiteRook.png",
-                     "data/Piece-BlackRook.png",
+                     "data/Piece-WhiteKnight.png",
+                     "data/Piece-BlackKnight.png",
                      "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
                      50,
                      2,
@@ -660,8 +659,6 @@ Piece* Shop::CreateRandomPiece()
                           "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                           200,
                           2);
-
-
 
         break;
     case 14:

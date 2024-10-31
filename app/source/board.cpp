@@ -88,6 +88,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
     int y = tile->y;
 
     Array<glm::vec2> pattern = tile->piece->movePattern;
+    Array<glm::vec2> capturePattern = tile->piece->captureOnlyMovePattern;
 
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
@@ -118,6 +119,24 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                         }
 
                         moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                    }
+                }
+            }
+            for (unsigned int i = 0; i < capturePattern.Size(); i++)
+            {
+                if ((*node).x == x + capturePattern[i].x && (*node).y == y + capturePattern[i].y)
+                {
+                    if ((*node).piece != nullptr)
+                    {
+                        if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
+                        {
+                            if (showDot)
+                            {
+                                (*node).attackBorder->Show();
+                            }
+
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                        }
                     }
                 }
             }
@@ -185,6 +204,25 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                                 }
 
                                 moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                            }
+                        }
+                    }
+
+                    for (unsigned int i = 0; i < capturePattern.Size(); i++)
+                    {
+                        if ((*node).x == x + capturePattern[i].x && (*node).y == y + capturePattern[i].y)
+                        {
+                            if ((*node).piece != nullptr)
+                            {
+                                if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
+                                {
+                                    if (showDot)
+                                    {
+                                        (*node).attackBorder->Show();
+                                    }
+
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                }
                             }
                         }
                     }
