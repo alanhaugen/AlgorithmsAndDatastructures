@@ -121,7 +121,8 @@ Piece* Shop::CreateQueen()
                      "data/Piece-BlackQueen.png",
                      "Moves like a queen in chess.",
                      150,
-                     5);
+                     5,
+                     10);
 
     for (int i = 1; i <= 10; i++)
     {
@@ -146,7 +147,8 @@ Piece* Shop::CreatePrince()
                      "data/Piece-BlackPrince.png",
                      "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                      90,
-                     6);
+                     6,
+                     4);
 
     piece->isJumping = true;
 
@@ -169,7 +171,8 @@ Piece* Shop::CreatePrincess()
                      "data/Piece-BlackPrincess.png",
                      "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                      120,
-                     8);
+                     8,
+                     3);
 
     piece->isJumping = true;
     // TODO: Add special ability
@@ -197,6 +200,7 @@ Piece* Shop::CreateShieldMan()
                      "data/Piece-BlackShield.png",
                      "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
                      50,
+                     1,
                      1);
 
     // TODO: Special weight quality and capture quality
@@ -215,7 +219,8 @@ Piece* Shop::CreateStallion()
                      "data/Piece-BlackStallion.png",
                      "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                      60,
-                     1);
+                     1,
+                     3);
 
     piece->isJumping = true;
     piece->movePattern.Add(glm::vec2(1,2));
@@ -237,7 +242,8 @@ Piece* Shop::CreateJester()
                      "data/Piece-BlackJester.png",
                      "Moves diagonally 2 spaces in any direction.",
                      75,
-                     3);
+                     3,
+                     2);
 
     piece->isJumping = true;
 
@@ -260,6 +266,7 @@ Piece* Shop::CreateFence()
                      "data/Piece-BlackFence.png",
                      "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                      40,
+                     0,
                      0);
 
     piece->invinsible = true;
@@ -274,7 +281,8 @@ Piece* Shop::CreateKnight()
                      "data/Piece-BlackRook.png",
                      "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
                      50,
-                     2);
+                     2,
+                     5);
 
     for (int i = 1; i <= 5; i++)
     {
@@ -294,7 +302,8 @@ Piece* Shop::CreatePeasant()
                      "data/Piece-BlackPeasant.png",
                      "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
                      20,
-                     0);
+                     0,
+                     1);
 
     // TODO: Add promotion when reaching other side of board
     piece->movePattern.Add(glm::vec2(0,1));
@@ -309,7 +318,8 @@ Piece* Shop::CreateBishop()
                      "data/Piece-BlackBishop.png",
                      "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
                      80,
-                     4);
+                     4,
+                     10);
 
     for (int i = 1; i <= 10; i++)
     {
@@ -329,6 +339,7 @@ Piece* Shop::CreateHydra()
                      "data/Piece-BlackHydra.png",
                      "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                      180,
+                     1,
                      1);
 
     // TODO: Add special ability
@@ -355,7 +366,8 @@ Piece* Shop::CreateRogue()
                      "data/Piece-BlackRogue.png",
                      "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                      200,
-                     2);
+                     2,
+                    2);
 
     // TODO: Add special ability
     for (int i = 1; i <= 1; i++)
@@ -381,7 +393,8 @@ Piece* Shop::CreateDeserter()
                      "data/Piece-BlackDeserter.png",
                      "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
                      50,
-                     0);
+                     0,
+                     4);
 
     for (int i = 1; i <= 4; i++)
     {
@@ -406,6 +419,7 @@ Piece* Shop::CreateCannon()
                      "data/Piece-BlackCannon.png",
                      "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                      350,
+                     1,
                      1);
 
     // TODO: Add special ability
