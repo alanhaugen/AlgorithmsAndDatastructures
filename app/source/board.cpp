@@ -13,11 +13,11 @@ Board::Board()
 
     // Adding board coords
     String chars[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
-    String nums[10] = {" 1", " 2", " 3", "d", "e", "f", "g", "h", "i", "j"};
+    String nums[10] = {" 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10"};
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(String(10 - i), 80, (140 + (i*52)) - 16));
+        components.Add(new Text(nums[i], 80, (140 + (i*52)) - 16));
         components.Add(new Text(chars[i], 130 + (i*50), 630));
     }
 }
