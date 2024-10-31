@@ -33,6 +33,7 @@ public:
     void Init();
     void UpdateNobilityText(int nobility = -1);
     void UpdateGoldText();
+    void UpdateHand();
 
     void Update();
 };

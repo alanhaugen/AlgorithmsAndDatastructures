@@ -16,6 +16,8 @@ enum GameState
     Done
 };
 
+const int MovesTotal = 50;
+
 class Autochess : public IScene
 {
 public:
@@ -40,10 +42,16 @@ public:
     Text* playerWhiteTurn;
     Text* playerBlackTurn;
 
+    Text* movesLeftText;
+
     bool isDraw;
 
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
+
+    Sprite* blueBanner;
+    Sprite* yellowBanner;
+    Sprite* turnsLeftBanner;
 
     ITime* time;
 

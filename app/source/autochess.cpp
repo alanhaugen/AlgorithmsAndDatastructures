@@ -39,7 +39,7 @@ void Autochess::Init()
 {
     gameBoard = new Board();
 
-    blackPiecesBanner = new Sprite("data/DarkBanner.png", 10, 0,    0.75, 0.45);
+    blackPiecesBanner = new Sprite("data/DarkBanner.png",  10, 0,   0.75, 0.45);
     whitePiecesBanner = new Sprite("data/WhiteBanner.png", 10, 655, 0.75, 0.45);
 
     shop = new Shop();
@@ -52,6 +52,10 @@ void Autochess::Init()
 
     isWhitesTurn = true;
     activePlayer = white;
+
+    blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
+    yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
+    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", 650, 135, 0.75, 0.75);
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
@@ -76,6 +80,8 @@ void Autochess::Init()
     movesCompleted = 0;
     isDraw = false;
 
+    movesLeftText = new Text(String(movesCompleted), 670, 165);
+
     state = GameState::Shopping;
 
     topPreviousMoves.Push(new Text("text1"));
@@ -98,6 +104,13 @@ void Autochess::Update()
 {
     white->Update();
     black->Update();
+
+    white->nobilityText->Update();
+    black->nobilityText->Update();
+
+    blueBanner->Update();
+    yellowBanner->Update();
+    turnsLeftBanner->Update();
 
     if (input.Pressed(input.Key.ESCAPE))
     {
@@ -170,6 +183,8 @@ void Autochess::Update()
     else
     {
         gameBoard->Update();
+        whitePiecesBanner->Update();
+        blackPiecesBanner->Update();
     }
 
     if (state == GameState::Placing)
@@ -270,14 +285,9 @@ void Autochess::Update()
     }
     else if (state == GameState::Playing)
     {
+        movesLeftText->Update();
         gameBoard->highlight->Show();
         moves.Clear();
-
-        white->nobilityText->Update();
-        black->nobilityText->Update();
-
-        whitePiecesBanner->Update();
-        blackPiecesBanner->Update();
 
         if (isWhitesTurn)
         {
@@ -494,6 +504,8 @@ void Autochess::Update()
                     String(newMove.tileToMoveTo->y + 1) +
                     " and captures " +
                     newMove.oldPiece->name);
+
+                activePlayer->piecesInHand.Append(newMove.movedPiece);
             }
             else
             {
@@ -510,7 +522,13 @@ void Autochess::Update()
         NextPlayer();
         movesCompleted++;
 
-        if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= 50)
+        int x = *movesLeftText->matrix.x;
+        int y = *movesLeftText->matrix.y;
+        delete movesLeftText;
+        movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
+        movesLeftText->Update();
+
+        if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= MovesTotal)
         {
             state = GameState::Done;
 

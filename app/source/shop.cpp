@@ -81,7 +81,7 @@ Shop::Shop()
     unshuffledDeckOfCards.Append(CreateCannon());
     unshuffledDeckOfCards.Append(CreateCannon());
 
-    //Populize shop deck
+    // Populize shop deck
     while (unshuffledDeckOfCards.Empty() == false)
     {
         shopItems.Push(unshuffledDeckOfCards.RemoveAt(random.RandomRange(0, unshuffledDeckOfCards.Size())));

@@ -17,10 +17,6 @@ public:
     Sprite* highlight;
     Board();
 
-    Sprite* blueBanner;
-    Sprite* yellowBanner;
-    Sprite* turnsLeftBanner;
-
     void GenerateTiles();
     void HideDots();
     Array<Move> UpdateDots(Tile *tile, bool showDot = true);

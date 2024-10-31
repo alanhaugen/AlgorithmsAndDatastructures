@@ -6,10 +6,6 @@ Board::Board()
 {
     background = new Sprite("data/BackgroundImage.png", 0, 0, 0.75, 0.75);
 
-    blueBanner        = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
-    yellowBanner      = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
-    turnsLeftBanner   = new Sprite("data/FightOfKingsYellowBanner.png", 650, 530, 0.75, 0.75);
-
     GenerateTiles();
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
@@ -259,14 +255,9 @@ void Board::Init()
 {
 }
 
-
 void Board::Update()
 {
     background->Update();
-
-    blueBanner->Update();
-    yellowBanner->Update();
-    turnsLeftBanner->Update();
 
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 

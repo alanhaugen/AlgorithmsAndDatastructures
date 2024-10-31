@@ -16,7 +16,7 @@ Player::Player(bool isWhitePlayer)
 
     if (isWhite)
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 20, 768 - 55);
+        nobilityText = new Text(String(totalNobility), 20, 560);
         goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
         goldText->y = 100;
 
@@ -24,7 +24,7 @@ Player::Player(bool isWhitePlayer)
     }
     else
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 52, 20);
+        nobilityText = new Text("Nobility: " + String(totalNobility), 20, 160);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 35;
     }
@@ -64,7 +64,7 @@ void Player::UpdateNobilityText(int nobility)
     int y = *nobilityText->matrix.y;
 
     delete nobilityText;
-    nobilityText = new Text("Nobility: " + String(totalNobility), x, y);
+    nobilityText = new Text(String(totalNobility), x, y);
     nobilityText->Update();
 }
 
@@ -87,7 +87,7 @@ void Player::UpdateGoldText()
     goldText->Update();
 }
 
-void Player::Update()
+void Player::UpdateHand()
 {
     if (piecesInHand.Empty() == false)
     {
@@ -99,13 +99,6 @@ void Player::Update()
             y = 768 - 95;
         }
 
-        totalNobility = 0;
-
-        if (activePiece == nullptr)
-        {
-            activePiece = *piecesInHand.Begin().Item();
-        }
-
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
         for (; piece != NULL; ++piece)
@@ -115,19 +108,39 @@ void Player::Update()
             *(*piece)->icon->matrix.y = y;
             (*piece)->Update();
 
-            if ((*piece)->icon->IsPressed())
-            {
-                activePiece = (*piece);
-            }
-
-            totalNobility += (*piece)->nobility;
-
             x += 50;
             if (x > renderer->windowWidth - 100)
             {
                 y += 30;
                 x = 50;
             }
+        }
+    }
+}
+
+void Player::Update()
+{
+    if (piecesInHand.Empty() == false)
+    {
+        totalNobility = 0;
+
+        if (activePiece == nullptr)
+        {
+            activePiece = *piecesInHand.Begin().Item();
+        }
+
+        UpdateHand();
+
+        LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
+        for (; piece != NULL; ++piece)
+        {
+            if ((*piece)->icon->IsPressed())
+            {
+                activePiece = (*piece);
+            }
+
+            totalNobility += (*piece)->nobility;
         }
     }
 
