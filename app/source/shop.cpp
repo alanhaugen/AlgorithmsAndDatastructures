@@ -751,17 +751,29 @@ void Shop::Update()
 
         if ((*piece)->icon->IsHoveredOver())
         {
-            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
-            (*piece)->costText->Update();
+            *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->nameText->matrix.y = *(*piece)->icon->matrix.y - 60*1.75;
+            (*piece)->nameText->Update();
+
+            *(*piece)->movementTypeText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->movementTypeText->matrix.y = *(*piece)->icon->matrix.y - 50*1.75;
+            (*piece)->movementTypeText->Update();
+
+            *(*piece)->movementText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->movementText->matrix.y = *(*piece)->icon->matrix.y - 40*1.75;
+            (*piece)->movementText->Update();
+
+            *(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y - 30*1.75;
+            (*piece)->descriptionText->Update();
 
             *(*piece)->nobilityText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
             *(*piece)->nobilityText->matrix.y = *(*piece)->icon->matrix.y - 20*1.75;
             (*piece)->nobilityText->Update();
 
-            *(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y - 30*1.75;
-            (*piece)->descriptionText->Update();
+            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
+            (*piece)->costText->Update();
         }
     }
 
