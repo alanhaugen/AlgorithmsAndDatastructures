@@ -174,9 +174,6 @@ void Autochess::Update()
 
     if (state == GameState::Placing)
     {
-        whitePiecesBanner->Update();
-        blackPiecesBanner->Update();
-
         gameBoard->highlight->Hide();
 
         if (activePlayer->activePiece != nullptr)
@@ -278,6 +275,9 @@ void Autochess::Update()
 
         white->nobilityText->Update();
         black->nobilityText->Update();
+
+        whitePiecesBanner->Update();
+        blackPiecesBanner->Update();
 
         if (isWhitesTurn)
         {

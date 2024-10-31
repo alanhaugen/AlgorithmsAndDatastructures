@@ -20,7 +20,7 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(String(10 - i), 90, (140 + (i*52)) - 16));
+        components.Add(new Text(String(10 - i), 80, (140 + (i*52)) - 16));
         components.Add(new Text(chars[i], 130 + (i*50), 630));
     }
 }
