@@ -64,7 +64,7 @@ void Autochess::Init()
 
     playerWhiteWins = new Text("PLAYER WHITE WINS!", 220,290);
     playerBlackWins = new Text("PLAYER BLACK WINS!", 220,290);
-    playerDraw      = new Text("DRAW", 50,50);
+    playerDraw      = new Text("DRAW", 220,290);
 
     playerWhiteTurn = new Text("Player WHITE make a move", 150,60);
     playerBlackTurn = new Text("Player BLACK make a move", 150,60);
