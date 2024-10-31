@@ -13,6 +13,7 @@ Board::Board()
 
     // Adding board coords
     String chars[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
+    String nums[10] = {" 1", " 2", " 3", "d", "e", "f", "g", "h", "i", "j"};
 
     for (int i = 0; i < 10; i++)
     {

@@ -56,13 +56,14 @@ void Autochess::Init()
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", 650, 135, 0.75, 0.75);
+    victoryBanner   = new Sprite("data/victoryBanner.png", 100, 250, 0.55, 0.55);
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
-    playerWhiteWins = new Text("PLAYER WHITE WINS!", 50,50);
-    playerBlackWins = new Text("PLAYER BLACK WINS!", 50,50);
+    playerWhiteWins = new Text("PLAYER WHITE WINS!", 220,290);
+    playerBlackWins = new Text("PLAYER BLACK WINS!", 220,290);
     playerDraw      = new Text("DRAW", 50,50);
 
     playerWhiteTurn = new Text("Player WHITE make a move", 150,60);
@@ -505,6 +506,15 @@ void Autochess::Update()
                     " and captures " +
                     newMove.oldPiece->name);
 
+                if (isWhitesTurn)
+                {
+                    white->UpdateNobilityText(nobility);
+                }
+                else
+                {
+                    black->UpdateNobilityText(nobility);
+                }
+
                 activePlayer->piecesInHand.Append(newMove.movedPiece);
             }
             else
@@ -571,6 +581,8 @@ void Autochess::Update()
     {
         white->nobilityText->Update();
         black->nobilityText->Update();
+
+        victoryBanner->Update();
 
         if (isDraw)
         {

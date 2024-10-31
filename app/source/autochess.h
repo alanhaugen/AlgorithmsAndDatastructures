@@ -52,6 +52,7 @@ public:
     Sprite* blueBanner;
     Sprite* yellowBanner;
     Sprite* turnsLeftBanner;
+    Sprite* victoryBanner;
 
     ITime* time;
 

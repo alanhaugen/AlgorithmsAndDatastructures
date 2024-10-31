@@ -96,7 +96,8 @@ Piece* Shop::CreateKing()
               "data/Piece-BlackKing.png",
               "Moves like a king in chess. Can move 1 tile in any direction.",
               200,
-              10);
+              10,
+              1);
 
     for (int i = 1; i <= 1; i++)
     {

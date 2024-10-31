@@ -24,7 +24,7 @@ Player::Player(bool isWhitePlayer)
     }
     else
     {
-        nobilityText = new Text("Nobility: " + String(totalNobility), 20, 160);
+        nobilityText = new Text(String(totalNobility), 20, 160);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 35;
     }
