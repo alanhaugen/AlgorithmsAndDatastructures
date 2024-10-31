@@ -18,6 +18,13 @@ void Autochess::NextPlayer()
         shop->SetShopPiecesToWhite(isWhitesTurn);
     }
 
+    /*
+    if (state == GameState::Placing)
+    {
+        board->SetBoardPiecesToGreen(isWhitesTurn);
+    }
+    */
+
     if (isWhitesTurn)
     {
         activePlayer = white;
@@ -167,6 +174,9 @@ void Autochess::Update()
 
     if (state == GameState::Placing)
     {
+        whitePiecesBanner->Update();
+        blackPiecesBanner->Update();
+
         gameBoard->highlight->Hide();
 
         if (activePlayer->activePiece != nullptr)
@@ -188,6 +198,17 @@ void Autochess::Update()
             // Check if user has clicked on an empty tile
             if (tile != nullptr && tile->piece == nullptr)
             {
+                if (isWhitesTurn && tile->y > 3 )
+                {
+                    return;
+                    //insert onScreenMessage: Invalid tile
+                }
+                if (isWhitesTurn == false && tile->y < 6 )
+                {
+                    return;
+                    //insert onScreenMessage: Invalid tile
+                }
+
                 // Activate piece from the player hand
                 if (activePlayer->activePiece)
                 {
@@ -248,8 +269,7 @@ void Autochess::Update()
             NextPlayer();
         }
 
-        whitePiecesBanner->Update();
-        blackPiecesBanner->Update();
+
     }
     else if (state == GameState::Playing)
     {

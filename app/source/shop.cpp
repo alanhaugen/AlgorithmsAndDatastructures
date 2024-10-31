@@ -7,15 +7,427 @@ Shop::Shop()
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
     numberOfFences = 0;
+    numberOfKings = 0;
+    numberOfQueens = 0;
+    numberOfMonsters = 0;
     isWhitesTurn = true;
 
-    for (int i = 0; i < 52; i++)
+
+    //2 Kings
+    unshuffledDeckOfCards.Append(CreateKing());
+    unshuffledDeckOfCards.Append(CreateKing());
+    //2 Queens
+    unshuffledDeckOfCards.Append(CreateQueen());
+    unshuffledDeckOfCards.Append(CreateQueen());
+    //3 Princes
+    unshuffledDeckOfCards.Append(CreatePrince());
+    unshuffledDeckOfCards.Append(CreatePrince());
+    unshuffledDeckOfCards.Append(CreatePrince());
+    //3 Princessses
+    unshuffledDeckOfCards.Append(CreatePrincess());
+    unshuffledDeckOfCards.Append(CreatePrincess());
+    unshuffledDeckOfCards.Append(CreatePrincess());
+
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+    unshuffledDeckOfCards.Append(CreateShieldMan());
+
+    unshuffledDeckOfCards.Append(CreateStallion());
+    unshuffledDeckOfCards.Append(CreateStallion());
+    unshuffledDeckOfCards.Append(CreateStallion());
+
+    unshuffledDeckOfCards.Append(CreateJester());
+    unshuffledDeckOfCards.Append(CreateJester());
+    unshuffledDeckOfCards.Append(CreateJester());
+
+    unshuffledDeckOfCards.Append(CreateFence());
+    unshuffledDeckOfCards.Append(CreateFence());
+    unshuffledDeckOfCards.Append(CreateFence());
+    unshuffledDeckOfCards.Append(CreateFence());
+    unshuffledDeckOfCards.Append(CreateFence());
+    unshuffledDeckOfCards.Append(CreateFence());
+
+    unshuffledDeckOfCards.Append(CreateKnight());
+    unshuffledDeckOfCards.Append(CreateKnight());
+    unshuffledDeckOfCards.Append(CreateKnight());
+
+    unshuffledDeckOfCards.Append(CreatePeasant());
+    unshuffledDeckOfCards.Append(CreatePeasant());
+    unshuffledDeckOfCards.Append(CreatePeasant());
+    unshuffledDeckOfCards.Append(CreatePeasant());
+    unshuffledDeckOfCards.Append(CreatePeasant());
+    unshuffledDeckOfCards.Append(CreatePeasant());
+
+    unshuffledDeckOfCards.Append(CreateBishop());
+    unshuffledDeckOfCards.Append(CreateBishop());
+    unshuffledDeckOfCards.Append(CreateBishop());
+
+    unshuffledDeckOfCards.Append(CreateHydra());
+    unshuffledDeckOfCards.Append(CreateHydra());
+    unshuffledDeckOfCards.Append(CreateHydra());
+
+    unshuffledDeckOfCards.Append(CreateRogue());
+    unshuffledDeckOfCards.Append(CreateRogue());
+    unshuffledDeckOfCards.Append(CreateRogue());
+
+    unshuffledDeckOfCards.Append(CreateDeserter());
+    unshuffledDeckOfCards.Append(CreateDeserter());
+    unshuffledDeckOfCards.Append(CreateDeserter());
+
+    unshuffledDeckOfCards.Append(CreateCannon());
+    unshuffledDeckOfCards.Append(CreateCannon());
+    unshuffledDeckOfCards.Append(CreateCannon());
+
+    //Populize shop deck
+    while (unshuffledDeckOfCards.Empty() == false)
     {
-        shopItems.Push(CreateRandomPiece());
+        shopItems.Push(unshuffledDeckOfCards.RemoveAt(random.RandomRange(0, unshuffledDeckOfCards.Size())));
     }
 
     StockShopFront();
 }
+
+Piece* Shop::CreateKing()
+{
+    Piece* piece = new Piece("King",
+              "data/Piece-WhiteKing.png",
+              "data/Piece-BlackKing.png",
+              "Moves like a king in chess. Can move 1 tile in any direction.",
+              200,
+              10);
+
+    for (int i = 1; i <= 1; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreateQueen()
+{
+    Piece* piece = new Piece("Queen",
+                     "data/Piece-WhiteQueen.png",
+                     "data/Piece-BlackQueen.png",
+                     "Moves like a queen in chess.",
+                     150,
+                     5);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreatePrince()
+{
+    Piece* piece = new Piece("Prince",
+                     "data/Piece-WhitePrince.png",
+                     "data/Piece-BlackPrince.png",
+                     "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
+                     90,
+                     6);
+
+    piece->isJumping = true;
+
+    // TODO: Add attack after move phase
+    for (int i = 1; i <= 4; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreatePrincess()
+{
+    Piece* piece = new Piece("Princess",
+                     "data/Piece-WhitePrincess.png",
+                     "data/Piece-BlackPrincess.png",
+                     "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
+                     120,
+                     8);
+
+    piece->isJumping = true;
+    // TODO: Add special ability
+    for (int i = 1; i <= 3; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+
+}
+
+Piece* Shop::CreateShieldMan()
+{
+    Piece* piece = new Piece("Shield Man",
+                     "data/Piece-WhiteShield.png",
+                     "data/Piece-BlackShield.png",
+                     "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
+                     50,
+                     1);
+
+    // TODO: Special weight quality and capture quality
+    piece->movePattern.Add(glm::vec2(0, 1));
+    piece->movePattern.Add(glm::vec2(1, 0));
+    piece->movePattern.Add(glm::vec2(-1, 0));
+
+    return piece;
+
+}
+
+Piece* Shop::CreateStallion()
+{
+    Piece* piece = new Piece("Stallion",
+                     "data/Piece-WhiteStallion.png",
+                     "data/Piece-BlackStallion.png",
+                     "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
+                     60,
+                     1);
+
+    piece->isJumping = true;
+    piece->movePattern.Add(glm::vec2(1,2));
+    piece->movePattern.Add(glm::vec2(1,-2));
+    piece->movePattern.Add(glm::vec2(-1,-2));
+    piece->movePattern.Add(glm::vec2(-1,2));
+    piece->movePattern.Add(glm::vec2(2,1));
+    piece->movePattern.Add(glm::vec2(2,-1));
+    piece->movePattern.Add(glm::vec2(-2,1));
+    piece->movePattern.Add(glm::vec2(-2,-1));
+
+    return piece;
+}
+
+Piece* Shop::CreateJester()
+{
+    Piece* piece = new Piece("Jester",
+                     "data/Piece-WhiteJester.png",
+                     "data/Piece-BlackJester.png",
+                     "Moves diagonally 2 spaces in any direction.",
+                     75,
+                     3);
+
+    piece->isJumping = true;
+
+    for (int i = 1; i <= 2; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+
+}
+
+Piece* Shop::CreateFence()
+{
+    Piece* piece = new Piece("Fence",
+                     "data/Piece-WhiteFence.png",
+                     "data/Piece-BlackFence.png",
+                     "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
+                     40,
+                     0);
+
+    piece->invinsible = true;
+
+    return piece;
+}
+
+Piece* Shop::CreateKnight()
+{
+    Piece* piece = new Piece("Knight",
+                     "data/Piece-WhiteRook.png",
+                     "data/Piece-BlackRook.png",
+                     "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
+                     50,
+                     2);
+
+    for (int i = 1; i <= 5; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreatePeasant()
+{
+    Piece* piece = new Piece("Peasant",
+                     "data/Piece-WhitePeasant.png",
+                     "data/Piece-BlackPeasant.png",
+                     "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
+                     20,
+                     0);
+
+    // TODO: Add promotion when reaching other side of board
+    piece->movePattern.Add(glm::vec2(0,1));
+
+    return piece;
+}
+
+Piece* Shop::CreateBishop()
+{
+    Piece* piece = new Piece("Bishop",
+                     "data/Piece-WhiteBishop.png",
+                     "data/Piece-BlackBishop.png",
+                     "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
+                     80,
+                     4);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreateHydra()
+{
+    Piece* piece = new Piece("Hydra",
+                     "data/Piece-WhiteHydra.png",
+                     "data/Piece-BlackHydra.png",
+                     "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
+                     180,
+                     1);
+
+    // TODO: Add special ability
+    for (int i = 1; i <= 1; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreateRogue()
+{
+    Piece* piece = new Piece("Rogue",
+                     "data/Piece-WhiteRogue.png",
+                     "data/Piece-BlackRogue.png",
+                     "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
+                     200,
+                     2);
+
+    // TODO: Add special ability
+    for (int i = 1; i <= 1; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreateDeserter()
+{
+    Piece* piece = new Piece("Deserter",
+                     "data/Piece-WhiteDeserter.png",
+                     "data/Piece-BlackDeserter.png",
+                     "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
+                     50,
+                     0);
+
+    for (int i = 1; i <= 4; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+Piece* Shop::CreateCannon()
+{
+    Piece* piece = new Piece("Cannon",
+                     "data/Piece-WhiteCannon.png",
+                     "data/Piece-BlackCannon.png",
+                     "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
+                     350,
+                     1);
+
+    // TODO: Add special ability
+
+    for (int i = 1; i <= 1; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+    }
+
+    return piece;
+}
+
+
 
 Piece* Shop::CreateRandomPiece()
 {
@@ -26,25 +438,15 @@ Piece* Shop::CreateRandomPiece()
     switch(randomNumber)
     {
     case 0:
-        piece = new Piece("King",
-                         "data/Piece-WhiteKing.png",
-                         "data/Piece-BlackKing.png",
-                         "Moves like a king in chess. Can move 1 tile in any direction.",
-                         200,
-                         10);
 
-        for (int i = 1; i <= 1; i++)
+        if (numberOfKings >= MAX_NUMBER_OF_KINGS)
         {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
+            return CreateRandomPiece();
         }
+
+        numberOfKings++;
+
+        piece = CreateKing();
 
         break;
     case 1:
@@ -55,16 +457,7 @@ Piece* Shop::CreateRandomPiece()
                          90,
                          6);
 
-        piece->isJumping = true;
 
-        // TODO: Add attack after move phase
-        for (int i = 1; i <= 4; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-        }
 
         break;
     case 2:
@@ -75,20 +468,7 @@ Piece* Shop::CreateRandomPiece()
                          120,
                          8);
 
-        piece->isJumping = true;
-        // TODO: Add special ability
-        for (int i = 1; i <= 3; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
 
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 3:
@@ -106,6 +486,14 @@ Piece* Shop::CreateRandomPiece()
 
         break;
     case 4:
+
+        if (numberOfQueens >= MAX_NUMBER_OF_QUEENS)
+        {
+            return CreateRandomPiece();
+        }
+
+        numberOfQueens++;
+
         piece = new Piece("Queen",
                          "data/Piece-WhiteQueen.png",
                          "data/Piece-BlackQueen.png",
@@ -113,21 +501,18 @@ Piece* Shop::CreateRandomPiece()
                          150,
                          5);
 
-        for (int i = 1; i <= 10; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
 
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 5:
+
+        if (numberOfMonsters >= MAX_NUMBER_OF_MONSTERS)
+        {
+            return CreateRandomPiece();
+        }
+
+        numberOfMonsters++;
+
         piece = new Piece("Monster",
                          "data/Piece-WhiteMonster.png",
                          "data/Piece-BlackMonster.png",
@@ -161,9 +546,7 @@ Piece* Shop::CreateRandomPiece()
                          20,
                          0);
 
-        // TODO: Add promotion when reaching other side of board
 
-        piece->movePattern.Add(glm::vec2(0,1));
 
         break;
     case 7:
@@ -174,13 +557,7 @@ Piece* Shop::CreateRandomPiece()
                           50,
                           2);
 
-        for (int i = 1; i <= 5; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-        }
+
 
         break;
     case 8:
@@ -208,16 +585,6 @@ Piece* Shop::CreateRandomPiece()
                           60,
                           1);
 
-        piece->isJumping = true;
-        piece->movePattern.Add(glm::vec2(1,2));
-        piece->movePattern.Add(glm::vec2(1,-2));
-        piece->movePattern.Add(glm::vec2(-1,-2));
-        piece->movePattern.Add(glm::vec2(-1,2));
-        piece->movePattern.Add(glm::vec2(2,1));
-        piece->movePattern.Add(glm::vec2(2,-1));
-        piece->movePattern.Add(glm::vec2(-2,1));
-        piece->movePattern.Add(glm::vec2(-2,-1));
-
         break;
     case 10:
         piece = new Piece("Jester",
@@ -227,15 +594,7 @@ Piece* Shop::CreateRandomPiece()
                           75,
                           3);
 
-        piece->isJumping = true;
 
-        for (int i = 1; i <= 2; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 11:
@@ -253,7 +612,7 @@ Piece* Shop::CreateRandomPiece()
                           40,
                           0);
 
-        piece->invinsible = true;
+
 
         break;
     case 12:
@@ -264,20 +623,7 @@ Piece* Shop::CreateRandomPiece()
                           180,
                           1);
 
-        // TODO: Add special ability
 
-        for (int i = 1; i <= 1; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 13:
@@ -288,20 +634,7 @@ Piece* Shop::CreateRandomPiece()
                           200,
                           2);
 
-        // TODO: Add special ability
 
-        for (int i = 1; i <= 1; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 14:
@@ -312,20 +645,7 @@ Piece* Shop::CreateRandomPiece()
                           350,
                           1);
 
-        // TODO: Add special ability
 
-        for (int i = 1; i <= 1; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
-
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
     case 15:
@@ -336,18 +656,7 @@ Piece* Shop::CreateRandomPiece()
                           50,
                           0);
 
-        for (int i = 1; i <= 4; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,0));
-            piece->movePattern.Add(glm::vec2(-i,0));
-            piece->movePattern.Add(glm::vec2(0,i));
-            piece->movePattern.Add(glm::vec2(0,-i));
 
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
 
         break;
 
