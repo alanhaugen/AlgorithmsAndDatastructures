@@ -10,14 +10,15 @@ Piece::Piece(String name_,
              String description_,
              int price_,
              int nobility_,
-             int range)
+             int range,
+             bool isJumping_)
 {
     name = name_;
     iconWhite   = new Sprite(iconWhitePath, 0, 0, 0.4, 0.4);
     iconBlack   = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);
 
     nameText  = new Text(name_, 0, 0, 0.4, 0.4);
-    movementTypeText  = new Text(isJumping ? String("Type: Jumping") : String("Type: Grounded"), 0, 0, 0.4, 0.4);
+    movementTypeText  = new Text(isJumping_ ? String("Type: Jumping") : String("Type: Grounded"), 0, 0, 0.4, 0.4);
     movementText  = new Text("Range: " + String(range), 0, 0, 0.4, 0.4);
     descriptionText    = new Text(description_, 0, 0, 0.4, 0.4);
     nobilityText    = new Text("Nobility: " + String(nobility_), 0, 0, 0.4, 0.4);
@@ -28,6 +29,8 @@ Piece::Piece(String name_,
     description = description_;
     price       = price_;
     nobility    = nobility_;
+
+    isJumping = isJumping_;
 
     icon = iconWhite;
 }

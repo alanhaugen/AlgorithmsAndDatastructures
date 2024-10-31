@@ -149,9 +149,8 @@ Piece* Shop::CreatePrince()
                      "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                      90,
                      6,
-                     4);
-
-    piece->isJumping = true;
+                     4,
+                     true);
 
     // TODO: Add attack after move phase
     for (int i = 1; i <= 4; i++)
@@ -173,9 +172,9 @@ Piece* Shop::CreatePrincess()
                      "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                      120,
                      8,
-                     3);
+                     3,
+                     true);
 
-    piece->isJumping = true;
     // TODO: Add special ability
     for (int i = 1; i <= 3; i++)
     {
@@ -228,9 +227,9 @@ Piece* Shop::CreateStallion()
                      "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                      60,
                      1,
-                     3);
+                     3,
+                     true);
 
-    piece->isJumping = true;
     piece->movePattern.Add(glm::vec2(1,2));
     piece->movePattern.Add(glm::vec2(1,-2));
     piece->movePattern.Add(glm::vec2(-1,-2));
@@ -251,9 +250,8 @@ Piece* Shop::CreateJester()
                      "Moves diagonally 2 spaces in any direction.",
                      75,
                      3,
-                     2);
-
-    piece->isJumping = true;
+                     2,
+                     true);
 
     for (int i = 1; i <= 2; i++)
     {

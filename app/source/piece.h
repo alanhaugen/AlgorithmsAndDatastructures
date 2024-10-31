@@ -39,7 +39,8 @@ public:
           String description_,
           int price_,
           int nobility,
-          int range = 0);
+          int range = 0,
+          bool isJumping_ = false);
 
     Sprite* iconWhite = nullptr;
     Sprite* iconBlack = nullptr;
