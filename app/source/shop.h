@@ -15,10 +15,15 @@ public:
 
     Stack<Piece*> shopItems;
 
+    LinkedList<Piece*> unshuffledDeckOfCards;
+
     bool isWhitesTurn;
 
-    int numberOfFences;
-    const int MAX_NUMBER_OF_FENCES = 3;
+    int numberOfFences, numberOfKings, numberOfQueens, numberOfMonsters;
+    const int MAX_NUMBER_OF_FENCES = 6;
+    const int MAX_NUMBER_OF_KINGS = 2;
+    const int MAX_NUMBER_OF_MONSTERS = 2;
+    const int MAX_NUMBER_OF_QUEENS = 2;
     const int WildcardCost = 100;
 
     Sprite* background;
@@ -34,6 +39,23 @@ public:
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
+    Piece* CreateKing();
+    Piece* CreateQueen();
+    Piece* CreatePrince();
+    Piece* CreatePrincess();
+    Piece* CreateMonster();
+    Piece* CreateBishop();
+    Piece* CreateHydra();
+    Piece* CreateKnight();
+    Piece* CreatePeasant();
+    Piece* CreateRogue();
+    Piece* CreateStallion();
+    Piece* CreateJester();
+    Piece* CreateDeserter();
+    Piece* CreateCannon();
+    Piece* CreateShieldMan();
+    Piece* CreateFence();
+
     void Update();
 };
 
