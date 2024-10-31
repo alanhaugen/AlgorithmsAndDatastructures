@@ -18,7 +18,15 @@ public:
     int nobility = 0;
     int range = 0;
     bool isWhite = true;
+
+    Text* nameText = nullptr;
+    Text* movementTypeText = nullptr;
+    Text* movementText = nullptr;
+    Text* rangeText = nullptr;
+    Text* descriptionText = nullptr;
+    Text* nobilityText = nullptr;
     Text* costText = nullptr;
+
     bool invinsible = false;
 
     LinkedList<Piece*>::LinkedNode* listNode = nullptr;
@@ -30,7 +38,8 @@ public:
           String iconBlackPath,
           String description_,
           int price_,
-          int nobility);
+          int nobility,
+          int range = 0);
 
     Sprite* iconWhite = nullptr;
     Sprite* iconBlack = nullptr;

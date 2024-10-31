@@ -12,7 +12,6 @@ Shop::Shop()
     numberOfMonsters = 0;
     isWhitesTurn = true;
 
-
     //2 Kings
     unshuffledDeckOfCards.Append(CreateKing());
     unshuffledDeckOfCards.Append(CreateKing());
@@ -755,6 +754,14 @@ void Shop::Update()
             *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
             *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
             (*piece)->costText->Update();
+
+            *(*piece)->nobilityText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->nobilityText->matrix.y = *(*piece)->icon->matrix.y - 20*1.75;
+            (*piece)->nobilityText->Update();
+
+            *(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+            *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y - 30*1.75;
+            (*piece)->descriptionText->Update();
         }
     }
 

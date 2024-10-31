@@ -9,12 +9,20 @@ Piece::Piece(String name_,
              String iconBlackPath,
              String description_,
              int price_,
-             int nobility_)
+             int nobility_,
+             int range)
 {
     name = name_;
     iconWhite   = new Sprite(iconWhitePath, 0, 0, 0.4, 0.4);
     iconBlack   = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);
+
+    nameText  = new Text(name_, 0, 0, 0.4, 0.4);
+    movementTypeText  = new Text(isJumping ? String("Type: Jumping") : String("Type: Grounded"), 0, 0, 0.4, 0.4);
+    movementText  = new Text("Range: " + String(range), 0, 0, 0.4, 0.4);
+    descriptionText    = new Text(description_, 0, 0, 0.4, 0.4);
+    nobilityText    = new Text("Nobility: " + String(nobility_), 0, 0, 0.4, 0.4);
     costText    = new Text("COST: " + String(price_), 0, 0, 0.4, 0.4);
+
     tileBorderBlue = new Sprite("data/TileBorder-Blue.png", 0,0, 0.4, 0.4);
     tileBorderGold = new Sprite("data/TileBorder-Gold.png", 0,0, 0.4, 0.4);
     description = description_;
