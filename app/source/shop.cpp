@@ -285,13 +285,26 @@ Piece* Shop::CreateKnight()
                      2,
                      5);
 
-    for (int i = 1; i <= 5; i++)
+    for (int i = 1; i <= 4; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
         piece->movePattern.Add(glm::vec2(-i,0));
         piece->movePattern.Add(glm::vec2(0,i));
         piece->movePattern.Add(glm::vec2(0,-i));
+
     }
+
+    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0+1));
+    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0-1));
+
+    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0+1));
+    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0-1));
+
+    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,4+1));
+    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,4+1));
+
+    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,-4-1));
+    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,-4-1));
 
     return piece;
 }
