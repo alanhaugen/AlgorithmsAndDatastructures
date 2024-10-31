@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <core/components/component.h>
+#include <core/x-platform/scene.h>
 #include <core/components/sprite.h>
 #include <core/components/camera.h>
 #include "tile.h"
@@ -9,7 +9,7 @@
 
 class Move;
 
-class Board : public Component
+class Board : public IScene
 {
 public:
     Sprite* background;
@@ -27,6 +27,7 @@ public:
     Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 
+    void Init();
     void Update();
 };
 

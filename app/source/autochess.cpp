@@ -32,8 +32,8 @@ void Autochess::Init()
 {
     gameBoard = new Board();
 
-    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 110, 635, 0.55, 0.55);
-    blackPiecesBanner = new Sprite("data/DarkBanner.png", 110, -5, 0.55, 0.55);
+    blackPiecesBanner = new Sprite("data/DarkBanner.png", 10, 0,    0.75, 0.45);
+    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 10, 655, 0.75, 0.45);
 
     shop = new Shop();
 

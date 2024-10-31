@@ -14,6 +14,15 @@ Board::Board()
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
     highlight->Hide();
+
+    // Adding board coords
+    String chars[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
+
+    for (int i = 0; i < 10; i++)
+    {
+        components.Add(new Text(String(10 - i), 90, (140 + (i*52)) - 16));
+        components.Add(new Text(chars[i], 130 + (i*50), 630));
+    }
 }
 
 void Board::GenerateTiles()
@@ -26,7 +35,7 @@ void Board::GenerateTiles()
     tile = new Sprite("data/WhiteTile.png", 0, 0, scale, scale);
 
     float offsetX = (renderer->windowWidth / 2) - (tile->width * tile->scaleX  * 5);
-    float offsetY = (768 / 2) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
+    float offsetY = ((768 / 2) - 10) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
 
     delete tile;
 
@@ -246,6 +255,10 @@ Tile* Board::GetBoardTileUnderMouse()
     return nullptr;
 }
 
+void Board::Init()
+{
+}
+
 
 void Board::Update()
 {
@@ -282,4 +295,10 @@ void Board::Update()
     }
 
     highlight->Update();
+
+    // Update components manually
+    for (unsigned int i = 0; i < components.Size(); i++)
+    {
+        (*components[i])->Update();
+    }
 }
