@@ -173,7 +173,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
     {
         searchTile = searchTiles.Dequeue();
 
-        for (node = tiles.Begin(); node != tiles.End(); ++node)
+        for (node = tiles.Begin(); node != NULL; ++node)
         {
             if ((*node).searched == false)
             {
@@ -262,7 +262,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
     }
 
     // Reset tile state
-    for (node = tiles.Begin(); node != tiles.End(); ++node)
+    for (node = tiles.Begin(); node != NULL; ++node)
     {
         (*node).searched = false;
     }

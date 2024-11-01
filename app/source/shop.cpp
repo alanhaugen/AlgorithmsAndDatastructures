@@ -727,7 +727,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::StockShopFront()
 {
-    int y = 150 * 1.75;
+    int y = 140 * 1.75;
 
     for (int i = 0; i < 10; i++)
     {
@@ -740,12 +740,12 @@ void Shop::StockShopFront()
 
         if (i > 0 && i % 5 == 0)
         {
-            y += 90 * 1.75;
+            y += 90 * 2.00;
         }
 
-        *piece->iconWhite->matrix.x = (100 + ((i % 5) * 50))*1.75;
+        *piece->iconWhite->matrix.x = (60 + ((i % 5) * 50))*2.00;
         *piece->iconWhite->matrix.y = y;
-        *piece->iconBlack->matrix.x = (100 + ((i % 5) * 50))*1.75;
+        *piece->iconBlack->matrix.x = (60 + ((i % 5) * 50))*2.00;
         *piece->iconBlack->matrix.y = y;
 
         itemsStoreFront.Append(piece);
@@ -772,7 +772,7 @@ void Shop::Update()
 
     for (; piece != NULL; ++piece)
     {
-        if ((*piece)->icon->IsPressed())
+        if ((*piece)->backgroundCard->IsPressed())
         {
             activePiece = (*piece);
             activePiece->listNode = piece.curNode;
@@ -780,32 +780,40 @@ void Shop::Update()
 
         (*piece)->Update();
 
-        if ((*piece)->icon->IsHoveredOver())
+        if ((*piece)->backgroundCard->IsHoveredOver())
         {
-            *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->nameText->matrix.y = *(*piece)->icon->matrix.y - 60*1.75;
-            (*piece)->nameText->Update();
-
-            *(*piece)->movementTypeText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->movementTypeText->matrix.y = *(*piece)->icon->matrix.y - 50*1.75;
-            (*piece)->movementTypeText->Update();
-
-            *(*piece)->movementText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->movementText->matrix.y = *(*piece)->icon->matrix.y - 40*1.75;
-            (*piece)->movementText->Update();
-
-            *(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y - 30*1.75;
-            (*piece)->descriptionText->Update();
-
-            *(*piece)->nobilityText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->nobilityText->matrix.y = *(*piece)->icon->matrix.y - 20*1.75;
-            (*piece)->nobilityText->Update();
-
-            *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
-            *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
-            (*piece)->costText->Update();
+            *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
+            *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 19*1.55;
+            (*piece)->buyText->Update();
         }
+
+        *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x;
+        *(*piece)->nameText->matrix.y = *(*piece)->icon->matrix.y + 30*1.75;
+        (*piece)->nameText->Update();
+
+        *(*piece)->movementTypeText->matrix.x = *(*piece)->icon->matrix.x - 5;
+        *(*piece)->movementTypeText->matrix.y = *(*piece)->icon->matrix.y + 40*1.75;
+        (*piece)->movementTypeText->Update();
+
+        *(*piece)->movementText->matrix.x = *(*piece)->icon->matrix.x - 5;
+        *(*piece)->movementText->matrix.y = *(*piece)->icon->matrix.y + 50*1.75;
+        (*piece)->movementText->Update();
+
+        /**(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+        *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y + 30*1.75;
+        (*piece)->descriptionText->Update();*/
+
+        *(*piece)->nobilityText->matrix.x = *(*piece)->icon->matrix.x - 5;
+        *(*piece)->nobilityText->matrix.y = *(*piece)->icon->matrix.y + 60*1.75;
+        (*piece)->nobilityText->Update();
+
+        *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 5;
+        *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y + 70*1.75;
+        (*piece)->costText->Update();
+
+        *(*piece)->backgroundCard->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
+        *(*piece)->backgroundCard->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
+        (*piece)->backgroundCard->Update();
     }
 
     if (shopItems.Empty() == false)

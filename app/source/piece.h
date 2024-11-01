@@ -27,6 +27,8 @@ public:
     Text* nobilityText = nullptr;
     Text* costText = nullptr;
 
+    Text* buyText = nullptr;
+
     bool invinsible = false;
 
     LinkedList<Piece*>::LinkedNode* listNode = nullptr;
@@ -46,6 +48,7 @@ public:
     Sprite* iconBlack = nullptr;
 
     Sprite* icon = nullptr;
+    Sprite* backgroundCard = nullptr;
 
     Tile* currentTile = nullptr;
     Sprite* idleSprite = nullptr;
