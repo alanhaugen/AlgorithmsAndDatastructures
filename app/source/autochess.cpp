@@ -3,6 +3,7 @@
 #include "main.h"
 
 extern bool isTwoPlayer;
+extern bool isFirstPlaythrough;
 
 Autochess::Autochess()
 {
@@ -281,11 +282,11 @@ void Autochess::Update()
         {
             NextPlayer();
         }
-
-
     }
     else if (state == GameState::Playing)
     {
+        isFirstPlaythrough = false;
+
         movesLeftText->Update();
         gameBoard->highlight->Show();
         moves.Clear();
