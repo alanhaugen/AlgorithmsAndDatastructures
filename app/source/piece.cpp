@@ -16,19 +16,19 @@ Piece::Piece(String name_,
 {
     name = name_;
 
-    backgroundCard = new Sprite("data/Card-Standard.png", 0,0, 2.2, 3.1);
+    backgroundCard = new Sprite("data/Card-Standard.png", 0,0, 2.2 * 1.5, 3.1 * 1.5);
 
     iconWhite   = new Sprite(iconWhitePath, 0, 0, 0.4, 0.4);
     iconBlack   = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);
 
-    buyText   = new Text("Click to buy", 0, 0, 0.4, 0.4);
+    buyText   = new Text("Click to buy", 0, 0, 0.4 * 1.5, 0.4 * 1.5);
 
-    nameText  = new Text(name_, 0, 0, 0.4, 0.4);
-    movementTypeText  = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4, 0.4);
-    movementText  = new Text("Range: " + String(range), 0, 0, 0.4, 0.4);
-    descriptionText    = new Text(description_, 0, 0, 0.4, 0.4);
-    nobilityText    = new Text("Nobility: " + String(nobility_), 0, 0, 0.4, 0.4);
-    costText    = new Text("COST: " + String(price_), 0, 0, 0.4, 0.4);
+    nameText  = new Text(name_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    movementTypeText  = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    movementText  = new Text("Range: " + String(range), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    descriptionText    = new Text(description_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    nobilityText    = new Text("Nobility: " + String(nobility_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    costText    = new Text("COST: " + String(price_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
 
     tileBorderBlue = new Sprite("data/TileBorder-Blue.png", 0,0, 0.4, 0.4);
     tileBorderGold = new Sprite("data/TileBorder-Gold.png", 0,0, 0.4, 0.4);
