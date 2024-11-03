@@ -59,14 +59,14 @@ void Autochess::Init()
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 160, 135, 0.75, 0.75);
-    victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 500, 250, 0.55, 0.55);
+    victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
-    playerWhiteWins = new Text("PLAYER WHITE WINS!", 220,290);
-    playerBlackWins = new Text("PLAYER BLACK WINS!", 220,290);
+    playerWhiteWins = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
+    playerBlackWins = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
     playerDraw      = new Text("DRAW", 220,290);
 
     playerWhiteTurn = new Text("Player WHITE make a move", 150,60);
