@@ -11,7 +11,8 @@ Piece::Piece(String name_,
              int price_,
              int nobility_,
              int range,
-             bool isJumping_)
+             bool isJumping_,
+             bool canReturnAfterCapture)
 {
     name = name_;
 

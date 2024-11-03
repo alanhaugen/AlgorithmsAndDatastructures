@@ -284,7 +284,7 @@ Piece* Shop::CreateKnight()
     Piece* piece = new Piece("Knight",
                      "data/Piece-WhiteKnight.png",
                      "data/Piece-BlackKnight.png",
-                     "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
+                     "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
                      50,
                      2,
                      5);
@@ -374,6 +374,11 @@ Piece* Shop::CreateHydra()
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
 
+        // If hydra attacks into a tile, then attack adjacent tiles left/right.
+        piece->captureOnlyMovePattern.Add(glm::vec2(-1,0));
+        piece->captureOnlyMovePattern.Add(glm::vec2(1,0));
+
+
     return piece;
 }
 
@@ -385,10 +390,12 @@ Piece* Shop::CreateRogue()
                      "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                      200,
                      2,
-                    2);
+                     2,
+                     false,
+                     true);
 
     // TODO: Add special ability
-    for (int i = 1; i <= 1; i++)
+    for (int i = 1; i <= 2; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
         piece->movePattern.Add(glm::vec2(-i,0));
@@ -400,6 +407,8 @@ Piece* Shop::CreateRogue()
         piece->movePattern.Add(glm::vec2(-i,i));
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
+
+    // If Rogues attacks into a tile, then move back to initial tile.
 
     return piece;
 }
@@ -438,7 +447,8 @@ Piece* Shop::CreateCannon()
                      "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                      350,
                      1,
-                     1);
+                     1,
+                     true);
 
     // TODO: Add special ability
 
@@ -454,6 +464,14 @@ Piece* Shop::CreateCannon()
         piece->movePattern.Add(glm::vec2(-i,i));
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
+
+    // Cannon can shoot pieces 3 tiles infront of it
+
+    for(int i = 3; i<10; ++i)
+    {
+        piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
+    }
+
 
     return piece;
 }
