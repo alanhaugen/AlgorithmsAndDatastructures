@@ -43,7 +43,7 @@ public:
           int nobility,
           int range = 0,
           bool isJumping_ = false,
-          bool canReturnAfterCapture = false);
+          bool canReturnAfterCapture_ = false);
 
     Sprite* iconWhite = nullptr;
     Sprite* iconBlack = nullptr;

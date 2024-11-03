@@ -12,9 +12,10 @@ Piece::Piece(String name_,
              int nobility_,
              int range,
              bool isJumping_,
-             bool canReturnAfterCapture)
+             bool canReturnAfterCapture_)
 {
     name = name_;
+    canReturnAfterCapture=canReturnAfterCapture_;
 
     backgroundCard = new Sprite("data/Card-Standard.png", 0,0, 2.2 * 1.5, 3.1 * 1.5);
 

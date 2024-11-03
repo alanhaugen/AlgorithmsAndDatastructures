@@ -448,6 +448,7 @@ Piece* Shop::CreateCannon()
                      350,
                      1,
                      1,
+                     true,
                      true);
 
     // TODO: Add special ability
