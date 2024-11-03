@@ -92,6 +92,13 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
 
     Array<Move> moves;
 
+    int yDirectionInvert = 1;
+
+    if (tile->piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
+
     if (tile->piece->isJumping)
     {
         for (node = tiles.Begin(); node != NULL; ++node)
@@ -125,7 +132,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
             }
             for (unsigned int i = 0; i < capturePattern.Size(); i++)
             {
-                if ((*node).x == x + capturePattern[i].x && (*node).y == y + capturePattern[i].y)
+                if ((*node).x == x + capturePattern[i].x && (*node).y == y + (yDirectionInvert * capturePattern[i].y))
                 {
                     if ((*node).piece != nullptr)
                     {
@@ -157,7 +164,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
 
     searchTiles.Append(startTile);
 
-    int yDirectionInvert = 1;
+    yDirectionInvert = 1;
 
     if (startTile.piece->isWhite == false)
     {

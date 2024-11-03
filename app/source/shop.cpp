@@ -2,14 +2,14 @@
 
 Shop::Shop()
 {
-    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 160, 300, 2.0, 2.0);
+    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
-    numberOfFences = 0;
-    numberOfKings = 0;
-    numberOfQueens = 0;
+    numberOfFences   = 0;
+    numberOfKings    = 0;
+    numberOfQueens   = 0;
     numberOfMonsters = 0;
-    isWhitesTurn = true;
+    isWhitesTurn     = true;
 
     //2 Kings
     unshuffledDeckOfCards.Append(CreateKing());
@@ -458,8 +458,6 @@ Piece* Shop::CreateCannon()
     return piece;
 }
 
-
-
 Piece* Shop::CreateRandomPiece()
 {
     int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
@@ -487,9 +485,6 @@ Piece* Shop::CreateRandomPiece()
                          "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                          90,
                          6);
-
-
-
         break;
     case 2:
         piece = new Piece("Princess",
@@ -498,9 +493,6 @@ Piece* Shop::CreateRandomPiece()
                          "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                          120,
                          8);
-
-
-
         break;
     case 3:
         piece = new Piece("Shield Man",
@@ -615,7 +607,6 @@ Piece* Shop::CreateRandomPiece()
                           "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                           60,
                           1);
-
         break;
     case 10:
         piece = new Piece("Jester",
@@ -624,9 +615,6 @@ Piece* Shop::CreateRandomPiece()
                           "Moves diagonally 2 spaces in any direction.",
                           75,
                           3);
-
-
-
         break;
     case 11:
         if (numberOfFences >= MAX_NUMBER_OF_FENCES)
@@ -642,9 +630,6 @@ Piece* Shop::CreateRandomPiece()
                           "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                           40,
                           0);
-
-
-
         break;
     case 12:
         piece = new Piece("Hydra",
@@ -653,9 +638,6 @@ Piece* Shop::CreateRandomPiece()
                           "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                           180,
                           1);
-
-
-
         break;
     case 13:
         piece = new Piece("Rogue",
@@ -726,7 +708,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::StockShopFront()
 {
-    int y = 140 * 1.75;
+    int y = 80 * 1.75;
 
     for (int i = 0; i < 10; i++)
     {
@@ -739,12 +721,12 @@ void Shop::StockShopFront()
 
         if (i > 0 && i % 5 == 0)
         {
-            y += 90 * 2.00;
+            y += 90 * 3.00;
         }
 
-        *piece->iconWhite->matrix.x = (360 + ((i % 5) * 50))*2.00;
+        *piece->iconWhite->matrix.x = (290 + ((i % 5) * 100))*1.60;
         *piece->iconWhite->matrix.y = y;
-        *piece->iconBlack->matrix.x = (360 + ((i % 5) * 50))*2.00;
+        *piece->iconBlack->matrix.x = (290 + ((i % 5) * 100))*1.60;
         *piece->iconBlack->matrix.y = y;
 
         itemsStoreFront.Append(piece);
