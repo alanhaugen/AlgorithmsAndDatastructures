@@ -4,8 +4,6 @@
 
 Board::Board()
 {
-    background = new Sprite("data/BackgroundImage.png", 0, 0, 0.75, 0.75);
-
     GenerateTiles();
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
@@ -17,8 +15,8 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(nums[i], 80, (140 + (i*52)) - 16));
-        components.Add(new Text(chars[i], 130 + (i*50), 630));
+        components.Add(new Text(nums[i], 380, (140 + (i*52)) - 16));
+        components.Add(new Text(chars[i], 430 + (i*50), 630));
     }
 }
 
@@ -308,8 +306,6 @@ void Board::Init()
 
 void Board::Update()
 {
-    background->Update();
-
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
     for (; tile != NULL; ++tile)

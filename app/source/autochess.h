@@ -54,6 +54,8 @@ public:
     Sprite* turnsLeftBanner;
     Sprite* victoryBanner;
 
+    Sprite* background;
+
     ITime* time;
 
     Piece* activePiece;

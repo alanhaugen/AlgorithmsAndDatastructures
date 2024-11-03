@@ -2,8 +2,7 @@
 
 Shop::Shop()
 {
-    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
-    randomCard = new Sprite("data/Card-Random.png", 600, 300, 2.0, 2.0);
+    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 160, 300, 2.0, 2.0);
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
     numberOfFences = 0;
@@ -743,9 +742,9 @@ void Shop::StockShopFront()
             y += 90 * 2.00;
         }
 
-        *piece->iconWhite->matrix.x = (60 + ((i % 5) * 50))*2.00;
+        *piece->iconWhite->matrix.x = (360 + ((i % 5) * 50))*2.00;
         *piece->iconWhite->matrix.y = y;
-        *piece->iconBlack->matrix.x = (60 + ((i % 5) * 50))*2.00;
+        *piece->iconBlack->matrix.x = (360 + ((i % 5) * 50))*2.00;
         *piece->iconBlack->matrix.y = y;
 
         itemsStoreFront.Append(piece);
@@ -754,7 +753,6 @@ void Shop::StockShopFront()
 
 void Shop::Update()
 {
-    background->Update();
     activePiece = nullptr;
 
     if (itemsStoreFront.Empty())

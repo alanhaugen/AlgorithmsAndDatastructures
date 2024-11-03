@@ -12,7 +12,6 @@ class Move;
 class Board : public IScene
 {
 public:
-    Sprite* background;
     LinkedList<Tile> tiles;
     Sprite* highlight;
     Board();

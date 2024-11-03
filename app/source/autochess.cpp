@@ -38,10 +38,12 @@ void Autochess::NextPlayer()
 
 void Autochess::Init()
 {
+    background = new Sprite("data/BackgroundImage.png", 0, 0, 1.78, 1.78);
+
     gameBoard = new Board();
 
-    blackPiecesBanner = new Sprite("data/DarkBanner.png",  10, 0,   0.75, 0.45);
-    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 10, 655, 0.75, 0.45);
+    blackPiecesBanner = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
+    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
 
     shop = new Shop();
 
@@ -56,8 +58,8 @@ void Autochess::Init()
 
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
-    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", 650, 135, 0.75, 0.75);
-    victoryBanner   = new Sprite("data/victoryBanner.png", 100, 250, 0.55, 0.55);
+    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 160, 135, 0.75, 0.75);
+    victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 500, 250, 0.55, 0.55);
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
@@ -82,7 +84,7 @@ void Autochess::Init()
     movesCompleted = 0;
     isDraw = false;
 
-    movesLeftText = new Text(String(movesCompleted), 670, 165);
+    movesLeftText = new Text(String(movesCompleted), renderer->windowWidth - 140, 165);
 
     state = GameState::Shopping;
 
@@ -94,6 +96,7 @@ void Autochess::Init()
 
     cam = new Camera();
     components.Add(cam);
+    components.Add(background);
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -113,6 +116,9 @@ void Autochess::Update()
     blueBanner->Update();
     yellowBanner->Update();
     turnsLeftBanner->Update();
+
+    whitePiecesBanner->Update();
+    blackPiecesBanner->Update();
 
     if (input.Pressed(input.Key.ESCAPE))
     {
@@ -185,8 +191,6 @@ void Autochess::Update()
     else
     {
         gameBoard->Update();
-        whitePiecesBanner->Update();
-        blackPiecesBanner->Update();
     }
 
     if (state == GameState::Placing)

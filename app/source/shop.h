@@ -26,7 +26,6 @@ public:
     const int MAX_NUMBER_OF_QUEENS = 2;
     const int WildcardCost = 100;
 
-    Sprite* background;
     LinkedList<Piece*> itemsStoreFront;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
