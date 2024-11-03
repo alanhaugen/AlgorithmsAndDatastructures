@@ -341,10 +341,10 @@ Piece* Shop::CreateBishop()
 
     for (int i = 1; i <= 10; i++)
     {
-        piece->movePattern.Add(glm::vec2(i,i));
-        piece->movePattern.Add(glm::vec2(i,-i));
-        piece->movePattern.Add(glm::vec2(-i,i));
-        piece->movePattern.Add(glm::vec2(-i,-i));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
     }
 
     return piece;
