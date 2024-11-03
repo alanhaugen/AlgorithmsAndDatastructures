@@ -80,7 +80,7 @@ void Board::HideDots()
     }
 }
 
-Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
+Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 {
     int x = tile->x;
     int y = tile->y;
@@ -114,7 +114,10 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                             (*node).moveDot->Show();
                         }
 
-                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                        if (isCaptureOnly == false)
+                        {
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                        }
                     }
                     else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                     {
@@ -205,7 +208,11 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                                 }
 
                                 nextLayerTiles.Append((*node));
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+
+                                if (isCaptureOnly == false)
+                                {
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                                }
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                             {

@@ -68,6 +68,7 @@ public:
     void NextPlayer();
 
     bool isWhitesTurn;
+    bool isHydraMode = false;
 
     GameState state;
 

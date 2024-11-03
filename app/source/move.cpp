@@ -21,6 +21,10 @@ void Move::Update()
 void Move::Execute()
 {
     oldPiece = tileToMoveTo->piece;
+
+    //movedPiece.Get = Set.activePiece
+
+    //Hydra forblir på stedet, men TileMoveTo blir nullptr
     if(movedPiece->canReturnAfterCapture==true && isCapture)
     {
         tileToMoveTo->piece = nullptr;

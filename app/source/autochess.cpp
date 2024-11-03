@@ -38,55 +38,55 @@ void Autochess::NextPlayer()
 
 void Autochess::Init()
 {
-    background = new Sprite("data/BackgroundImage.png", 0, 0, 1.78, 1.78);
+    background          = new Sprite("data/BackgroundImage.png", 0, 0, 1.78, 1.78);
 
-    gameBoard = new Board();
+    gameBoard           = new Board();
 
-    blackPiecesBanner = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
-    whitePiecesBanner = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
+    blackPiecesBanner   = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
+    whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
 
-    shop = new Shop();
+    shop                = new Shop();
 
-    white = new Player(true);
-    black = new Player(false);
+    white               = new Player(true);
+    black               = new Player(false);
 
     players.Add(white);
     players.Add(black);
 
-    isWhitesTurn = true;
-    activePlayer = white;
+    isWhitesTurn        = true;
+    activePlayer        = white;
 
-    blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
-    yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
-    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
-    victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
+    blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
+    yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
+    turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
+    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 
-    playerWhiteWins = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
-    playerBlackWins = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
-    playerDraw      = new Text("DRAW", 220,290);
+    playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
+    playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
+    playerDraw          = new Text("DRAW", 220,290);
 
-    playerWhiteTurn = new Text("Player WHITE make a move", 150,60);
-    playerBlackTurn = new Text("Player BLACK make a move", 150,60);
+    playerWhiteTurn     = new Text("Player WHITE make a move", 150,60);
+    playerBlackTurn     = new Text("Player BLACK make a move", 150,60);
 
     input.Mouse.Pressed = false; // hack.
 
-    time = Application::GetTime("wait time");
+    time                = Application::GetTime("wait time");
 
-    swapPlayers      = true;
-    isAnyWhitePieces = false;
-    isAnyBlackPieces = false;
-    activePiece      = nullptr;
+    swapPlayers         = true;
+    isAnyWhitePieces    = false;
+    isAnyBlackPieces    = false;
+    activePiece         = nullptr;
 
-    movesCompleted = 0;
-    isDraw = false;
+    movesCompleted      = 0;
+    isDraw              = false;
 
-    movesLeftText = new Text(String(movesCompleted), renderer->windowWidth - 120, 165);
+    movesLeftText       = new Text(String(movesCompleted), renderer->windowWidth - 120, 165);
 
-    state = GameState::Shopping;
+    state               = GameState::Shopping;
 
     topPreviousMoves.Push(new Text("text1"));
     topPreviousMoves.Push(new Text("text2"));
@@ -292,7 +292,7 @@ void Autochess::Update()
         isFirstPlaythrough = false;
 
         movesLeftText->Update();
-        gameBoard->highlight->Show();
+        //gameBoard->highlight->Show();
         moves.Clear();
 
         if (isWhitesTurn)
@@ -306,7 +306,7 @@ void Autochess::Update()
 
         if (isTwoPlayer)
         {
-            if (activePiece == nullptr)
+            /*if (activePiece == nullptr)
             {
                 LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
@@ -324,7 +324,7 @@ void Autochess::Update()
                         }
                     }
                 }
-            }
+            }*/
 
             if (input.Mouse.Pressed)
             {
@@ -334,6 +334,8 @@ void Autochess::Update()
                 {
                     return;
                 }
+
+                gameBoard->highlight->Show();
 
                 // Check if user has clicked on tile with a piece
                 if (clickedTile->piece != nullptr)
@@ -360,25 +362,99 @@ void Autochess::Update()
                 if (activePiece != nullptr)
                 {
                     LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                    for (; tile != NULL; ++tile)
-                    {
-                        if ((*tile).piece != nullptr)
+                    if (isHydraMode == true)
+                    {//logic
+                        moves = gameBoard->UpdateDots(clickedTile, false, true);
+                    }
+                    else
                         {
-                            if ((*tile).piece->isWhite == isWhitesTurn)
+                            for (; tile != NULL; ++tile)
                             {
-                                moves += gameBoard->UpdateDots(&(*tile), false);
+                                if ((*tile).piece != nullptr)
+                                {
+                                    if ((*tile).piece->isWhite == isWhitesTurn)
+                                    {
+                                        moves += gameBoard->UpdateDots(&(*tile), false);
+                                    }
+                                }
                             }
                         }
-                    }
 
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
                         if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
                             (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
                         {
+                            /*if (moves[i].movedPiece->isHydra == true && moves[i].isCapture)
+                            {
+                                isHydraMode = true;
+                                moves[i].Execute();
+                                moves.Clear();
+                                moves = gameBoard->UpdateDots(clickedTile);
+
+                                activePiece->canReturnAfterCapture = true;
+                                int adjacentCaptures = 0;
+
+                                for (int i = 0; i < moves.Size(); i++)
+                                    {
+                                        if (moves[i].isCapture)
+                                        {
+                                            ++adjacentCaptures;
+                                        }
+
+                                        Log("Adjacent HydraCaptures is " +
+                                            String(adjacentCaptures) + ".");
+                                    }
+
+                                if (adjacentCaptures > 0)
+                                {
+                                    //Her må vi sette active tile/piece til kun Hydra
+                                    for (unsigned int i = 0; i<moves.Size(); i++)
+                                    {
+                                        if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
+                                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
+                                        {
+                                            if (moves[i].isCapture == true && moves[i].movedPiece == activePiece)
+                                            {
+                                                int attacks = 0;
+
+                                                moves[i].Execute();
+                                                attacks++;
+
+                                                if (attacks >= adjacentCaptures || attacks >= 2)
+                                                {
+                                                    activePiece->canReturnAfterCapture = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                NextPlayer();
+                            }*/
+
                             moves[i].Execute();
-                            NextPlayer();
+                            gameBoard->highlight->Hide();
+
+                            if (activePiece->isHydra == true && moves[i].isCapture == true)
+                            {
+                                isHydraMode = true;
+
+                                //reset ting
+                                    //moves.Clear();
+                                    //moves = gameBoard->UpdateDots(clickedTile);
+                                // sjekke moves opp mot capture moves
+                                // sette capture moves som eneste gyldige moves
+                                // enable returnAFterCatpure
+                                // sette attacks til max 2
+                                // sette piece til kun hydra
+                                // returnere hydra til init pos etter evt angrep
+                            }
+                            else
+                            {
+                                NextPlayer();
+                            }
 
                             gameBoard->HideDots();
 

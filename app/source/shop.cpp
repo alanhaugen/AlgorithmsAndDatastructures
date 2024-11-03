@@ -358,7 +358,10 @@ Piece* Shop::CreateHydra()
                      "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                      180,
                      1,
-                     1);
+                     1,
+                     false,
+                     false,
+                     true);
 
     // TODO: Add special ability
     for (int i = 1; i <= 1; i++)
@@ -375,9 +378,6 @@ Piece* Shop::CreateHydra()
     }
 
         // If hydra attacks into a tile, then attack adjacent tiles left/right.
-        piece->captureOnlyMovePattern.Add(glm::vec2(-1,0));
-        piece->captureOnlyMovePattern.Add(glm::vec2(1,0));
-
 
     return piece;
 }
