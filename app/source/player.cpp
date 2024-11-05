@@ -38,7 +38,7 @@ void Player::Init()
     //isComputer = false;
     isWhite    = false;
     isReady    = false;
-    gold       = 4000;
+    gold       = 1000;
     score      = 0;
 
     buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);

@@ -4,8 +4,6 @@
 
 Board::Board()
 {
-    background = new Sprite("data/BackgroundImage.png", 0, 0, 0.75, 0.75);
-
     GenerateTiles();
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
@@ -17,8 +15,8 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(nums[i], 80, (140 + (i*52)) - 16));
-        components.Add(new Text(chars[i], 130 + (i*50), 630));
+        components.Add(new Text(nums[i], 380, (140 + (i*52)) - 16));
+        components.Add(new Text(chars[i], 430 + (i*50), 630));
     }
 }
 
@@ -82,7 +80,7 @@ void Board::HideDots()
     }
 }
 
-Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
+Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 {
     int x = tile->x;
     int y = tile->y;
@@ -93,6 +91,13 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
     Array<Move> moves;
+
+    int yDirectionInvert = 1;
+
+    if (tile->piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
 
     if (tile->piece->isJumping)
     {
@@ -109,7 +114,10 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                             (*node).moveDot->Show();
                         }
 
-                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                        if (isCaptureOnly == false)
+                        {
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                        }
                     }
                     else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                     {
@@ -127,7 +135,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
             }
             for (unsigned int i = 0; i < capturePattern.Size(); i++)
             {
-                if ((*node).x == x + capturePattern[i].x && (*node).y == y + capturePattern[i].y)
+                if ((*node).x == x + capturePattern[i].x && (*node).y == y + (yDirectionInvert * capturePattern[i].y))
                 {
                     if ((*node).piece != nullptr)
                     {
@@ -159,7 +167,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
 
     searchTiles.Append(startTile);
 
-    int yDirectionInvert = 1;
+    yDirectionInvert = 1;
 
     if (startTile.piece->isWhite == false)
     {
@@ -200,7 +208,11 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot)
                                 }
 
                                 nextLayerTiles.Append((*node));
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+
+                                if (isCaptureOnly == false)
+                                {
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                                }
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                             {
@@ -308,8 +320,6 @@ void Board::Init()
 
 void Board::Update()
 {
-    background->Update();
-
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 
     for (; tile != NULL; ++tile)

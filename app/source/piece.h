@@ -42,7 +42,9 @@ public:
           int price_,
           int nobility,
           int range = 0,
-          bool isJumping_ = false);
+          bool isJumping_ = false,
+          bool canReturnAfterCapture_ = false,
+          bool isHydra_ = false);
 
     Sprite* iconWhite = nullptr;
     Sprite* iconBlack = nullptr;
@@ -74,6 +76,8 @@ public:
     bool isJumping = false;
     bool isActive = false;
     bool canCapture = true;
+    bool canReturnAfterCapture = false;
+    bool isHydra = false;
 
     void Update();
 };

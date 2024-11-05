@@ -55,6 +55,8 @@ public:
     Sprite* turnsLeftBanner;
     Sprite* victoryBanner;
 
+    Sprite* background;
+
     ITime* time;
 
     Piece* activePiece;
@@ -67,6 +69,7 @@ public:
     void NextPlayer();
 
     bool isWhitesTurn;
+    bool isHydraMode = false;
 
     GameState state;
 

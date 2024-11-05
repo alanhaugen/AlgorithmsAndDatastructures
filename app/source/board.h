@@ -12,14 +12,13 @@ class Move;
 class Board : public IScene
 {
 public:
-    Sprite* background;
     LinkedList<Tile> tiles;
     Sprite* highlight;
     Board();
 
     void GenerateTiles();
     void HideDots();
-    Array<Move> UpdateDots(Tile *tile, bool showDot = true);
+    Array<Move> UpdateDots(Tile *tile, bool showDot = true, bool isCaptureOnly = false);
     Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 

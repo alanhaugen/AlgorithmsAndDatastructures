@@ -2,15 +2,14 @@
 
 Shop::Shop()
 {
-    background = new Sprite("data/ShopBackgroundImage.png", 0, 0, 0.75, 0.75);
-    randomCard = new Sprite("data/Card-Random.png", 600, 300, 2.0, 2.0);
+    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
-    numberOfFences = 0;
-    numberOfKings = 0;
-    numberOfQueens = 0;
+    numberOfFences   = 0;
+    numberOfKings    = 0;
+    numberOfQueens   = 0;
     numberOfMonsters = 0;
-    isWhitesTurn = true;
+    isWhitesTurn     = true;
 
     //2 Kings
     unshuffledDeckOfCards.Append(CreateKing());
@@ -285,7 +284,7 @@ Piece* Shop::CreateKnight()
     Piece* piece = new Piece("Knight",
                      "data/Piece-WhiteKnight.png",
                      "data/Piece-BlackKnight.png",
-                     "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
+                     "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
                      50,
                      2,
                      5);
@@ -342,10 +341,10 @@ Piece* Shop::CreateBishop()
 
     for (int i = 1; i <= 10; i++)
     {
-        piece->movePattern.Add(glm::vec2(i,i));
-        piece->movePattern.Add(glm::vec2(i,-i));
-        piece->movePattern.Add(glm::vec2(-i,i));
-        piece->movePattern.Add(glm::vec2(-i,-i));
+        piece->movePattern.Add(glm::vec2(0,i));
+        piece->movePattern.Add(glm::vec2(0,-i));
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
     }
 
     return piece;
@@ -359,7 +358,10 @@ Piece* Shop::CreateHydra()
                      "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                      180,
                      1,
-                     1);
+                     1,
+                     false,
+                     false,
+                     true);
 
     // TODO: Add special ability
     for (int i = 1; i <= 1; i++)
@@ -374,6 +376,8 @@ Piece* Shop::CreateHydra()
         piece->movePattern.Add(glm::vec2(-i,i));
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
+
+        // If hydra attacks into a tile, then attack adjacent tiles left/right.
 
     return piece;
 }
@@ -386,10 +390,12 @@ Piece* Shop::CreateRogue()
                      "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                      200,
                      2,
-                    2);
+                     2,
+                     false,
+                     true);
 
     // TODO: Add special ability
-    for (int i = 1; i <= 1; i++)
+    for (int i = 1; i <= 2; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
         piece->movePattern.Add(glm::vec2(-i,0));
@@ -401,6 +407,8 @@ Piece* Shop::CreateRogue()
         piece->movePattern.Add(glm::vec2(-i,i));
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
+
+    // If Rogues attacks into a tile, then move back to initial tile.
 
     return piece;
 }
@@ -439,7 +447,9 @@ Piece* Shop::CreateCannon()
                      "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                      350,
                      1,
-                     1);
+                     1,
+                     true,
+                     true);
 
     // TODO: Add special ability
 
@@ -456,10 +466,16 @@ Piece* Shop::CreateCannon()
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
 
+    // Cannon can shoot pieces 3 tiles infront of it
+
+    for(int i = 3; i<10; ++i)
+    {
+        piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
+    }
+
+
     return piece;
 }
-
-
 
 Piece* Shop::CreateRandomPiece()
 {
@@ -488,9 +504,6 @@ Piece* Shop::CreateRandomPiece()
                          "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                          90,
                          6);
-
-
-
         break;
     case 2:
         piece = new Piece("Princess",
@@ -499,9 +512,6 @@ Piece* Shop::CreateRandomPiece()
                          "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                          120,
                          8);
-
-
-
         break;
     case 3:
         piece = new Piece("Shield Man",
@@ -616,7 +626,6 @@ Piece* Shop::CreateRandomPiece()
                           "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                           60,
                           1);
-
         break;
     case 10:
         piece = new Piece("Jester",
@@ -625,9 +634,6 @@ Piece* Shop::CreateRandomPiece()
                           "Moves diagonally 2 spaces in any direction.",
                           75,
                           3);
-
-
-
         break;
     case 11:
         if (numberOfFences >= MAX_NUMBER_OF_FENCES)
@@ -643,9 +649,6 @@ Piece* Shop::CreateRandomPiece()
                           "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                           40,
                           0);
-
-
-
         break;
     case 12:
         piece = new Piece("Hydra",
@@ -654,9 +657,6 @@ Piece* Shop::CreateRandomPiece()
                           "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                           180,
                           1);
-
-
-
         break;
     case 13:
         piece = new Piece("Rogue",
@@ -727,7 +727,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 
 void Shop::StockShopFront()
 {
-    int y = 140 * 1.75;
+    int y = 80 * 1.75;
 
     for (int i = 0; i < 10; i++)
     {
@@ -740,12 +740,12 @@ void Shop::StockShopFront()
 
         if (i > 0 && i % 5 == 0)
         {
-            y += 90 * 2.00;
+            y += 90 * 3.00;
         }
 
-        *piece->iconWhite->matrix.x = (60 + ((i % 5) * 50))*2.00;
+        *piece->iconWhite->matrix.x = (290 + ((i % 5) * 100))*1.60;
         *piece->iconWhite->matrix.y = y;
-        *piece->iconBlack->matrix.x = (60 + ((i % 5) * 50))*2.00;
+        *piece->iconBlack->matrix.x = (290 + ((i % 5) * 100))*1.60;
         *piece->iconBlack->matrix.y = y;
 
         itemsStoreFront.Append(piece);
@@ -754,7 +754,6 @@ void Shop::StockShopFront()
 
 void Shop::Update()
 {
-    background->Update();
     activePiece = nullptr;
 
     if (itemsStoreFront.Empty())
