@@ -66,6 +66,8 @@ solid {
             "source/mainmenu.h",
             "source/menu.cpp",
             "source/menu.h",
+            "source/minimax.cpp",
+            "source/minimax.h",
             "source/move.cpp",
             "source/move.h",
             "source/piece.cpp",
