@@ -1,8 +1,12 @@
 #include <core/application.h>
 #include "button.h"
 #include "main.h"
+#include "replaynew.h"
 
 extern bool isTwoPlayer;
+extern LinkedList<Move> replay;
+extern LinkedList<ReplayNew> replays;
+
 
 Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
 {
@@ -19,6 +23,16 @@ void Button::Update()
         if (tag == "Replay")
         {
             Application::LoadScene(Scenes::Replay);
+            LinkedList<ReplayNew>::Iterator Replay_ = replays.Begin();
+
+            for(int i = 0; Replay_ == NULL; ++Replay_)
+            {
+                if(i == index)
+                {
+                    replay = *(*Replay_).Moves;
+                }
+                i++;
+            }
         }
         if (tag == "vsAI")
         {

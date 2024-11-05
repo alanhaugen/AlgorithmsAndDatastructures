@@ -6,8 +6,9 @@ Move::Move()
     movedPiece = nullptr;
 }
 
-Move::Move(Piece* piece, Tile* tile, bool isCapture_)
+Move::Move(Piece* piece, Tile* tile, bool isCapture_, bool isPlacement_)
 {
+    isPlacement = isPlacement_;
     tileToMoveTo = tile;
     oldTile = piece->currentTile;
     movedPiece = piece;

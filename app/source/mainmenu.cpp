@@ -44,10 +44,10 @@ void Mainmenu::Init()
     {
         if(replayI->WinColor == true)
         {
-            replaysMenu->AddNextSceneButton("data/WhitePlayerReplayButton.png", 200, 90 + i*45, "Replay");
+            replaysMenu->AddNextSceneButton("data/WhitePlayerReplayButton.png", renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90 + i*45, "Replay", i);
         } else
         {
-            replaysMenu->AddNextSceneButton("data/DarkPlayerReplayButton.png", 200, 90+i*45, "Replay");
+            replaysMenu->AddNextSceneButton("data/DarkPlayerReplayButton.png",  renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90+i*45, "Replay", i);
         }
 
         i++;

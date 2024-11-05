@@ -15,9 +15,10 @@ public:
     Tile* oldTile;
     Tile* tileToMoveTo;
     bool isCapture;
+    bool isPlacement = false;
 
     Move();
-    Move(Piece* piece, Tile* tile, bool isCapture_ = false);
+    Move(Piece* piece, Tile* tile, bool isCapture_ = false, bool isPlacement_ = false);
 
     void Update();
 

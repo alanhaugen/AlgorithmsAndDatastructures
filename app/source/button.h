@@ -12,6 +12,7 @@ private:
     Stack<Menu*>* menuStack = NULL;
 
 public:
+    int index;
     Menu* gotoMenu = NULL;
     Button(String filePath, int x, int y, Stack<Menu *> *menuStack_);
 

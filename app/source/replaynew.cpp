@@ -1,8 +1,10 @@
 #include "replaynew.h"
 
-ReplayNew::ReplayNew() {}
+ReplayNew::ReplayNew()
+{
+}
 
-ReplayNew::ReplayNew(LinkedList<Move> Moves_, bool Draw_, bool WinColor_, String PlayDate_)
+ReplayNew::ReplayNew(LinkedList<Move>* Moves_, bool Draw_, bool WinColor_, String PlayDate_)
 {
     Moves = Moves_;
     Draw = Draw_;

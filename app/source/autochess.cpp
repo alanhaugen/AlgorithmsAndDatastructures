@@ -247,6 +247,7 @@ void Autochess::Update()
                     NextPlayer();
 
                     SetTile(tile);
+                    replay.Append(Move(tile->piece, tile, false, true));
                 }
 
                 // Move an activated board piece to tile
@@ -445,6 +446,7 @@ void Autochess::Update()
                             }*/
 
                             moves[i].Execute();
+                            replay.Append(moves[i]);
                             gameBoard->highlight->Hide();
 
                             if (activePiece->isHydra == true && moves[i].isCapture == true)
@@ -574,7 +576,7 @@ void Autochess::Update()
                 {
                     newMove = moves[i];
                     newMove.Execute();
-                    history.Append(newMove);
+                    replay.Append(newMove);
                     moved = true;
                     break;
                 }
@@ -584,7 +586,7 @@ void Autochess::Update()
             {
                 newMove = moves[random.RandomRange(0, moves.Size())];
                 newMove.Execute();
-                history.Append(newMove);
+                replay.Append(newMove);
             }
 
             if (newMove.isCapture)
@@ -651,21 +653,6 @@ void Autochess::Update()
                     isDraw = true;
                 }
             }
-
-            if (history.Empty() == false)
-            {
-                LinkedList<Move>::Iterator event = history.Begin();
-
-                for (; event != NULL; ++event)
-                {
-                    /*Log((*event).movedPiece->name +
-                        " moved to " +
-                        String((*event).tileToMoveTo->x) +
-                        " " +
-                        String((*event).tileToMoveTo->y));*/
-                    replay.Append((*event));
-                }
-            }
         }
     }
     else if (state == GameState::Done)
@@ -685,7 +672,7 @@ void Autochess::Update()
             playerDraw->Update();
             if(!replayAdded)
             {
-                replays.Append(ReplayNew(replay, true, true, "PlayDate"));
+                replays.Append(ReplayNew(&replay, true, true, "PlayDate"));
             }
         }
         else if (isAnyBlackPieces)
@@ -693,7 +680,7 @@ void Autochess::Update()
             playerBlackWins->Update();
             if(!replayAdded)
             {
-                replays.Append(ReplayNew(replay, false, false, "PlayDate"));
+                replays.Append(ReplayNew(&replay, false, false, "PlayDate"));
                 Log("Black");
             }
         }
@@ -702,7 +689,7 @@ void Autochess::Update()
             playerWhiteWins->Update();
             if(!replayAdded)
             {
-                replays.Append(ReplayNew(replay, false, true, "PlayDate"));
+                replays.Append(ReplayNew(&replay, false, true, "PlayDate"));
                 Log("White");
             }
         }

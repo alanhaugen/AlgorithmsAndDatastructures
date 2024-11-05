@@ -6,11 +6,12 @@ Menu::Menu(Stack<Menu*> *menuStack_)
     menuStack  = menuStack_;
 }
 
-void Menu::AddNextSceneButton(String image, int x, int y, String type)
+void Menu::AddNextSceneButton(String image, int x, int y, String type, int index)
 {
     Button* button = new Button(image, x, y, menuStack);
     button->tag = type;
     buttons.Add(button);
+    button->index = index;
 }
 
 void Menu::AddMenuButton(String image, Menu *menu, int x, int y, String type)
