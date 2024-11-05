@@ -337,6 +337,16 @@ void Autochess::Update()
                 }
             }*/
 
+            if (lockedPiece != nullptr)
+            {
+                activePiece = lockedPiece;
+                *gameBoard->highlight->matrix.x = *activePiece->icon->matrix.x;
+                *gameBoard->highlight->matrix.y = *activePiece->icon->matrix.y;
+                gameBoard->highlight->Show();
+                gameBoard->highlight->Update();
+                gameBoard->UpdateDots(activePiece->currentTile, true, true);
+            }
+
             if (input.Mouse.Pressed)
             {
                 Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
@@ -370,147 +380,124 @@ void Autochess::Update()
                     gameBoard->HideDots();
                 }
 
+                if (lockedPiece != nullptr)
+                {
+                    activePiece = lockedPiece;
+                    moves.Clear();
+                    gameBoard->HideDots();
+
+                    moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
+
+                    if (moves.Empty())
+                    {
+                        lockedPiece = nullptr;
+                        NextPlayer();
+                    }
+                }
+
                 if (activePiece != nullptr)
                 {
                     LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-                    if (isHydraMode == true)
-                    {//logic
-                        moves = gameBoard->UpdateDots(clickedTile, false, true);
-                    }
-                    else
+
+                    if (moves.Empty())
+                    {
+                        for (; tile != NULL; ++tile)
                         {
-                            for (; tile != NULL; ++tile)
+                            if ((*tile).piece != nullptr)
                             {
-                                if ((*tile).piece != nullptr)
+                                if ((*tile).piece->isWhite == isWhitesTurn)
                                 {
-                                    if ((*tile).piece->isWhite == isWhitesTurn)
-                                    {
-                                        moves += gameBoard->UpdateDots(&(*tile), false);
-                                    }
+                                    moves += gameBoard->UpdateDots(&(*tile), false);
                                 }
                             }
                         }
+                    }
 
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
-                        if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
-                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
-                        {
-                            /*if (moves[i].movedPiece->isHydra == true && moves[i].isCapture)
+                        if ((moves[i].tileToMoveTo->x == clickedTile->x &&
+                             moves[i].tileToMoveTo->y == clickedTile->y) &&
+                            (moves[i].oldTile->x == activePiece->currentTile->x &&
+                             moves[i].oldTile->y == activePiece->currentTile->y))
                             {
-                                isHydraMode = true;
                                 moves[i].Execute();
+                                hydraAttacks++;
+
+                                if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
+                                {
+                                    activePiece->canReturnAfterCapture = true;
+                                    lockedPiece = activePiece;
+                                    hydraAttacks = 0;
+                                }
+
+                                gameBoard->highlight->Hide();
+
+                                if (lockedPiece != nullptr)
+                                {
+                                    if (hydraAttacks >= 2)
+                                    {
+                                        lockedPiece->canReturnAfterCapture = false;
+                                        lockedPiece = nullptr;
+                                    }
+                                    else
+                                    {
+                                        moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
+
+                                        if (moves.Empty())
+                                        {
+                                            lockedPiece = nullptr;
+                                        }
+                                    }
+                                }
+
+                                if (lockedPiece == nullptr)
+                                {
+                                    NextPlayer();
+                                }
+
+                                gameBoard->HideDots();
+
+                                activePiece = nullptr;
+
                                 moves.Clear();
-                                moves = gameBoard->UpdateDots(clickedTile);
 
-                                activePiece->canReturnAfterCapture = true;
-                                int adjacentCaptures = 0;
+                                LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
-                                for (int i = 0; i < moves.Size(); i++)
-                                    {
-                                        if (moves[i].isCapture)
-                                        {
-                                            ++adjacentCaptures;
-                                        }
+                                int nobility = 0;
 
-                                        Log("Adjacent HydraCaptures is " +
-                                            String(adjacentCaptures) + ".");
-                                    }
-
-                                if (adjacentCaptures > 0)
+                                for (; tile != NULL; ++tile)
                                 {
-                                    //Her må vi sette active tile/piece til kun Hydra
-                                    for (unsigned int i = 0; i<moves.Size(); i++)
+                                    if ((*tile).piece != nullptr)
                                     {
-                                        if ((moves[i].tileToMoveTo->x == clickedTile->x && moves[i].tileToMoveTo->y == clickedTile->y) &&
-                                            (moves[i].oldTile->x == activePiece->currentTile->x && moves[i].oldTile->y == activePiece->currentTile->y))
+                                        if ((*tile).piece->isWhite == isWhitesTurn)
                                         {
-                                            if (moves[i].isCapture == true && moves[i].movedPiece == activePiece)
-                                            {
-                                                int attacks = 0;
-
-                                                moves[i].Execute();
-                                                attacks++;
-
-                                                if (attacks >= adjacentCaptures || attacks >= 2)
-                                                {
-                                                    activePiece->canReturnAfterCapture = false;
-                                                    break;
-                                                }
-                                            }
+                                            nobility += tile->piece->nobility;
+                                            moves += gameBoard->UpdateDots(&(*tile), false);
                                         }
                                     }
                                 }
 
-                                NextPlayer();
-                            }*/
-
-                            moves[i].Execute();
-                            replay.Append(moves[i]);
-                            gameBoard->highlight->Hide();
-
-                            if (activePiece->isHydra == true && moves[i].isCapture == true)
-                            {
-                                isHydraMode = true;
-
-                                //reset ting
-                                    //moves.Clear();
-                                    //moves = gameBoard->UpdateDots(clickedTile);
-                                // sjekke moves opp mot capture moves
-                                // sette capture moves som eneste gyldige moves
-                                // enable returnAFterCatpure
-                                // sette attacks til max 2
-                                // sette piece til kun hydra
-                                // returnere hydra til init pos etter evt angrep
-                            }
-                            else
-                            {
-                                NextPlayer();
-                            }
-
-                            gameBoard->HideDots();
-
-                            activePiece = nullptr;
-
-                            moves.Clear();
-
-                            LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                            int nobility = 0;
-
-                            for (; tile != NULL; ++tile)
-                            {
-                                if ((*tile).piece != nullptr)
+                                if (moves.Empty())
                                 {
-                                    if ((*tile).piece->isWhite == isWhitesTurn)
-                                    {
-                                        nobility += tile->piece->nobility;
-                                        moves += gameBoard->UpdateDots(&(*tile), false);
-                                    }
+                                    isAnyBlackPieces = activePlayer->isWhite;
+                                    isAnyWhitePieces = !activePlayer->isWhite;
+                                    state = GameState::Done;
                                 }
+
+                                if (isWhitesTurn)
+                                {
+                                    white->UpdateNobilityText(nobility);
+                                }
+                                else
+                                {
+                                    black->UpdateNobilityText(nobility);
+                                }
+
+
+                                gameBoard->Update();
+
+                                return;
                             }
-
-                            if (moves.Empty())
-                            {
-                                isAnyBlackPieces = activePlayer->isWhite;
-                                isAnyWhitePieces = !activePlayer->isWhite;
-                                state = GameState::Done;
-                            }
-
-                            if (isWhitesTurn)
-                            {
-                                white->UpdateNobilityText(nobility);
-                            }
-                            else
-                            {
-                                black->UpdateNobilityText(nobility);
-                            }
-
-
-                            gameBoard->Update();
-
-                            return;
-                        }
                     }
                 }
             }

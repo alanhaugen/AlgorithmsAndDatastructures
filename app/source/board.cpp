@@ -109,13 +109,13 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                 {
                     if ((*node).piece == nullptr)
                     {
-                        if (showDot)
-                        {
-                            (*node).moveDot->Show();
-                        }
-
                         if (isCaptureOnly == false)
                         {
+                            if (showDot)
+                            {
+                                (*node).moveDot->Show();
+                            }
+
                             moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                         }
                     }
@@ -202,15 +202,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                         {
                             if ((*node).piece == nullptr)
                             {
-                                if (showDot)
-                                {
-                                    (*node).moveDot->Show();
-                                }
-
-                                nextLayerTiles.Append((*node));
-
                                 if (isCaptureOnly == false)
                                 {
+                                    if (showDot)
+                                    {
+                                        (*node).moveDot->Show();
+                                    }
+
+                                    nextLayerTiles.Append((*node));
+
                                     moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                                 }
                             }
