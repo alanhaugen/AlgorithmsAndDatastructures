@@ -336,6 +336,16 @@ void Autochess::Update()
                 }
             }*/
 
+            if (lockedPiece != nullptr)
+            {
+                activePiece = lockedPiece;
+                *gameBoard->highlight->matrix.x = *activePiece->icon->matrix.x;
+                *gameBoard->highlight->matrix.y = *activePiece->icon->matrix.y;
+                gameBoard->highlight->Show();
+                gameBoard->highlight->Update();
+                gameBoard->UpdateDots(activePiece->currentTile, true, true);
+            }
+
             if (input.Mouse.Pressed)
             {
                 Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
@@ -369,26 +379,38 @@ void Autochess::Update()
                     gameBoard->HideDots();
                 }
 
+                if (lockedPiece != nullptr)
+                {
+                    activePiece = lockedPiece;
+                    moves.Clear();
+                    gameBoard->HideDots();
+
+                    moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
+
+                    if (moves.Empty())
+                    {
+                        lockedPiece = nullptr;
+                        NextPlayer();
+                    }
+                }
+
                 if (activePiece != nullptr)
                 {
                     LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-                    if (isHydraMode == true)
-                    {//logic
-                        moves = gameBoard->UpdateDots(clickedTile, false, true);
-                    }
-                    else
+
+                    if (moves.Empty())
+                    {
+                        for (; tile != NULL; ++tile)
                         {
-                            for (; tile != NULL; ++tile)
+                            if ((*tile).piece != nullptr)
                             {
-                                if ((*tile).piece != nullptr)
+                                if ((*tile).piece->isWhite == isWhitesTurn)
                                 {
-                                    if ((*tile).piece->isWhite == isWhitesTurn)
-                                    {
-                                        moves += gameBoard->UpdateDots(&(*tile), false);
-                                    }
+                                    moves += gameBoard->UpdateDots(&(*tile), false);
                                 }
                             }
                         }
+                    }
 
                     for (unsigned int i = 0; i < moves.Size(); i++)
                     {
@@ -398,61 +420,39 @@ void Autochess::Update()
                              moves[i].oldTile->y == activePiece->currentTile->y))
                             {
                                 moves[i].Execute();
-                                //activePiece = *Piece movedPiece
+                                hydraAttacks++;
 
-                                if (moves[i].movedPiece->isHydra == true && moves[i].isCapture)
+                                if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
                                 {
                                     activePiece->canReturnAfterCapture = true;
-
-                                    int adjacentCaptures = 0;
-
-                                    for (int i = 0; i < moves.Size(); i++)
-                                    {
-
-                                        if (moves[i].isCapture)
-                                            {
-                                                ++adjacentCaptures;
-                                            }
-
-
-                                        Log("Adjacent HydraCaptures is " +
-                                            String(adjacentCaptures) + ".");
-                                    }
-
-
-                                        if (adjacentCaptures >= 0)
-                                        {
-                                            //Her må vi sette active tile/piece til kun Hydra
-                                            for (unsigned int i = 0; i<moves.Size(); i++)
-                                            {
-                                                if ((moves[i].tileToMoveTo->x == clickedTile->x &&
-                                                     moves[i].tileToMoveTo->y == clickedTile->y) &&
-                                                    (moves[i].oldTile->x == activePiece->currentTile->x &&
-                                                    moves[i].oldTile->y == activePiece->currentTile->y))
-                                                {
-                                                    if (moves[i].isCapture == true && moves[i].movedPiece->isHydra == true)
-                                                    {
-                                                        int attacks = 0;
-
-                                                            moves[i].Execute();
-                                                            attacks++;
-
-                                                        if (attacks >= adjacentCaptures || attacks >= 2)
-                                                        {
-                                                            activePiece->canReturnAfterCapture = false;
-                                                            break;
-                                                        }
-                                                    }
-
-                                                }
-                                            }
-                                        }
-
+                                    lockedPiece = activePiece;
+                                    hydraAttacks = 0;
                                 }
 
-                                //moves[i].Execute();
                                 gameBoard->highlight->Hide();
-                                NextPlayer();
+
+                                if (lockedPiece != nullptr)
+                                {
+                                    if (hydraAttacks >= 2)
+                                    {
+                                        lockedPiece->canReturnAfterCapture = false;
+                                        lockedPiece = nullptr;
+                                    }
+                                    else
+                                    {
+                                        moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
+
+                                        if (moves.Empty())
+                                        {
+                                            lockedPiece = nullptr;
+                                        }
+                                    }
+                                }
+
+                                if (lockedPiece == nullptr)
+                                {
+                                    NextPlayer();
+                                }
 
                                 /*if (activePiece->isHydra == true && moves[i].isCapture == true)
                                 {

@@ -26,6 +26,7 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
+
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;
     Array<Move> moves;
@@ -66,10 +67,15 @@ public:
     Player* black;
     Player* activePlayer;
 
+    //
+    Piece* lockedPiece = nullptr;
+    //
+
     void NextPlayer();
 
     bool isWhitesTurn;
-    bool isHydraMode = false;
+
+    int hydraAttacks;
 
     GameState state;
 
