@@ -45,6 +45,7 @@ public:
     Text* movesLeftText;
 
     bool isDraw;
+    bool replayAdded;
 
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;

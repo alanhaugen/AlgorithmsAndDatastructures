@@ -16,9 +16,9 @@ void Button::Update()
 
     if (buttonImage->IsPressed())
     {
-        if (tag == "replay")
+        if (tag == "Replay")
         {
-            Application::LoadScene(Scenes::MainMenu);
+            Application::LoadScene(Scenes::Replay);
         }
         if (tag == "vsAI")
         {

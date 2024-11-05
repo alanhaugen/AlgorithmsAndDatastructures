@@ -1,8 +1,8 @@
 #include <core/application.h>
 #include "mainmenu.h"
-#include "replay.h"
+#include "replaynew.h"
 
-extern LinkedList<Replay> replays;
+extern LinkedList<ReplayNew> replays;
 
 Mainmenu::Mainmenu()
 {
@@ -37,14 +37,9 @@ void Mainmenu::Init()
     replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2 - 200, 80, 0.75f, 0.75f);
     replaysMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
-    replays.Append(Replay()); //for test, skal fjernes
-    replays.Append(Replay()); //for test, skal fjernes
-    replays.Append(Replay()); //for test, skal fjernes
-    replays.Append(Replay()); //for test, skal fjernes
-    replays.Append(Replay()); //for test, skal fjernes
-    replays.Append(Replay()); //for test, skal fjernes
+    //replays.Append(ReplayNew()); //for test, skal fjernes
 
-    LinkedList<Replay>::Iterator replayI = replays.Begin();
+    LinkedList<ReplayNew>::Iterator replayI = replays.Begin();
     for(int i = 0; replayI != NULL; ++replayI)
     {
         if(replayI->WinColor == true)
