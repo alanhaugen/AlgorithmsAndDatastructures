@@ -8,9 +8,11 @@
 class Replay
 {
 public:
-    //LinkedList<Move>::Iterator iterator;
+    LinkedList<Move> Moves;
+    bool Draw;
     bool WinColor;
     String PlayDate;
+    Replay(LinkedList<Move> Moves, bool Draw, bool WinColor, String PlayDate);
     Replay();
 };
 

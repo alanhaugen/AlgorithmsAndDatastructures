@@ -1,8 +1,13 @@
 #include <core/application.h>
 #include "autochess.h"
 #include "main.h"
+#include <ctime>
+#include <core/containers/linkedlist.h>
+#include "replaynew.h"
 
 extern bool isTwoPlayer;
+extern LinkedList<Move> replay;
+extern LinkedList<ReplayNew> replays;
 
 Autochess::Autochess()
 {
@@ -80,6 +85,7 @@ void Autochess::Init()
 
     movesCompleted = 0;
     isDraw = false;
+    replayAdded = false;
 
     movesLeftText = new Text(String(movesCompleted), 670, 165);
 
@@ -93,6 +99,8 @@ void Autochess::Init()
 
     cam = new Camera();
     components.Add(cam);
+
+    replay.Clear();
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -572,7 +580,7 @@ void Autochess::Update()
                         String((*event).tileToMoveTo->x) +
                         " " +
                         String((*event).tileToMoveTo->y));*/
-                    // replay.Enqueue((*event));
+                    replay.Append((*event));
                 }
             }
         }
@@ -584,17 +592,37 @@ void Autochess::Update()
 
         victoryBanner->Update();
 
+        //time_t timestamp;
+        //time(&timestamp);
+
+        //String PlayDate = ctime(&timestamp);
+
         if (isDraw)
         {
             playerDraw->Update();
+            if(!replayAdded)
+            {
+                replays.Append(ReplayNew(replay, true, true, "PlayDate"));
+            }
         }
         else if (isAnyBlackPieces)
         {
             playerBlackWins->Update();
+            if(!replayAdded)
+            {
+                replays.Append(ReplayNew(replay, false, false, "PlayDate"));
+                Log("Black");
+            }
         }
         else if (isAnyWhitePieces)
         {
             playerWhiteWins->Update();
+            if(!replayAdded)
+            {
+                replays.Append(ReplayNew(replay, false, true, "PlayDate"));
+                Log("White");
+            }
         }
+        replayAdded = true;
     }
 }
