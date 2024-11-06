@@ -19,11 +19,6 @@ public:
 
     bool isWhitesTurn;
 
-    int numberOfFences, numberOfKings, numberOfQueens, numberOfMonsters;
-    const int MAX_NUMBER_OF_FENCES = 6;
-    const int MAX_NUMBER_OF_KINGS = 2;
-    const int MAX_NUMBER_OF_MONSTERS = 2;
-    const int MAX_NUMBER_OF_QUEENS = 2;
     const int WildcardCost = 100;
 
     LinkedList<Piece*> itemsStoreFront;

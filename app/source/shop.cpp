@@ -5,23 +5,18 @@ Shop::Shop()
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
-    numberOfFences   = 0;
-    numberOfKings    = 0;
-    numberOfQueens   = 0;
-    numberOfMonsters = 0;
     isWhitesTurn     = true;
 
-    //2 Kings
     unshuffledDeckOfCards.Append(CreateKing());
     unshuffledDeckOfCards.Append(CreateKing());
-    //2 Queens
+
     unshuffledDeckOfCards.Append(CreateQueen());
     unshuffledDeckOfCards.Append(CreateQueen());
-    //3 Princes
+
     unshuffledDeckOfCards.Append(CreatePrince());
     unshuffledDeckOfCards.Append(CreatePrince());
     unshuffledDeckOfCards.Append(CreatePrince());
-    //3 Princessses
+
     unshuffledDeckOfCards.Append(CreatePrincess());
     unshuffledDeckOfCards.Append(CreatePrincess());
     unshuffledDeckOfCards.Append(CreatePrincess());
@@ -91,12 +86,13 @@ Shop::Shop()
 Piece* Shop::CreateKing()
 {
     Piece* piece = new Piece("King",
-              "data/Piece-WhiteKing.png",
-              "data/Piece-BlackKing.png",
-              "Moves like a king in chess. Can move 1 tile in any direction.",
-              200,
-              10,
-              1);
+                             "data/Piece-WhiteKing.png",
+                             "data/Piece-BlackKing.png",
+                             "Moves like a king in chess. Can move 1 tile in any direction.",
+                             200,
+                             10,
+                             "data/InfoboardWood_Bishop.png",
+                             1);
 
     for (int i = 1; i <= 1; i++)
     {
@@ -117,12 +113,13 @@ Piece* Shop::CreateKing()
 Piece* Shop::CreateQueen()
 {
     Piece* piece = new Piece("Queen",
-                     "data/Piece-WhiteQueen.png",
-                     "data/Piece-BlackQueen.png",
-                     "Moves like a queen in chess.",
-                     150,
-                     5,
-                     10);
+                             "data/Piece-WhiteQueen.png",
+                             "data/Piece-BlackQueen.png",
+                             "Moves like a queen in chess.",
+                             150,
+                             5,
+                             "data/InfoboardWood_Bishop.png",
+                             10);
 
     for (int i = 1; i <= 10; i++)
     {
@@ -140,16 +137,45 @@ Piece* Shop::CreateQueen()
     return piece;
 }
 
+Piece* Shop::CreateMonster()
+{
+    Piece* piece = new Piece("Monster",
+                             "data/Piece-WhiteMonster.png",
+                             "data/Piece-BlackMonster.png",
+                             "Can move into any adjacent square for 5 tiles.",
+                             150,
+                             0,
+                             "data/InfoboardWood_Bishop.png");
+
+    piece->range = 5;
+
+    for (int y = 1; y <= 5; y++)
+    {
+        for (int x = 1; x <= 5; x++)
+        {
+            piece->movePattern.Add(glm::vec2(x,0));
+            piece->movePattern.Add(glm::vec2(0,y));
+            piece->movePattern.Add(glm::vec2(-x,0));
+            piece->movePattern.Add(glm::vec2(0,-y));
+            piece->movePattern.Add(glm::vec2(x,y));
+            piece->movePattern.Add(glm::vec2(-x,y));
+            piece->movePattern.Add(glm::vec2(x,-y));
+            piece->movePattern.Add(glm::vec2(-x,-y));
+        }
+    }
+}
+
 Piece* Shop::CreatePrince()
 {
     Piece* piece = new Piece("Prince",
-                     "data/Piece-WhitePrince.png",
-                     "data/Piece-BlackPrince.png",
-                     "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
-                     90,
-                     6,
-                     4,
-                     true);
+                             "data/Piece-WhitePrince.png",
+                             "data/Piece-BlackPrince.png",
+                             "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
+                             90,
+                             6,
+                             "data/InfoboardWood_Bishop.png",
+                             4,
+                             true);
 
     // TODO: Add attack after move phase
     for (int i = 1; i <= 4; i++)
@@ -166,13 +192,14 @@ Piece* Shop::CreatePrince()
 Piece* Shop::CreatePrincess()
 {
     Piece* piece = new Piece("Princess",
-                     "data/Piece-WhitePrincess.png",
-                     "data/Piece-BlackPrincess.png",
-                     "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
-                     120,
-                     8,
-                     3,
-                     true);
+                             "data/Piece-WhitePrincess.png",
+                             "data/Piece-BlackPrincess.png",
+                             "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
+                             120,
+                             8,
+                             "data/InfoboardWood_Bishop.png",
+                             3,
+                             true);
 
     // TODO: Add special ability
     for (int i = 1; i <= 3; i++)
@@ -195,12 +222,13 @@ Piece* Shop::CreatePrincess()
 Piece* Shop::CreateShieldMan()
 {
     Piece* piece = new Piece("Shield Man",
-                     "data/Piece-WhiteShield.png",
-                     "data/Piece-BlackShield.png",
-                     "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
-                     50,
-                     1,
-                     1);
+                             "data/Piece-WhiteShield.png",
+                             "data/Piece-BlackShield.png",
+                             "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
+                             50,
+                             1,
+                             "data/InfoboardWood_Bishop.png",
+                             1);
 
     // TODO: Special weight quality and capture quality
     piece->canCapture = false;
@@ -221,13 +249,14 @@ Piece* Shop::CreateShieldMan()
 Piece* Shop::CreateStallion()
 {
     Piece* piece = new Piece("Stallion",
-                     "data/Piece-WhiteStallion.png",
-                     "data/Piece-BlackStallion.png",
-                     "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
-                     60,
-                     1,
-                     3,
-                     true);
+                             "data/Piece-WhiteStallion.png",
+                             "data/Piece-BlackStallion.png",
+                             "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
+                             60,
+                             1,
+                             "data/InfoboardWood_Bishop.png",
+                             3,
+                             true);
 
     piece->movePattern.Add(glm::vec2(1,2));
     piece->movePattern.Add(glm::vec2(1,-2));
@@ -244,13 +273,14 @@ Piece* Shop::CreateStallion()
 Piece* Shop::CreateJester()
 {
     Piece* piece = new Piece("Jester",
-                     "data/Piece-WhiteJester.png",
-                     "data/Piece-BlackJester.png",
-                     "Moves diagonally 2 spaces in any direction.",
-                     75,
-                     3,
-                     2,
-                     true);
+                             "data/Piece-WhiteJester.png",
+                             "data/Piece-BlackJester.png",
+                             "Moves diagonally 2 spaces in any direction.",
+                             75,
+                             3,
+                             "data/InfoboardWood_Bishop.png",
+                             2,
+                             true);
 
     for (int i = 1; i <= 2; i++)
     {
@@ -267,12 +297,13 @@ Piece* Shop::CreateJester()
 Piece* Shop::CreateFence()
 {
     Piece* piece = new Piece("Fence",
-                     "data/Piece-WhiteFence.png",
-                     "data/Piece-BlackFence.png",
-                     "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
-                     40,
-                     0,
-                     0);
+                             "data/Piece-WhiteFence.png",
+                             "data/Piece-BlackFence.png",
+                             "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
+                             40,
+                             0,
+                             "data/InfoboardWood_Bishop.png",
+                             0);
 
     piece->invinsible = true;
 
@@ -282,12 +313,13 @@ Piece* Shop::CreateFence()
 Piece* Shop::CreateKnight()
 {
     Piece* piece = new Piece("Knight",
-                     "data/Piece-WhiteKnight.png",
-                     "data/Piece-BlackKnight.png",
-                     "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
-                     50,
-                     2,
-                     5);
+                             "data/Piece-WhiteKnight.png",
+                             "data/Piece-BlackKnight.png",
+                             "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
+                             50,
+                             2,
+                             "data/InfoboardWood_Bishop.png",
+                             5);
 
     for (int i = 1; i <= 4; i++)
     {
@@ -316,12 +348,13 @@ Piece* Shop::CreateKnight()
 Piece* Shop::CreatePeasant()
 {
     Piece* piece = new Piece("Peasant",
-                     "data/Piece-WhitePeasant.png",
-                     "data/Piece-BlackPeasant.png",
-                     "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
-                     20,
-                     0,
-                     1);
+                             "data/Piece-WhitePeasant.png",
+                             "data/Piece-BlackPeasant.png",
+                             "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
+                             20,
+                             0,
+                             "data/InfoboardWood_Bishop.png",
+                             1);
 
     // TODO: Add promotion when reaching other side of board
     piece->movePattern.Add(glm::vec2(0,1));
@@ -332,12 +365,13 @@ Piece* Shop::CreatePeasant()
 Piece* Shop::CreateBishop()
 {
     Piece* piece = new Piece("Bishop",
-                     "data/Piece-WhiteBishop.png",
-                     "data/Piece-BlackBishop.png",
-                     "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
-                     80,
-                     4,
-                     10);
+                             "data/Piece-WhiteBishop.png",
+                             "data/Piece-BlackBishop.png",
+                             "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
+                             80,
+                             4,
+                             "data/InfoboardWood_Bishop.png",
+                             10);
 
     for (int i = 1; i <= 10; i++)
     {
@@ -353,15 +387,16 @@ Piece* Shop::CreateBishop()
 Piece* Shop::CreateHydra()
 {
     Piece* piece = new Piece("Hydra",
-                     "data/Piece-WhiteHydra.png",
-                     "data/Piece-BlackHydra.png",
-                     "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
-                     180,
-                     1,
-                     1,
-                     false,
-                     false,
-                     true);
+                             "data/Piece-WhiteHydra.png",
+                             "data/Piece-BlackHydra.png",
+                             "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
+                             180,
+                             1,
+                             "data/InfoboardWood_Bishop.png",
+                             1,
+                             false,
+                             false,
+                             true);
 
     // TODO: Add special ability
     for (int i = 1; i <= 1; i++)
@@ -377,7 +412,7 @@ Piece* Shop::CreateHydra()
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
 
-        // If hydra attacks into a tile, then attack adjacent tiles left/right.
+    // If hydra attacks into a tile, then attack adjacent tiles left/right.
 
     return piece;
 }
@@ -385,14 +420,15 @@ Piece* Shop::CreateHydra()
 Piece* Shop::CreateRogue()
 {
     Piece* piece = new Piece("Rogue",
-                     "data/Piece-WhiteRogue.png",
-                     "data/Piece-BlackRogue.png",
-                     "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
-                     200,
-                     2,
-                     2,
-                     false,
-                     true);
+                             "data/Piece-WhiteRogue.png",
+                             "data/Piece-BlackRogue.png",
+                             "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
+                             200,
+                             2,
+                             "data/InfoboardWood_Bishop.png",
+                             2,
+                             false,
+                             true);
 
     // TODO: Add special ability
     for (int i = 1; i <= 2; i++)
@@ -416,12 +452,13 @@ Piece* Shop::CreateRogue()
 Piece* Shop::CreateDeserter()
 {
     Piece* piece = new Piece("Deserter",
-                     "data/Piece-WhiteDeserter.png",
-                     "data/Piece-BlackDeserter.png",
-                     "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
-                     50,
-                     0,
-                     4);
+                             "data/Piece-WhiteDeserter.png",
+                             "data/Piece-BlackDeserter.png",
+                             "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
+                             50,
+                             0,
+                             "data/InfoboardWood_Bishop.png",
+                             4);
 
     for (int i = 1; i <= 4; i++)
     {
@@ -442,14 +479,15 @@ Piece* Shop::CreateDeserter()
 Piece* Shop::CreateCannon()
 {
     Piece* piece = new Piece("Cannon",
-                     "data/Piece-WhiteCannon.png",
-                     "data/Piece-BlackCannon.png",
-                     "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
-                     350,
-                     1,
-                     1,
-                     true,
-                     true);
+                             "data/Piece-WhiteCannon.png",
+                             "data/Piece-BlackCannon.png",
+                             "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
+                             350,
+                             1,
+                             "data/InfoboardWood_Bishop.png",
+                             1,
+                             true,
+                             true);
 
     // TODO: Add special ability
 
@@ -486,208 +524,67 @@ Piece* Shop::CreateRandomPiece()
     switch(randomNumber)
     {
     case 0:
-
-        if (numberOfKings >= MAX_NUMBER_OF_KINGS)
-        {
-            return CreateRandomPiece();
-        }
-
-        numberOfKings++;
-
         piece = CreateKing();
-
         break;
+
     case 1:
-        piece = new Piece("Prince",
-                         "data/Piece-WhitePrince.png",
-                         "data/Piece-BlackPrince.png",
-                         "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
-                         90,
-                         6);
+        piece = CreatePrince();
         break;
+
     case 2:
-        piece = new Piece("Princess",
-                         "data/Piece-WhitePrincess.png",
-                         "data/Piece-BlackPrincess.png",
-                         "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
-                         120,
-                         8);
+        piece = CreatePrincess();
         break;
+
     case 3:
-        piece = new Piece("Shield Man",
-                         "data/Piece-WhiteShield.png",
-                         "data/Piece-BlackShield.png",
-                         "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
-                         50,
-                         1);
-
-        // TODO: Special weight quality and capture quality
-        piece->movePattern.Add(glm::vec2(0, 1));
-        piece->movePattern.Add(glm::vec2(1, 0));
-        piece->movePattern.Add(glm::vec2(-1, 0));
-
+        piece = CreateShieldMan();
         break;
+
     case 4:
-
-        if (numberOfQueens >= MAX_NUMBER_OF_QUEENS)
-        {
-            return CreateRandomPiece();
-        }
-
-        numberOfQueens++;
-
-        piece = new Piece("Queen",
-                         "data/Piece-WhiteQueen.png",
-                         "data/Piece-BlackQueen.png",
-                         "Moves like a queen in chess.",
-                         150,
-                         5);
-
-
-
+        piece = CreateQueen();
         break;
+
     case 5:
-
-        if (numberOfMonsters >= MAX_NUMBER_OF_MONSTERS)
-        {
-            return CreateRandomPiece();
-        }
-
-        numberOfMonsters++;
-
-        piece = new Piece("Monster",
-                         "data/Piece-WhiteMonster.png",
-                         "data/Piece-BlackMonster.png",
-                         "Can move into any adjacent square for 5 tiles.",
-                         150,
-                         0);
-
-        piece->range = 5;
-
-        for (int y = 1; y <= 5; y++)
-        {
-            for (int x = 1; x <= 5; x++)
-            {
-                piece->movePattern.Add(glm::vec2(x,0));
-                piece->movePattern.Add(glm::vec2(0,y));
-                piece->movePattern.Add(glm::vec2(-x,0));
-                piece->movePattern.Add(glm::vec2(0,-y));
-                piece->movePattern.Add(glm::vec2(x,y));
-                piece->movePattern.Add(glm::vec2(-x,y));
-                piece->movePattern.Add(glm::vec2(x,-y));
-                piece->movePattern.Add(glm::vec2(-x,-y));
-            }
-        }
-
+        piece = CreateMonster();
         break;
+
     case 6:
-        piece = new Piece("Peasant",
-                         "data/Piece-WhitePeasant.png",
-                         "data/Piece-BlackPeasant.png",
-                         "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
-                         20,
-                         0);
-
-
-
+        piece = CreatePeasant();
         break;
+
     case 7:
-        piece = new Piece("Knight",
-                         "data/Piece-WhiteRook.png",
-                         "data/Piece-BlackRook.png",
-                          "Moves like a rook, but only 5 tiles forwards (or backwards or ot the side)",
-                          50,
-                          2);
-
-
-
+        piece = CreateKnight();
         break;
+
     case 8:
-        piece = new Piece("Bishop",
-                          "data/Piece-WhiteBishop.png",
-                          "data/Piece-BlackBishop.png",
-                          "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
-                          80,
-                          4);
-
-        for (int i = 1; i <= 10; i++)
-        {
-            piece->movePattern.Add(glm::vec2(i,i));
-            piece->movePattern.Add(glm::vec2(i,-i));
-            piece->movePattern.Add(glm::vec2(-i,i));
-            piece->movePattern.Add(glm::vec2(-i,-i));
-        }
-
+        piece = CreateBishop();
         break;
+
     case 9:
-        piece = new Piece("Stallion",
-                          "data/Piece-WhiteStallion.png",
-                          "data/Piece-BlackStallion.png",
-                          "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
-                          60,
-                          1);
+        piece = CreateStallion();
         break;
+
     case 10:
-        piece = new Piece("Jester",
-                          "data/Piece-WhiteJester.png",
-                          "data/Piece-BlackJester.png",
-                          "Moves diagonally 2 spaces in any direction.",
-                          75,
-                          3);
+        piece = CreateJester();
         break;
+
     case 11:
-        if (numberOfFences >= MAX_NUMBER_OF_FENCES)
-        {
-            return CreateRandomPiece();
-        }
-
-        numberOfFences++;
-
-        piece = new Piece("Fence",
-                          "data/Piece-WhiteFence.png",
-                          "data/Piece-BlackFence.png",
-                          "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
-                          40,
-                          0);
+        piece = CreateFence();
         break;
+
     case 12:
-        piece = new Piece("Hydra",
-                          "data/Piece-WhiteHydra.png",
-                          "data/Piece-BlackHydra.png",
-                          "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
-                          180,
-                          1);
+        piece = CreateHydra();
         break;
+
     case 13:
-        piece = new Piece("Rogue",
-                          "data/Piece-WhiteRogue.png",
-                          "data/Piece-BlackRogue.png",
-                          "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
-                          200,
-                          2);
-
+        piece = CreateRogue();
         break;
+
     case 14:
-        piece = new Piece("Cannon",
-                          "data/Piece-WhiteCannon.png",
-                          "data/Piece-BlackCannon.png",
-                          "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
-                          350,
-                          1);
-
-
-
+        piece = CreateCannon();
         break;
+
     case 15:
-        piece = new Piece("Deserter",
-                          "data/Piece-WhiteDeserter.png",
-                          "data/Piece-BlackDeserter.png",
-                          "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
-                          50,
-                          0);
-
-
-
+        piece = CreateDeserter();
         break;
 
     default:
@@ -782,8 +679,9 @@ void Shop::Update()
         if ((*piece)->backgroundCard->IsHoveredOver())
         {
             *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
-            *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 19*1.55;
+            *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 20*1.55;
             (*piece)->buyText->Update();
+            (*piece)->infoBoard->Update();
         }
 
         *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x;

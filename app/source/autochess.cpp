@@ -417,87 +417,87 @@ void Autochess::Update()
                     {
                         if ((moves[i].tileToMoveTo->x == clickedTile->x &&
                              moves[i].tileToMoveTo->y == clickedTile->y) &&
-                            (moves[i].oldTile->x == activePiece->currentTile->x &&
-                             moves[i].oldTile->y == activePiece->currentTile->y))
+                                (moves[i].oldTile->x == activePiece->currentTile->x &&
+                                 moves[i].oldTile->y == activePiece->currentTile->y))
+                        {
+                            moves[i].Execute();
+                            hydraAttacks++;
+
+                            if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
                             {
-                                moves[i].Execute();
-                                hydraAttacks++;
+                                activePiece->canReturnAfterCapture = true;
+                                lockedPiece = activePiece;
+                                hydraAttacks = 0;
+                            }
 
-                                if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
+                            gameBoard->highlight->Hide();
+
+                            if (lockedPiece != nullptr)
+                            {
+                                if (hydraAttacks >= 2)
                                 {
-                                    activePiece->canReturnAfterCapture = true;
-                                    lockedPiece = activePiece;
-                                    hydraAttacks = 0;
-                                }
-
-                                gameBoard->highlight->Hide();
-
-                                if (lockedPiece != nullptr)
-                                {
-                                    if (hydraAttacks >= 2)
-                                    {
-                                        lockedPiece->canReturnAfterCapture = false;
-                                        lockedPiece = nullptr;
-                                    }
-                                    else
-                                    {
-                                        moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
-
-                                        if (moves.Empty())
-                                        {
-                                            lockedPiece = nullptr;
-                                        }
-                                    }
-                                }
-
-                                if (lockedPiece == nullptr)
-                                {
-                                    NextPlayer();
-                                }
-
-                                gameBoard->HideDots();
-
-                                activePiece = nullptr;
-
-                                moves.Clear();
-
-                                LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                                int nobility = 0;
-
-                                for (; tile != NULL; ++tile)
-                                {
-                                    if ((*tile).piece != nullptr)
-                                    {
-                                        if ((*tile).piece->isWhite == isWhitesTurn)
-                                        {
-                                            nobility += tile->piece->nobility;
-                                            moves += gameBoard->UpdateDots(&(*tile), false);
-                                        }
-                                    }
-                                }
-
-                                if (moves.Empty())
-                                {
-                                    isAnyBlackPieces = activePlayer->isWhite;
-                                    isAnyWhitePieces = !activePlayer->isWhite;
-                                    state = GameState::Done;
-                                }
-
-                                if (isWhitesTurn)
-                                {
-                                    white->UpdateNobilityText(nobility);
+                                    lockedPiece->canReturnAfterCapture = false;
+                                    lockedPiece = nullptr;
                                 }
                                 else
                                 {
-                                    black->UpdateNobilityText(nobility);
+                                    moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
+
+                                    if (moves.Empty())
+                                    {
+                                        lockedPiece = nullptr;
+                                    }
                                 }
-
-
-                                gameBoard->Update();
-
-                                return;
                             }
+
+                            if (lockedPiece == nullptr)
+                            {
+                                NextPlayer();
+                            }
+
+                            gameBoard->HideDots();
+
+                            activePiece = nullptr;
+
+                            moves.Clear();
+
+                            LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+                            int nobility = 0;
+
+                            for (; tile != NULL; ++tile)
+                            {
+                                if ((*tile).piece != nullptr)
+                                {
+                                    if ((*tile).piece->isWhite == isWhitesTurn)
+                                    {
+                                        nobility += tile->piece->nobility;
+                                        moves += gameBoard->UpdateDots(&(*tile), false);
+                                    }
+                                }
+                            }
+
+                            if (moves.Empty())
+                            {
+                                isAnyBlackPieces = activePlayer->isWhite;
+                                isAnyWhitePieces = !activePlayer->isWhite;
+                                state = GameState::Done;
+                            }
+
+                            if (isWhitesTurn)
+                            {
+                                white->UpdateNobilityText(nobility);
+                            }
+                            else
+                            {
+                                black->UpdateNobilityText(nobility);
+                            }
+
+
+                            gameBoard->Update();
+
+                            return;
+                        }
                     }
                 }
             }

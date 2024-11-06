@@ -41,6 +41,7 @@ public:
           String description_,
           int price_,
           int nobility,
+          String infoBoardPath,
           int range = 0,
           bool isJumping_ = false,
           bool canReturnAfterCapture_ = false,
@@ -51,6 +52,7 @@ public:
 
     Sprite* icon = nullptr;
     Sprite* backgroundCard = nullptr;
+    Sprite* infoBoard = nullptr;
 
     Tile* currentTile = nullptr;
     Sprite* idleSprite = nullptr;
