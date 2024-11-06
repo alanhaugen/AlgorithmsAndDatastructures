@@ -149,7 +149,7 @@ Piece* CreateMonster()
                              "Can move into any adjacent square for 5 tiles.",
                              150,
                              0,
-                             "data/InfoboardWood_Bishop.png");
+                             "data/InfoboardWood_Monster.png");
 
     piece->range = 5;
 
@@ -167,6 +167,8 @@ Piece* CreateMonster()
             piece->movePattern.Add(glm::vec2(-x,-y));
         }
     }
+
+    return piece;
 }
 
 Piece* CreatePrince()
