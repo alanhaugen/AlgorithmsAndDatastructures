@@ -30,7 +30,19 @@ void ReplayScene::NextMove()
 
 void ReplayScene::LastMove()
 {
-
+    if(index > 0)
+    {
+        if((*move).isPlacement)
+        {
+            (*move).oldTile->piece = nullptr;
+        }
+        else
+        {
+            (*move).Undo();
+        }
+        --move;
+        index--;
+    }
 }
 
 void ReplayScene::Init()
@@ -55,7 +67,9 @@ void ReplayScene::Init()
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
-    rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 30, renderer->windowHeight - 30, 0.5, 0.5);
+    leftArrow = new Sprite("data/arrow.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
+    leftArrow->FlipHorizontal();
+    rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
     cursor = new Cursor();
 
     index = 0;
@@ -73,6 +87,12 @@ void ReplayScene::Update()
     yellowBanner->Update();
     turnsLeftBanner->Update();
 
+    leftArrow->Update();
+    if(leftArrow->IsPressed())
+    {
+        LastMove();
+    }
+
     rightArrow->Update();
     if(rightArrow->IsPressed())
     {
@@ -88,5 +108,9 @@ void ReplayScene::Update()
     if (input.Pressed(input.Key.RIGHT))
     {
         NextMove();
+    }
+    if (input.Pressed(input.Key.LEFT))
+    {
+        LastMove();
     }
 }

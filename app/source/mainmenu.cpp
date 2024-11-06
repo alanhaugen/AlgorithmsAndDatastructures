@@ -6,6 +6,9 @@ extern LinkedList<ReplayNew> replays;
 
 Mainmenu::Mainmenu()
 {
+#ifdef WIN32
+    FRAME_TIME_MS = 1000.0f / 140.0f;
+#endif
 }
 
 void Mainmenu::Init()
