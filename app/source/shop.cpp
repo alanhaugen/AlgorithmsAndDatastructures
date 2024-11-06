@@ -10,6 +10,10 @@ Shop::Shop()
     unshuffledDeckOfCards.Append(CreateKing());
     unshuffledDeckOfCards.Append(CreateKing());
 
+    unshuffledDeckOfCards.Append(CreateMonster());
+    unshuffledDeckOfCards.Append(CreateMonster());
+    unshuffledDeckOfCards.Append(CreateMonster());
+
     unshuffledDeckOfCards.Append(CreateQueen());
     unshuffledDeckOfCards.Append(CreateQueen());
 
@@ -300,7 +304,7 @@ Piece* Shop::CreateFence()
                              "data/Piece-WhiteFence.png",
                              "data/Piece-BlackFence.png",
                              "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
-                             40,
+                             10,
                              0,
                              "data/InfoboardWood_Fence.png",
                              0);
