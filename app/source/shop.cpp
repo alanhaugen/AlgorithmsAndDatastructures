@@ -91,7 +91,7 @@ Piece* Shop::CreateKing()
                              "Moves like a king in chess. Can move 1 tile in any direction.",
                              200,
                              10,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_King.png",
                              1);
 
     for (int i = 1; i <= 1; i++)
@@ -118,7 +118,7 @@ Piece* Shop::CreateQueen()
                              "Moves like a queen in chess.",
                              150,
                              5,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Queen.png",
                              10);
 
     for (int i = 1; i <= 10; i++)
@@ -173,7 +173,7 @@ Piece* Shop::CreatePrince()
                              "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                              90,
                              6,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Prince.png",
                              4,
                              true);
 
@@ -197,7 +197,7 @@ Piece* Shop::CreatePrincess()
                              "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                              120,
                              8,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Princess.png",
                              3,
                              true);
 
@@ -227,7 +227,7 @@ Piece* Shop::CreateShieldMan()
                              "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
                              50,
                              1,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_ShieldMan.png",
                              1);
 
     // TODO: Special weight quality and capture quality
@@ -254,7 +254,7 @@ Piece* Shop::CreateStallion()
                              "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                              60,
                              1,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Stallion.png",
                              3,
                              true);
 
@@ -278,7 +278,7 @@ Piece* Shop::CreateJester()
                              "Moves diagonally 2 spaces in any direction.",
                              75,
                              3,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Jester.png",
                              2,
                              true);
 
@@ -302,7 +302,7 @@ Piece* Shop::CreateFence()
                              "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                              40,
                              0,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Fence.png",
                              0);
 
     piece->invinsible = true;
@@ -318,7 +318,7 @@ Piece* Shop::CreateKnight()
                              "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
                              50,
                              2,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Knight.png",
                              5);
 
     for (int i = 1; i <= 4; i++)
@@ -353,7 +353,7 @@ Piece* Shop::CreatePeasant()
                              "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
                              20,
                              0,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Peasant.png",
                              1);
 
     // TODO: Add promotion when reaching other side of board
@@ -375,10 +375,10 @@ Piece* Shop::CreateBishop()
 
     for (int i = 1; i <= 10; i++)
     {
-        piece->movePattern.Add(glm::vec2(0,i));
-        piece->movePattern.Add(glm::vec2(0,-i));
-        piece->movePattern.Add(glm::vec2(i,0));
-        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(i,i));
+        piece->movePattern.Add(glm::vec2(-i,-i));
+        piece->movePattern.Add(glm::vec2(i,-i));
+        piece->movePattern.Add(glm::vec2(-i,i));
     }
 
     return piece;
@@ -392,7 +392,7 @@ Piece* Shop::CreateHydra()
                              "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                              180,
                              1,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Hydra.png",
                              1,
                              false,
                              false,
@@ -425,7 +425,7 @@ Piece* Shop::CreateRogue()
                              "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                              200,
                              2,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Rogue.png",
                              2,
                              false,
                              true);
@@ -457,7 +457,7 @@ Piece* Shop::CreateDeserter()
                              "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
                              50,
                              0,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Deserter.png",
                              4);
 
     for (int i = 1; i <= 4; i++)
@@ -484,7 +484,7 @@ Piece* Shop::CreateCannon()
                              "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                              350,
                              1,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/InfoboardWood_Cannon.png",
                              1,
                              true,
                              true);
@@ -504,9 +504,9 @@ Piece* Shop::CreateCannon()
         piece->movePattern.Add(glm::vec2(-i,-i));
     }
 
-    // Cannon can shoot pieces 3 tiles infront of it
+    // Cannon can shoot pieces 3 tiles in front of it
 
-    for(int i = 3; i<10; ++i)
+    for (int i = 3; i < 10; ++i)
     {
         piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
     }
