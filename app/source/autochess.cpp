@@ -106,6 +106,10 @@ void Autochess::Init()
     components.Add(cam);
 
     replay.Clear();
+    Move firstMove;
+    firstMove.gameBoard = gameBoard;
+    firstMove.background = background;
+    replay.Append(firstMove);
     components.Add(background);
 }
 
@@ -421,6 +425,7 @@ void Autochess::Update()
                                  moves[i].oldTile->y == activePiece->currentTile->y))
                         {
                             moves[i].Execute();
+                            replay.Append(moves[i]);
                             hydraAttacks++;
 
                             if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)

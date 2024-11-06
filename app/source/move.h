@@ -4,6 +4,7 @@
 #include <core/components/component.h>
 #include <core/components/command.h>
 #include "tile.h"
+#include "board.h"
 
 class Piece;
 
@@ -16,6 +17,8 @@ public:
     Tile* tileToMoveTo;
     bool isCapture;
     bool isPlacement = false;
+    Board* gameBoard;
+    Sprite* background;
 
     Move();
     Move(Piece* piece, Tile* tile, bool isCapture_ = false, bool isPlacement_ = false);
