@@ -83,7 +83,7 @@ Shop::Shop()
     StockShopFront();
 }
 
-Piece* Shop::CreateKing()
+Piece* CreateKing()
 {
     Piece* piece = new Piece("King",
                              "data/Piece-WhiteKing.png",
@@ -110,7 +110,7 @@ Piece* Shop::CreateKing()
     return piece;
 }
 
-Piece* Shop::CreateQueen()
+Piece* CreateQueen()
 {
     Piece* piece = new Piece("Queen",
                              "data/Piece-WhiteQueen.png",
@@ -137,7 +137,7 @@ Piece* Shop::CreateQueen()
     return piece;
 }
 
-Piece* Shop::CreateMonster()
+Piece* CreateMonster()
 {
     Piece* piece = new Piece("Monster",
                              "data/Piece-WhiteMonster.png",
@@ -165,7 +165,7 @@ Piece* Shop::CreateMonster()
     }
 }
 
-Piece* Shop::CreatePrince()
+Piece* CreatePrince()
 {
     Piece* piece = new Piece("Prince",
                              "data/Piece-WhitePrince.png",
@@ -189,7 +189,7 @@ Piece* Shop::CreatePrince()
     return piece;
 }
 
-Piece* Shop::CreatePrincess()
+Piece* CreatePrincess()
 {
     Piece* piece = new Piece("Princess",
                              "data/Piece-WhitePrincess.png",
@@ -219,7 +219,7 @@ Piece* Shop::CreatePrincess()
 
 }
 
-Piece* Shop::CreateShieldMan()
+Piece* CreateShieldMan()
 {
     Piece* piece = new Piece("Shield Man",
                              "data/Piece-WhiteShield.png",
@@ -246,7 +246,7 @@ Piece* Shop::CreateShieldMan()
     return piece;
 }
 
-Piece* Shop::CreateStallion()
+Piece* CreateStallion()
 {
     Piece* piece = new Piece("Stallion",
                              "data/Piece-WhiteStallion.png",
@@ -270,7 +270,7 @@ Piece* Shop::CreateStallion()
     return piece;
 }
 
-Piece* Shop::CreateJester()
+Piece* CreateJester()
 {
     Piece* piece = new Piece("Jester",
                              "data/Piece-WhiteJester.png",
@@ -294,7 +294,7 @@ Piece* Shop::CreateJester()
 
 }
 
-Piece* Shop::CreateFence()
+Piece* CreateFence()
 {
     Piece* piece = new Piece("Fence",
                              "data/Piece-WhiteFence.png",
@@ -310,7 +310,7 @@ Piece* Shop::CreateFence()
     return piece;
 }
 
-Piece* Shop::CreateKnight()
+Piece* CreateKnight()
 {
     Piece* piece = new Piece("Knight",
                              "data/Piece-WhiteKnight.png",
@@ -345,7 +345,7 @@ Piece* Shop::CreateKnight()
     return piece;
 }
 
-Piece* Shop::CreatePeasant()
+Piece* CreatePeasant()
 {
     Piece* piece = new Piece("Peasant",
                              "data/Piece-WhitePeasant.png",
@@ -362,7 +362,7 @@ Piece* Shop::CreatePeasant()
     return piece;
 }
 
-Piece* Shop::CreateBishop()
+Piece* CreateBishop()
 {
     Piece* piece = new Piece("Bishop",
                              "data/Piece-WhiteBishop.png",
@@ -384,7 +384,7 @@ Piece* Shop::CreateBishop()
     return piece;
 }
 
-Piece* Shop::CreateHydra()
+Piece* CreateHydra()
 {
     Piece* piece = new Piece("Hydra",
                              "data/Piece-WhiteHydra.png",
@@ -417,7 +417,7 @@ Piece* Shop::CreateHydra()
     return piece;
 }
 
-Piece* Shop::CreateRogue()
+Piece* CreateRogue()
 {
     Piece* piece = new Piece("Rogue",
                              "data/Piece-WhiteRogue.png",
@@ -449,7 +449,7 @@ Piece* Shop::CreateRogue()
     return piece;
 }
 
-Piece* Shop::CreateDeserter()
+Piece* CreateDeserter()
 {
     Piece* piece = new Piece("Deserter",
                              "data/Piece-WhiteDeserter.png",
@@ -476,7 +476,7 @@ Piece* Shop::CreateDeserter()
     return piece;
 }
 
-Piece* Shop::CreateCannon()
+Piece* CreateCannon()
 {
     Piece* piece = new Piece("Cannon",
                              "data/Piece-WhiteCannon.png",

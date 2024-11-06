@@ -8,6 +8,23 @@
 #include <core/components/sprite.h>
 #include "piece.h"
 
+Piece* CreateKing();
+Piece* CreateQueen();
+Piece* CreatePrince();
+Piece* CreatePrincess();
+Piece* CreateMonster();
+Piece* CreateBishop();
+Piece* CreateHydra();
+Piece* CreateKnight();
+Piece* CreatePeasant();
+Piece* CreateRogue();
+Piece* CreateStallion();
+Piece* CreateJester();
+Piece* CreateDeserter();
+Piece* CreateCannon();
+Piece* CreateShieldMan();
+Piece* CreateFence();
+
 class Shop : public Component
 {
 public:
@@ -33,22 +50,7 @@ public:
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
-    Piece* CreateKing();
-    Piece* CreateQueen();
-    Piece* CreatePrince();
-    Piece* CreatePrincess();
-    Piece* CreateMonster();
-    Piece* CreateBishop();
-    Piece* CreateHydra();
-    Piece* CreateKnight();
-    Piece* CreatePeasant();
-    Piece* CreateRogue();
-    Piece* CreateStallion();
-    Piece* CreateJester();
-    Piece* CreateDeserter();
-    Piece* CreateCannon();
-    Piece* CreateShieldMan();
-    Piece* CreateFence();
+
 
     void Update();
 };
