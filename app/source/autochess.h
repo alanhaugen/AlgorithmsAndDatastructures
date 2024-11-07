@@ -16,7 +16,7 @@ enum GameState
     Done
 };
 
-const int MovesTotal = 50;
+const int MovesTotal = 20;
 
 class Autochess : public IScene
 {

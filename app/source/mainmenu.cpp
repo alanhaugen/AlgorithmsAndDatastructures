@@ -45,6 +45,10 @@ void Mainmenu::Init()
     LinkedList<ReplayNew>::Iterator replayI = replays.Begin();
     for(int i = 0; replayI != NULL; ++replayI)
     {
+        if(replayI->Draw == true)
+        {
+            replaysMenu->AddNextSceneButton("data/DrawReplayButton.png", renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90 + i*45, "Replay", i);
+        } else
         if(replayI->WinColor == true)
         {
             replaysMenu->AddNextSceneButton("data/WhitePlayerReplayButton.png", renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90 + i*45, "Replay", i);

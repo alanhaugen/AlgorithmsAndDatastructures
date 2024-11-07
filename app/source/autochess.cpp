@@ -74,7 +74,7 @@ void Autochess::Init()
 
     playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
     playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
-    playerDraw          = new Text("DRAW", 220,290);
+    playerDraw          = new Text("DRAW", renderer->windowWidth / 2 - 200,290);
 
     playerWhiteTurn     = new Text("Player WHITE make a move", 150,60);
     playerBlackTurn     = new Text("Player BLACK make a move", 150,60);
@@ -92,7 +92,7 @@ void Autochess::Init()
     isDraw = false;
     replayAdded = false;
 
-    movesLeftText       = new Text(String(movesCompleted), renderer->windowWidth - 120, 165);
+    movesLeftText       = new Text(String(MovesTotal - movesCompleted), renderer->windowWidth - 120, 165);
 
     state               = GameState::Shopping;
 
@@ -340,6 +340,7 @@ void Autochess::Update()
                     }
                 }
             }*/
+            movesLeftText->Update();
 
             if (lockedPiece != nullptr)
             {
@@ -427,6 +428,14 @@ void Autochess::Update()
                             moves[i].Execute();
                             replay.Append(moves[i]);
                             hydraAttacks++;
+                            if(!isWhitesTurn)
+                            {
+                                movesCompleted++;
+                            }
+                            int x = *movesLeftText->matrix.x;
+                            int y = *movesLeftText->matrix.y;
+                            delete movesLeftText;
+                            movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
 
                             if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
                             {
@@ -482,12 +491,31 @@ void Autochess::Update()
                                 }
                             }
 
-                            if (moves.Empty())
+                            if (moves.Empty() || movesCompleted >= MovesTotal)
                             {
                                 isAnyBlackPieces = activePlayer->isWhite;
                                 isAnyWhitePieces = !activePlayer->isWhite;
                                 state = GameState::Done;
+
+                                if (white->totalNobility == black->totalNobility)
+                                {
+                                    isDraw = true;
+                                }
+
+                                //We reuse these variables, and use them to choose the winnner in  if(state == GameState::Done)
+                                isAnyWhitePieces = false;
+                                isAnyBlackPieces = false;
+
+                                if (white->totalNobility > black->totalNobility)
+                                {
+                                    isAnyWhitePieces = true;
+                                }
+                                else if (white->totalNobility < black->totalNobility)
+                                {
+                                    isAnyBlackPieces = true;
+                                }
                             }
+
 
                             if (isWhitesTurn)
                             {
@@ -615,7 +643,10 @@ void Autochess::Update()
         gameBoard->HideDots();
 
         NextPlayer();
-        movesCompleted++;
+        if(!isWhitesTurn)
+        {
+            movesCompleted++;
+        }
 
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
@@ -629,6 +660,9 @@ void Autochess::Update()
 
             if (isAnyWhitePieces == true && isAnyBlackPieces == true)
             {
+
+
+                //We reuse these variables, and use them to choose the winnner in if(state == GameState::Done)
                 isAnyWhitePieces = false;
                 isAnyBlackPieces = false;
 
