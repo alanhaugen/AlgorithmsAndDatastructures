@@ -51,7 +51,6 @@ public:
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
 
-
     void Update();
 };
 

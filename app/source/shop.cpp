@@ -658,6 +658,8 @@ void Shop::StockShopFront()
 
         itemsStoreFront.Append(piece);
     }
+
+    SetShopPiecesToWhite(isWhitesTurn);
 }
 
 void Shop::Update()
