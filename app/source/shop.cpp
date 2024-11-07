@@ -148,7 +148,7 @@ Piece* CreateMonster()
                              "data/Piece-BlackMonster.png",
                              "Can move into any adjacent square for 5 tiles.",
                              150,
-                             0,
+                             10,
                              "data/InfoboardWood_Monster.png");
 
     piece->range = 5;
