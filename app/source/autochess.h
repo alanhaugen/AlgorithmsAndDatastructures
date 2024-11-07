@@ -48,6 +48,8 @@ public:
     bool isDraw;
     bool replayAdded;
 
+    Sprite* backArrow;
+
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
 

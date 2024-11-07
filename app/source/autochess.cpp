@@ -52,6 +52,8 @@ void Autochess::Init()
     blackPiecesBanner   = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
 
+    backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
+
     shop                = new Shop();
 
     white               = new Player(true);
@@ -68,9 +70,6 @@ void Autochess::Init()
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
-    cursor = new Cursor();
-    cursor->SetCursorToWhiteColour(isWhitesTurn);
-    components.Add(cursor);
 
     playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
     playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
@@ -102,6 +101,8 @@ void Autochess::Init()
     topPreviousMoves.Push(new Text("text4"));
     topPreviousMoves.Push(new Text("text5"));
 
+
+
     cam = new Camera();
     components.Add(cam);
 
@@ -111,6 +112,10 @@ void Autochess::Init()
     firstMove.background = background;
     replay.Append(firstMove);
     components.Add(background);
+
+    cursor = new Cursor();
+    cursor->SetCursorToWhiteColour(isWhitesTurn);
+    components.Add(cursor);
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -134,10 +139,18 @@ void Autochess::Update()
     whitePiecesBanner->Update();
     blackPiecesBanner->Update();
 
+    backArrow->Update();
+
     if (input.Pressed(input.Key.ESCAPE))
     {
         Application::LoadScene(Scenes::MainMenu);
     }
+    if(backArrow->IsPressed())
+    {
+        Application::LoadScene(Scenes::MainMenu);
+    }
+
+
 
     // Finite State Machine (FSM) for gameplay logic
     if (state == GameState::Shopping)

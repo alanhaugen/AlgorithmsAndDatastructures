@@ -1,7 +1,6 @@
 #include "replayscene.h"
 #include <core/application.h>
 #include "main.h"
-#include "shop.h"
 
 extern LinkedList<Move> replay;
 LinkedList<Move>::Iterator move = replay.Begin();
@@ -59,8 +58,8 @@ void ReplayScene::Init()
         (*tile).piece = nullptr;
     }
 
-    white = new Player(true);
-    black = new Player(false);
+    white   = new Player(true);
+    black   = new Player(false);
 
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
@@ -70,9 +69,11 @@ void ReplayScene::Init()
     leftArrow = new Sprite("data/arrow.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
     leftArrow->FlipHorizontal();
     rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
-    cursor = new Cursor();
+
+    backArrow = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
 
     index = 0;
+    cursor = new Cursor();
 }
 
 void ReplayScene::Update()
@@ -97,6 +98,13 @@ void ReplayScene::Update()
     if(rightArrow->IsPressed())
     {
         NextMove();
+    }
+
+    backArrow->Update();
+
+    if(backArrow->IsPressed())
+    {
+        Application::LoadScene(Scenes::MainMenu);
     }
 
     cursor->Update();
