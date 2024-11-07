@@ -42,7 +42,7 @@ public:
           int price_,
           int nobility,
           String infoBoardPath,
-          int range = 0,
+          int range_ = 0,
           bool isJumping_ = false,
           bool canReturnAfterCapture_ = false,
           bool isHydra_ = false);
@@ -80,6 +80,9 @@ public:
     bool canCapture = true;
     bool canReturnAfterCapture = false;
     bool isHydra = false;
+
+    bool isPerpendicularOnly = false;
+    bool isDiagonalOnly = false;
 
     void Update();
 };

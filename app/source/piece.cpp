@@ -11,7 +11,7 @@ Piece::Piece(String name_,
              int price_,
              int nobility_,
              String infoBoardPath,
-             int range,
+             int range_,
              bool isJumping_,
              bool canReturnAfterCapture_,
              bool isHydra_)
@@ -30,10 +30,12 @@ Piece::Piece(String name_,
 
     nameText                = new Text(name_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     movementTypeText        = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
-    movementText            = new Text("Range: " + String(range), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    movementText            = new Text("Range: " + String(range_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     descriptionText         = new Text(description_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     nobilityText            = new Text("Nobility: " + String(nobility_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     costText                = new Text("COST: " + String(price_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+
+    range                   = range_;
 
     tileBorderBlue          = new Sprite("data/TileBorder-Blue.png", 0,0, 0.4, 0.4);
     tileBorderGold          = new Sprite("data/TileBorder-Gold.png", 0,0, 0.4, 0.4);
@@ -44,6 +46,7 @@ Piece::Piece(String name_,
     isJumping               = isJumping_;
 
     icon                    = iconWhite;
+    isPerpendicularOnly     = false;
 }
 
 void Piece::Update()

@@ -185,14 +185,25 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             if ((*node).searched == false)
             {
-                if (    (searchTile.x     == (*node).x && searchTile.y - 1 == (*node).y) ||
+                if ((tile->piece->isPerpendicularOnly == true && tile->piece->isDiagonalOnly == false &&
+                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y) ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y) ||
+                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y))) ||
+                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == false &&
+                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y) ||
                         (searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
                         (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y) ||
                         (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
                         (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y) ||
                         (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
                         (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))) ||
+                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == true &&
+                        ((searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))))
                 {
                     (*node).searched = true;
 

@@ -152,9 +152,9 @@ Piece* CreateMonster()
                              "data/InfoboardWood_Monster.png",
                              5);
 
-    for (int y = 1; y <= 5; y++)
+    for (int y = 1; y <= piece->range; y++)
     {
-        for (int x = 1; x <= 5; x++)
+        for (int x = 1; x <= piece->range; x++)
         {
             piece->movePattern.Add(glm::vec2(x,0));
             piece->movePattern.Add(glm::vec2(0,y));
@@ -166,6 +166,8 @@ Piece* CreateMonster()
             piece->movePattern.Add(glm::vec2(-x,-y));
         }
     }
+
+    piece->isPerpendicularOnly = true;
 
     return piece;
 }
@@ -465,18 +467,22 @@ Piece* CreateDeserter()
                              "data/InfoboardWood_Deserter.png",
                              4);
 
-    for (int i = 1; i <= 4; i++)
+    for (int y = 1; y <= piece->range; y++)
     {
-        piece->movePattern.Add(glm::vec2(i,0));
-        piece->movePattern.Add(glm::vec2(-i,0));
-        piece->movePattern.Add(glm::vec2(0,i));
-        piece->movePattern.Add(glm::vec2(0,-i));
-
-        piece->movePattern.Add(glm::vec2(i,i));
-        piece->movePattern.Add(glm::vec2(i,-i));
-        piece->movePattern.Add(glm::vec2(-i,i));
-        piece->movePattern.Add(glm::vec2(-i,-i));
+        for (int x = 1; x <= piece->range; x++)
+        {
+            piece->movePattern.Add(glm::vec2(x,0));
+            piece->movePattern.Add(glm::vec2(0,y));
+            piece->movePattern.Add(glm::vec2(-x,0));
+            piece->movePattern.Add(glm::vec2(0,-y));
+            piece->movePattern.Add(glm::vec2(x,y));
+            piece->movePattern.Add(glm::vec2(-x,y));
+            piece->movePattern.Add(glm::vec2(x,-y));
+            piece->movePattern.Add(glm::vec2(-x,-y));
+        }
     }
+
+    piece->isDiagonalOnly = true;
 
     return piece;
 }
