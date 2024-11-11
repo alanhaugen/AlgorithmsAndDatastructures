@@ -735,3 +735,8 @@ void Autochess::Update()
         replayAdded = true;
     }
 }
+
+void Autochess::Animate(Move move)
+{
+
+}

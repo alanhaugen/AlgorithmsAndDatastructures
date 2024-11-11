@@ -84,6 +84,8 @@ public:
     void Init();
     void SetTile(Tile* tile);
     void Update();
+
+    void Animate(Move move);
 };
 
 #endif
