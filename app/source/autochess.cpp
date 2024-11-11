@@ -439,6 +439,7 @@ void Autochess::Update()
                                  moves[i].oldTile->y == activePiece->currentTile->y))
                         {
                             moves[i].Execute();
+                            Animate(moves[i]);
                             replay.Append(moves[i]);
                             hydraAttacks++;
                             if(!isWhitesTurn)
@@ -609,6 +610,7 @@ void Autochess::Update()
                 {
                     newMove = moves[i];
                     newMove.Execute();
+                    Animate(newMove);
                     replay.Append(newMove);
                     moved = true;
                     break;
@@ -619,6 +621,7 @@ void Autochess::Update()
             {
                 newMove = moves[random.RandomRange(0, moves.Size())];
                 newMove.Execute();
+                Animate(newMove);
                 replay.Append(newMove);
             }
 
