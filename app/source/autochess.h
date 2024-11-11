@@ -13,7 +13,8 @@ enum GameState
     Shopping,
     Placing,
     Playing,
-    Done
+    Done,
+    Animate
 };
 
 const int MovesTotal = 20;

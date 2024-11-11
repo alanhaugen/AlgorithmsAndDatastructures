@@ -737,9 +737,14 @@ void Autochess::Update()
         }
         replayAdded = true;
     }
+    if (state == GameState::Animate)
+    {
+        state = GameState::Playing;
+    }
 }
+
 
 void Autochess::Animate(Move move)
 {
-
+    state = GameState::Animate;
 }
