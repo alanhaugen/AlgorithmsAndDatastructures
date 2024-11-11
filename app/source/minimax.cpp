@@ -4,3 +4,8 @@ Minimax::Minimax()
 {
 
 }
+
+bool Minimax::CalculateMiniMaxValue()
+{
+    return false;
+}
