@@ -739,6 +739,14 @@ void Autochess::Update()
     }
     if (state == GameState::Animate)
     {
+        /*if (*animatedPiece.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedPiece.movedPiece->icon->matrix.y <= endpos.y +5
+            && *animatedPiece.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedPiece.movedPiece->icon->matrix.y >= endpos.y -5)
+        {
+            state = GameState::Playing;
+        }
+
+        *animatedPiece.movedPiece->matrix.x += (endpos - startpos).x / (endpos - startpos).length();
+        *animatedPiece.movedPiece->matrix.y += (endpos - startpos).y / (endpos - startpos).length();*/
         state = GameState::Playing;
     }
 }
@@ -747,4 +755,9 @@ void Autochess::Update()
 void Autochess::Animate(Move move)
 {
     state = GameState::Animate;
+    startpos = glm::vec2(*move.oldTile->matrix.x, *move.oldTile->matrix.y);
+    endpos = glm::vec2(*move.tileToMoveTo->matrix.x, *move.tileToMoveTo->matrix.y);
+    *move.movedPiece->matrix.x = startpos.x;
+    *move.movedPiece->matrix.y = startpos.y;
+    animatedPiece = move;
 }
