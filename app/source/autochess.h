@@ -85,6 +85,10 @@ public:
     void Init();
     void SetTile(Tile* tile);
     void Update();
+    void UpdateShop();
+    void UpdatePlacing();
+    void UpdatePlaying();
+    void UpdateDone();
 
     void Animate(Move move);
 
