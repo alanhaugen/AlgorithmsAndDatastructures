@@ -4,6 +4,7 @@
 #include "replaynew.h"
 
 extern bool isTwoPlayer;
+extern bool vsAI;
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
@@ -37,11 +38,19 @@ void Button::Update()
         if (tag == "vsAI")
         {
             isTwoPlayer = false;
+            vsAI        = true;
+            Application::NextScene();
+        }
+        if (tag == "AIvsAI")
+        {
+            isTwoPlayer = false;
+            vsAI        = true;
             Application::NextScene();
         }
         if (tag == "vsPlayer")
         {
             isTwoPlayer = true;
+            vsAI        = false;
             Application::NextScene();
         }
         if (tag == "nextscene")

@@ -20,7 +20,7 @@ void Mainmenu::Init()
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
-    //playMenu->AddNextSceneButton("data/Button-AI_vs_AI.png", 190, 210 * (1.75), "vsPlayer");
+    playMenu->AddNextSceneButton("data/Button-AI_vs_AI.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     Menu* graphicsMenu = new Menu(&menus);
