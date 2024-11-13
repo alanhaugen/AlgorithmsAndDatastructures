@@ -2,20 +2,32 @@
 
 Player::Player()
 {
-    Init();
+    Init(true);
 }
 
 Player::Player(bool isWhitePlayer)
 {
-    Init();
+    Init(isWhitePlayer);
+}
 
-    isWhite    = isWhitePlayer;
+void Player::Init(bool isWhite_)
+{
+    isWhite  = isWhite_;
+    isReady  = false;
+    gold     = 1000;
+    score    = 0;
+    nobility = 0;
+
+    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
+    goldText    = new Text("");
+
+    activePiece = nullptr;
 
     delete goldText;
 
     if (isWhite)
     {
-        nobilityText = new Text(String(totalNobility), 20, 560);
+        nobilityText = new Text(String(nobility), 20, 560);
         goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
         goldText->y = 100;
 
@@ -23,29 +35,13 @@ Player::Player(bool isWhitePlayer)
     }
     else
     {
-        nobilityText = new Text(String(totalNobility), 20, 160);
+        nobilityText = new Text(String(nobility), 20, 160);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
         *buttonReady->matrix.y = 35;
     }
 
     *buttonReady->matrix.x = renderer->windowWidth - 170;
     goldText->x = 20;
-}
-
-void Player::Init()
-{
-    //isComputer = false;
-    isWhite    = false;
-    isReady    = false;
-    gold       = 1000;
-    score      = 0;
-
-    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
-    goldText    = new Text("");
-
-    activePiece = nullptr;
-
-    totalNobility = 0;
 }
 
 void Player::RecalculateNobility(Board* gameBoard)
@@ -66,25 +62,16 @@ void Player::RecalculateNobility(Board* gameBoard)
         }
     }
 
-    UpdateNobilityText(nobility);
+    UpdateNobilityText();
 }
 
-void Player::UpdateNobilityText(int nobility)
+void Player::UpdateNobilityText()
 {
-    if (nobility == -1)
-    {
-        Update();
-    }
-    else
-    {
-        totalNobility = nobility;
-    }
-
     int x = *nobilityText->matrix.x;
     int y = *nobilityText->matrix.y;
 
     delete nobilityText;
-    nobilityText = new Text(String(totalNobility), x, y);
+    nobilityText = new Text(String(nobility), x, y);
     nobilityText->Update();
 }
 
@@ -163,7 +150,7 @@ void Player::Update()
 {
     if (piecesInHand.Empty() == false)
     {
-        totalNobility = 0;
+        nobility = 0;
 
         if (activePiece == nullptr)
         {
@@ -181,7 +168,7 @@ void Player::Update()
                 activePiece = (*piece);
             }
 
-            totalNobility += (*piece)->nobility;
+            nobility += (*piece)->nobility;
         }
     }
 

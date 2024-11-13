@@ -1,10 +1,10 @@
 #include <core/application.h>
 #include "aiplayer.h"
 
-AIPlayer::AIPlayer()
+AIPlayer::AIPlayer(bool isWhite)
 {
     thinkingTimer = Application::GetTime("wait time");
-    Init();
+    Init(isWhite);
 }
 
 Move AIPlayer::GetNextMove(Board *gameBoard)

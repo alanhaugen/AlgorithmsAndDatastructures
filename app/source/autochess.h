@@ -5,6 +5,7 @@
 #include <core/containers/stack.h>
 #include "cursor.h"
 #include "player.h"
+#include "aiplayer.h"
 #include "board.h"
 #include "shop.h"
 

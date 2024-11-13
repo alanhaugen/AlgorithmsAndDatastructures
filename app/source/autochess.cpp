@@ -60,21 +60,21 @@ void Autochess::Init()
     // Player vs Player
     if (isTwoPlayer == true && vsAI == false)
     {
-
+        white = new Player(true);
+        black = new Player(false);
     }
     // AI vs AI
     if (isTwoPlayer == false && vsAI == false)
     {
-
+        white = new AIPlayer(true);
+        black = new AIPlayer(false);
     }
     // Player vs AI
     if (isTwoPlayer == false && vsAI == true)
     {
-
+        white = new Player(true);
+        black = new AIPlayer(false);
     }
-
-    white               = new Player(true);
-    black               = new Player(false);
 
     players.Add(white);
     players.Add(black);
@@ -395,149 +395,6 @@ void Autochess::UpdatePlaying()
     }
 
     gameBoard->Update();
-
-    if (isTwoPlayer)
-    {
-        return;
-    }
-
-    moves.Clear();
-
-    isAnyWhitePieces = false;
-    isAnyBlackPieces = false;
-
-    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-    int nobility = 0;
-
-    for (; tile != NULL; ++tile)
-    {
-        if ((*tile).piece != nullptr)
-        {
-            if ((*tile).piece->isWhite)
-            {
-                isAnyWhitePieces = true;
-            }
-            else if ((*tile).piece->isWhite == false)
-            {
-                isAnyBlackPieces = true;
-            }
-
-            if ((*tile).piece->isWhite == isWhitesTurn)
-            {
-                nobility += (*tile).piece->nobility;
-                moves += gameBoard->UpdateDots(&(*tile), false);
-            }
-        }
-    }
-
-    if (isWhitesTurn)
-    {
-        white->UpdateNobilityText(nobility);
-    }
-    else
-    {
-        black->UpdateNobilityText(nobility);
-    }
-
-    bool moved = false;
-
-    if (moves.Empty() == false)
-    {
-        Move newMove;
-
-        for (unsigned int i = 0; i < moves.Size(); i++)
-        {
-            if (moves[i].isCapture)
-            {
-                newMove = moves[i];
-                newMove.Execute();
-                Animate(newMove);
-                replay.Append(newMove);
-                moved = true;
-                break;
-            }
-        }
-
-        if (moved == false)
-        {
-            newMove = moves[random.RandomRange(0, moves.Size())];
-            newMove.Execute();
-            Animate(newMove);
-            replay.Append(newMove);
-        }
-
-        if (newMove.isCapture)
-        {
-            Log(newMove.movedPiece->name +
-                " moved to " +
-                String(newMove.tileToMoveTo->x + 1) +
-                " " +
-                String(newMove.tileToMoveTo->y + 1) +
-                " and captures " +
-                newMove.oldPiece->name);
-
-            if (isWhitesTurn)
-            {
-                white->UpdateNobilityText(nobility);
-            }
-            else
-            {
-                black->UpdateNobilityText(nobility);
-            }
-
-            activePlayer->piecesInHand.Append(newMove.movedPiece);
-        }
-        else
-        {
-            Log(newMove.movedPiece->name +
-                " moved to " +
-                String(newMove.tileToMoveTo->x + 1) +
-                " " +
-                String(newMove.tileToMoveTo->y + 1));
-        }
-    }
-
-    gameBoard->HideDots();
-
-    NextPlayer();
-    if(!isWhitesTurn)
-    {
-        movesCompleted++;
-    }
-
-    int x = *movesLeftText->matrix.x;
-    int y = *movesLeftText->matrix.y;
-    delete movesLeftText;
-    movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
-    movesLeftText->Update();
-
-    if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= MovesTotal)
-    {
-        state = GameState::Done;
-
-        if (isAnyWhitePieces == true && isAnyBlackPieces == true)
-        {
-
-
-            //We reuse these variables, and use them to choose the winnner in if(state == GameState::Done)
-            isAnyWhitePieces = false;
-            isAnyBlackPieces = false;
-
-            if (white->totalNobility > black->totalNobility)
-            {
-                isAnyWhitePieces = true;
-            }
-            else if (white->totalNobility < black->totalNobility)
-            {
-                isAnyBlackPieces = true;
-            }
-            else
-            {
-                isDraw = true;
-            }
-        }
-    }
 }
 
 void Autochess::UpdateDone()
@@ -602,19 +459,19 @@ GameState Autochess::IsGameDone()
             movesCompleted >= MovesTotal)
     {
         // Nobility dicates the winner, if they are equal it is a draw
-        if (white->totalNobility == black->totalNobility)
+        if (white->nobility == black->nobility)
         {
             isDraw = true;
         }
 
         // White wins if they have more nobility
-        if (white->totalNobility > black->totalNobility)
+        if (white->nobility > black->nobility)
         {
             isAnyWhitePieces = true;
         }
 
         // Else, black wins if they have more nobility
-        else if (white->totalNobility < black->totalNobility)
+        else if (white->nobility < black->nobility)
         {
             isAnyBlackPieces = true;
         }

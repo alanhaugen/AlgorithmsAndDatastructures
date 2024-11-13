@@ -9,7 +9,7 @@ private:
     ITime* thinkingTimer;
 
 public:
-    AIPlayer();
+    AIPlayer(bool isWhite = false);
     Array<Move> GetAllPossibleMoves(Board* gameBoard);
     Move GetNextMove(Board* gameBoard);
 };

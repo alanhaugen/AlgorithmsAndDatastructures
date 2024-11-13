@@ -17,11 +17,8 @@ public:
     bool isWhite;
     Sprite* avatar;
     Sprite* buttonReady;
-    //bool isComputer;
 
     bool isReady;
-
-    int totalNobility;
 
     Text* goldText;
     Text* nobilityText;
@@ -33,9 +30,9 @@ public:
     Player();
     Player(bool isWhitePlayer);
 
-    void Init();
+    void Init(bool isWhite);
     void RecalculateNobility(Board *gameBoard);
-    void UpdateNobilityText(int nobility = -1);
+    void UpdateNobilityText();
     void UpdateGoldText();
     void UpdateHand();
     Array<Move> GetAllPossibleMoves(Board* gameBoard);
