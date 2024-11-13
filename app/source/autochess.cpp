@@ -12,7 +12,6 @@ extern bool isFirstPlaythrough;
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
-
 Autochess::Autochess()
 {
 }
@@ -64,16 +63,20 @@ void Autochess::Init()
         black = new Player(false);
     }
     // AI vs AI
-    if (isTwoPlayer == false && vsAI == false)
+    else if (isTwoPlayer == false && vsAI == true)
     {
         white = new AIPlayer(true);
         black = new AIPlayer(false);
     }
     // Player vs AI
-    if (isTwoPlayer == false && vsAI == true)
+    else if (isTwoPlayer == true && vsAI == true)
     {
         white = new Player(true);
         black = new AIPlayer(false);
+    }
+    else
+    {
+        LogError("Invalid configuration");
     }
 
     players.Add(white);
@@ -355,10 +358,13 @@ void Autochess::UpdatePlacing()
 
 void Autochess::UpdatePlaying()
 {
+    // Disable further tutorials
     isFirstPlaythrough = false;
 
+    // Update text
     movesLeftText->Update();
 
+    // Show whose turn it is text
     if (isWhitesTurn)
     {
         playerWhiteTurn->Update();
@@ -368,32 +374,57 @@ void Autochess::UpdatePlaying()
         playerBlackTurn->Update();
     }
 
-    movesLeftText->Update();
-    activePlayer->Update();
+    // Update the current player's hand
+    //activePlayer->Update();
 
-    Move nextMove = activePlayer->GetNextMove(gameBoard);
+    // Use polymorphism to update player <=> Dynamically cast active player to AI player
+    AIPlayer* aiPlayer = dynamic_cast<AIPlayer*>(activePlayer);
 
+    Move nextMove;
+
+    // Update AI player if the casting succeeded
+    if (aiPlayer != nullptr)
+    {
+        nextMove = aiPlayer->GetNextMove(gameBoard);
+    }
+    // If casting fails => the player is human. Update human player
+    else
+    {
+        nextMove = activePlayer->GetNextMove(gameBoard);
+    }
+
+    // Do the next move
     if (nextMove.movedPiece != nullptr)
     {
         nextMove.Execute();
         replay.Append(nextMove);
 
-        movesCompleted++;
+        // Add to number of moves counter after white and black has played their turns
+        if (isWhitesTurn == false)
+        {
+            movesCompleted++;
+        }
 
+        // Recalculate and show new nobility for the player
         activePlayer->RecalculateNobility(gameBoard);
 
+        // Activate animation of the move
         Animate(nextMove);
 
+        // Go to the next player
         NextPlayer();
 
+        // Update moves left text
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
         delete movesLeftText;
         movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
 
+        // Check if the game is over
         state = IsGameDone();
     }
 
+    // Update the game board
     gameBoard->Update();
 }
 
@@ -435,6 +466,7 @@ void Autochess::UpdateDone()
             Log("White");
         }
     }
+
     replayAdded = true;
 }
 

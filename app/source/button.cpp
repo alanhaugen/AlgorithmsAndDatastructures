@@ -37,7 +37,7 @@ void Button::Update()
         }
         if (tag == "vsAI")
         {
-            isTwoPlayer = false;
+            isTwoPlayer = true;
             vsAI        = true;
             Application::NextScene();
         }

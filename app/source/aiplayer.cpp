@@ -17,5 +17,8 @@ Move AIPlayer::GetNextMove(Board *gameBoard)
 
     thinkingTimer->Reset();
 
-    return Move();
+    // Do a random move
+    Player::GetAllPossibleMoves(gameBoard);
+
+    return moves[random.RandomRange(0, moves.Size())];
 }
