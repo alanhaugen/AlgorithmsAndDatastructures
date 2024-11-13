@@ -89,6 +89,7 @@ public:
     void UpdatePlacing();
     void UpdatePlaying();
     void UpdateDone();
+    void UpdateAnimation();
 
     void Animate(Move move);
 

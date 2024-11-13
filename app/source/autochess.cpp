@@ -175,15 +175,7 @@ void Autochess::Update()
     }
     if (state == GameState::Animate)
     {
-        /*if (*animatedPiece.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedPiece.movedPiece->icon->matrix.y <= endpos.y +5
-            && *animatedPiece.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedPiece.movedPiece->icon->matrix.y >= endpos.y -5)
-        {
-            state = GameState::Playing;
-        }
-
-        *animatedPiece.movedPiece->matrix.x += (endpos - startpos).x / (endpos - startpos).length();
-        *animatedPiece.movedPiece->matrix.y += (endpos - startpos).y / (endpos - startpos).length();*/
-        state = GameState::Playing;
+        UpdateAnimation();
     }
 }
 
@@ -768,6 +760,19 @@ void Autochess::UpdateDone()
         }
     }
     replayAdded = true;
+}
+
+void Autochess::UpdateAnimation()
+{
+    /*if (*animatedPiece.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedPiece.movedPiece->icon->matrix.y <= endpos.y +5
+        && (*animatedPiece.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedPiece.movedPiece->icon->matrix.y >= endpos.y -5))
+    {
+        state = GameState::Playing;
+    }
+
+    *animatedPiece.movedPiece->matrix.x += (endpos - startpos).x / (endpos - startpos).length();
+    *animatedPiece.movedPiece->matrix.y += (endpos - startpos).y / (endpos - startpos).length();*/
+    state = GameState::Playing;
 }
 
 
