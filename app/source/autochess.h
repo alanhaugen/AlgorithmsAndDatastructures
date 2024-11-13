@@ -61,18 +61,12 @@ public:
 
     Sprite* background;
 
-    ITime* time;
-
     Piece* activePiece;
 
     Array<Player*> players;
     Player* white;
     Player* black;
     Player* activePlayer;
-
-    //
-    Piece* lockedPiece = nullptr;
-    //
 
     void NextPlayer();
 

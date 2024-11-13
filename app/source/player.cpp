@@ -10,7 +10,6 @@ Player::Player(bool isWhitePlayer)
     Init();
 
     isWhite    = isWhitePlayer;
-    //isComputer = isAIComputerPlayer;
 
     delete goldText;
 

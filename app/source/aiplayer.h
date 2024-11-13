@@ -5,8 +5,13 @@
 
 class AIPlayer : public Player
 {
+private:
+    ITime* thinkingTimer;
+
 public:
     AIPlayer();
+    Array<Move> GetAllPossibleMoves(Board* gameBoard);
+    Move GetNextMove(Board* gameBoard);
 };
 
 #endif // AIPLAYER_H

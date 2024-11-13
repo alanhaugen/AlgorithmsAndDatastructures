@@ -97,8 +97,6 @@ void Autochess::Init()
 
     input.Mouse.Pressed = false; // hack.
 
-    time                = Application::GetTime("wait time");
-
     swapPlayers         = true;
     isAnyWhitePieces    = false;
     isAnyBlackPieces    = false;
@@ -400,26 +398,10 @@ void Autochess::UpdatePlaying()
 
     if (isTwoPlayer)
     {
-        /*if (lockedPiece != nullptr)
-        {
-            activePiece = lockedPiece;
-            *gameBoard->highlight->matrix.x = *activePiece->icon->matrix.x;
-            *gameBoard->highlight->matrix.y = *activePiece->icon->matrix.y;
-            gameBoard->highlight->Show();
-            gameBoard->highlight->Update();
-            gameBoard->UpdateDots(activePiece->currentTile, true, true);
-        }*/
-
         return;
     }
 
     moves.Clear();
-    if (time->TimeSinceStarted() < 900.0f)
-    {
-        return;
-    }
-
-    time->Reset();
 
     isAnyWhitePieces = false;
     isAnyBlackPieces = false;
