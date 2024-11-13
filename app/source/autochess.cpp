@@ -6,11 +6,12 @@
 #include "replaynew.h"
 
 extern bool isTwoPlayer;
+extern bool vsAI;
+extern bool isFirstPlaythrough;
 
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
-extern bool isFirstPlaythrough;
 
 Autochess::Autochess()
 {
@@ -55,6 +56,22 @@ void Autochess::Init()
     backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
 
     shop                = new Shop();
+
+    // Player vs Player
+    if (isTwoPlayer == true && vsAI == false)
+    {
+
+    }
+    // AI vs AI
+    if (isTwoPlayer == false && vsAI == false)
+    {
+
+    }
+    // Player vs AI
+    if (isTwoPlayer == false && vsAI == true)
+    {
+
+    }
 
     white               = new Player(true);
     black               = new Player(false);
