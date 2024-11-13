@@ -90,6 +90,7 @@ public:
     void UpdatePlaying();
     void UpdateDone();
     void UpdateAnimation();
+    GameState IsGameDone();
 
     void Animate(Move move);
 

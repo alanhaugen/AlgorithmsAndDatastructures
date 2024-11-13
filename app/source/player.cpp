@@ -49,6 +49,27 @@ void Player::Init()
     totalNobility = 0;
 }
 
+void Player::RecalculateNobility(Board* gameBoard)
+{
+    nobility = 0;
+
+    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+    for (; tile != NULL; ++tile)
+    {
+        if ((*tile).piece != nullptr)
+        {
+            if ((*tile).piece->isWhite == isWhite)
+            {
+                nobility += tile->piece->nobility;
+                moves += gameBoard->UpdateDots(&(*tile), false);
+            }
+        }
+    }
+
+    UpdateNobilityText(nobility);
+}
+
 void Player::UpdateNobilityText(int nobility)
 {
     if (nobility == -1)
@@ -118,6 +139,27 @@ void Player::UpdateHand()
     }
 }
 
+Array<Move> Player::GetAllPossibleMoves(Board* gameBoard)
+{
+    moves.Clear();
+
+    // Loop through the game board and find all possible moves for player
+    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+    for (; tile != NULL; ++tile)
+    {
+        if ((*tile).piece != nullptr)
+        {
+            if ((*tile).piece->isWhite == isWhite)
+            {
+                moves += gameBoard->UpdateDots(&(*tile), false);
+            }
+        }
+    }
+
+    return moves;
+}
+
 void Player::Update()
 {
     if (piecesInHand.Empty() == false)
@@ -154,4 +196,73 @@ void Player::Update()
         goldText->Update();
         nobilityText->Update();
     }
+}
+
+Move Player::GetNextMove(Board *gameBoard)
+{
+    // Check what the user has clicked on the game board
+    if (input.Mouse.Pressed)
+    {
+        Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
+
+        // IF the user has not selected anything, return without a move
+        if (clickedTile == nullptr)
+        {
+            return Move();
+        }
+
+        // Highlight the tile the user has selected
+        gameBoard->highlight->Show();
+
+        // Check if user has clicked on tile with a piece
+        if (clickedTile->piece != nullptr)
+        {
+            // Activate piece clicked on
+            if (isWhite == clickedTile->piece->isWhite)
+            {
+                activePiece = clickedTile->piece;
+                gameBoard->HideDots();
+                gameBoard->UpdateDots(clickedTile, true);
+            }
+            else
+            {
+                moves.Clear();
+                gameBoard->HideDots();
+            }
+        }
+        else
+        {
+            moves.Clear();
+            gameBoard->HideDots();
+        }
+
+        // Try to make a move
+        if (activePiece != nullptr)
+        {
+            // Make a list of all the possible moves
+            GetAllPossibleMoves(gameBoard);
+
+            // Check if the move is in the list of possible moves
+            for (unsigned int i = 0; i < moves.Size(); i++)
+            {
+                if ((moves[i].tileToMoveTo->x == clickedTile->x &&
+                     moves[i].tileToMoveTo->y == clickedTile->y) &&
+                        (moves[i].oldTile->x == activePiece->currentTile->x &&
+                         moves[i].oldTile->y == activePiece->currentTile->y))
+                {
+                    // Make the move
+                    gameBoard->highlight->Hide();
+                    gameBoard->HideDots();
+
+                    // Deselect the selected piece
+                    activePiece = nullptr;
+
+                    return moves[i];
+                }
+            }
+        }
+    }
+
+    // No move was made, return a move with movedPiece equals nullptr
+    return Move();
 }
