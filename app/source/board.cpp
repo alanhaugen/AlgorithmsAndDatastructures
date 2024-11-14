@@ -94,30 +94,38 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
     int yDirectionInvert = 1;
 
+    if (tile->piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
+
     // Calculate tile weights
     for (node = tiles.Begin(); node != NULL; ++node)
     {
         if ((*node).piece != nullptr)
         {
-            if ((*node).piece->weightPattern.Empty() == false)
+            if ((*node).piece->isWhite != tile->piece->isWhite &&(*node).piece->weightPattern.Empty() == false)
             {
                 Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
 
-                // Add weight to board
-                for (unsigned int i = 0; i < weightPattern.Size(); i++)
+                LinkedList<Tile>::Iterator newNode = tiles.Begin();
+
+                int x = (*node).x;
+                int y = (*node).y;
+
+                for (; newNode != NULL; ++newNode)
                 {
-                    if ((*node).x == x + weightPattern[i].x && (*node).y == y + weightPattern[i].y)
+                    // Add weight to board
+                    for (unsigned int i = 0; i < weightPattern.Size(); i++)
                     {
-                        (*node).weight = 1;
+                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y))
+                        {
+                            (*newNode).weight = 1;
+                        }
                     }
                 }
             }
         }
-    }
-
-    if (tile->piece->isWhite == false)
-    {
-        yDirectionInvert = -1;
     }
 
     if (tile->piece->isJumping)
@@ -126,7 +134,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             for (unsigned int i = 0; i < pattern.Size(); i++)
             {
-                if ((*node).weight == 0 && ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y))
+                if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
                 {
                     if ((*node).piece == nullptr)
                     {
@@ -203,6 +211,8 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             if ((*node).searched == false)
             {
+
+
                 //The most cursed if statement known to man kind
                 if ((tile->piece->isPerpendicularOnly == true && tile->piece->isDiagonalOnly == false && tile->piece->isJester == false &&
                         ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y)    ||
@@ -262,7 +272,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                     for (unsigned int i = 0; i < pattern.Size(); i++)
                     {
-                        if ((*node).weight == 0  && ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y)))
+                        if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
                         {
                             if ((*node).piece == nullptr)
                             {
@@ -272,8 +282,10 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                     {
                                         (*node).moveDot->Show();
                                     }
-
-                                    nextLayerTiles.Append((*node));
+                                    if ((*node).weight == 0)
+                                    {
+                                        nextLayerTiles.Append((*node));
+                                    }
 
                                     moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
                                 }

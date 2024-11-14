@@ -246,7 +246,7 @@ Piece* CreateShieldMan()
     piece->movePattern.Add(glm::vec2(0, -1));
 
     piece->weightPattern.Add(glm::vec2(1,0));
-    piece->weightPattern.Add(glm::vec2(-1,1));
+    piece->weightPattern.Add(glm::vec2(-1,0));
     piece->weightPattern.Add(glm::vec2(1,1));
     piece->weightPattern.Add(glm::vec2(0,1));
     piece->weightPattern.Add(glm::vec2(-1,1));
