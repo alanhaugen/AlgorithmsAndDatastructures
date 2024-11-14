@@ -80,6 +80,7 @@ public:
     bool canCapture = true;
     bool canReturnAfterCapture = false;
     bool isHydra = false;
+    bool isJester = false;
 
     bool isPerpendicularOnly = false;
     bool isDiagonalOnly = false;

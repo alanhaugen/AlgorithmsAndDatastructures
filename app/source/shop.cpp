@@ -287,15 +287,30 @@ Piece* CreateJester()
                              3,
                              "data/InfoboardWood_Jester.png",
                              2,
-                             true);
+                             false);
 
-    for (int i = 1; i <= 2; i++)
+    for (int i = 1; i <= 5; i++)
     {
-        piece->movePattern.Add(glm::vec2(i,i));
-        piece->movePattern.Add(glm::vec2(i,-i));
-        piece->movePattern.Add(glm::vec2(-i,i));
-        piece->movePattern.Add(glm::vec2(-i,-i));
+        piece->movePattern.Add(glm::vec2((i*2)+1, (i*2)+1));
+        piece->movePattern.Add(glm::vec2((i*2)+1, (-i*2)-1));
+        piece->movePattern.Add(glm::vec2((-i*2)-1, (i*2)+1));
+        piece->movePattern.Add(glm::vec2((-i*2)-1, (-i*2)-1));
+        piece->movePattern.Add(glm::vec2((i*2)-1, 0));
+        piece->movePattern.Add(glm::vec2(0, (-i*2)-1));
+        piece->movePattern.Add(glm::vec2((-i*2)-1, 0));
+        piece->movePattern.Add(glm::vec2(0, (i*2)-1));
     }
+
+    piece->movePattern.Add(glm::vec2(1, 1));
+    piece->movePattern.Add(glm::vec2(1, 0));
+    piece->movePattern.Add(glm::vec2(0, 1));
+    piece->movePattern.Add(glm::vec2(0, -1));
+    piece->movePattern.Add(glm::vec2(-1, -1));
+    piece->movePattern.Add(glm::vec2(-1, 0));
+    piece->movePattern.Add(glm::vec2(-1, 1));
+    piece->movePattern.Add(glm::vec2(1, -1));
+
+    piece->isJester = true;
 
     return piece;
 
