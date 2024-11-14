@@ -6,9 +6,9 @@ extern LinkedList<ReplayNew> replays;
 
 Mainmenu::Mainmenu()
 {
-#ifdef WIN32
-    FRAME_TIME_MS = 1000.0f / 140.0f;
-#endif
+//#ifdef WIN32
+//    FRAME_TIME_MS = 1000.0f / 140.0f;
+//#endif
 }
 
 void Mainmenu::Init()
@@ -20,7 +20,7 @@ void Mainmenu::Init()
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
-    //playMenu->AddNextSceneButton("data/Button-AI_vs_AI.png", 190, 210 * (1.75), "vsPlayer");
+    playMenu->AddNextSceneButton("data/Button-AI_vs_AI.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     Menu* graphicsMenu = new Menu(&menus);

@@ -5,6 +5,7 @@
 #include <core/containers/stack.h>
 #include "cursor.h"
 #include "player.h"
+#include "aiplayer.h"
 #include "board.h"
 #include "shop.h"
 
@@ -13,7 +14,8 @@ enum GameState
     Shopping,
     Placing,
     Playing,
-    Done
+    Done,
+    Animate
 };
 
 const int MovesTotal = 20;
@@ -61,18 +63,12 @@ public:
 
     Sprite* background;
 
-    ITime* time;
-
     Piece* activePiece;
 
     Array<Player*> players;
     Player* white;
     Player* black;
     Player* activePlayer;
-
-    //
-    Piece* lockedPiece = nullptr;
-    //
 
     void NextPlayer();
 
@@ -85,6 +81,18 @@ public:
     void Init();
     void SetTile(Tile* tile);
     void Update();
+    void UpdateShop();
+    void UpdatePlacing();
+    void UpdatePlaying();
+    void UpdateDone();
+    void UpdateAnimation();
+    GameState IsGameDone();
+
+    void Animate(Move move);
+
+    Move  animatedPiece;
+    glm::vec2 startpos;
+    glm::vec2 endpos;
 };
 
 #endif

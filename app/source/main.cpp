@@ -4,8 +4,9 @@
 #include "replayscene.h"
 #include "replaynew.h"
 
-bool isTwoPlayer;
-bool isFirstPlaythrough;
+bool isTwoPlayer = false;
+bool vsAI = false;
+bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 
@@ -16,6 +17,5 @@ int main(int argc, char **argv)
     application.AddScene(new Autochess());
     application.AddScene(new ReplayScene());
 
-    isFirstPlaythrough = true;
     return application.Exec();
 }

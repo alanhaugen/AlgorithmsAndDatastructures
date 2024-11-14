@@ -6,11 +6,11 @@
 #include "replaynew.h"
 
 extern bool isTwoPlayer;
+extern bool vsAI;
+extern bool isFirstPlaythrough;
 
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
-
-extern bool isFirstPlaythrough;
 
 Autochess::Autochess()
 {
@@ -57,8 +57,28 @@ void Autochess::Init()
 
     shop                = new Shop();
 
-    white               = new Player(true);
-    black               = new Player(false);
+    // Player vs Player
+    if (isTwoPlayer == true && vsAI == false)
+    {
+        white = new Player(true);
+        black = new Player(false);
+    }
+    // AI vs AI
+    else if (isTwoPlayer == false && vsAI == true)
+    {
+        white = new AIPlayer(true);
+        black = new AIPlayer(false);
+    }
+    // Player vs AI
+    else if (isTwoPlayer == true && vsAI == true)
+    {
+        white = new Player(true);
+        black = new AIPlayer(false);
+    }
+    else
+    {
+        LogError("Invalid configuration");
+    }
 
     players.Add(white);
     players.Add(black);
@@ -80,8 +100,6 @@ void Autochess::Init()
     playerBlackTurn     = new Text("Player BLACK make a move", 150,60);
 
     input.Mouse.Pressed = false; // hack.
-
-    time                = Application::GetTime("wait time");
 
     swapPlayers         = true;
     isAnyWhitePieces    = false;
@@ -146,7 +164,8 @@ void Autochess::Update()
     {
         Application::LoadScene(Scenes::MainMenu);
     }
-    if(backArrow->IsPressed())
+
+    if (backArrow->IsPressed())
     {
         Application::LoadScene(Scenes::MainMenu);
     }
@@ -160,69 +179,10 @@ void Autochess::Update()
         }
     }
 
-
     // Finite State Machine (FSM) for gameplay logic
     if (state == GameState::Shopping)
     {
-        shop->Update();
-
-        if (input.Mouse.Pressed)
-        {
-            if (activePlayer->buttonReady->IsPressed())
-            {
-                activePlayer->isReady = true;
-
-                if (swapPlayers)
-                {
-                    NextPlayer();
-                    swapPlayers = false;
-                }
-            }
-
-            input.Mouse.Pressed = false;
-
-            if (shop->activePiece != nullptr)
-            {
-                bool success = false;
-
-                if (activePlayer->gold >= shop->activePiece->price)
-                {
-                    activePlayer->gold -= shop->activePiece->price;
-                    activePlayer->piecesInHand.Append(shop->activePiece);
-
-                    activePlayer->UpdateGoldText();
-
-                    success = true;
-                }
-
-                if (success)
-                {
-                    if (shop->activePiece->listNode != nullptr)
-                    {
-                        shop->itemsStoreFront.Remove(shop->activePiece->listNode);
-                        shop->activePiece = nullptr;
-                    }
-
-                    activePlayer->UpdateNobilityText();
-
-                    if (swapPlayers)
-                    {
-                        NextPlayer();
-                    }
-                }
-            }
-        }
-
-        if (white->isReady && black->isReady)
-        {
-            state = GameState::Placing;
-
-            // Player white starts placeing out pieces
-            if (isWhitesTurn == false)
-            {
-                NextPlayer();
-            }
-        }
+        UpdateShop();
     }
     else
     {
@@ -231,100 +191,90 @@ void Autochess::Update()
 
     if (state == GameState::Placing)
     {
-        gameBoard->highlight->Hide();
+        UpdatePlacing();
+    }
+    else if (state == GameState::Playing)
+    {
+        UpdatePlaying();
+    }
+    else if (state == GameState::Done)
+    {
+        UpdateDone();
+    }
+    if (state == GameState::Animate)
+    {
+        UpdateAnimation();
+    }
+}
 
-        if (activePlayer->activePiece != nullptr)
+void Autochess::UpdateShop()
+{
+    shop->Update();
+
+    if (input.Mouse.Pressed)
+    {
+        if (activePlayer->buttonReady->IsPressed())
         {
-            if (isWhitesTurn)
+            activePlayer->isReady = true;
+
+            if (swapPlayers)
             {
-                activePlayer->activePiece->tileBorderGold->Update();
-            }
-            else
-            {
-                activePlayer->activePiece->tileBorderBlue->Update();
+                NextPlayer();
+                swapPlayers = false;
             }
         }
 
-        if (input.Mouse.Pressed)
+        input.Mouse.Pressed = false;
+
+        if (shop->activePiece != nullptr)
         {
-            Tile* tile = gameBoard->GetBoardTileUnderMouse();
+            bool success = false;
 
-            // Check if user has clicked on an empty tile
-            if (tile != nullptr && tile->piece == nullptr)
+            if (activePlayer->gold >= shop->activePiece->price)
             {
-                if (isWhitesTurn && tile->y > 3 )
-                {
-                    return;
-                    //insert onScreenMessage: Invalid tile
-                }
-                if (isWhitesTurn == false && tile->y < 6 )
-                {
-                    return;
-                    //insert onScreenMessage: Invalid tile
-                }
+                activePlayer->gold -= shop->activePiece->price;
+                activePlayer->piecesInHand.Append(shop->activePiece);
 
-                // Activate piece from the player hand
-                if (activePlayer->activePiece)
-                {
-                    activePiece = activePlayer->activePiece;
-                    activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
-                    activePlayer->activePiece = nullptr;
+                activePlayer->UpdateGoldText();
 
-                    NextPlayer();
-
-                    SetTile(tile);
-                    replay.Append(Move(tile->piece, tile, false, true));
-                }
-
-                // Move an activated board piece to tile
-                else if (activePiece != nullptr && activePiece->isWhite == isWhitesTurn)
-                {
-                    if (activePiece->currentTile != nullptr)
-                    {
-                        activePiece->currentTile->piece = nullptr;
-                    }
-
-                    SetTile(tile);
-                }
+                success = true;
             }
-            // Activate piece from board
-            else if (tile != nullptr)
+
+            if (success)
             {
-                activePiece = tile->piece;
-                activePlayer->activePiece = nullptr;
-            }
-        }
-
-        if (white->piecesInHand.Empty() && black->piecesInHand.Empty())
-        {
-            state = GameState::Playing;
-
-            Log("Started Playing a New Game");
-
-            activePiece = nullptr;
-
-            // The player with the most gold remaining gets to play first
-            if (white->gold > black->gold)
-            {
-                if (isWhitesTurn == false)
+                if (shop->activePiece->listNode != nullptr)
                 {
-                    NextPlayer();
+                    shop->itemsStoreFront.Remove(shop->activePiece->listNode);
+                    shop->activePiece = nullptr;
                 }
-            }
-            else
-            {
-                if (isWhitesTurn)
+
+                activePlayer->UpdateNobilityText();
+
+                if (swapPlayers)
                 {
                     NextPlayer();
                 }
             }
         }
-        else if (activePlayer->piecesInHand.Empty())
+    }
+
+    if (white->isReady && black->isReady)
+    {
+        state = GameState::Placing;
+
+        // Player white starts placeing out pieces
+        if (isWhitesTurn == false)
         {
             NextPlayer();
         }
     }
-    else if (state == GameState::Playing)
+}
+
+void Autochess::UpdatePlacing()
+{
+    gameBoard->highlight->Hide();
+
+    if (activePlayer->activePiece != nullptr)
     {
         //undoButton->Update(); //Button does not work, and not working on it currently.
 
@@ -336,413 +286,259 @@ void Autochess::Update()
 
         if (isWhitesTurn)
         {
-            playerWhiteTurn->Update();
+            activePlayer->activePiece->tileBorderGold->Update();
         }
         else
         {
-            playerBlackTurn->Update();
+            activePlayer->activePiece->tileBorderBlue->Update();
         }
+    }
 
-        if (isTwoPlayer)
+    if (input.Mouse.Pressed)
+    {
+        Tile* tile = gameBoard->GetBoardTileUnderMouse();
+
+        // Check if user has clicked on an empty tile
+        if (tile != nullptr && tile->piece == nullptr)
         {
-            /*if (activePiece == nullptr)
+            if (isWhitesTurn && tile->y > 3 )
             {
-                LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                for (; tile != NULL; ++tile)
-                {
-                    if ((*tile).piece != nullptr)
-                    {
-                        if ((*tile).piece->isWhite == isWhitesTurn)
-                        {
-                            activePiece = (*tile).piece;
-                            *gameBoard->highlight->matrix.x = *(*tile).piece->icon->matrix.x;
-                            *gameBoard->highlight->matrix.y = *(*tile).piece->icon->matrix.y;
-                            gameBoard->UpdateDots(&(*tile), true);
-                            break;
-                        }
-                    }
-                }
-            }*/
-            movesLeftText->Update();
-
-            if (lockedPiece != nullptr)
+                return;
+                //insert onScreenMessage: Invalid tile
+            }
+            if (isWhitesTurn == false && tile->y < 6 )
             {
-                activePiece = lockedPiece;
-                *gameBoard->highlight->matrix.x = *activePiece->icon->matrix.x;
-                *gameBoard->highlight->matrix.y = *activePiece->icon->matrix.y;
-                gameBoard->highlight->Show();
-                gameBoard->highlight->Update();
-                gameBoard->UpdateDots(activePiece->currentTile, true, true);
+                return;
+                //insert onScreenMessage: Invalid tile
             }
 
-            if (input.Mouse.Pressed)
+            // Activate piece from the player hand
+            if (activePlayer->activePiece)
             {
-                Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
+                activePiece = activePlayer->activePiece;
+                activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
+                activePlayer->activePiece = nullptr;
 
-                if (clickedTile == nullptr)
-                {
-                    return;
-                }
+                NextPlayer();
 
-                gameBoard->highlight->Show();
-
-                // Check if user has clicked on tile with a piece
-                if (clickedTile->piece != nullptr)
-                {
-                    // Activate piece from the player hand
-                    if (activePlayer->isWhite == clickedTile->piece->isWhite)
-                    {
-                        activePiece = clickedTile->piece;
-                        gameBoard->HideDots();
-                        gameBoard->UpdateDots(clickedTile, true);
-                    }
-                    else
-                    {
-                        moves.Clear();
-                        gameBoard->HideDots();
-                    }
-                }
-                else
-                {
-                    moves.Clear();
-                    gameBoard->HideDots();
-                }
-
-                if (lockedPiece != nullptr)
-                {
-                    activePiece = lockedPiece;
-                    moves.Clear();
-                    gameBoard->HideDots();
-
-                    moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
-
-                    if (moves.Empty())
-                    {
-                        lockedPiece = nullptr;
-                        NextPlayer();
-                    }
-                }
-
-                if (activePiece != nullptr)
-                {
-                    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                    if (moves.Empty())
-                    {
-                        for (; tile != NULL; ++tile)
-                        {
-                            if ((*tile).piece != nullptr)
-                            {
-                                if ((*tile).piece->isWhite == isWhitesTurn)
-                                {
-                                    moves += gameBoard->UpdateDots(&(*tile), false);
-                                }
-                            }
-                        }
-                    }
-
-                    for (unsigned int i = 0; i < moves.Size(); i++)
-                    {
-                        if ((moves[i].tileToMoveTo->x == clickedTile->x &&
-                             moves[i].tileToMoveTo->y == clickedTile->y) &&
-                                (moves[i].oldTile->x == activePiece->currentTile->x &&
-                                 moves[i].oldTile->y == activePiece->currentTile->y))
-                        {
-                            moves[i].Execute();
-                            replay.Append(moves[i]);
-                            hydraAttacks++;
-                            if(!isWhitesTurn)
-                            {
-                                movesCompleted++;
-                            }
-                            int x = *movesLeftText->matrix.x;
-                            int y = *movesLeftText->matrix.y;
-                            delete movesLeftText;
-                            movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
-
-                            if (moves[i].movedPiece->isHydra == true && moves[i].isCapture && activePiece->canReturnAfterCapture == false)
-                            {
-                                activePiece->canReturnAfterCapture = true;
-                                lockedPiece = activePiece;
-                                hydraAttacks = 0;
-                            }
-
-                            gameBoard->highlight->Hide();
-
-                            if (lockedPiece != nullptr)
-                            {
-                                if (hydraAttacks >= 2)
-                                {
-                                    lockedPiece->canReturnAfterCapture = false;
-                                    lockedPiece = nullptr;
-                                }
-                                else
-                                {
-                                    moves = gameBoard->UpdateDots(activePiece->currentTile, true, true);
-
-                                    if (moves.Empty())
-                                    {
-                                        lockedPiece = nullptr;
-                                    }
-                                }
-                            }
-
-                            if (lockedPiece == nullptr)
-                            {
-                                NextPlayer();
-                            }
-
-                            gameBoard->HideDots();
-
-                            activePiece = nullptr;
-
-                            moves.Clear();
-
-                            LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-                            int nobility = 0;
-
-                            for (; tile != NULL; ++tile)
-                            {
-                                if ((*tile).piece != nullptr)
-                                {
-                                    if ((*tile).piece->isWhite == isWhitesTurn)
-                                    {
-                                        nobility += tile->piece->nobility;
-                                        moves += gameBoard->UpdateDots(&(*tile), false);
-                                    }
-                                }
-                            }
-
-                            if (moves.Empty() || movesCompleted >= MovesTotal)
-                            {
-                                isAnyBlackPieces = activePlayer->isWhite;
-                                isAnyWhitePieces = !activePlayer->isWhite;
-                                state = GameState::Done;
-
-                                if (white->totalNobility == black->totalNobility)
-                                {
-                                    isDraw = true;
-                                }
-
-                                //We reuse these variables, and use them to choose the winnner in  if(state == GameState::Done)
-                                isAnyWhitePieces = false;
-                                isAnyBlackPieces = false;
-
-                                if (white->totalNobility > black->totalNobility)
-                                {
-                                    isAnyWhitePieces = true;
-                                }
-                                else if (white->totalNobility < black->totalNobility)
-                                {
-                                    isAnyBlackPieces = true;
-                                }
-                            }
-
-
-                            if (isWhitesTurn)
-                            {
-                                white->UpdateNobilityText(nobility);
-                            }
-                            else
-                            {
-                                black->UpdateNobilityText(nobility);
-                            }
-
-
-                            gameBoard->Update();
-
-                            return;
-                        }
-                    }
-                }
+                SetTile(tile);
+                replay.Append(Move(tile->piece, tile, false, true));
             }
 
-            gameBoard->Update();
-
-            return;
-        }
-
-        if (time->TimeSinceStarted() < 900.0f)
-        {
-            return;
-        }
-
-        time->Reset();
-
-        isAnyWhitePieces = false;
-        isAnyBlackPieces = false;
-
-        LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
-
-        int nobility = 0;
-
-        for (; tile != NULL; ++tile)
-        {
-            if ((*tile).piece != nullptr)
+            // Move an activated board piece to tile
+            else if (activePiece != nullptr && activePiece->isWhite == isWhitesTurn)
             {
-                if ((*tile).piece->isWhite)
+                if (activePiece->currentTile != nullptr)
                 {
-                    isAnyWhitePieces = true;
-                }
-                else if ((*tile).piece->isWhite == false)
-                {
-                    isAnyBlackPieces = true;
+                    activePiece->currentTile->piece = nullptr;
                 }
 
-                if ((*tile).piece->isWhite == isWhitesTurn)
-                {
-                    nobility += (*tile).piece->nobility;
-                    moves += gameBoard->UpdateDots(&(*tile), false);
-                }
+                SetTile(tile);
             }
         }
-
-        if (isWhitesTurn)
+        // Activate piece from board
+        else if (tile != nullptr)
         {
-            white->UpdateNobilityText(nobility);
+            activePiece = tile->piece;
+            activePlayer->activePiece = nullptr;
+        }
+    }
+
+    if (white->piecesInHand.Empty() && black->piecesInHand.Empty())
+    {
+        state = GameState::Playing;
+
+        Log("Started Playing a New Game");
+
+        activePiece = nullptr;
+
+        // The player with the most gold remaining gets to play first
+        if (white->gold > black->gold)
+        {
+            if (isWhitesTurn == false)
+            {
+                NextPlayer();
+            }
         }
         else
         {
-            black->UpdateNobilityText(nobility);
-        }
-
-        bool moved = false;
-
-        if (moves.Empty() == false)
-        {
-            Move newMove;
-
-            for (unsigned int i = 0; i < moves.Size(); i++)
+            if (isWhitesTurn)
             {
-                if (moves[i].isCapture)
-                {
-                    newMove = moves[i];
-                    newMove.Execute();
-                    replay.Append(newMove);
-                    moved = true;
-                    break;
-                }
-            }
-
-            if (moved == false)
-            {
-                newMove = moves[random.RandomRange(0, moves.Size())];
-                newMove.Execute();
-                replay.Append(newMove);
-            }
-
-            if (newMove.isCapture)
-            {
-                Log(newMove.movedPiece->name +
-                    " moved to " +
-                    String(newMove.tileToMoveTo->x + 1) +
-                    " " +
-                    String(newMove.tileToMoveTo->y + 1) +
-                    " and captures " +
-                    newMove.oldPiece->name);
-
-                if (isWhitesTurn)
-                {
-                    white->UpdateNobilityText(nobility);
-                }
-                else
-                {
-                    black->UpdateNobilityText(nobility);
-                }
-
-                activePlayer->piecesInHand.Append(newMove.movedPiece);
-            }
-            else
-            {
-                Log(newMove.movedPiece->name +
-                    " moved to " +
-                    String(newMove.tileToMoveTo->x + 1) +
-                    " " +
-                    String(newMove.tileToMoveTo->y + 1));
+                NextPlayer();
             }
         }
-
-        gameBoard->HideDots();
-
+    }
+    else if (activePlayer->piecesInHand.Empty())
+    {
         NextPlayer();
-        if(!isWhitesTurn)
+    }
+}
+
+void Autochess::UpdatePlaying()
+{
+    // Disable further tutorials
+    isFirstPlaythrough = false;
+
+    // Update text
+    movesLeftText->Update();
+
+    // Show whose turn it is text
+    if (isWhitesTurn)
+    {
+        playerWhiteTurn->Update();
+    }
+    else
+    {
+        playerBlackTurn->Update();
+    }
+
+    // Update the current player's hand
+    //activePlayer->Update();
+
+    // Use polymorphism to update player <=> Dynamically cast active player to AI player
+    AIPlayer* aiPlayer = dynamic_cast<AIPlayer*>(activePlayer);
+
+    Move nextMove;
+
+    // Update AI player if the casting succeeded
+    if (aiPlayer != nullptr)
+    {
+        nextMove = aiPlayer->GetNextMove(gameBoard);
+    }
+    // If casting fails => the player is human. Update human player
+    else
+    {
+        nextMove = activePlayer->GetNextMove(gameBoard);
+    }
+
+    // Do the next move
+    if (nextMove.movedPiece != nullptr)
+    {
+        nextMove.Execute();
+        replay.Append(nextMove);
+
+        // Add to number of moves counter after white and black has played their turns
+        if (isWhitesTurn == false)
         {
             movesCompleted++;
         }
 
+        // Recalculate and show new nobility for the player
+        activePlayer->RecalculateNobility(gameBoard);
+
+        // Activate animation of the move
+        Animate(nextMove);
+
+        // Go to the next player
+        NextPlayer();
+
+        // Update moves left text
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
         delete movesLeftText;
         movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
-        movesLeftText->Update();
 
-        if ((isAnyWhitePieces == false || isAnyBlackPieces == false) || movesCompleted >= MovesTotal)
-        {
-            state = GameState::Done;
-
-            if (isAnyWhitePieces == true && isAnyBlackPieces == true)
-            {
-
-
-                //We reuse these variables, and use them to choose the winnner in if(state == GameState::Done)
-                isAnyWhitePieces = false;
-                isAnyBlackPieces = false;
-
-                if (white->totalNobility > black->totalNobility)
-                {
-                    isAnyWhitePieces = true;
-                }
-                else if (white->totalNobility < black->totalNobility)
-                {
-                    isAnyBlackPieces = true;
-                }
-                else
-                {
-                    isDraw = true;
-                }
-            }
-        }
+        // Check if the game is over
+        state = IsGameDone();
     }
-    else if (state == GameState::Done)
+
+    // Update the game board
+    gameBoard->Update();
+}
+
+void Autochess::UpdateDone()
+{
+    white->nobilityText->Update();
+    black->nobilityText->Update();
+
+    victoryBanner->Update();
+
+    //time_t timestamp;
+    //time(&timestamp);
+
+    //String PlayDate = ctime(&timestamp);
+
+    if (isDraw)
     {
-        white->nobilityText->Update();
-        black->nobilityText->Update();
-
-        victoryBanner->Update();
-
-        //time_t timestamp;
-        //time(&timestamp);
-
-        //String PlayDate = ctime(&timestamp);
-
-        if (isDraw)
+        playerDraw->Update();
+        if(!replayAdded)
         {
-            playerDraw->Update();
-            if(!replayAdded)
-            {
-                replays.Append(ReplayNew(&replay, true, true, "PlayDate"));
-            }
+            replays.Append(ReplayNew(&replay, true, true, "PlayDate"));
         }
-        else if (isAnyBlackPieces)
-        {
-            playerBlackWins->Update();
-            if(!replayAdded)
-            {
-                replays.Append(ReplayNew(&replay, false, false, "PlayDate"));
-                Log("Black");
-            }
-        }
-        else if (isAnyWhitePieces)
-        {
-            playerWhiteWins->Update();
-            if(!replayAdded)
-            {
-                replays.Append(ReplayNew(&replay, false, true, "PlayDate"));
-                Log("White");
-            }
-        }
-        replayAdded = true;
     }
+    else if (isAnyBlackPieces)
+    {
+        playerBlackWins->Update();
+        if(!replayAdded)
+        {
+            replays.Append(ReplayNew(&replay, false, false, "PlayDate"));
+            Log("Black");
+        }
+    }
+    else if (isAnyWhitePieces)
+    {
+        playerWhiteWins->Update();
+        if(!replayAdded)
+        {
+            replays.Append(ReplayNew(&replay, false, true, "PlayDate"));
+            Log("White");
+        }
+    }
+
+    replayAdded = true;
+}
+
+void Autochess::UpdateAnimation()
+{
+    /*if (*animatedPiece.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedPiece.movedPiece->icon->matrix.y <= endpos.y +5
+        && (*animatedPiece.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedPiece.movedPiece->icon->matrix.y >= endpos.y -5))
+    {
+        state = GameState::Playing;
+    }
+
+    *animatedPiece.movedPiece->matrix.x += (endpos - startpos).x / (endpos - startpos).length();
+    *animatedPiece.movedPiece->matrix.y += (endpos - startpos).y / (endpos - startpos).length();*/
+    state = GameState::Playing;
+}
+
+GameState Autochess::IsGameDone()
+{
+    // The game over states
+    if (    black->GetAllPossibleMoves(gameBoard).Empty() == true ||
+            white->GetAllPossibleMoves(gameBoard).Empty() == true ||
+            movesCompleted >= MovesTotal)
+    {
+        // Nobility dicates the winner, if they are equal it is a draw
+        if (white->nobility == black->nobility)
+        {
+            isDraw = true;
+        }
+
+        // White wins if they have more nobility
+        if (white->nobility > black->nobility)
+        {
+            isAnyWhitePieces = true;
+        }
+
+        // Else, black wins if they have more nobility
+        else if (white->nobility < black->nobility)
+        {
+            isAnyBlackPieces = true;
+        }
+
+        return GameState::Done;
+    }
+
+    return GameState::Playing;
+}
+
+
+void Autochess::Animate(Move move)
+{
+    state = GameState::Animate;
+    startpos = glm::vec2(*move.oldTile->matrix.x, *move.oldTile->matrix.y);
+    endpos = glm::vec2(*move.tileToMoveTo->matrix.x, *move.tileToMoveTo->matrix.y);
+    *move.movedPiece->matrix.x = startpos.x;
+    *move.movedPiece->matrix.y = startpos.y;
+    animatedPiece = move;
 }
