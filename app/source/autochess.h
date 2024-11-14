@@ -51,6 +51,7 @@ public:
     bool replayAdded;
 
     Sprite* backArrow;
+    Sprite* undoButton;
 
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
