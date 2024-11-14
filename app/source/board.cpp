@@ -94,6 +94,27 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
     int yDirectionInvert = 1;
 
+    // Calculate tile weights
+    for (node = tiles.Begin(); node != NULL; ++node)
+    {
+        if ((*node).piece != nullptr)
+        {
+            if ((*node).piece->weightPattern.Empty() == false)
+            {
+                Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
+
+                // Add weight to board
+                for (unsigned int i = 0; i < weightPattern.Size(); i++)
+                {
+                    if ((*node).x == x + weightPattern[i].x && (*node).y == y + weightPattern[i].y)
+                    {
+                        (*node).weight = 1;
+                    }
+                }
+            }
+        }
+    }
+
     if (tile->piece->isWhite == false)
     {
         yDirectionInvert = -1;
@@ -105,7 +126,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             for (unsigned int i = 0; i < pattern.Size(); i++)
             {
-                if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
+                if ((*node).weight == 0 && ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y))
                 {
                     if ((*node).piece == nullptr)
                     {
@@ -209,7 +230,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                     for (unsigned int i = 0; i < pattern.Size(); i++)
                     {
-                        if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
+                        if ((*node).weight == 0  && ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y)))
                         {
                             if ((*node).piece == nullptr)
                             {
@@ -288,6 +309,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
     for (node = tiles.Begin(); node != NULL; ++node)
     {
         (*node).searched = false;
+        (*node).weight = 0;
     }
 
     return moves;

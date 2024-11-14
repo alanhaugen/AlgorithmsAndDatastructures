@@ -4,7 +4,7 @@
 
 Tile::Tile()
 {
-    piece = nullptr;
+    piece  = nullptr;
 }
 
 void Tile::Update()

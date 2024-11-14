@@ -14,8 +14,8 @@ public:
     Sprite* moveDot;
     Sprite* attackBorder;
     Piece* piece;
-    bool blockedSouth;
-    bool blockedNorth;
+    //bool blockedSouth;
+    //bool blockedNorth;
     int weight = 0;
     bool searched = false;
 
