@@ -522,6 +522,7 @@ Piece* CreateCannon()
         piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
     }
 
+    piece->canCapture = false;
 
     return piece;
 }

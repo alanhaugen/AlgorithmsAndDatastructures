@@ -141,15 +141,12 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                     {
                         if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                         {
-                            if (tile->piece->canCapture)
+                            if (showDot)
                             {
-                                if (showDot)
-                                {
-                                    (*node).attackBorder->Show();
-                                }
-
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                (*node).attackBorder->Show();
                             }
+
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                         }
                     }
                 }
@@ -248,15 +245,12 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                             {
                                 if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                                 {
-                                    if (tile->piece->canCapture)
+                                    if (showDot)
                                     {
-                                        if (showDot)
-                                        {
-                                            (*node).attackBorder->Show();
-                                        }
-
-                                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                        (*node).attackBorder->Show();
                                     }
+
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                                 }
                             }
                         }
