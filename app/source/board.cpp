@@ -162,15 +162,12 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                     {
                         if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                         {
-                            if (tile->piece->canCapture)
+                            if (showDot)
                             {
-                                if (showDot)
-                                {
-                                    (*node).attackBorder->Show();
-                                }
-
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                (*node).attackBorder->Show();
                             }
+
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                         }
                     }
                 }
@@ -206,26 +203,61 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             if ((*node).searched == false)
             {
-                if ((tile->piece->isPerpendicularOnly == true && tile->piece->isDiagonalOnly == false &&
-                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y) ||
-                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y) ||
-                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y))) ||
-                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == false &&
-                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y) ||
-                        (searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
-                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y) ||
-                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))) ||
-                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == true &&
-                        ((searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y) ||
-                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y) ||
-                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y))))
-                {
+                //The most cursed if statement known to man kind
+                if ((tile->piece->isPerpendicularOnly == true && tile->piece->isDiagonalOnly == false && tile->piece->isJester == false &&
+                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y)    ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y)    ||
+                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y)))  ||
+                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == false && tile->piece->isJester == false &&
+                        ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y)    ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y)    ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y     == (*node).y)    ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x     == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y     == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y)))  ||
+                    (tile->piece->isPerpendicularOnly == false && tile->piece->isDiagonalOnly == true && tile->piece->isJester == false &&
+                        ((searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y)   ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y)))  ||
+                    (tile->piece->isJester == true &&
+                            (((*node).x + 1 == tile->x && (*node).y == tile->y)     ||
+                            ((*node).x - 1 == tile->x && (*node).y == tile->y)      ||
+                            ((*node).x + 1 == tile->x && (*node).y + 1 == tile->y)  ||
+                            ((*node).x - 1 == tile->x && (*node).y - 1 == tile->y)  ||
+                            ((*node).x + 1 == tile->x && (*node).y - 1 == tile->y)  ||
+                            ((*node).x - 1 == tile->x && (*node).y + 1 == tile->y)  ||
+                            ((*node).x == tile->x && (*node).y + 1 == tile->y)      ||
+                            ((*node).x == tile->x && (*node).y - 1 == tile->y))     &&
+                        ((searchTile.x + 1 == (*node).x && searchTile.y - 1 == (*node).y)   ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y - 1 == (*node).y)    ||
+                        (searchTile.x - 1 == (*node).x && searchTile.y == (*node).y)    ||
+                        (searchTile.x + 1 == (*node).x && searchTile.y == (*node).y)    ||
+                        (searchTile.x == (*node).x && searchTile.y + 1 == (*node).y)    ||
+                        (searchTile.x == (*node).x && searchTile.y - 1 == (*node).y)))  ||
+                    (tile->piece->isJester == true &&
+                            !(((*node).x + 1 == tile->x && (*node).y == tile->y)    ||
+                            ((*node).x - 1 == tile->x && (*node).y == tile->y)      ||
+                            ((*node).x + 1 == tile->x && (*node).y + 1 == tile->y)  ||
+                            ((*node).x - 1 == tile->x && (*node).y - 1 == tile->y)  ||
+                            ((*node).x + 1 == tile->x && (*node).y - 1 == tile->y)  ||
+                            ((*node).x - 1 == tile->x && (*node).y + 1 == tile->y)  ||
+                            ((*node).x == tile->x && (*node).y + 1 == tile->y)      ||
+                            ((*node).x == tile->x && (*node).y - 1 == tile->y))     &&
+                        ((searchTile.x + 2 == (*node).x && searchTile.y - 2 == (*node).y)   ||
+                        (searchTile.x + 2 == (*node).x && searchTile.y + 2 == (*node).y)    ||
+                        (searchTile.x - 2 == (*node).x && searchTile.y + 2 == (*node).y)    ||
+                        (searchTile.x - 2 == (*node).x && searchTile.y - 2 == (*node).y)    ||
+                        (searchTile.x - 2 == (*node).x && searchTile.y == (*node).y)    ||
+                        (searchTile.x + 2 == (*node).x && searchTile.y == (*node).y)    ||
+                        (searchTile.x == (*node).x && searchTile.y + 2 == (*node).y)    ||
+                        (searchTile.x == (*node).x && searchTile.y - 2 == (*node).y))))
+                    {
                     (*node).searched = true;
 
                     for (unsigned int i = 0; i < pattern.Size(); i++)
@@ -269,15 +301,12 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                             {
                                 if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                                 {
-                                    if (tile->piece->canCapture)
+                                    if (showDot)
                                     {
-                                        if (showDot)
-                                        {
-                                            (*node).attackBorder->Show();
-                                        }
-
-                                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                        (*node).attackBorder->Show();
                                     }
+
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
                                 }
                             }
                         }
