@@ -18,7 +18,7 @@ void Mainmenu::Init()
     menus.Clear();
 
     Menu* playMenu = new Menu(&menus);
-    playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
+    playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
     //playMenu->AddNextSceneButton("data/Button-AI_vs_AI.png", 190, 210 * (1.75), "vsPlayer");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));

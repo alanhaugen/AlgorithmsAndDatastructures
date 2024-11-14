@@ -53,6 +53,7 @@ void Autochess::Init()
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
 
     backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
+    undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
 
     shop                = new Shop();
 
@@ -150,6 +151,14 @@ void Autochess::Update()
         Application::LoadScene(Scenes::MainMenu);
     }
 
+    if(undoButton->IsPressed())
+    {
+        if(state == GameState::Placing && replay.End()->isPlacement == false)
+        {
+            replay.End()->Undo();
+            replay.RemoveAt(replay.count);
+        }
+    }
 
 
     // Finite State Machine (FSM) for gameplay logic
@@ -317,6 +326,8 @@ void Autochess::Update()
     }
     else if (state == GameState::Playing)
     {
+        //undoButton->Update(); //Button does not work, and not working on it currently.
+
         isFirstPlaythrough = false;
 
         movesLeftText->Update();
