@@ -18,6 +18,14 @@ public:
             data   = NULL;
             parent = NULL;
         }
+
+        ~Node()
+        {
+            if (data != NULL)
+            {
+                delete data;
+            }
+        }
     };
 
     LinkedList<Node> nodes;
@@ -25,6 +33,11 @@ public:
 public:
     Tree()
     {
+    }
+
+    void Clear()
+    {
+        nodes.Clear();
     }
 
     void AddNode(Datatype* data)

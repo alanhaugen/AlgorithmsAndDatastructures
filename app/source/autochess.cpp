@@ -406,7 +406,8 @@ void Autochess::UpdatePlaying()
         }
 
         // Recalculate and show new nobility for the player
-        activePlayer->RecalculateNobility(gameBoard);
+        white->RecalculateNobility(gameBoard);
+        black->RecalculateNobility(gameBoard);
 
         // Activate animation of the move
         Animate(nextMove);

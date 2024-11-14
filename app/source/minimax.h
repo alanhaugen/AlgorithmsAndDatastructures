@@ -3,11 +3,12 @@
 
 #include "tree.h"
 #include "move.h"
+#include "player.h"
 
 class Minimax
 {
 private:
-    class PieceState
+    class GameState
     {
     private:
         Move move;
@@ -15,13 +16,19 @@ private:
     public:
         bool isMax;
 
-        PieceState()
+        GameState()
         {
             isMax = false;
         }
+
+        GameState(Move move_, bool isMax_)
+        {
+            move  = move_;
+            isMax = isMax_;
+        }
     };
 
-    Tree<PieceState> gameTree;
+    Tree<GameState> gameTree;
 
 public:
     Minimax();
@@ -31,7 +38,8 @@ public:
     // Different AIs for different games have different heuristic functions for different purposes.
     // The job of a heuristic function is to look at a move in a game and evaluate if it is a good move or a bad move.
     // Source: Ron Penton, Data Structures for Games Programmers (2003)
-    bool CalculateMiniMaxValue();
+    bool CalculateMiniMaxValue(Board *gameBoard);
+    Move FindBestMove(Player* min, Player* max, Board* gameBoard, int depth);
 };
 
 #endif // MINIMAX_H
