@@ -287,7 +287,7 @@ Piece* CreateJester()
                              75,
                              3,
                              "data/InfoboardWood_Jester.png",
-                             2,
+                             10,
                              false);
 
     for (int i = 1; i <= 5; i++)
