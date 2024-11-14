@@ -35,11 +35,13 @@ void Autochess::NextPlayer()
 
     if (isWhitesTurn)
     {
-        activePlayer = white;
+        activePlayer   = white;
+        opponentPlayer = black;
     }
     else
     {
-        activePlayer = black;
+        activePlayer   = black;
+        opponentPlayer = white;
     }
 }
 
@@ -85,6 +87,7 @@ void Autochess::Init()
 
     isWhitesTurn        = true;
     activePlayer        = white;
+    opponentPlayer      = black;
 
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
@@ -403,7 +406,7 @@ void Autochess::UpdatePlaying()
     // Update AI player if the casting succeeded
     if (aiPlayer != nullptr)
     {
-        nextMove = aiPlayer->GetNextMove(gameBoard);
+        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer);
     }
     // If casting fails => the player is human. Update human player
     else

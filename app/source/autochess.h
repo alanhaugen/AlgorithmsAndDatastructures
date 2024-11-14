@@ -69,6 +69,7 @@ public:
     Player* white;
     Player* black;
     Player* activePlayer;
+    Player* opponentPlayer;
 
     void NextPlayer();
 

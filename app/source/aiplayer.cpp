@@ -15,7 +15,13 @@ Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent)
         return Move();
     }
 
-    thinkingTimer->Reset();
+    AIPlayer* aiPlayer = dynamic_cast<AIPlayer*>(opponent);
+
+    // Reset opponent's AI thinking timer if the player is AI
+    if (aiPlayer != nullptr)
+    {
+        aiPlayer->thinkingTimer->Reset();
+    }
 
     // Get best move
     //return minimax.FindBestMove(this, opponent, gameBoard, Depth);
