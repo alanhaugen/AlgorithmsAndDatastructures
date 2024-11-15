@@ -35,15 +35,26 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
         // Get moves from current depth of the tree
         Array<Move> moves = proponent->GetAllPossibleMoves(gameBoard);
 
-        // Put all the moves into a game tree to a given depth
-        for (unsigned int j = 0; j < moves.Size(); j++)
-        {
-            moves[j].Execute();
+        // Loop through all nodes on a childless level on the tree
+        //for (every childless node)
+        //{
+            //Tree<GameState>::Node *parent;
+            // parent = node;
+            // parent->data->Execute();
 
-            gameTree.AddNode(new GameState(moves[j], CalculateMiniMaxValue(gameBoard)));
+            // Put all the moves into a game tree to a given depth
+            for (unsigned int j = 0; j < moves.Size(); j++)
+            {
+                moves[j].Execute();
 
-            moves[j].Undo();
-        }
+                gameTree.AddNode(new GameState(moves[j], CalculateMiniMaxValue(gameBoard)));
+                // gameState.parent = parent;
+
+                moves[j].Undo();
+            }
+
+            //parent->data->Undo();
+        //}
 
         // Swap players and calculate the opponents possible states
         Player* temp = opponent;

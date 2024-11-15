@@ -29,6 +29,7 @@ private:
     };
 
     Tree<GameState> gameTree;
+    Tree<GameState>::Node *parentNode;
 
 public:
     Minimax();
