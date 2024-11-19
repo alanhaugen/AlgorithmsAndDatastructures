@@ -5,6 +5,8 @@
 Board::Board()
 {
     GenerateTiles();
+    bg = new Sprite("data/bg.png", 365, 60, 0.79, 0.86);
+
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
     highlight->Hide();
@@ -600,6 +602,7 @@ void Board::Update()
     }
 
     highlight->Update();
+    bg->Update();
 
     // Update components manually
     for (unsigned int i = 0; i < components.Size(); i++)
