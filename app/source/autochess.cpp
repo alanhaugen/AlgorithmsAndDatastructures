@@ -325,7 +325,7 @@ void Autochess::UpdatePlacing()
                 NextPlayer();
 
                 SetTile(tile);
-                replay.Append(Move(tile->piece, tile, false, true));
+                replay.Append(Move(tile->piece, tile, true));
             }
 
             // Move an activated board piece to tile

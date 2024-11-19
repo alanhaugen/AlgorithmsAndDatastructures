@@ -342,9 +342,9 @@ Piece* CreateKnight()
                              50,
                              2,
                              "data/InfoboardWood_Knight.png",
-                             5);
+                             3);
 
-    for (int i = 1; i <= 4; i++)
+    for (int i = 1; i <= 2; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
         piece->movePattern.Add(glm::vec2(-i,0));
@@ -353,17 +353,17 @@ Piece* CreateKnight()
 
     }
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(3, 1), glm::vec2(2, 0)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(3, -1), glm::vec2(2, 0)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-3, 1), glm::vec2(-2, 0)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-3, -1), glm::vec2(-2, 0)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,4+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,4+1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(1, 3), glm::vec2(0, 2)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-1, 3), glm::vec2(0, 2)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,-4-1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,-4-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(1, -3), glm::vec2(0, -2)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-1, -3), glm::vec2(0, -2)));
 
     return piece;
 }
@@ -535,7 +535,7 @@ Piece* CreateCannon()
 
     for (int i = 3; i < 10; ++i)
     {
-        piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(0,i), glm::vec2()));
     }
 
     piece->canCapture = false;
