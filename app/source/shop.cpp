@@ -3,6 +3,8 @@
 Shop::Shop()
 {
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
+    restockShop = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 200, 2.0, 2.0);
+
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
 
     isWhitesTurn     = true;
@@ -654,6 +656,8 @@ void Shop::StockShopFront()
 {
     int y = 80 * 1.75;
 
+    itemsStoreFront.Clear();
+
     for (int i = 0; i < 10; i++)
     {
         if (shopItems.Empty() == true)
@@ -683,7 +687,9 @@ void Shop::Update()
 {
     activePiece = nullptr;
 
-    if (itemsStoreFront.Empty())
+    restockShop->Update();
+
+    if (itemsStoreFront.Empty() && shopItems.Empty() == false)
     {
         StockShopFront();
     }

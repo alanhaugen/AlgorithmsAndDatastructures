@@ -42,14 +42,19 @@ public:
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
     Sprite* randomCard   = nullptr;
+    Sprite* restockShop  = nullptr;
     Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
+
+    int RestockShopCost = 50;
+    bool RestockShopNextPlayer = true;
 
     const int PIECE_TYPES_QUANTITY = 16;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
+    void DiscardShopFront();
 
     void Update();
 };
