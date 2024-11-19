@@ -2,7 +2,6 @@
 
 Minimax::Minimax()
 {
-
 }
 
 bool Minimax::CalculateMiniMaxValue(Board* gameBoard)

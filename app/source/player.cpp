@@ -231,8 +231,20 @@ Move Player::GetNextMove(Board *gameBoard)
             // Check if the move is in the list of possible moves
             for (unsigned int i = 0; i < moves.Size(); i++)
             {
-                if ((moves[i].tileToMoveTo->x == clickedTile->x &&
-                     moves[i].tileToMoveTo->y == clickedTile->y) &&
+                bool legalTileClicked = false;
+
+                if (moves[i].captureTile1 != nullptr)
+                {
+                    legalTileClicked = (moves[i].tileToMoveTo->x == clickedTile->x || moves[i].captureTile1->x == clickedTile->x) &&
+                            (moves[i].tileToMoveTo->y == clickedTile->y || moves[i].captureTile1->y == clickedTile->y);
+                }
+                else
+                {
+                    legalTileClicked = moves[i].tileToMoveTo->x == clickedTile->x &&
+                                       moves[i].tileToMoveTo->y == clickedTile->y;
+                }
+
+                if (legalTileClicked &&
                         (moves[i].oldTile->x == activePiece->currentTile->x &&
                          moves[i].oldTile->y == activePiece->currentTile->y))
                 {
