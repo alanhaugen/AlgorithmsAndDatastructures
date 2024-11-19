@@ -63,12 +63,4 @@ void Piece::Update()
             *tileBorderGold->matrix.y = *icon->matrix.y;
         }
     }
-
-    if (icon != nullptr)
-    {
-        if (icon->IsHoveredOver())
-        {
-            infoBoard->Update();
-        }
-    }
 }

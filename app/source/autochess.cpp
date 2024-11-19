@@ -123,7 +123,7 @@ void Autochess::Init()
     topPreviousMoves.Push(new Text("text4"));
     topPreviousMoves.Push(new Text("text5"));
 
-
+    activeInfoBoard = nullptr;
 
     cam = new Camera();
     components.Add(cam);
@@ -138,6 +138,8 @@ void Autochess::Init()
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
+
+    infoBoardTimer = Application::GetTime("Info board timer");
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -186,6 +188,8 @@ void Autochess::Update()
     if (state == GameState::Shopping)
     {
         UpdateShop();
+        UpdateInfoBoard();
+        UpdateInfoBoardShop();
     }
     else
     {
@@ -195,10 +199,12 @@ void Autochess::Update()
     if (state == GameState::Placing)
     {
         UpdatePlacing();
+        UpdateInfoBoard();
     }
     else if (state == GameState::Playing)
     {
         UpdatePlaying();
+        UpdateInfoBoard();
     }
     else if (state == GameState::Done)
     {
@@ -207,6 +213,11 @@ void Autochess::Update()
     if (state == GameState::Animate)
     {
         UpdateAnimation();
+    }
+
+    if (activeInfoBoard != nullptr && infoBoardTimer->TimeSinceStarted() < 5000.0f)
+    {
+        activeInfoBoard->Update();
     }
 }
 
@@ -546,6 +557,59 @@ GameState Autochess::IsGameDone()
     }
 
     return GameState::Playing;
+}
+
+void Autochess::UpdateInfoBoardShop()
+{
+    LinkedList<Piece*>::Iterator piece = shop->itemsStoreFront.Begin();
+
+    for (; piece != NULL; ++piece)
+    {
+        if ((*piece)->backgroundCard->IsHoveredOver())
+        {
+            activeInfoBoard = (*piece)->infoBoard;
+            infoBoardTimer->Reset();
+        }
+    }
+}
+
+void Autochess::UpdateInfoBoard()
+{
+    LinkedList<Piece*>::Iterator piece = white->piecesInHand.Begin();
+
+    for (; piece != NULL; ++piece)
+    {
+        if ((*piece)->icon->IsHoveredOver())
+        {
+            activeInfoBoard = (*piece)->infoBoard;
+            infoBoardTimer->Reset();
+        }
+    }
+
+    piece = black->piecesInHand.Begin();
+
+    for (; piece != NULL; ++piece)
+    {
+        if ((*piece)->icon->IsHoveredOver())
+        {
+            activeInfoBoard = (*piece)->infoBoard;
+            infoBoardTimer->Reset();
+        }
+    }
+
+    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+
+    for (; tile != NULL; ++tile)
+    {
+        if ((*tile).piece != nullptr)
+        {
+            if ((*tile).piece->icon->IsHoveredOver())
+            {
+                activeInfoBoard = (*tile).piece->infoBoard;
+                infoBoardTimer->Reset();
+            }
+        }
+    }
 }
 
 

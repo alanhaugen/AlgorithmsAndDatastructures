@@ -718,7 +718,6 @@ void Shop::Update()
             *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
             *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 20*1.55;
             (*piece)->buyText->Update();
-            (*piece)->infoBoard->Update();
         }
 
         *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x;
