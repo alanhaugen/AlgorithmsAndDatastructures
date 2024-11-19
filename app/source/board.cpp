@@ -5,7 +5,7 @@
 Board::Board()
 {
     GenerateTiles();
-    bg = new Sprite("data/bg.png", 365, 60, 0.79, 0.86);
+    bg = new Sprite("data/bg.png", 400, 92, 0.705, 0.705);
 
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
@@ -445,7 +445,6 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                             attackTile3 = GetTile((*node).x, (*node).y + 1);
 
                                         }
-
 
                                         if (attackTile2->piece == nullptr)
                                         {
