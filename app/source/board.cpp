@@ -5,7 +5,7 @@
 Board::Board()
 {
     GenerateTiles();
-    bg = new Sprite("data/bg.png", 400, 92, 0.705, 0.705);
+    bg = new Sprite("data/bg.png", 403, 103, 0.7, 0.7);
 
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
@@ -17,8 +17,8 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(nums[i], 380, (140 + (i*52)) - 16));
-        components.Add(new Text(chars[i], 430 + (i*50), 630));
+        components.Add(new Text(nums[i], 395, (140 + (i*52)) - 6, 0.75, 0.75));
+        components.Add(new Text(chars[i], 430 + (i*50), 635, 0.75, 0.75));
     }
 }
 
@@ -32,7 +32,7 @@ void Board::GenerateTiles()
     tile = new Sprite("data/WhiteTile.png", 0, 0, scale, scale);
 
     float offsetX = (renderer->windowWidth / 2) - (tile->width * tile->scaleX  * 5);
-    float offsetY = ((768 / 2) - 10) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
+    float offsetY = ((renderer->windowHeight / 2)) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
 
     delete tile;
 
