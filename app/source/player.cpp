@@ -31,16 +31,16 @@ void Player::Init(bool isWhite_)
         goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = 768 - 140;
+        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 22;
     }
     else
     {
         nobilityText = new Text(String(nobility), 20, 160);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
-        *buttonReady->matrix.y = 35;
+        *buttonReady->matrix.y = 22;
     }
 
-    *buttonReady->matrix.x = renderer->windowWidth - 170;
+    *buttonReady->matrix.x = renderer->windowWidth - 350;
     goldText->x = 20;
 }
 

@@ -220,7 +220,7 @@ void Autochess::UpdateShop()
         activePlayer->gold -= shop->RestockShopCost;
         activePlayer->UpdateGoldText();
 
-        if(shop->RestockShopNextPlayer == true)
+        if(shop->RestockShopNextPlayer == true && opponentPlayer->isReady == false)
         {
             NextPlayer();
         }
