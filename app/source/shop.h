@@ -38,16 +38,19 @@ public:
 
     const int WildcardCost = 100;
 
+    const int RestockShopCost = 50;
+    const bool RestockShopNextPlayer = true;
+
     LinkedList<Piece*> itemsStoreFront;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
     Sprite* randomCard   = nullptr;
     Sprite* restockShop  = nullptr;
+
+    Text* costTextRestockShop;
     Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
 
-    int RestockShopCost = 50;
-    bool RestockShopNextPlayer = true;
 
     const int PIECE_TYPES_QUANTITY = 16;
 

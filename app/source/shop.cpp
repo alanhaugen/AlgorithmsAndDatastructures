@@ -3,9 +3,10 @@
 Shop::Shop()
 {
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
-    restockShop = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 200, 2.0, 2.0);
+    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 110, 450, 1.5, 1.5);
 
-    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
+    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8);
+    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8);
 
     isWhitesTurn     = true;
 
@@ -756,7 +757,7 @@ void Shop::Update()
 
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
     {
-        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 30;
+        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 10;
         *costTextRandomCard->matrix.y = *randomCard->matrix.y - 10*1.75;
         costTextRandomCard->Update();
     }
@@ -771,5 +772,11 @@ void Shop::Update()
             activePiece->icon = activePiece->iconBlack;
             activePiece->isWhite = false;
         }
+    }
+    if (restockShop->IsHoveredOver() && shopItems.Empty() == false)
+    {
+        *costTextRestockShop->matrix.x = *restockShop->matrix.x - 15;
+        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 15*1.75;
+        costTextRestockShop->Update();
     }
 }
