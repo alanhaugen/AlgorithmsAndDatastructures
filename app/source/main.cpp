@@ -13,7 +13,7 @@ LinkedList<ReplayNew> replays;
 #ifdef WIN32
 #include <windows.h>
 
-int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             PSTR lpCmdLine, int nCmdShow)
 #else
 int main(int argc, char **argv)
