@@ -24,6 +24,7 @@ Piece* CreateDeserter();
 Piece* CreateCannon();
 Piece* CreateShieldMan();
 Piece* CreateFence();
+Piece* CreateRook();
 
 class Shop : public Component
 {
