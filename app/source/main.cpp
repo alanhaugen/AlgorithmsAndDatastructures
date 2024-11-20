@@ -10,7 +10,14 @@ bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 
+#ifdef WIN32
+#include <windows.h>
+
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+            PSTR lpCmdLine, int nCmdShow)
+#else
 int main(int argc, char **argv)
+#endif
 {
     Application application(argc, argv);
     application.AddScene(new Mainmenu());
