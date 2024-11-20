@@ -11,13 +11,10 @@ LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 
 #ifdef WIN32
-#include <windows.h>
-
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
-            PSTR lpCmdLine, int nCmdShow)
-#else
-int main(int argc, char **argv)
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window
 #endif
+
+int main(int argc, char **argv)
 {
     Application application(argc, argv);
     application.AddScene(new Mainmenu());
