@@ -39,6 +39,7 @@ public:
 
     void Clear()
     {
+        root = NULL;
         nodes.Clear();
     }
 
