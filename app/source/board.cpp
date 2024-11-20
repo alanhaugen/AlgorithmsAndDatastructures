@@ -5,6 +5,8 @@
 Board::Board()
 {
     GenerateTiles();
+    bg = new Sprite("data/bg.png", 403, 104, 0.7, 0.7);
+
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
     highlight->Hide();
@@ -15,8 +17,8 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(nums[i], 380, (140 + (i*52)) - 16));
-        components.Add(new Text(chars[i], 430 + (i*50), 630));
+        components.Add(new Text(nums[i], 395, (140 + (i*52)) - 6, 0.75, 0.75));
+        components.Add(new Text(chars[i], 430 + (i*50), 635, 0.75, 0.75));
     }
 }
 
@@ -30,7 +32,7 @@ void Board::GenerateTiles()
     tile = new Sprite("data/WhiteTile.png", 0, 0, scale, scale);
 
     float offsetX = (renderer->windowWidth / 2) - (tile->width * tile->scaleX  * 5);
-    float offsetY = ((768 / 2) - 10) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
+    float offsetY = ((renderer->windowHeight / 2)) - (tile->height * tile->scaleY * 5); // renderer->windowHeight / 2
 
     delete tile;
 
@@ -86,7 +88,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
     int y = tile->y;
 
     Array<glm::vec2> pattern = tile->piece->movePattern;
-    Array<glm::vec2> capturePattern = tile->piece->captureOnlyMovePattern;
+    Array<Capture> capturePattern = tile->piece->captureOnlyMovePattern;
 
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
@@ -157,14 +159,14 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                 (*node).attackBorder->Show();
                             }
 
-                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
                         }
                     }
                 }
             }
             for (unsigned int i = 0; i < capturePattern.Size(); i++)
             {
-                if ((*node).x == x + capturePattern[i].x && (*node).y == y + (yDirectionInvert * capturePattern[i].y))
+                if ((*node).x == x + capturePattern[i].capture.x && (*node).y == y + (yDirectionInvert * capturePattern[i].capture.y))
                 {
                     if ((*node).piece != nullptr)
                     {
@@ -175,7 +177,16 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                 (*node).attackBorder->Show();
                             }
 
-                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                            // TODO: Add attack pattern here
+
+                            if (tile->x + capturePattern[i].moveTo.x != (*node).x && tile->y + (yDirectionInvert * capturePattern[i].moveTo.y) != (*node).y)
+                            {
+                                moves.Add(Move(tile->piece, GetTile(tile->x + capturePattern[i].moveTo.x, tile->y + (yDirectionInvert * capturePattern[i].moveTo.y)), false, GetTile((*node).x, (*node).y)));
+                            }
+                            else
+                            {
+                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
+                            }
                         }
                     }
                 }
@@ -211,8 +222,6 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             if ((*node).searched == false)
             {
-
-
                 //The most cursed if statement known to man kind
                 if ((tile->piece->isPerpendicularOnly == true && tile->piece->isDiagonalOnly == false && tile->piece->isJester == false &&
                         ((searchTile.x    == (*node).x && searchTile.y - 1 == (*node).y)    ||
@@ -287,7 +296,89 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                         nextLayerTiles.Append((*node));
                                     }
 
-                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                                    Tile* attackTile1 = nullptr;
+                                    Tile* attackTile2 = nullptr;
+
+                                    if (tile->piece->isHydra == true)
+                                    {
+
+                                        if(GetTile((*node).x, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile1 = GetTile((*node).x + 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
+
+                                        }
+
+
+                                        if (attackTile1->piece == nullptr)
+                                        {
+                                            attackTile1 = nullptr;
+                                        }
+                                        else if (attackTile1->piece->isWhite == tile->piece->isWhite)
+                                        {
+                                            attackTile1 = nullptr;
+                                        }
+
+                                        if (attackTile2->piece == nullptr)
+                                        {
+                                            attackTile2 = nullptr;
+                                        }
+                                        else if(attackTile2->piece->isWhite == tile->piece->isWhite)
+                                        {
+                                            attackTile2 = nullptr;
+                                        }
+
+                                        //attackTile2 won't be checked if attackTile1 is nullptr
+                                        if (attackTile1 == nullptr && attackTile2 != nullptr)
+                                        {
+                                            attackTile1 = attackTile2;
+                                            attackTile2 = nullptr;
+                                        }
+                                    }
+
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, attackTile1, attackTile2));
                                 }
                             }
                             else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
@@ -299,7 +390,89 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                         (*node).attackBorder->Show();
                                     }
 
-                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                    Tile* attackTile1 = GetTile((*node).x, (*node).y);
+                                    Tile* attackTile2 = nullptr;
+                                    Tile* attackTile3 = nullptr;
+
+                                    if (tile->piece->isHydra == true)
+                                    {
+
+                                        if(GetTile((*node).x, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x, (*node).y - 1);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y - 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile3 = GetTile((*node).x + 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile3 = GetTile((*node).x, (*node).y + 1);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile3 = GetTile((*node).x, (*node).y - 1);
+
+                                        }
+                                        if(GetTile((*node).x - 1, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile3 = GetTile((*node).x - 1, (*node).y);
+
+                                        }
+                                        if(GetTile((*node).x + 1, (*node).y + 1)->piece == tile->piece)
+                                        {
+                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x, (*node).y + 1);
+
+                                        }
+
+                                        if (attackTile2->piece == nullptr)
+                                        {
+                                            attackTile2 = nullptr;
+                                        }
+                                        else if (attackTile2->piece->isWhite == tile->piece->isWhite)
+                                        {
+                                            attackTile2 = nullptr;
+                                        }
+
+                                        if (attackTile3->piece == nullptr)
+                                        {
+                                            attackTile3 = nullptr;
+                                        }
+                                        else if(attackTile3->piece->isWhite == tile->piece->isWhite)
+                                        {
+                                            attackTile3 = nullptr;
+                                        }
+
+                                        //attackTile3 won't be checked if attackTile2 is nullptr
+                                        if (attackTile2 == nullptr && attackTile3 != nullptr)
+                                        {
+                                            attackTile2 = attackTile3;
+                                            attackTile3 = nullptr;
+                                        }
+                                    }
+
+                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, attackTile1, attackTile2, attackTile3));
                                 }
                             }
                         }
@@ -307,7 +480,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                     for (unsigned int i = 0; i < capturePattern.Size(); i++)
                     {
-                        if ((*node).x == x + capturePattern[i].x && (*node).y == y + capturePattern[i].y)
+                        if ((*node).x == x + capturePattern[i].capture.x && (*node).y == y + (yDirectionInvert * capturePattern[i].capture.y))
                         {
                             if ((*node).piece != nullptr)
                             {
@@ -318,7 +491,14 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                         (*node).attackBorder->Show();
                                     }
 
-                                    moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), true));
+                                    if (tile->x + capturePattern[i].moveTo.x != (*node).x && tile->y + (yDirectionInvert * capturePattern[i].moveTo.y) != (*node).y)
+                                    {
+                                        moves.Add(Move(tile->piece, GetTile(tile->x + capturePattern[i].moveTo.x, tile->y + (yDirectionInvert * capturePattern[i].moveTo.y)), false, GetTile((*node).x, (*node).y)));
+                                    }
+                                    else
+                                    {
+                                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
+                                    }
                                 }
                             }
                         }
@@ -421,6 +601,7 @@ void Board::Update()
     }
 
     highlight->Update();
+    bg->Update();
 
     // Update components manually
     for (unsigned int i = 0; i < components.Size(); i++)

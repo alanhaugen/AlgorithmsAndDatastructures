@@ -31,16 +31,16 @@ void Player::Init(bool isWhite_)
         goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = 768 - 140;
+        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 22;
     }
     else
     {
         nobilityText = new Text(String(nobility), 20, 160);
         goldText = new Text("Black Gold: " + String(gold), 52, 112);
-        *buttonReady->matrix.y = 35;
+        *buttonReady->matrix.y = 22;
     }
 
-    *buttonReady->matrix.x = renderer->windowWidth - 170;
+    *buttonReady->matrix.x = renderer->windowWidth - 350;
     goldText->x = 20;
 }
 
@@ -231,8 +231,20 @@ Move Player::GetNextMove(Board *gameBoard)
             // Check if the move is in the list of possible moves
             for (unsigned int i = 0; i < moves.Size(); i++)
             {
-                if ((moves[i].tileToMoveTo->x == clickedTile->x &&
-                     moves[i].tileToMoveTo->y == clickedTile->y) &&
+                bool legalTileClicked = false;
+
+                if (moves[i].captureTile1 != nullptr)
+                {
+                    legalTileClicked = (moves[i].tileToMoveTo->x == clickedTile->x || moves[i].captureTile1->x == clickedTile->x) &&
+                            (moves[i].tileToMoveTo->y == clickedTile->y || moves[i].captureTile1->y == clickedTile->y);
+                }
+                else
+                {
+                    legalTileClicked = moves[i].tileToMoveTo->x == clickedTile->x &&
+                                       moves[i].tileToMoveTo->y == clickedTile->y;
+                }
+
+                if (legalTileClicked &&
                         (moves[i].oldTile->x == activePiece->currentTile->x &&
                          moves[i].oldTile->y == activePiece->currentTile->y))
                 {

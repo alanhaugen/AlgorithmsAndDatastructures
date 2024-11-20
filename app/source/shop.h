@@ -24,6 +24,7 @@ Piece* CreateDeserter();
 Piece* CreateCannon();
 Piece* CreateShieldMan();
 Piece* CreateFence();
+Piece* CreateRook();
 
 class Shop : public Component
 {
@@ -38,18 +39,26 @@ public:
 
     const int WildcardCost = 100;
 
+    const int RestockShopCost = 50;
+    const bool RestockShopNextPlayer = true;
+
     LinkedList<Piece*> itemsStoreFront;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
     Sprite* randomCard   = nullptr;
+    Sprite* restockShop  = nullptr;
+
+    Text* costTextRestockShop;
     Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
 
-    const int PIECE_TYPES_QUANTITY = 16;
+
+    const int PIECE_TYPES_QUANTITY = 17;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
+    void DiscardShopFront();
 
     void Update();
 };

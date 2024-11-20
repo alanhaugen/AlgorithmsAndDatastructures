@@ -28,6 +28,7 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
+    ITime* infoBoardTimer;
 
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;
@@ -71,6 +72,8 @@ public:
     Player* activePlayer;
     Player* opponentPlayer;
 
+    Sprite* activeInfoBoard = nullptr;
+
     void NextPlayer();
 
     bool isWhitesTurn;
@@ -88,6 +91,9 @@ public:
     void UpdateDone();
     void UpdateAnimation();
     GameState IsGameDone();
+
+    void UpdateInfoBoardShop();
+    void UpdateInfoBoard();
 
     void Animate(Move move);
 

@@ -3,7 +3,10 @@
 Shop::Shop()
 {
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
-    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0,0, 0.4, 0.4);
+    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 110, 450, 1.5, 1.5);
+
+    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8);
+    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8);
 
     isWhitesTurn     = true;
 
@@ -342,9 +345,9 @@ Piece* CreateKnight()
                              50,
                              2,
                              "data/InfoboardWood_Knight.png",
-                             5);
+                             3);
 
-    for (int i = 1; i <= 4; i++)
+    for (int i = 1; i <= 2; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
         piece->movePattern.Add(glm::vec2(-i,0));
@@ -353,17 +356,17 @@ Piece* CreateKnight()
 
     }
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(4+1,0-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(3, 1), glm::vec2(2, 0)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(3, -1), glm::vec2(2, 0)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(-4-1,0-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-3, 1), glm::vec2(-2, 0)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-3, -1), glm::vec2(-2, 0)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,4+1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,4+1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(1, 3), glm::vec2(0, 2)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-1, 3), glm::vec2(0, 2)));
 
-    piece->captureOnlyMovePattern.Add(glm::vec2(0+1,-4-1));
-    piece->captureOnlyMovePattern.Add(glm::vec2(0-1,-4-1));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(1, -3), glm::vec2(0, -2)));
+    piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-1, -3), glm::vec2(0, -2)));
 
     return piece;
 }
@@ -535,10 +538,33 @@ Piece* CreateCannon()
 
     for (int i = 3; i < 10; ++i)
     {
-        piece->captureOnlyMovePattern.Add(glm::vec2(0,i));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(0,i), glm::vec2()));
     }
 
     piece->canCapture = false;
+
+    return piece;
+}
+
+
+Piece *CreateRook()
+{
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-WhiteRook.png",
+                             "data/Piece-BlackRook.png",
+                             "Moves perpendicularly",
+                             100,
+                             3,
+                             "data/InfoboardWood_Cannon.png",
+                             10);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,-i));
+        piece->movePattern.Add(glm::vec2(0,i));
+    }
 
     return piece;
 }
@@ -615,6 +641,10 @@ Piece* Shop::CreateRandomPiece()
         piece = CreateDeserter();
         break;
 
+    case 16:
+        piece = CreateRook();
+        break;
+
     default:
         LogError("Failed to create a piece for shop");
     }
@@ -654,6 +684,8 @@ void Shop::StockShopFront()
 {
     int y = 80 * 1.75;
 
+    itemsStoreFront.Clear();
+
     for (int i = 0; i < 10; i++)
     {
         if (shopItems.Empty() == true)
@@ -683,7 +715,9 @@ void Shop::Update()
 {
     activePiece = nullptr;
 
-    if (itemsStoreFront.Empty())
+    restockShop->Update();
+
+    if (itemsStoreFront.Empty() && shopItems.Empty() == false)
     {
         StockShopFront();
     }
@@ -711,7 +745,6 @@ void Shop::Update()
             *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
             *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 20*1.55;
             (*piece)->buyText->Update();
-            (*piece)->infoBoard->Update();
         }
 
         *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x;
@@ -750,7 +783,7 @@ void Shop::Update()
 
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
     {
-        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 30;
+        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 10;
         *costTextRandomCard->matrix.y = *randomCard->matrix.y - 10*1.75;
         costTextRandomCard->Update();
     }
@@ -765,5 +798,11 @@ void Shop::Update()
             activePiece->icon = activePiece->iconBlack;
             activePiece->isWhite = false;
         }
+    }
+    if (restockShop->IsHoveredOver() && shopItems.Empty() == false)
+    {
+        *costTextRestockShop->matrix.x = *restockShop->matrix.x - 15;
+        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 15*1.75;
+        costTextRestockShop->Update();
     }
 }

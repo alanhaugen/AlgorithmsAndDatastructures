@@ -14,6 +14,7 @@ class Board : public IScene
 public:
     LinkedList<Tile> tiles;
     Sprite* highlight;
+    Sprite* bg;
     Board();
 
     void GenerateTiles();
