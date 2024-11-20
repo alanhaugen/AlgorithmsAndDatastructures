@@ -5,7 +5,7 @@
 Board::Board()
 {
     GenerateTiles();
-    bg = new Sprite("data/bg.png", 403, 104, 0.7, 0.7);
+    bg = new Sprite("data/bg.png", 403, 103, 0.7, 0.7);
 
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);

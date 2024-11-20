@@ -274,6 +274,9 @@ void Autochess::UpdateShop()
                     shop->activePiece = nullptr;
                 }
 
+                //to update the players nobility before updating the text.
+                activePlayer->Update();
+
                 activePlayer->UpdateNobilityText();
 
                 if (swapPlayers)
