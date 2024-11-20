@@ -29,22 +29,32 @@ public:
     };
 
     LinkedList<Node> nodes;
+    Node* root;
 
 public:
     Tree()
     {
+        root = NULL;
     }
 
     void Clear()
     {
+        root = NULL;
         nodes.Clear();
     }
 
-    void AddNode(Datatype* data)
+    void AddNode(Datatype* data, Node* parent = nullptr)
     {
         Node newNode;
-        newNode.data = data;
+        newNode.data   = data;
+        newNode.parent = parent;
+
         nodes.Append(newNode);
+
+        if (root == NULL)
+        {
+            root = (*nodes.Begin()).parent;
+        }
     }
 };
 

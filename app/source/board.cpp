@@ -351,7 +351,6 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                                         }
 
-
                                         if (attackTile1->piece == nullptr)
                                         {
                                             attackTile1 = nullptr;
