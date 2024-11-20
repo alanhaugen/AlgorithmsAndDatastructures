@@ -546,6 +546,29 @@ Piece* CreateCannon()
     return piece;
 }
 
+
+Piece *CreateRook()
+{
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-WhiteRook.png",
+                             "data/Piece-BlackRook.png",
+                             "Moves perpendicularly",
+                             100,
+                             3,
+                             "data/InfoboardWood_Cannon.png",
+                             10);
+
+    for (int i = 1; i <= 10; i++)
+    {
+        piece->movePattern.Add(glm::vec2(i,0));
+        piece->movePattern.Add(glm::vec2(-i,0));
+        piece->movePattern.Add(glm::vec2(0,-i));
+        piece->movePattern.Add(glm::vec2(0,i));
+    }
+
+    return piece;
+}
+
 Piece* Shop::CreateRandomPiece()
 {
     int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
@@ -616,6 +639,10 @@ Piece* Shop::CreateRandomPiece()
 
     case 15:
         piece = CreateDeserter();
+        break;
+
+    case 16:
+        piece = CreateRook();
         break;
 
     default:

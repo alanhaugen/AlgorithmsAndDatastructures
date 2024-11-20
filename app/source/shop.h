@@ -24,6 +24,7 @@ Piece* CreateDeserter();
 Piece* CreateCannon();
 Piece* CreateShieldMan();
 Piece* CreateFence();
+Piece* CreateRook();
 
 class Shop : public Component
 {
@@ -52,7 +53,7 @@ public:
     Piece* activePiece   = nullptr;
 
 
-    const int PIECE_TYPES_QUANTITY = 16;
+    const int PIECE_TYPES_QUANTITY = 17;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
