@@ -7,6 +7,8 @@ AIPlayer::AIPlayer(bool isWhite)
     Init(isWhite);
 }
 
+// In order to choose the best possible move,
+// we have to consider the game from our opponents perspective
 Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent)
 {
     // Wait about a second before making a move
