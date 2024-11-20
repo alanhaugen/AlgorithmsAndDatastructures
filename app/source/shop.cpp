@@ -641,6 +641,10 @@ Piece* Shop::CreateRandomPiece()
         piece = CreateDeserter();
         break;
 
+    case 16:
+        piece = CreateRook();
+        break;
+
     default:
         LogError("Failed to create a piece for shop");
     }

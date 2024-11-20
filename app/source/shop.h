@@ -53,7 +53,7 @@ public:
     Piece* activePiece   = nullptr;
 
 
-    const int PIECE_TYPES_QUANTITY = 16;
+    const int PIECE_TYPES_QUANTITY = 17;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
