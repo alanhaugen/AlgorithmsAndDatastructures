@@ -103,7 +103,7 @@ public:
 
     void Animate(Move move);
 
-    Move  animatedPiece;
+    Move animatedMove;
     glm::vec2 startpos;
     glm::vec2 endpos;
 };

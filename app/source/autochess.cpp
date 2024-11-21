@@ -218,6 +218,7 @@ void Autochess::Update()
     {
         UpdateDone();
     }
+
     if (state == GameState::Animate)
     {
         UpdateAnimation();
@@ -533,15 +534,17 @@ void Autochess::UpdateDone()
 
 void Autochess::UpdateAnimation()
 {
-    /*if (*animatedPiece.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedPiece.movedPiece->icon->matrix.y <= endpos.y +5
-        && (*animatedPiece.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedPiece.movedPiece->icon->matrix.y >= endpos.y -5))
+    if (*animatedMove.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedMove.movedPiece->icon->matrix.y <= endpos.y +5
+        && (*animatedMove.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedMove.movedPiece->icon->matrix.y >= endpos.y -5))
     {
         state = GameState::Playing;
+        animatedMove.movedPiece->isCurrentlyInAnimation = false;
     }
 
-    *animatedPiece.movedPiece->matrix.x += (endpos - startpos).x / (endpos - startpos).length();
-    *animatedPiece.movedPiece->matrix.y += (endpos - startpos).y / (endpos - startpos).length();*/
-    state = GameState::Playing;
+    float animationSpeed = 5.00f;
+
+    *animatedMove.movedPiece->icon->matrix.x += (endpos - startpos).x / ((endpos - startpos).length() * animationSpeed);
+    *animatedMove.movedPiece->icon->matrix.y += (endpos - startpos).y / ((endpos - startpos).length() * animationSpeed);
 }
 
 GameState Autochess::IsGameDone()
@@ -570,6 +573,12 @@ GameState Autochess::IsGameDone()
         }
 
         return GameState::Done;
+    }
+
+    // Finish animation first
+    if (state == GameState::Animate)
+    {
+        return GameState::Animate;
     }
 
     return GameState::Playing;
@@ -632,9 +641,10 @@ void Autochess::UpdateInfoBoard()
 void Autochess::Animate(Move move)
 {
     state = GameState::Animate;
-    startpos = glm::vec2(*move.oldTile->matrix.x, *move.oldTile->matrix.y);
-    endpos = glm::vec2(*move.tileToMoveTo->matrix.x, *move.tileToMoveTo->matrix.y);
-    *move.movedPiece->matrix.x = startpos.x;
-    *move.movedPiece->matrix.y = startpos.y;
-    animatedPiece = move;
+    startpos = glm::vec2(*move.oldTile->sprite->matrix.x, *move.oldTile->sprite->matrix.y);
+    endpos = glm::vec2(*move.tileToMoveTo->sprite->matrix.x, *move.tileToMoveTo->sprite->matrix.y);
+    *move.movedPiece->icon->matrix.x = startpos.x;
+    *move.movedPiece->icon->matrix.y = startpos.y;
+    animatedMove = move;
+    animatedMove.movedPiece->isCurrentlyInAnimation = true;
 }

@@ -2,11 +2,13 @@
 
 Shop::Shop()
 {
-    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 300, 2.0, 2.0);
+    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 265, 2.0, 2.0);
     restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 110, 450, 1.5, 1.5);
 
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8);
     costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8);
+    nameTextRestockShop = new Text("Restock", 0, 0, 0.8, 0.8);
+    nameTextRestockShop2 = new Text("Shop", 0, 0, 0.8, 0.8);
 
     isWhitesTurn     = true;
 
@@ -807,6 +809,13 @@ void Shop::Update()
     {
         *costTextRestockShop->matrix.x = *restockShop->matrix.x;
         *costTextRestockShop->matrix.y = *restockShop->matrix.y - 15*1.75;
+        *nameTextRestockShop->matrix.x = *restockShop->matrix.x - 15;
+        *nameTextRestockShop->matrix.y = *restockShop->matrix.y + 40*1.75;
+        *nameTextRestockShop2->matrix.x = *restockShop->matrix.x - 15;
+        *nameTextRestockShop2->matrix.y = *restockShop->matrix.y + 55*1.75;
+
         costTextRestockShop->Update();
+        nameTextRestockShop->Update();
+        nameTextRestockShop2->Update();
     }
 }

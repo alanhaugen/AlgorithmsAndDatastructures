@@ -34,6 +34,7 @@ public:
     int nobility = 0;
     int range = 0;
     bool isWhite = true;
+    bool isCurrentlyInAnimation = false;
 
     Text* nameText = nullptr;
     Text* movementTypeText = nullptr;
