@@ -28,7 +28,7 @@ void Player::Init(bool isWhite_)
     if (isWhite)
     {
         nobilityText = new Text(String(nobility), 20, 560);
-        goldText = new Text("White Gold: " + String(gold), 20, 768 - 160);
+        goldText = new Text(String(gold), 130, 540);
         goldText->y = 100;
 
         *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 22;
@@ -36,7 +36,7 @@ void Player::Init(bool isWhite_)
     else
     {
         nobilityText = new Text(String(nobility), 20, 160);
-        goldText = new Text("Black Gold: " + String(gold), 52, 112);
+        goldText = new Text(String(gold), 130, 140);
         *buttonReady->matrix.y = 22;
     }
 
@@ -84,11 +84,11 @@ void Player::UpdateGoldText()
 
     if (isWhite)
     {
-        goldText = new Text("White Gold: " + String(gold), x, y);
+        goldText = new Text(String(gold), x, y);
     }
     else
     {
-        goldText = new Text("Black Gold: " + String(gold), x, y);
+        goldText = new Text(String(gold), x, y);
     }
 
     goldText->Update();

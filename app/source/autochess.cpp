@@ -52,7 +52,9 @@ void Autochess::Init()
     gameBoard           = new Board();
 
     blackPiecesBanner   = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
+    goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
+    goldIcon2           = new Sprite("data/gold.png", 100, 540, 0.25, 0.25);
 
     backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
@@ -224,6 +226,8 @@ void Autochess::Update()
 void Autochess::UpdateShop()
 {
     shop->Update();
+    goldIcon1->Update();
+    goldIcon2->Update();
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
     {

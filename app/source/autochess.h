@@ -51,6 +51,9 @@ public:
     bool isDraw;
     bool replayAdded;
 
+    Sprite* goldIcon1;
+    Sprite* goldIcon2;
+
     Sprite* backArrow;
     Sprite* undoButton;
 
