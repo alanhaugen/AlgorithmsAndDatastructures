@@ -554,6 +554,7 @@ void Autochess::UpdateAnimation()
         && (*animatedMove.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedMove.movedPiece->icon->matrix.y >= endpos.y -5))
     {
         state = GameState::Playing;
+        state = IsGameDone();
         animatedMove.movedPiece->isCurrentlyInAnimation = false;
 
         if (animatedMove.movedPiece->animatedForm != nullptr)
@@ -577,6 +578,11 @@ void Autochess::UpdateAnimation()
 
 GameState Autochess::IsGameDone()
 {
+    if (state==GameState::Animate)
+    {
+        return GameState::Animate;
+    }
+
     // The game over states
     if (    black->GetAllPossibleMoves(gameBoard).Empty() == true ||
             white->GetAllPossibleMoves(gameBoard).Empty() == true ||
