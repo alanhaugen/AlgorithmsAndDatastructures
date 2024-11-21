@@ -161,6 +161,9 @@ void Autochess::Update()
     white->Update();
     black->Update();
 
+    goldIcon1->Update();
+    goldIcon2->Update();
+
     white->nobilityText->Update();
     black->nobilityText->Update();
 
@@ -236,9 +239,6 @@ void Autochess::Update()
 void Autochess::UpdateShop()
 {
     shop->Update();
-
-    goldIcon1->Update();
-    goldIcon2->Update();
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
     {
