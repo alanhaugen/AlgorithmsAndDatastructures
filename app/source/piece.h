@@ -9,6 +9,22 @@
 
 class Tile;
 
+struct Capture
+{
+    glm::vec2 capture;
+    glm::vec2 moveTo;
+
+    Capture()
+    {
+    }
+
+    Capture(glm::vec2 capture_, glm::vec2 moveTo_)
+    {
+        capture = capture_;
+        moveTo = moveTo_;
+    }
+};
+
 class Piece : public Component
 {
 public:
@@ -44,7 +60,8 @@ public:
           String description_,
           int price_,
           int nobility,
-          int range = 0,
+          String infoBoardPath,
+          int range_ = 0,
           bool isJumping_ = false,
           bool canReturnAfterCapture_ = false,
           bool isHydra_ = false);
@@ -54,6 +71,7 @@ public:
 
     Sprite* icon = nullptr;
     Sprite* backgroundCard = nullptr;
+    Sprite* infoBoard = nullptr;
 
     Tile* currentTile = nullptr;
     Sprite* idleSprite = nullptr;
@@ -69,7 +87,7 @@ public:
     String dieSound;
 
     Array<glm::vec2> movePattern;
-    Array<glm::vec2> captureOnlyMovePattern;
+    Array<Capture> captureOnlyMovePattern;
     Array<glm::vec2> weightPattern;
     Array<glm::vec2> weights;
 
@@ -81,6 +99,10 @@ public:
     bool canCapture = true;
     bool canReturnAfterCapture = false;
     bool isHydra = false;
+    bool isJester = false;
+
+    bool isPerpendicularOnly = false;
+    bool isDiagonalOnly = false;
 
     void Update();
 };

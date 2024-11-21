@@ -52,6 +52,8 @@ solid {
             "data/stdButton.png",
             "data/vertexanimation.frag",
             "data/vertexanimation.vert",
+            "source/aiplayer.cpp",
+            "source/aiplayer.h",
             "source/autochess.cpp",
             "source/autochess.h",
             "source/board.cpp",

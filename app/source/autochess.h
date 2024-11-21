@@ -5,6 +5,7 @@
 #include <core/containers/stack.h>
 #include "cursor.h"
 #include "player.h"
+#include "aiplayer.h"
 #include "board.h"
 #include "shop.h"
 
@@ -13,10 +14,11 @@ enum GameState
     Shopping,
     Placing,
     Playing,
-    Done
+    Done,
+    Animate
 };
 
-const int MovesTotal = 50;
+const int MovesTotal = 20;
 
 class Autochess : public IScene
 {
@@ -26,6 +28,7 @@ public:
     Cursor* cursor;
     Board* gameBoard;
     Shop* shop;
+    ITime* infoBoardTimer;
 
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;
@@ -48,8 +51,17 @@ public:
     bool isDraw;
     bool replayAdded;
 
+    Sprite* goldIcon1;
+    Sprite* goldIcon2;
+
+    Sprite* backArrow;
+    Sprite* undoButton;
+
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
+
+    Sprite* nobilityIcon1;
+    Sprite* nobilityIcon2;
 
     Sprite* blueBanner;
     Sprite* yellowBanner;
@@ -58,18 +70,15 @@ public:
 
     Sprite* background;
 
-    ITime* time;
-
     Piece* activePiece;
 
     Array<Player*> players;
     Player* white;
     Player* black;
     Player* activePlayer;
+    Player* opponentPlayer;
 
-    //
-    Piece* lockedPiece = nullptr;
-    //
+    Sprite* activeInfoBoard = nullptr;
 
     void NextPlayer();
 
@@ -82,6 +91,21 @@ public:
     void Init();
     void SetTile(Tile* tile);
     void Update();
+    void UpdateShop();
+    void UpdatePlacing();
+    void UpdatePlaying();
+    void UpdateDone();
+    void UpdateAnimation();
+    GameState IsGameDone();
+
+    void UpdateInfoBoardShop();
+    void UpdateInfoBoard();
+
+    void Animate(Move move);
+
+    Move  animatedPiece;
+    glm::vec2 startpos;
+    glm::vec2 endpos;
 };
 
 #endif

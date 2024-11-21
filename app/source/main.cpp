@@ -4,10 +4,15 @@
 #include "replayscene.h"
 #include "replaynew.h"
 
-bool isTwoPlayer;
-bool isFirstPlaythrough;
+bool isTwoPlayer = false;
+bool vsAI = false;
+bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
+
+#ifdef WIN32
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window
+#endif
 
 int main(int argc, char **argv)
 {
@@ -16,6 +21,5 @@ int main(int argc, char **argv)
     application.AddScene(new Autochess());
     application.AddScene(new ReplayScene());
 
-    isFirstPlaythrough = true;
     return application.Exec();
 }

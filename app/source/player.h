@@ -6,6 +6,7 @@
 #include <core/containers/array.h>
 #include <core/components/text.h>
 #include "piece.h"
+#include "board.h"
 
 class Player : public Component
 {
@@ -16,26 +17,28 @@ public:
     bool isWhite;
     Sprite* avatar;
     Sprite* buttonReady;
-    //bool isComputer;
 
     bool isReady;
-
-    int totalNobility;
 
     Text* goldText;
     Text* nobilityText;
 
     Piece* activePiece;
+    Array<Move> moves;
+    int nobility;
 
     Player();
     Player(bool isWhitePlayer);
 
-    void Init();
-    void UpdateNobilityText(int nobility = -1);
+    void Init(bool isWhite);
+    void RecalculateNobility(Board *gameBoard);
+    void UpdateNobilityText();
     void UpdateGoldText();
     void UpdateHand();
+    Array<Move> GetAllPossibleMoves(Board* gameBoard);
 
     void Update();
+    Move GetNextMove(Board* gameBoard);
 };
 
 #endif

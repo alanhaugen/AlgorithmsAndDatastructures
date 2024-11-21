@@ -8,6 +8,24 @@
 #include <core/components/sprite.h>
 #include "piece.h"
 
+Piece* CreateKing();
+Piece* CreateQueen();
+Piece* CreatePrince();
+Piece* CreatePrincess();
+Piece* CreateMonster();
+Piece* CreateBishop();
+Piece* CreateHydra();
+Piece* CreateKnight();
+Piece* CreatePeasant();
+Piece* CreateRogue();
+Piece* CreateStallion();
+Piece* CreateJester();
+Piece* CreateDeserter();
+Piece* CreateCannon();
+Piece* CreateShieldMan();
+Piece* CreateFence();
+Piece* CreateRook();
+
 class Shop : public Component
 {
 public:
@@ -19,41 +37,28 @@ public:
 
     bool isWhitesTurn;
 
-    int numberOfFences, numberOfKings, numberOfQueens, numberOfMonsters;
-    const int MAX_NUMBER_OF_FENCES = 6;
-    const int MAX_NUMBER_OF_KINGS = 2;
-    const int MAX_NUMBER_OF_MONSTERS = 2;
-    const int MAX_NUMBER_OF_QUEENS = 2;
     const int WildcardCost = 100;
+
+    const int RestockShopCost = 50;
+    const bool RestockShopNextPlayer = true;
 
     LinkedList<Piece*> itemsStoreFront;
     Piece* wildcardPiece = nullptr;
     Sprite* shopFront    = nullptr;
     Sprite* randomCard   = nullptr;
+    Sprite* restockShop  = nullptr;
+
+    Text* costTextRestockShop;
     Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
 
-    const int PIECE_TYPES_QUANTITY = 16;
+
+    const int PIECE_TYPES_QUANTITY = 17;
 
     Piece* CreateRandomPiece();
     void SetShopPiecesToWhite(bool isWhite);
     void StockShopFront();
-    Piece* CreateKing();
-    Piece* CreateQueen();
-    Piece* CreatePrince();
-    Piece* CreatePrincess();
-    Piece* CreateMonster();
-    Piece* CreateBishop();
-    Piece* CreateHydra();
-    Piece* CreateKnight();
-    Piece* CreatePeasant();
-    Piece* CreateRogue();
-    Piece* CreateStallion();
-    Piece* CreateJester();
-    Piece* CreateDeserter();
-    Piece* CreateCannon();
-    Piece* CreateShieldMan();
-    Piece* CreateFence();
+    void DiscardShopFront();
 
     void Update();
 };

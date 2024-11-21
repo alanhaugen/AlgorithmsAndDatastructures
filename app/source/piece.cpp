@@ -10,7 +10,8 @@ Piece::Piece(String name_,
              String description_,
              int price_,
              int nobility_,
-             int range,
+             String infoBoardPath,
+             int range_,
              bool isJumping_,
              bool canReturnAfterCapture_,
              bool isHydra_)
@@ -20,6 +21,7 @@ Piece::Piece(String name_,
     isHydra                 = isHydra_;
 
     backgroundCard          = new Sprite("data/Card-Standard.png", 0,0, 2.2 * 1.5, 3.1 * 1.5);
+    infoBoard               = new Sprite(infoBoardPath, 50, 200, 0.7, 0.7);
 
     iconWhite               = new Sprite(iconWhitePath, 0, 0, 0.4, 0.4);
     iconBlack               = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);
@@ -29,10 +31,12 @@ Piece::Piece(String name_,
 
     nameText                = new Text(name_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     movementTypeText        = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
-    movementText            = new Text("Range: " + String(range), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    movementText            = new Text("Range: " + String(range_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     descriptionText         = new Text(description_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     nobilityText            = new Text("Nobility: " + String(nobility_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     costText                = new Text("COST: " + String(price_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+
+    range                   = range_;
 
     tileBorderBlue          = new Sprite("data/TileBorder-Blue.png", 0,0, 0.4, 0.4);
     tileBorderGold          = new Sprite("data/TileBorder-Gold.png", 0,0, 0.4, 0.4);
@@ -43,6 +47,7 @@ Piece::Piece(String name_,
     isJumping               = isJumping_;
 
     icon                    = iconWhite;
+    isPerpendicularOnly     = false;
 }
 
 void Piece::Update()
@@ -59,5 +64,4 @@ void Piece::Update()
             *tileBorderGold->matrix.y = *icon->matrix.y;
         }
     }
-
 }
