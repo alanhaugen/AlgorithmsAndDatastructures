@@ -527,6 +527,8 @@ Piece* CreateCannon()
 
     // TODO: Add special ability
 
+    piece->animatedForm = new Sprite("data/Sprite-CannonballWHITE.png");
+
     for (int i = 1; i <= 1; i++)
     {
         piece->movePattern.Add(glm::vec2(i,0));
