@@ -49,6 +49,8 @@ public:
     Sprite* restockShop  = nullptr;
 
     Text* costTextRestockShop;
+    Text* nameTextRestockShop;
+    Text* nameTextRestockShop2;
     Text* costTextRandomCard;
     Piece* activePiece   = nullptr;
 
