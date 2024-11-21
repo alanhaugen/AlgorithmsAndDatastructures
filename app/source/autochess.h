@@ -60,6 +60,9 @@ public:
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
 
+    Sprite* nobilityIcon1;
+    Sprite* nobilityIcon2;
+
     Sprite* blueBanner;
     Sprite* yellowBanner;
     Sprite* turnsLeftBanner;

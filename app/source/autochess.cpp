@@ -52,9 +52,7 @@ void Autochess::Init()
     gameBoard           = new Board();
 
     blackPiecesBanner   = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
-    goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
-    goldIcon2           = new Sprite("data/gold.png", 100, 540, 0.25, 0.25);
 
     backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
@@ -96,6 +94,11 @@ void Autochess::Init()
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
+    goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
+    goldIcon2           = new Sprite("data/gold.png", 100, 540, 0.25, 0.25);
+
+    nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
+    nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
 
     playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
     playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
@@ -226,8 +229,11 @@ void Autochess::Update()
 void Autochess::UpdateShop()
 {
     shop->Update();
+
     goldIcon1->Update();
     goldIcon2->Update();
+    nobilityIcon1->Update();
+    nobilityIcon2->Update();
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
     {

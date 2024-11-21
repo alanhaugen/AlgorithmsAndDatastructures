@@ -27,7 +27,7 @@ void Player::Init(bool isWhite_)
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 20, 560);
+        nobilityText = new Text(String(nobility), 20, 575);
         goldText = new Text(String(gold), 130, 540);
         goldText->y = 100;
 
@@ -35,7 +35,7 @@ void Player::Init(bool isWhite_)
     }
     else
     {
-        nobilityText = new Text(String(nobility), 20, 160);
+        nobilityText = new Text(String(nobility), 20, 175);
         goldText = new Text(String(gold), 130, 140);
         *buttonReady->matrix.y = 22;
     }
