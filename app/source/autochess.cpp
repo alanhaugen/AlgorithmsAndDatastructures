@@ -535,11 +535,38 @@ void Autochess::UpdateDone()
 
 void Autochess::UpdateAnimation()
 {
+    if (animatedMove.captureTile1 != nullptr)
+    {
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            if (animatedMove.movedPiece->isWhite)
+            {
+                animatedMove.movedPiece->iconWhite->Update();
+            }
+            else
+            {
+                animatedMove.movedPiece->iconBlack->Update();
+            }
+        }
+    }
+
     if (*animatedMove.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedMove.movedPiece->icon->matrix.y <= endpos.y +5
         && (*animatedMove.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedMove.movedPiece->icon->matrix.y >= endpos.y -5))
     {
         state = GameState::Playing;
         animatedMove.movedPiece->isCurrentlyInAnimation = false;
+
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            if (animatedMove.movedPiece->isWhite)
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
+            }
+            else
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
+            }
+        }
     }
 
     float animationSpeed = 5.00f;
@@ -642,10 +669,20 @@ void Autochess::UpdateInfoBoard()
 void Autochess::Animate(Move move)
 {
     state = GameState::Animate;
+
+    animatedMove = move;
+    animatedMove.movedPiece->isCurrentlyInAnimation = true;
+
+    if (animatedMove.captureTile1 != nullptr)
+    {
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            animatedMove.movedPiece->icon = animatedMove.movedPiece->animatedForm;
+        }
+    }
+
     startpos = glm::vec2(*move.oldTile->sprite->matrix.x, *move.oldTile->sprite->matrix.y);
     endpos = glm::vec2(*move.tileToMoveTo->sprite->matrix.x, *move.tileToMoveTo->sprite->matrix.y);
     *move.movedPiece->icon->matrix.x = startpos.x;
     *move.movedPiece->icon->matrix.y = startpos.y;
-    animatedMove = move;
-    animatedMove.movedPiece->isCurrentlyInAnimation = true;
 }

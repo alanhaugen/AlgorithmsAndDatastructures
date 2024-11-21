@@ -16,6 +16,7 @@ public:
     Stack<Menu*> menus;
     Sprite* title;
     Sprite* bg;
+    Sprite* rulebook;
     Sprite* replayBG;
     Sprite* testPopUp;
     Cursor* cursor;

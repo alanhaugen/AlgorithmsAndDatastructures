@@ -50,6 +50,8 @@ Piece::Piece(String name_,
 
     icon                    = iconWhite;
     isPerpendicularOnly     = false;
+
+    animatedForm = nullptr;
 }
 
 void Piece::Update()

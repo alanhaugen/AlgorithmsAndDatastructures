@@ -72,6 +72,7 @@ public:
     Sprite* iconBlack = nullptr;
 
     Sprite* icon = nullptr;
+    Sprite* animatedForm = nullptr;
     Sprite* backgroundCard = nullptr;
     Sprite* infoBoard = nullptr;
 
