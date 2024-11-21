@@ -18,6 +18,7 @@ public:
     Sprite* bg;
     Sprite* rulebook;
     Sprite* replayBG;
+    Sprite* testPopUp;
     Cursor* cursor;
     Camera* cam;
     Text* cords;
