@@ -29,6 +29,9 @@ public:
 
     Text* buyText = nullptr;
 
+    //
+    Text* flavorText = nullptr;
+
     bool invinsible = false;
 
     LinkedList<Piece*>::LinkedNode* listNode = nullptr;
