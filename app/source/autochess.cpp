@@ -173,6 +173,9 @@ void Autochess::Update()
 
     backArrow->Update();
 
+    nobilityIcon1->Update();
+    nobilityIcon2->Update();
+
     if (input.Pressed(input.Key.ESCAPE))
     {
         Application::LoadScene(Scenes::MainMenu);
@@ -236,8 +239,6 @@ void Autochess::UpdateShop()
 
     goldIcon1->Update();
     goldIcon2->Update();
-    nobilityIcon1->Update();
-    nobilityIcon2->Update();
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
     {

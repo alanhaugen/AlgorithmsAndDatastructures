@@ -191,6 +191,7 @@ Piece* CreatePrince()
                              6,
                              "data/InfoboardWood_Prince.png",
                              4,
+                             "Jumping",
                              true);
 
     // TODO: Add attack after move phase
@@ -215,6 +216,7 @@ Piece* CreatePrincess()
                              8,
                              "data/InfoboardWood_Princess.png",
                              3,
+                             "Jumping",
                              true);
 
     // TODO: Add special ability
@@ -273,6 +275,7 @@ Piece* CreateStallion()
                              1,
                              "data/InfoboardWood_Stallion.png",
                              3,
+                             "Jumping",
                              true);
 
     piece->movePattern.Add(glm::vec2(1,2));
@@ -297,6 +300,7 @@ Piece* CreateJester()
                              3,
                              "data/InfoboardWood_Jester.png",
                              10,
+                             "Jumping",
                              false);
 
     for (int i = 1; i <= 5; i++)
@@ -335,7 +339,8 @@ Piece* CreateFence()
                              10,
                              0,
                              "data/InfoboardWood_Fence.png",
-                             0);
+                             0,
+                             "Blocking");
 
     piece->invinsible = true;
 
@@ -351,7 +356,8 @@ Piece* CreateKnight()
                              50,
                              2,
                              "data/InfoboardWood_Knight.png",
-                             3);
+                             3,
+                             "Grounded");
 
     for (int i = 1; i <= 2; i++)
     {
@@ -386,7 +392,8 @@ Piece* CreatePeasant()
                              20,
                              0,
                              "data/InfoboardWood_Peasant.png",
-                             1);
+                             1,
+                             "Grounded");
 
     // TODO: Add promotion when reaching other side of board
     piece->movePattern.Add(glm::vec2(0,1));
@@ -403,7 +410,8 @@ Piece* CreateBishop()
                              80,
                              4,
                              "data/InfoboardWood_Bishop.png",
-                             10);
+                             10,
+                             "Grounded");
 
     for (int i = 1; i <= 10; i++)
     {
@@ -426,6 +434,7 @@ Piece* CreateHydra()
                              1,
                              "data/InfoboardWood_Hydra.png",
                              1,
+                             "Grounded",
                              false,
                              false,
                              true);
@@ -459,6 +468,7 @@ Piece* CreateRogue()
                              2,
                              "data/InfoboardWood_Rogue.png",
                              2,
+                             "Ranged",
                              false,
                              true);
 
@@ -490,7 +500,8 @@ Piece* CreateDeserter()
                              50,
                              0,
                              "data/InfoboardWood_Deserter.png",
-                             4);
+                             4,
+                             "Grounded");
 
     for (int y = 1; y <= piece->range; y++)
     {
@@ -522,6 +533,7 @@ Piece* CreateCannon()
                              1,
                              "data/InfoboardWood_Cannon.png",
                              1,
+                             "Ranged",
                              true,
                              true);
 
@@ -559,10 +571,11 @@ Piece *CreateRook()
                              "data/Piece-WhiteRook.png",
                              "data/Piece-BlackRook.png",
                              "Moves perpendicularly",
-                             10,
+                             100,
                              3,
                              "data/InfoboardWood_Cannon.png",
-                             10);
+                             10,
+                             "Grounded");
 
     for (int i = 1; i <= 10; i++)
     {

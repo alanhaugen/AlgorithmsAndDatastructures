@@ -12,10 +12,12 @@ Piece::Piece(String name_,
              int nobility_,
              String infoBoardPath,
              int range_,
+             String Type_,
              bool isJumping_,
              bool canReturnAfterCapture_,
              bool isHydra_)
 {
+    Type = Type_;
     name = name_;
     canReturnAfterCapture   = canReturnAfterCapture_;
     isHydra                 = isHydra_;

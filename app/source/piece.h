@@ -63,6 +63,7 @@ public:
           int nobility,
           String infoBoardPath,
           int range_ = 0,
+          String Type_ = "Grounded",
           bool isJumping_ = false,
           bool canReturnAfterCapture_ = false,
           bool isHydra_ = false);
@@ -86,6 +87,7 @@ public:
     String footstepSound;
     String attackSound;
     String dieSound;
+    String Type;
 
     Array<glm::vec2> movePattern;
     Array<Capture> captureOnlyMovePattern;
