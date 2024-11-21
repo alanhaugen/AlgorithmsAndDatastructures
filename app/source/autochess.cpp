@@ -92,7 +92,7 @@ void Autochess::Init()
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
-    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
+    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 0.55, 0.55, glm::vec2(0.5, 0.5));
 
     goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
     goldIcon2           = new Sprite("data/gold.png", 100, 540, 0.25, 0.25);
@@ -100,9 +100,9 @@ void Autochess::Init()
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
     nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
 
-    playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2 - 200,290);
-    playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2 - 200,290);
-    playerDraw          = new Text("DRAW", renderer->windowWidth / 2 - 200,290);
+    playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
+    playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
+    playerDraw          = new Text("DRAW", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
 
     playerWhiteTurn     = new Text("Player WHITE make a move", 150,60);
     playerBlackTurn     = new Text("Player BLACK make a move", 150,60);
