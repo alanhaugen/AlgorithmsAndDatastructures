@@ -32,7 +32,7 @@ Piece::Piece(String name_,
     //flavorText
 
     nameText                = new Text(name_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
-    movementTypeText        = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    movementTypeText        = new Text(Type, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     movementText            = new Text("Range: " + String(range_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     descriptionText         = new Text(description_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     nobilityText            = new Text("Nobility: " + String(nobility_), 0, 0, 0.4 * 1.5, 0.4 * 1.5);

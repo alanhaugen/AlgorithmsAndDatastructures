@@ -539,7 +539,7 @@ Piece* CreateCannon()
 
     // TODO: Add special ability
 
-    piece->animatedForm = new Sprite("data/Sprite-CannonballWHITE.png");
+    piece->animatedForm = new Sprite("data/Sprite-CannonballWHITE.png", 0, 0, 0.4, 0.4);
 
     for (int i = 1; i <= 1; i++)
     {
