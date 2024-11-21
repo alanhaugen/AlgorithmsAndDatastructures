@@ -17,6 +17,7 @@ public:
     Sprite* title;
     Sprite* bg;
     Sprite* replayBG;
+    Sprite* testPopUp;
     Cursor* cursor;
     Camera* cam;
     Text* cords;

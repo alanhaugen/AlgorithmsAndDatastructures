@@ -27,7 +27,7 @@ void Player::Init(bool isWhite_)
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 20, 575, 1, 1, glm::vec2(1, 1));
+        nobilityText = new Text(String(nobility), 45, 575, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 130, 540);
         goldText->y = 100;
 
@@ -35,7 +35,7 @@ void Player::Init(bool isWhite_)
     }
     else
     {
-        nobilityText = new Text(String(nobility), 20, 175);
+        nobilityText = new Text(String(nobility), 45, 175, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 130, 140);
         *buttonReady->matrix.y = 22;
     }
@@ -67,11 +67,13 @@ void Player::RecalculateNobility(Board* gameBoard)
 
 void Player::UpdateNobilityText()
 {
-    int x = *nobilityText->matrix.x;
-    int y = *nobilityText->matrix.y;
+    float x = *nobilityText->matrix.x;
+    float y = *nobilityText->matrix.y;
+
+    glm::vec2 anchorPoint = nobilityText->anchorPoint;
 
     delete nobilityText;
-    nobilityText = new Text(String(nobility), x, y);
+    nobilityText = new Text(String(nobility), x, y, 1, 1, anchorPoint);
     nobilityText->Update();
 }
 

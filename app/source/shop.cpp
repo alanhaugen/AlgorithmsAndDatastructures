@@ -81,6 +81,10 @@ Shop::Shop()
     unshuffledDeckOfCards.Append(CreateCannon());
     unshuffledDeckOfCards.Append(CreateCannon());
 
+    unshuffledDeckOfCards.Append(CreateRook());
+    unshuffledDeckOfCards.Append(CreateRook());
+    unshuffledDeckOfCards.Append(CreateRook());
+
     // Populize shop deck
     while (unshuffledDeckOfCards.Empty() == false)
     {
@@ -553,7 +557,7 @@ Piece *CreateRook()
                              "data/Piece-WhiteRook.png",
                              "data/Piece-BlackRook.png",
                              "Moves perpendicularly",
-                             100,
+                             10,
                              3,
                              "data/InfoboardWood_Cannon.png",
                              10);
@@ -801,7 +805,7 @@ void Shop::Update()
     }
     if (restockShop->IsHoveredOver() && shopItems.Empty() == false)
     {
-        *costTextRestockShop->matrix.x = *restockShop->matrix.x - 15;
+        *costTextRestockShop->matrix.x = *restockShop->matrix.x;
         *costTextRestockShop->matrix.y = *restockShop->matrix.y - 15*1.75;
         costTextRestockShop->Update();
     }
