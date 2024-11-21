@@ -20,8 +20,12 @@ void Tile::Update()
 
     if (piece != nullptr)
     {
-        *piece->icon->matrix.x = *sprite->matrix.x;
-        *piece->icon->matrix.y = *sprite->matrix.y;
+        if (piece->isCurrentlyInAnimation == false)
+        {
+            *piece->icon->matrix.x = *sprite->matrix.x;
+            *piece->icon->matrix.y = *sprite->matrix.y;
+        }
+
         piece->Update();
     }
 }
