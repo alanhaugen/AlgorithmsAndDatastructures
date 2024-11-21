@@ -27,7 +27,7 @@ void Player::Init(bool isWhite_)
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 20, 575);
+        nobilityText = new Text(String(nobility), 20, 575, 1, 1, glm::vec2(1, 1));
         goldText = new Text(String(gold), 130, 540);
         goldText->y = 100;
 
@@ -179,9 +179,9 @@ void Player::Update()
             buttonReady->Update();
         }
 
-        goldText->Update();
         nobilityText->Update();
     }
+    goldText->Update();
 }
 
 Move Player::GetNextMove(Board *gameBoard)
