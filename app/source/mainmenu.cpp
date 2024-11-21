@@ -23,6 +23,8 @@ void Mainmenu::Init()
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
+    playMenu->AddNextSceneButton("data/SPRITE-RulebookPNG.pgn", renderer->windowWidth / 2 - 400, 130*(1,75), "Rulebook");
+
     Menu* graphicsMenu = new Menu(&menus);
     graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");
     graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, renderer->windowWidth / 2 - 200, 210 * (1.75), "windowed");
