@@ -27,6 +27,7 @@ Piece::Piece(String name_,
     iconBlack               = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);
 
     buyText                 = new Text("Click to buy", 0, 0, 0.4 * 1.5, 0.4 * 1.5);
+    //flavorText
 
     nameText                = new Text(name_, 0, 0, 0.4 * 1.5, 0.4 * 1.5);
     movementTypeText        = new Text(isJumping_ ? String("Jumping") : String("Grounded"), 0, 0, 0.4 * 1.5, 0.4 * 1.5);
