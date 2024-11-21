@@ -84,17 +84,28 @@ void ReplayScene::Update()
     white->nobilityText->Update();
     black->nobilityText->Update();
 
+    white->UpdateNobilityText();
+    black->UpdateNobilityText();
+
     blueBanner->Update();
     yellowBanner->Update();
     turnsLeftBanner->Update();
 
-    leftArrow->Update();
+    if(index > 0)
+    {
+        leftArrow->Update();
+    }
+
     if(leftArrow->IsPressed())
     {
         LastMove();
     }
 
-    rightArrow->Update();
+    if(index + 1 < replay.count)
+    {
+        rightArrow->Update();
+    }
+
     if(rightArrow->IsPressed())
     {
         NextMove();
