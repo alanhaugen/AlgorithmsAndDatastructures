@@ -74,15 +74,15 @@ void ReplayScene::Init()
 
     index = 0;
     cursor = new Cursor();
+
+    white->RecalculateNobility(gameBoard);
+    black->RecalculateNobility(gameBoard);
 }
 
 void ReplayScene::Update()
 {
     background->Update();
     gameBoard->Update();
-
-    white->RecalculateNobility(gameBoard);
-    black->RecalculateNobility(gameBoard);
 
     white->UpdateNobilityText();
     black->UpdateNobilityText();
@@ -127,9 +127,15 @@ void ReplayScene::Update()
     if (input.Pressed(input.Key.RIGHT))
     {
         NextMove();
+
+        white->RecalculateNobility(gameBoard);
+        black->RecalculateNobility(gameBoard);
     }
     if (input.Pressed(input.Key.LEFT))
     {
         LastMove();
+
+        white->RecalculateNobility(gameBoard);
+        black->RecalculateNobility(gameBoard);
     }
 }
