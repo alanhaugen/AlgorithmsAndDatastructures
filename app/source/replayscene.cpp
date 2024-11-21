@@ -81,8 +81,8 @@ void ReplayScene::Update()
     background->Update();
     gameBoard->Update();
 
-    white->nobilityText->Update();
-    black->nobilityText->Update();
+    white->RecalculateNobility(gameBoard);
+    black->RecalculateNobility(gameBoard);
 
     white->UpdateNobilityText();
     black->UpdateNobilityText();

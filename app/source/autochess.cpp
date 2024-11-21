@@ -133,6 +133,9 @@ void Autochess::Init()
     cam = new Camera();
     components.Add(cam);
 
+    white->UpdateNobilityText();
+    black->UpdateNobilityText();
+
     replay.Clear();
     Move firstMove;
     firstMove.gameBoard = gameBoard;

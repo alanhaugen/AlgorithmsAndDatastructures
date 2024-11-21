@@ -7,13 +7,13 @@ Minimax::Minimax()
 
 bool Minimax::CalculateMiniMaxValue(Board* gameBoard)
 {
-    // Source: Ron Penton's book Data Structures for Game Programmers and chessengines.org
     // Our heuristic will be that the best possible move for us is the one
     // which minimizes the opponents collective nobility,
     // and the opponent's best move is the one which minimizes our collective nobility
 
     // The best strategy is assuming the opponent always respond with the best possible move
     // The best move is the one where our opponent can screw us over the least.
+    // Source: Ron Penton's book Data Structures for Game Programmers and chessengines.org
 
     // Loop through the board and calculate nobility
     //LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
