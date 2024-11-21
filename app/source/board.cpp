@@ -298,73 +298,80 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                                     Tile* attackTile1 = nullptr;
                                     Tile* attackTile2 = nullptr;
+                                    Tile* tileGotten = nullptr;
 
                                     if (tile->piece->isHydra == true)
                                     {
-
-                                        if(GetTile((*node).x, (*node).y - 1)->piece == tile->piece)
+                                        tileGotten = GetTile((*node).x, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x - 1, (*node).y);
                                             attackTile2 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x - 1, (*node).y);
                                             attackTile2 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y - 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x - 1, (*node).y);
                                             attackTile2 = GetTile((*node).x, (*node).y - 1);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y - 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x, (*node).y - 1);
                                             attackTile2 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x, (*node).y - 1);
                                             attackTile2 = GetTile((*node).x, (*node).y + 1);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x, (*node).y + 1);
                                             attackTile2 = GetTile((*node).x, (*node).y - 1);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x, (*node).y + 1);
                                             attackTile2 = GetTile((*node).x - 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile1 = GetTile((*node).x + 1, (*node).y);
                                             attackTile2 = GetTile((*node).x, (*node).y + 1);
-
                                         }
 
-                                        if (attackTile1->piece == nullptr)
+                                        if (attackTile1 != nullptr && attackTile1->piece == nullptr)
                                         {
                                             attackTile1 = nullptr;
                                         }
-                                        else if (attackTile1->piece->isWhite == tile->piece->isWhite)
+                                        else if (attackTile1 != nullptr && attackTile1->piece->isWhite == tile->piece->isWhite)
                                         {
                                             attackTile1 = nullptr;
                                         }
 
-                                        if (attackTile2->piece == nullptr)
+                                        if (attackTile2 != nullptr && attackTile2->piece == nullptr)
                                         {
                                             attackTile2 = nullptr;
                                         }
-                                        else if(attackTile2->piece->isWhite == tile->piece->isWhite)
+                                        else if(attackTile2 != nullptr && attackTile2->piece->isWhite == tile->piece->isWhite)
                                         {
                                             attackTile2 = nullptr;
                                         }
@@ -392,73 +399,82 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                     Tile* attackTile1 = GetTile((*node).x, (*node).y);
                                     Tile* attackTile2 = nullptr;
                                     Tile* attackTile3 = nullptr;
+                                    Tile* tileGotten = nullptr;
 
                                     if (tile->piece->isHydra == true)
                                     {
 
-                                        if(GetTile((*node).x, (*node).y - 1)->piece == tile->piece)
+                                        tileGotten = GetTile((*node).x, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x - 1, (*node).y);
                                             attackTile3 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x - 1, (*node).y);
                                             attackTile3 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y - 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x - 1, (*node).y);
                                             attackTile3 = GetTile((*node).x, (*node).y - 1);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y - 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y - 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x, (*node).y - 1);
                                             attackTile3 = GetTile((*node).x + 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x, (*node).y - 1);
                                             attackTile3 = GetTile((*node).x, (*node).y + 1);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x, (*node).y + 1);
                                             attackTile3 = GetTile((*node).x, (*node).y - 1);
-
                                         }
-                                        if(GetTile((*node).x - 1, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x - 1, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x, (*node).y + 1);
                                             attackTile3 = GetTile((*node).x - 1, (*node).y);
-
                                         }
-                                        if(GetTile((*node).x + 1, (*node).y + 1)->piece == tile->piece)
+
+                                        tileGotten = GetTile((*node).x + 1, (*node).y + 1);
+                                        if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
                                             attackTile2 = GetTile((*node).x + 1, (*node).y);
                                             attackTile3 = GetTile((*node).x, (*node).y + 1);
-
                                         }
 
-                                        if (attackTile2->piece == nullptr)
+
+                                        if (attackTile2 != nullptr && attackTile2->piece == nullptr)
                                         {
                                             attackTile2 = nullptr;
                                         }
-                                        else if (attackTile2->piece->isWhite == tile->piece->isWhite)
+                                        else if (attackTile2 != nullptr && attackTile2->piece->isWhite == tile->piece->isWhite)
                                         {
                                             attackTile2 = nullptr;
                                         }
 
-                                        if (attackTile3->piece == nullptr)
+                                        if (attackTile3 != nullptr && attackTile3->piece == nullptr)
                                         {
                                             attackTile3 = nullptr;
                                         }
-                                        else if(attackTile3->piece->isWhite == tile->piece->isWhite)
+                                        else if(attackTile3 != nullptr && attackTile3->piece->isWhite == tile->piece->isWhite)
                                         {
                                             attackTile3 = nullptr;
                                         }
