@@ -47,14 +47,14 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
         else
         {
             // Go to the depth level we are at
-            parentNode = gameTree.root;
+            //parentNode = gameTree.root;
 
             for (int i = 1; i < depth; i++)
             {
                 // Set parent node for current depth by iteration
                 if (parentNode != nullptr)
                 {
-                    parentNode = parentNode->parent;
+                    //parentNode = parentNode->parent;
                 }
             }
         }
@@ -74,7 +74,7 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
             {
                 moves[j].Execute();
 
-                gameTree.AddNode(new GameState(moves[j], CalculateMiniMaxValue(gameBoard)), parentNode);
+                //gameTree.AddNode(new GameState(moves[j], CalculateMiniMaxValue(gameBoard)), parentNode);
                 // gameState.parent = parent;
 
                 moves[j].Undo();

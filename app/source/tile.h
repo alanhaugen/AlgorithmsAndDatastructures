@@ -4,6 +4,8 @@
 #include <core/components/component.h>
 #include <core/components/sprite.h>
 
+#include "tree.h"
+
 class Piece;
 
 class Tile : public Component
@@ -17,7 +19,10 @@ public:
     //bool blockedSouth;
     //bool blockedNorth;
     int weight = 0;
-    bool searched = false;
+    bool searched;
+    bool visited;
+    int F, G, H; // Used for A* in autochess.cpp
+    Tree<Tile*>::Node* node;
 
     Tile();
 

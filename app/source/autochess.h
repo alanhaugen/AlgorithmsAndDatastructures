@@ -103,9 +103,16 @@ public:
 
     void Animate(Move move);
 
+    void searchTile(Tile* tile, Tile *startTile, Tile *endTile, bool &isDone, Array<Tile *> &searchTiles, Tree<Tile *>& searchTree);
+
     Move animatedMove;
-    glm::vec2 startpos;
-    glm::vec2 endpos;
+    glm::vec2 prevpos;
+    glm::vec2 nextpos;
+
+    // This will start as the final node in the tree
+    Tree<Tile*>::Node* activeNode = NULL;
+
+    Stack<glm::vec2> animationMoveStack;
 };
 
 #endif
