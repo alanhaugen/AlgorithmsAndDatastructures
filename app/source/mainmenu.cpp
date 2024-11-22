@@ -29,6 +29,7 @@ void Mainmenu::Init()
     Menu* ruleMenu = new Menu(&menus);
 
 
+
     Menu* graphicsMenu = new Menu(&menus);
     graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");
     graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, renderer->windowWidth / 2 - 200, 210 * (1.75), "windowed");
@@ -100,6 +101,11 @@ void Mainmenu::Update()
     {
         title->Show();
     }
+    if(menus.count > 1 && input.Pressed(input.Key.ESCAPE) == true)
+    {
+        menus.Pop();
+    }
+
     //delete cords;
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     //cords->Update();
