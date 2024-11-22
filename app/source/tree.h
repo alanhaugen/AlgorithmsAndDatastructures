@@ -10,7 +10,7 @@ public:
     class Node
     {
     public:
-        Datatype* data;
+        Datatype data;
         Node* parent;
 
         Node()
@@ -21,40 +21,33 @@ public:
 
         ~Node()
         {
-            if (data != NULL)
-            {
-                delete data;
-            }
+            //if (data != NULL)
+           // {
+           //     delete data;
+            //}
         }
     };
 
-    LinkedList<Node> nodes;
-    Node* root;
+    LinkedList<Node*> nodes;
 
 public:
     Tree()
     {
-        root = NULL;
     }
 
     void Clear()
     {
-        root = NULL;
         nodes.Clear();
     }
 
-    void AddNode(Datatype* data, Node* parent = nullptr)
+    Node* AddNode(Datatype data)
     {
-        Node newNode;
-        newNode.data   = data;
-        newNode.parent = parent;
+        Node* newNode = new Node();
+        newNode->data = data;
 
         nodes.Append(newNode);
 
-        if (root == NULL)
-        {
-            root = (*nodes.Begin()).parent;
-        }
+        return newNode;
     }
 };
 

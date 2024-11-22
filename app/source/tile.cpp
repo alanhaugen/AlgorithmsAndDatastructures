@@ -5,6 +5,10 @@
 Tile::Tile()
 {
     piece  = nullptr;
+    F = 0;
+    searched = false;
+    visited  = false;
+    node = nullptr;
 }
 
 void Tile::Update()

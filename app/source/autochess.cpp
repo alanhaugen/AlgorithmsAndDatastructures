@@ -566,8 +566,14 @@ void Autochess::UpdateAnimation()
         }
     }
 
-    if (*animatedMove.movedPiece->icon->matrix.x >= endpos.x -5 && *animatedMove.movedPiece->icon->matrix.y <= endpos.y +5
-        && (*animatedMove.movedPiece->icon->matrix.x <= endpos.x+5 && *animatedMove.movedPiece->icon->matrix.y >= endpos.y -5))
+    if (    *animatedMove.movedPiece->icon->matrix.x >= nextpos.x -5 && *animatedMove.movedPiece->icon->matrix.y <= nextpos.y +5
+        && (*animatedMove.movedPiece->icon->matrix.x <= nextpos.x +5 && *animatedMove.movedPiece->icon->matrix.y >= nextpos.y -5))
+    {
+        prevpos = nextpos;
+        nextpos = animationMoveStack.Pop();
+    }
+
+    if (animationMoveStack.Empty() == true)
     {
         state = GameState::Playing;
         state = IsGameDone();
@@ -588,8 +594,8 @@ void Autochess::UpdateAnimation()
 
     float animationSpeed = 5.00f;
 
-    *animatedMove.movedPiece->icon->matrix.x += (endpos - startpos).x / ((endpos - startpos).length() * animationSpeed);
-    *animatedMove.movedPiece->icon->matrix.y += (endpos - startpos).y / ((endpos - startpos).length() * animationSpeed);
+    *animatedMove.movedPiece->icon->matrix.x += (nextpos - prevpos).x / ((nextpos - prevpos).length() * animationSpeed);
+    *animatedMove.movedPiece->icon->matrix.y += (nextpos - prevpos).y / ((nextpos - prevpos).length() * animationSpeed);
 }
 
 GameState Autochess::IsGameDone()
@@ -703,8 +709,185 @@ void Autochess::Animate(Move move)
         }
     }
 
-    startpos = glm::vec2(*move.oldTile->sprite->matrix.x, *move.oldTile->sprite->matrix.y);
-    endpos = glm::vec2(*move.tileToMoveTo->sprite->matrix.x, *move.tileToMoveTo->sprite->matrix.y);
-    *move.movedPiece->icon->matrix.x = startpos.x;
-    *move.movedPiece->icon->matrix.y = startpos.y;
+    prevpos = glm::vec2(*move.oldTile->sprite->matrix.x, *move.oldTile->sprite->matrix.y);
+    nextpos = glm::vec2(*move.tileToMoveTo->sprite->matrix.x, *move.tileToMoveTo->sprite->matrix.y);
+    *move.movedPiece->icon->matrix.x = prevpos.x;
+    *move.movedPiece->icon->matrix.y = prevpos.y;
+
+    // Added twice to make sure animation finishes for the last position
+    animationMoveStack.Push(nextpos);
+    animationMoveStack.Push(nextpos);
+
+    // We will not do any fancy A* animations for jumping pieces
+    if (animatedMove.movedPiece->isJumping)
+    {
+        return;
+    }
+
+    // Fill stack with positions with the help of A*
+    LinkedList<Tile>* tiles = &gameBoard->tiles;
+    LinkedList<Tile>::Iterator node = tiles->Begin();
+
+    Piece* piece = animatedMove.movedPiece;
+    Tile* startTile = animatedMove.oldTile;
+    Tile* endTile   = animatedMove.tileToMoveTo;
+
+    int yDirectionInvert = 1;
+
+    if (piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
+
+    // Calculate tile weights
+    for (; node != NULL; ++node)
+    {
+        if ((*node).piece != nullptr)
+        {
+            if ((*node).piece->isWhite != piece->isWhite &&(*node).piece->weightPattern.Empty() == false)
+            {
+                Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
+
+                LinkedList<Tile>::Iterator newNode = tiles->Begin();
+
+                int x = (*node).x;
+                int y = (*node).y;
+
+                for (; newNode != NULL; ++newNode)
+                {
+                    // Add weight to board
+                    for (unsigned int i = 0; i < weightPattern.Size(); i++)
+                    {
+                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y))
+                        {
+                            (*newNode).weight = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // A* starts here.
+    Tree<Tile*> searchTree;
+    Array<Tile*> searchTiles;
+    bool isDone = false;
+
+    Tile* currentTile = NULL;
+
+    searchTiles.Add(startTile);
+
+    // We will try to find the smallest F (inits to 0 in Tile)
+    int smallestF = -1;
+
+    activeNode = NULL;
+
+    while (isDone == false)
+    {
+        // Reset smallest F counter
+        smallestF = 100000;
+
+        // Get the search tile with the lowest F score
+        for (unsigned int i = 0; i < searchTiles.Size(); i++)
+        {
+            if (searchTiles[i]->visited == false)
+            {
+                if (smallestF > searchTiles[i]->F)
+                {
+                    smallestF = searchTiles[i]->F;
+                    currentTile = searchTiles[i];
+                }
+            }
+        }
+
+        // Set current tile as visited
+        if (currentTile != NULL)
+        {
+            currentTile->visited = true;
+
+            if (currentTile->searched == true)
+            {
+                activeNode = currentTile->node;
+            }
+            else
+            {
+                // Add current tile to search tree
+                activeNode = searchTree.AddNode(currentTile);
+                currentTile->node = activeNode;
+            }
+        }
+
+        // Search current tile
+        searchTile(currentTile, startTile, endTile, isDone, searchTiles, searchTree);
+
+        // Look around the tile
+        Tile* north = gameBoard->GetTile(currentTile->x, currentTile->y - 1);
+        Tile* south = gameBoard->GetTile(currentTile->x, currentTile->y + 1);
+        Tile* east  = gameBoard->GetTile(currentTile->x + 1, currentTile->y);
+        Tile* west  = gameBoard->GetTile(currentTile->x - 1, currentTile->y);
+
+        // Add new search tiles
+        searchTile(north, startTile, endTile, isDone, searchTiles, searchTree);
+        searchTile(south, startTile, endTile, isDone, searchTiles, searchTree);
+        searchTile(east, startTile, endTile, isDone, searchTiles, searchTree);
+        searchTile(west, startTile, endTile, isDone, searchTiles, searchTree);
+    }
+
+    // Go back through the tree and add positions to move through to the animation stack
+    while (activeNode != NULL)
+    {
+        animationMoveStack.Push(glm::vec2(*activeNode->data->sprite->matrix.x, *activeNode->data->sprite->matrix.y));
+        activeNode = activeNode->parent;
+    }
+
+    // Revert board state (weights and search state)
+    for (node = tiles->Begin(); node != NULL; ++node)
+    {
+        (*node).searched = false;
+        (*node).visited  = false;
+        (*node).weight   = 0;
+    }
+
+    // Set the first move
+    nextpos = animationMoveStack.Pop();
+}
+
+void Autochess::searchTile(Tile *tile, Tile* startTile, Tile* endTile, bool &isDone, Array<Tile*>& searchTiles, Tree<Tile*>& searchTree)
+{
+    if (tile != nullptr)
+    {
+        // Add to search list
+        if (isDone == false && tile->searched == false)
+        {
+            Tree<Tile*>::Node* newNode = searchTree.AddNode(tile);
+            newNode->parent = activeNode;
+            tile->node = newNode;
+
+            searchTiles.Add(tile);
+        }
+
+        // Stop search when end tile is found
+        if (tile == endTile)
+        {
+            isDone = true;
+        }
+
+        // G is Distance from Node to Start Node
+        float G = tile->ManhattenDistanceToOrigin(-startTile->x, -startTile->y);
+
+        // F is Distance from Node to End Node
+        float H = tile->ManhattenDistanceToOrigin(-endTile->x, -endTile->y);
+
+        // Set F = G + H
+        tile->F = (G + H) + (tile->weight * 100);
+
+        // Avoid tiles with pieces
+        if (tile->piece != nullptr)
+        {
+            tile->F *= 100;
+        }
+
+        // Set the tile as searched
+        tile->searched = true;
+    }
 }
