@@ -23,17 +23,18 @@ void Button::Update()
     {
         if (tag == "Replay")
         {
-            Application::LoadScene(Scenes::Replay);
             LinkedList<ReplayNew>::Iterator Replay_ = replays.Begin();
 
-            for(int i = 0; Replay_ == NULL; ++Replay_)
+            for(int i = 0; Replay_ != NULL; ++Replay_)
             {
                 if(i == index)
                 {
                     replay = *(*Replay_).Moves;
+                    break;
                 }
                 i++;
             }
+            Application::LoadScene(Scenes::Replay);
         }
         if (tag == "vsAI")
         {

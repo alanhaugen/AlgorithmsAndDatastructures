@@ -143,8 +143,11 @@ void Autochess::Init()
     replay.Append(firstMove);
     components.Add(background);
 
-    returnToMainMenu = new Sprite("data/Button-ReturnToMainMenu.png", renderer->windowWidth / 2 - 260,
-                                  renderer->windowHeight / 2 + 150,1,1, glm::vec2(0.0, 0.0));
+    returnToMainMenu = new Sprite("data/Button-ReturnToMainMenu.png", renderer->windowWidth / 2,
+                                  renderer->windowHeight / 2 + 100,0.5,0.5, glm::vec2(0.5, 0.5));
+    watchReplay = new Sprite("data/Button-Watch_Replay.png", renderer->windowWidth / 2,
+                                  renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
+
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
@@ -500,10 +503,15 @@ void Autochess::UpdateDone()
 
     victoryBanner->Update();
     returnToMainMenu->Update();
+    watchReplay->Update();
 
     if (returnToMainMenu->IsPressed() == true)
     {
         Application::LoadScene(Scenes::MainMenu);
+    }
+    if (watchReplay->IsPressed() == true)
+    {
+        Application::LoadScene(Scenes::Replay);
     }
 
     //time_t timestamp;

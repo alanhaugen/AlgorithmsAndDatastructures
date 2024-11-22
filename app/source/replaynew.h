@@ -8,8 +8,8 @@ class ReplayNew
 {
 public:
     LinkedList<Move>* Moves;
-    bool Draw;
-    bool WinColor;
+    bool Draw = false;
+    bool WinColor = true;
     String PlayDate;
     Board* gameBoard;
     ReplayNew();
