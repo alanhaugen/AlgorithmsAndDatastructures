@@ -15,6 +15,12 @@ Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
     menuStack = menuStack_;
 }
 
+Button::Button(Sprite *image, Stack<Menu *> *menuStack_)
+{
+    buttonImage = image;
+    menuStack = menuStack_;
+}
+
 void Button::Update()
 {
     buttonImage->Update();

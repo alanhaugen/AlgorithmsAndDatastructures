@@ -25,7 +25,9 @@ void Mainmenu::Init()
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
-    //playMenu->AddNextSceneButton("data/SPRITE-RulebookPNG.pgn", renderer->windowWidth / 2 - 400, 130*(1,75), "Rulebook");
+
+    Menu* ruleMenu = new Menu(&menus);
+
 
     Menu* graphicsMenu = new Menu(&menus);
     graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");
@@ -69,6 +71,9 @@ void Mainmenu::Init()
     firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", replaysMenu, renderer->windowWidth / 2 - 200, 290 * (1.75));
     firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    firstMenu->AddMenuButton(
+        new Sprite("data/SPRITE-RulebookPNG.png", 0, renderer->windowHeight, 2, 2, glm::vec2(0, 1)),
+        ruleMenu);
 
 
     menus.Push(firstMenu);

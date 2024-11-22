@@ -12,8 +12,8 @@
 class Mainmenu : public IScene
 {
 public:
-    Menu* replaysMenu;
     Stack<Menu*> menus;
+    Menu* replaysMenu;
     Sprite* title;
     Sprite* bg;
     Sprite* rulebook;

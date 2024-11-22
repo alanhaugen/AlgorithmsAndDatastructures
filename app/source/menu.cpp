@@ -22,6 +22,14 @@ void Menu::AddMenuButton(String image, Menu *menu, int x, int y, String type)
     buttons.Add(button);
 }
 
+void Menu::AddMenuButton(Sprite *image, Menu *menu, String type)
+{
+    Button* button = new Button(image, menuStack);
+    button->tag = type;
+    button->gotoMenu = menu;
+    buttons.Add(button);
+}
+
 void Menu::AddQuitButton(String image, int x, int y)
 {
     Button* button = new Button(image, x, y, menuStack);
