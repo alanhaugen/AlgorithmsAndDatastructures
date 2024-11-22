@@ -551,6 +551,10 @@ void Autochess::UpdateDone()
 
 void Autochess::UpdateAnimation()
 {
+    // Update text
+    movesLeftText->Update();
+
+    // Update animations
     if (animatedMove.captureTile1 != nullptr)
     {
         if (animatedMove.movedPiece->animatedForm != nullptr)
