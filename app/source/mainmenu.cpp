@@ -17,6 +17,8 @@ void Mainmenu::Init()
     bg  = new Sprite("data/BackgroundImage.png", 0.0f, 0.0f, 1.78f, 1.78f);
     menus.Clear();
 
+    input.Mouse.Pressed = false;
+
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");

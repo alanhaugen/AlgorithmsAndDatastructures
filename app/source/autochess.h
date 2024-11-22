@@ -67,6 +67,7 @@ public:
     Sprite* yellowBanner;
     Sprite* turnsLeftBanner;
     Sprite* victoryBanner;
+    Sprite* returnToMainMenu;
 
     Sprite* background;
 
