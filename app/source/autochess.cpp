@@ -92,7 +92,7 @@ void Autochess::Init()
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
-    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 0.55, 0.55, glm::vec2(0.5, 0.5));
+    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
 
     goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
     goldIcon2           = new Sprite("data/gold.png", 100, 540, 0.25, 0.25);
@@ -162,6 +162,9 @@ void Autochess::Update()
 {
     white->Update();
     black->Update();
+
+    goldIcon1->Update();
+    goldIcon2->Update();
 
     white->nobilityText->Update();
     black->nobilityText->Update();
@@ -238,9 +241,6 @@ void Autochess::Update()
 void Autochess::UpdateShop()
 {
     shop->Update();
-
-    goldIcon1->Update();
-    goldIcon2->Update();
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
     {

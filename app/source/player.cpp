@@ -183,6 +183,7 @@ void Player::Update()
 
         nobilityText->Update();
     }
+
     goldText->Update();
 }
 
