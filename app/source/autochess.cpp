@@ -877,10 +877,10 @@ void Autochess::searchTile(Tile *tile, Tile* startTile, Tile* endTile, bool &isD
         }
 
         // G is Distance from Node to Start Node
-        float G = tile->ManhattenDistanceToOrigin(-startTile->x, -startTile->y);
+        float G = tile->ManhattenDistanceToOrigin(startTile->x, startTile->y);
 
         // F is Distance from Node to End Node
-        float H = tile->ManhattenDistanceToOrigin(-endTile->x, -endTile->y);
+        float H = tile->ManhattenDistanceToOrigin(endTile->x, endTile->y);
 
         // Set F = G + H
         tile->F = (G + H) + (tile->weight * 100);

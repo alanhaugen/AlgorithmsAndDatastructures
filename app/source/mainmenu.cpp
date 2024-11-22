@@ -100,6 +100,7 @@ void Mainmenu::Update()
     {
         title->Show();
     }
+
     //delete cords;
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     //cords->Update();
