@@ -56,27 +56,36 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
     // Fill the tree to a certain depth
     for (int i = 0; i < depth; i++)
     {
+        LinkedList<Tree<Minimax::GameState *>::Node *>::Iterator node = gameTree.nodes.Begin();
+
         if (i == 0)
         {
             // At the first layer, the root node is nullptr
             parentNode = nullptr;
+
+            // Add the first layer to the tree
+            AddLayer(gameBoard, parentNode, currentPlayer, i);
         }
         else
         {
-            // Set parent node for current depth by iteration
-            if (parentNode != nullptr)
+            // We need to go through the entire tree at a level
+            if (parentNode == nullptr)
             {
-                //parentNode = parentNode->parent;
+                parentNode = *gameTree.nodes.Begin();
+                node = gameTree.nodes.Begin();
+            }
+            else
+            {
+                parentNode = ++(*node);
+            }
+
+            // Add entire next layer (add to each child of the previous layer)
+            for (unsigned int j = 0; j < parentNode->children.Size(); j++)
+            {
+                // Add layer to tree
+                AddLayer(gameBoard, parentNode->children[j], currentPlayer, i);
             }
         }
-
-        /*for (int j = 0; j < parentNode->children.Size())
-        {
-
-        }*/
-
-        // Add layer to tree
-        AddLayer(gameBoard, parentNode, currentPlayer);
 
         // Swap players for the next layer of the tree
         if (currentPlayer == min)
@@ -89,10 +98,35 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
         }
     }
 
-    return Move();
+    // Traverse the tree and find the best move
+    Move bestMove;
+    int bestLevel = 0;
+    int bestNobility = 0;
+
+    LinkedList<Tree<Minimax::GameState *>::Node *>::Iterator node = gameTree.nodes.Begin();
+
+    for (; node != NULL; ++node)
+    {
+        if ((*node)->data->depth > bestLevel)
+        {
+            bestNobility = 0;
+        }
+
+        if ((*node)->data->depth >= bestLevel && (*node)->data->isWhite == proponent->isWhite)
+        {
+            bestLevel = (*node)->data->depth;
+
+            if ((*node)->data->nobility > bestNobility)
+            {
+                bestMove = (*node)->data->move;
+            }
+        }
+    }
+
+    return bestMove;
 }
 
-void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player)
+void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player, int depth)
 {
     // Get moves from current depth of the tree
     Array<Move> moves = player->GetAllPossibleMoves(gameBoard);
@@ -101,14 +135,17 @@ void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, 
     node->data->move.Execute();
 
     // Loop through all nodes on a childless level on the tree
-    for (int i = 0; i < node->children.Size(); i++)
+    for (unsigned int i = 0; i < node->children.Size(); i++)
     {
         // Put all the moves into a game tree to a given depth
         for (unsigned int j = 0; j < moves.Size(); j++)
         {
             Tree<GameState*>::Node* state = gameTree.AddNode(new GameState(moves[j], player->isWhite));
             state->data->nobility = CalculateMiniMaxValue(gameBoard, moves[j]);
+            state->data->depth = depth;
+
             state->parent = node;
+            node->children.Add(state);
         }
     }
 
