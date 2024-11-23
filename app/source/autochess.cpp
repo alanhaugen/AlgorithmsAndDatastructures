@@ -713,6 +713,7 @@ void Autochess::Animate(Move move)
         }
     }
 
+    // Setup positions for animation
     prevpos = glm::vec2(*move.oldTile->sprite->matrix.x, *move.oldTile->sprite->matrix.y);
     nextpos = glm::vec2(*move.tileToMoveTo->sprite->matrix.x, *move.tileToMoveTo->sprite->matrix.y);
     *move.movedPiece->icon->matrix.x = prevpos.x;

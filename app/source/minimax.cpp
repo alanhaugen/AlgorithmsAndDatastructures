@@ -5,7 +5,7 @@ Minimax::Minimax()
 {
 }
 
-bool Minimax::CalculateMiniMaxValue(Board* gameBoard)
+int Minimax::CalculateMiniMaxValue(Board* gameBoard)
 {
     // Our heuristic will be that the best possible move for us is the one
     // which minimizes the opponents collective nobility,
@@ -16,16 +16,19 @@ bool Minimax::CalculateMiniMaxValue(Board* gameBoard)
     // Source: Ron Penton's book Data Structures for Game Programmers and chessengines.org
 
     // Loop through the board and calculate nobility
-    //LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
+    LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
-    /*for (; tile != NULL; ++tile)
+    int nobility = 0;
+
+    for (; tile != NULL; ++tile)
     {
         if ((*tile).piece != nullptr)
         {
+            nobility += (*tile).piece->nobility;
         }
-    }*/
+    }
 
-    return false;
+    return nobility;
 }
 
 Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth)
@@ -74,8 +77,9 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
             {
                 moves[j].Execute();
 
-                //gameTree.AddNode(new GameState(moves[j], CalculateMiniMaxValue(gameBoard)), parentNode);
-                // gameState.parent = parent;
+                Tree<GameState*>::Node* state = gameTree.AddNode(new GameState(moves[j], true));
+                state->data->nobility = CalculateMiniMaxValue(gameBoard);
+                //state->parent = parent;
 
                 moves[j].Undo();
             }
