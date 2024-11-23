@@ -26,8 +26,11 @@ void Mainmenu::Init()
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
 
-    Menu* ruleMenu = new Menu(&menus);
-
+    ruleMenu = new Menu(&menus);
+    ruleMenu->AddQuitButton(
+        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        );
+    rules = new Rulebook(true);
 
 
     Menu* graphicsMenu = new Menu(&menus);
@@ -93,7 +96,12 @@ void Mainmenu::Init()
 void Mainmenu::Update()
 {
     menus.Top()->Update();
-    if(menus.Top() == replaysMenu)
+    if(menus.Top() == ruleMenu)
+    {
+        title->Hide();
+        rules->Update();
+    }
+    else if(menus.Top() == replaysMenu)
     {
         replayBG->Update();
         title->Hide();

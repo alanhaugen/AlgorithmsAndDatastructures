@@ -20,6 +20,7 @@ public:
     void AddMenuButton(String image, Menu* menu, int x, int y, String type = 0);
     void AddMenuButton(Sprite* image, Menu* menu, String type = 0);
     void AddQuitButton(String image, int x, int y);
+    void AddQuitButton(Sprite *image);
 
     void Update();
 };

@@ -2,16 +2,24 @@
 #define RULEBOOK_H
 
 #include "core/components/sprite.h"
-#include LikedList.h
 
 class Rulebook : public Component
 {
+
+#include <core/containers/array.h>
+
 public:
+    Sprite* closePopUp = nullptr;
+    Sprite* leftArrow;
+    Sprite* rightArrow;
+    Sprite* BackGround;
+    Array<Sprite*> Pages;
+    unsigned int index = 0;
+    bool isOpen = false;
+    bool isMenu = false;
+    void Update();
 
-    LinkedList<Sprite*> Page;
-    Page.Append(new sprite());
-
-
+    Rulebook(bool isMenu_ = false);
 };
 
 

@@ -8,11 +8,15 @@
 #include <core/components/text.h>
 #include "menu.h"
 #include "cursor.h"
+#include "rulebook.h"
 
 class Mainmenu : public IScene
 {
 public:
+
+    Rulebook* rules;
     Stack<Menu*> menus;
+    Menu* ruleMenu;
     Menu* replaysMenu;
     Sprite* title;
     Sprite* bg;

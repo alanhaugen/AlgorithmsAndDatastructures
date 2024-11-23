@@ -37,6 +37,13 @@ void Menu::AddQuitButton(String image, int x, int y)
     buttons.Add(button);
 }
 
+void Menu::AddQuitButton(Sprite* image)
+{
+    Button* button = new Button(image, menuStack);
+    button->tag = "quit";
+    buttons.Add(button);
+}
+
 void Menu::Update()
 {
     for (unsigned int i = 0; i < buttons.Size(); i++)

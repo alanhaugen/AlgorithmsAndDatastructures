@@ -1,7 +1,6 @@
 #include <core/application.h>
 #include "autochess.h"
 #include "main.h"
-#include <ctime>
 #include <core/containers/linkedlist.h>
 #include "replaynew.h"
 
