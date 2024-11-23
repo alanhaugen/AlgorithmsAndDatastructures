@@ -13,6 +13,8 @@ public:
         Datatype data;
         Node* parent;
 
+        LinkedList<Node*> children;
+
         Node()
         {
             data   = NULL;
@@ -21,10 +23,6 @@ public:
 
         ~Node()
         {
-            //if (data != NULL)
-           // {
-           //     delete data;
-            //}
         }
     };
 
