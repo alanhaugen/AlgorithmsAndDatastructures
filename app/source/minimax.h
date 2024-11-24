@@ -12,18 +12,19 @@ private:
     {
     public:
         Move move;
-        bool isMax;
+        bool isWhite;
         int nobility;
+
+        int depth;
 
         GameState()
         {
-            isMax = false;
         }
 
-        GameState(Move move_, bool isMax_)
+        GameState(Move move_, bool isWhite_)
         {
             move  = move_;
-            isMax = isMax_;
+            isWhite = isWhite_;
         }
     };
 
@@ -42,7 +43,7 @@ public:
     // Source: Ron Penton, Data Structures for Games Programmers (2003)
     int CalculateMiniMaxValue(Board *gameBoard, Move move);
     Move FindBestMove(Player* min, Player* max, Board* gameBoard, int depth);
-    void AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player);
+    void AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player, int depth);
 };
 
 #endif // MINIMAX_H
