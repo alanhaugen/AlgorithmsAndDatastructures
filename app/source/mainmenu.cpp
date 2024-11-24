@@ -24,6 +24,9 @@ void Mainmenu::Init()
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    playMenu->AddMenuButton(
+        new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1)),
+        ruleMenu);
 
 
     ruleMenu = new Menu(&menus);
@@ -47,7 +50,7 @@ void Mainmenu::Init()
     settingsMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
-    replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2 - 200, 80, 0.75f, 0.75f);
+    replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2, 80, 0.75, 0.75, glm::vec2(0.5,0));
     replaysMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     //replays.Append(ReplayNew()); //for test, skal fjernes
@@ -57,16 +60,18 @@ void Mainmenu::Init()
     {
         if(replayI->Draw == true)
         {
-            replaysMenu->AddNextSceneButton("data/DrawReplayButton.png", renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90 + i*45, "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/DrawReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
         } else
         if(replayI->WinColor == true)
         {
-            replaysMenu->AddNextSceneButton("data/WhitePlayerReplayButton.png", renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90 + i*45, "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/WhitePlayerReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
         } else
         {
-            replaysMenu->AddNextSceneButton("data/DarkPlayerReplayButton.png",  renderer->windowWidth/2 - 501*0.75*0.5 - 2, 90+i*45, "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/DarkPlayerReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
         }
-
+        replayI->PlayDate.TrimRight();
+        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + replayBG->width * replayBG->scaleX/2 - 10, 95 + i*45, 0.75, 0.75, glm::vec2(1, 0));
+        Timestamps.Append(text);
         i++;
     }
 
@@ -105,6 +110,11 @@ void Mainmenu::Update()
     {
         replayBG->Update();
         title->Hide();
+        LinkedList<Text*>::Iterator PlayDateI = Timestamps.Begin();
+        for(; PlayDateI != NULL; ++PlayDateI)
+        {
+            (*PlayDateI)->Update();
+        }
     } else
     {
         title->Show();

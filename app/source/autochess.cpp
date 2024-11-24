@@ -3,6 +3,7 @@
 #include "main.h"
 #include <core/containers/linkedlist.h>
 #include "replaynew.h"
+#include <ctime>
 
 extern bool isTwoPlayer;
 extern bool vsAI;
@@ -523,17 +524,15 @@ void Autochess::UpdateDone()
         Application::LoadScene(Scenes::Replay);
     }
 
-    //time_t timestamp;
-    //time(&timestamp);
-
-    //String PlayDate = ctime(&timestamp);
 
     if (isDraw)
     {
         playerDraw->Update();
         if(!replayAdded)
         {
-            replays.Append(ReplayNew(&replay, true, true, "PlayDate"));
+            time_t timestamp = std::time(NULL);
+            String PlayDate = ctime(&timestamp);
+            replays.Append(ReplayNew(&replay, true, true, PlayDate));
         }
     }
     else if (isAnyBlackPieces)
@@ -541,8 +540,9 @@ void Autochess::UpdateDone()
         playerBlackWins->Update();
         if(!replayAdded)
         {
-            replays.Append(ReplayNew(&replay, false, false, "PlayDate"));
-            Log("Black");
+            time_t timestamp = std::time(NULL);
+            String PlayDate = ctime(&timestamp);
+            replays.Append(ReplayNew(&replay, false, false, PlayDate));
         }
     }
     else if (isAnyWhitePieces)
@@ -550,8 +550,10 @@ void Autochess::UpdateDone()
         playerWhiteWins->Update();
         if(!replayAdded)
         {
-            replays.Append(ReplayNew(&replay, false, true, "PlayDate"));
-            Log("White");
+            time_t timestamp = std::time(NULL);
+            String PlayDate = ctime(&timestamp);
+            replays.Append(ReplayNew(&replay, false, true, PlayDate));
+            Log(PlayDate);
         }
     }
 

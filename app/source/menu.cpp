@@ -14,6 +14,14 @@ void Menu::AddNextSceneButton(String image, int x, int y, String type, int index
     button->index = index;
 }
 
+void Menu::AddNextSceneButton(Sprite* image, String type, int index)
+{
+    Button* button = new Button(image, menuStack);
+    button->tag = type;
+    buttons.Add(button);
+    button->index = index;
+}
+
 void Menu::AddMenuButton(String image, Menu *menu, int x, int y, String type)
 {
     Button* button = new Button(image, x, y, menuStack);

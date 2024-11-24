@@ -14,6 +14,7 @@ class Mainmenu : public IScene
 {
 public:
 
+    LinkedList<Text*> Timestamps;
     Rulebook* rules;
     Stack<Menu*> menus;
     Menu* ruleMenu;
