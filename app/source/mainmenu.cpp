@@ -50,7 +50,7 @@ void Mainmenu::Init()
     settingsMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
-    replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2, 80, 0.75, 0.75, glm::vec2(0.5,0));
+    replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2, 75, 1, 1, glm::vec2(0.5,0));
     replaysMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     //replays.Append(ReplayNew()); //for test, skal fjernes
@@ -60,17 +60,17 @@ void Mainmenu::Init()
     {
         if(replayI->Draw == true)
         {
-            replaysMenu->AddNextSceneButton(new Sprite("data/DrawReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/DrawReplayButton.png", renderer->windowWidth/2, 125 + i*75, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         } else
         if(replayI->WinColor == true)
         {
-            replaysMenu->AddNextSceneButton(new Sprite("data/WhitePlayerReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/WhitePlayerReplayButton.png", renderer->windowWidth/2, 125 + i*75, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         } else
         {
-            replaysMenu->AddNextSceneButton(new Sprite("data/DarkPlayerReplayButton.png", renderer->windowWidth/2, 90 + i*45, 0.75, 0.75, glm::vec2(0.5,0)), "Replay", i);
+            replaysMenu->AddNextSceneButton(new Sprite("data/DarkPlayerReplayButton.png", renderer->windowWidth/2, 125 + i*75, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         }
         replayI->PlayDate.TrimRight();
-        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + replayBG->width * replayBG->scaleX/2 - 10, 95 + i*45, 0.75, 0.75, glm::vec2(1, 0));
+        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + replayBG->width * replayBG->scaleX/2 - 15, 125 + i*75, 1, 1, glm::vec2(1, 0.5));
         Timestamps.Append(text);
         i++;
     }
