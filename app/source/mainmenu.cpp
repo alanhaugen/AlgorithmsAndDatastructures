@@ -76,7 +76,7 @@ void Mainmenu::Init()
     firstMenu->AddMenuButton("data/Button-Load_Replay.png", replaysMenu, renderer->windowWidth / 2 - 200, 290 * (1.75));
     firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
     firstMenu->AddMenuButton(
-        new Sprite("data/SPRITE-RulebookPNG.png", 0, renderer->windowHeight, 2, 2, glm::vec2(0, 1)),
+        new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1)),
         ruleMenu);
 
 

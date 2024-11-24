@@ -8,6 +8,7 @@
 #include "aiplayer.h"
 #include "board.h"
 #include "shop.h"
+#include "rulebook.h"
 
 enum GameState
 {
@@ -29,6 +30,8 @@ public:
     Board* gameBoard;
     Shop* shop;
     ITime* infoBoardTimer;
+
+    Rulebook* rules;
 
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;

@@ -50,10 +50,10 @@ void Autochess::Init()
 
     gameBoard           = new Board();
 
-    blackPiecesBanner   = new Sprite("data/DarkBanner.png",  10, 0,   1.35, 0.45);
-    whitePiecesBanner   = new Sprite("data/WhiteBanner.png", 10, 655, 1.35, 0.45);
+    blackPiecesBanner   = new Sprite("data/DarkBanner.png",  renderer->windowWidth / 2, 0                     , 1.2, 0.45, glm::vec2(0.5, 0));
+    whitePiecesBanner   = new Sprite("data/WhiteBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 1.2, 0.45, glm::vec2(0.5, 1));
 
-    backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
+    backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
 
     shop                = new Shop();
@@ -147,6 +147,8 @@ void Autochess::Init()
     watchReplay = new Sprite("data/Button-Watch_Replay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
+    rules = new Rulebook(false);
+
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
@@ -161,7 +163,7 @@ void Autochess::SetTile(Tile* tile)
 }
 
 void Autochess::Update()
-{
+{   
     white->Update();
     black->Update();
 
@@ -182,6 +184,8 @@ void Autochess::Update()
 
     nobilityIcon1->Update();
     nobilityIcon2->Update();
+
+    rules->Update();
 
     if (input.Pressed(input.Key.ESCAPE))
     {

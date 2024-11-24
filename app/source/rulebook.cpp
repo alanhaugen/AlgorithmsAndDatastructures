@@ -4,10 +4,19 @@
 Rulebook::Rulebook(bool isMenu_)
 {
     isMenu = isMenu_;
-    if(isMenu == false)
+
+    if(isMenu == true)
+    {
+        isOpen = true;
+        openPopUp = nullptr;
+        closePopUp = nullptr;
+    }
+    else
     {
         closePopUp = new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1));
+        openPopUp = new Sprite("data/SPRITE-RulebookPNG.png", 10, renderer->windowHeight - 10, 1.2, 1.2, glm::vec2(0, 1));
     }
+
     leftArrow  = new Sprite("data/Rulebook-Arrow.png", 50, renderer->windowHeight / 2, 1, 1, glm::vec2(0, 0.5));
     rightArrow = new Sprite("data/Rulebook-Arrow.png", renderer->windowWidth - 50, renderer->windowHeight / 2, 1, 1, glm::vec2(1, 0.5));
     rightArrow->FlipHorizontal();
@@ -28,38 +37,52 @@ Rulebook::Rulebook(bool isMenu_)
 void Rulebook::Update()
 {
 
-
-    if(index != 0)
+    if(isOpen)
     {
-        leftArrow->Update();
-    }
-
-    if(index != Pages.Size() - 1)
-    {
-        rightArrow->Update();
-    }
-
-    if(leftArrow->IsPressed() == true && index > 0)
-    {
-        index--;
-    }
-
-    if(rightArrow->IsPressed() == true && index + 1 < Pages.Size())
-    {
-        index++;
-    }
-
-    if(closePopUp != nullptr)
-    {
-        closePopUp->Update();
-        if(closePopUp->IsPressed() == true)
+        if(index != 0)
         {
-            isOpen = false;
+            leftArrow->Update();
+        }
+
+        if(index != Pages.Size() - 1)
+        {
+            rightArrow->Update();
+        }
+
+        if(leftArrow->IsPressed() == true && index > 0)
+        {
+            index--;
+        }
+
+        if(rightArrow->IsPressed() == true && index + 1 < Pages.Size())
+        {
+            index++;
+        }
+
+        if(closePopUp != nullptr)
+        {
+            closePopUp->Update();
+            if(closePopUp->IsPressed() == true)
+            {
+                isOpen = false;
+            }
+        }
+
+        BackGround->Update();
+        Pages[index]->Update();
+    }
+
+    if(isMenu == false)
+    {
+        openPopUp->Update();
+        if(openPopUp->IsPressed() == true)
+        {
+            open();
         }
     }
+}
 
-    BackGround->Update();
-    Pages[index]->Update();
-
-
+void Rulebook::open()
+{
+    isOpen = true;
 }
