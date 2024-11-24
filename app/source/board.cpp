@@ -421,15 +421,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                         tileGotten = GetTile((*node).x - 1, (*node).y - 1);
                                         if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
-                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
-                                            attackTile3 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x, (*node).y + 1);
                                         }
 
                                         tileGotten = GetTile((*node).x + 1, (*node).y - 1);
                                         if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
-                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
-                                            attackTile3 = GetTile((*node).x + 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile3 = GetTile((*node).x - 1, (*node).y);
                                         }
 
                                         tileGotten = GetTile((*node).x + 1, (*node).y);
@@ -449,15 +449,15 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                         tileGotten = GetTile((*node).x - 1, (*node).y + 1);
                                         if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
-                                            attackTile2 = GetTile((*node).x, (*node).y + 1);
-                                            attackTile3 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile2 = GetTile((*node).x, (*node).y - 1);
+                                            attackTile3 = GetTile((*node).x + 1, (*node).y);
                                         }
 
                                         tileGotten = GetTile((*node).x + 1, (*node).y + 1);
                                         if(tileGotten != nullptr && tileGotten->piece == tile->piece)
                                         {
-                                            attackTile2 = GetTile((*node).x + 1, (*node).y);
-                                            attackTile3 = GetTile((*node).x, (*node).y + 1);
+                                            attackTile2 = GetTile((*node).x - 1, (*node).y);
+                                            attackTile3 = GetTile((*node).x, (*node).y - 1);
                                         }
 
 
