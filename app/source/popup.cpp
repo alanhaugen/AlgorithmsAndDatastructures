@@ -31,7 +31,7 @@ void PopUp::Update()
 
     if (isOpen == false)
     {
-        if (openPopUp != nullptr && openPopUp->IsHoveredOver())
+        if (openPopUp != nullptr && openPopUp->IsHoveredOver() && canOpen)
         {
             hoverText->Update();
         }
