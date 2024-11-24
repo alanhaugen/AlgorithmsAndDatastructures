@@ -29,6 +29,8 @@ public:
     LinkedList<Node*> nodes;
 
 public:
+    LinkedList<Node*> rootChildren;
+
     Tree()
     {
     }

@@ -7,7 +7,7 @@
 class AIPlayer : public Player
 {
 private:
-    const int Depth = 2;
+    const int Depth = 5;
 
     Minimax minimax;
 
