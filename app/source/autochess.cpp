@@ -53,7 +53,7 @@ void Autochess::Init()
     blackPiecesBanner   = new Sprite("data/DarkBanner.png",  renderer->windowWidth / 2, 0                     , 1.2, 0.45, glm::vec2(0.5, 0));
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 1.2, 0.45, glm::vec2(0.5, 1));
 
-    backArrow           = new Sprite("data/backArrow.png", 10, 10, 0.5, 0.5);
+    backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
 
     shop                = new Shop();

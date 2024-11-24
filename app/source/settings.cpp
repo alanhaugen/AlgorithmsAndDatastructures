@@ -4,7 +4,7 @@ Settings::Settings()
 {
     createBackground();
     createClosePopUp();
-    openPopUp = new Sprite("data/Cog.png", renderer->windowWidth - 5, 5, 2, 2, glm::vec2(1, 0));
+    openPopUp = new Sprite("data/Cog.png", renderer->windowWidth - 22, 22, 2, 2, glm::vec2(1, 0));
 }
 
 void Settings::Update()
