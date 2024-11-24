@@ -607,7 +607,7 @@ void Autochess::UpdateAnimation()
         }
     }
 
-    float animationSpeed = 5.00f;
+    float animationSpeed = 2.50f;
 
     *animatedMove.movedPiece->icon->matrix.x += (nextpos - prevpos).x / ((nextpos - prevpos).length() * animationSpeed);
     *animatedMove.movedPiece->icon->matrix.y += (nextpos - prevpos).y / ((nextpos - prevpos).length() * animationSpeed);
