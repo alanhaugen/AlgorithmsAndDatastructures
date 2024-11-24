@@ -753,7 +753,7 @@ void Shop::Update()
 
     for (; piece != NULL; ++piece)
     {
-        if ((*piece)->backgroundCard->IsPressed())
+        if ((*piece)->backgroundCard->IsPressed() && !PopUpOpen)
         {
             activePiece = (*piece);
             activePiece->listNode = piece.curNode;
@@ -761,7 +761,7 @@ void Shop::Update()
 
         (*piece)->Update();
 
-        if ((*piece)->backgroundCard->IsHoveredOver())
+        if ((*piece)->backgroundCard->IsHoveredOver() && !PopUpOpen)
         {
             *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
             *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 20*1.55;
@@ -802,13 +802,13 @@ void Shop::Update()
         randomCard->Update();
     }
 
-    if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
+    if (randomCard->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRandomCard->matrix.x = *randomCard->matrix.x;
         *costTextRandomCard->matrix.y = *randomCard->matrix.y - 5;
         costTextRandomCard->Update();
     }
-    if (randomCard->IsPressed() && shopItems.Empty() == false)
+    if (randomCard->IsPressed() && shopItems.Empty() == false && !PopUpOpen)
     {
         activePiece = shopItems.Pop();
         activePiece->listNode = nullptr;
@@ -820,7 +820,7 @@ void Shop::Update()
             activePiece->isWhite = false;
         }
     }
-    if (restockShop->IsHoveredOver() && shopItems.Empty() == false)
+    if (restockShop->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRestockShop->matrix.x = *restockShop->matrix.x;
         *costTextRestockShop->matrix.y = *restockShop->matrix.y - 5;

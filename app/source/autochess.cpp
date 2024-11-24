@@ -16,6 +16,30 @@ Autochess::Autochess()
 {
 }
 
+void Autochess::checkForPopUp(){
+
+    if(settings->isOpen)
+    {
+        rules->canOpen = false;
+    }
+    else if(rules->isOpen)
+    {
+        settings->canOpen = false;
+    }
+    else
+    {
+        settings->canOpen = true;
+        rules->canOpen = true;
+    }
+
+    PopUpOpen = (settings->isOpen || rules->isOpen);
+
+    if(shop != nullptr)
+    {
+        shop->PopUpOpen = PopUpOpen;
+    }
+}
+
 void Autochess::NextPlayer()
 {
     isWhitesTurn = !isWhitesTurn;
@@ -104,8 +128,8 @@ void Autochess::Init()
     playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
     playerDraw          = new Text("DRAW", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
 
-    playerWhiteTurn     = new Text("Player WHITE make a move", 150,60);
-    playerBlackTurn     = new Text("Player BLACK make a move", 150,60);
+    playerWhiteTurn     = new Text("Player WHITE make a move", renderer->windowWidth*0.705, renderer->windowHeight - 150);
+    playerBlackTurn     = new Text("Player BLACK make a move", renderer->windowWidth*0.705, renderer->windowHeight - 150);
 
     input.Mouse.Pressed = false; // hack.
 
@@ -182,6 +206,8 @@ void Autochess::Update()
     blueBanner->Update();
     yellowBanner->Update();
 
+    checkForPopUp();
+
     if(state != GameState::Shopping)
     {
         turnsLeftBanner->Update();
@@ -198,17 +224,17 @@ void Autochess::Update()
     rules->Update();
     settings->Update();
 
-    if (input.Pressed(input.Key.ESCAPE))
+    if (input.Pressed(input.Key.ESCAPE) && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
 
-    if (backArrow->IsPressed())
+    if (backArrow->IsPressed() && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
 
-    if(undoButton->IsPressed())
+    if(undoButton->IsPressed() && !PopUpOpen)
     {
         if(state == GameState::Placing && replay.End()->isPlacement == false)
         {
@@ -261,7 +287,7 @@ void Autochess::UpdateShop()
 {
     shop->Update();
 
-    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost)
+    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen)
     {
         shop->StockShopFront();
         activePlayer->gold -= shop->RestockShopCost;
@@ -275,7 +301,7 @@ void Autochess::UpdateShop()
 
     if (input.Mouse.Pressed)
     {
-        if (activePlayer->buttonReady->IsPressed())
+        if (activePlayer->buttonReady->IsPressed() && !PopUpOpen)
         {
             activePlayer->isReady = true;
 
@@ -521,11 +547,11 @@ void Autochess::UpdateDone()
     returnToMainMenu->Update();
     watchReplay->Update();
 
-    if (returnToMainMenu->IsPressed() == true)
+    if (returnToMainMenu->IsPressed() == true && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
-    if (watchReplay->IsPressed() == true)
+    if (watchReplay->IsPressed() == true && !PopUpOpen)
     {
         Application::LoadScene(Scenes::Replay);
     }
@@ -667,7 +693,7 @@ void Autochess::UpdateInfoBoardShop()
 
     for (; piece != NULL; ++piece)
     {
-        if ((*piece)->backgroundCard->IsHoveredOver())
+        if ((*piece)->backgroundCard->IsHoveredOver() && !PopUpOpen)
         {
             activeInfoBoard = (*piece)->infoBoard;
             infoBoardTimer->Reset();
@@ -681,7 +707,7 @@ void Autochess::UpdateInfoBoard()
 
     for (; piece != NULL; ++piece)
     {
-        if ((*piece)->icon->IsHoveredOver())
+        if ((*piece)->icon->IsHoveredOver() && !PopUpOpen)
         {
             activeInfoBoard = (*piece)->infoBoard;
             infoBoardTimer->Reset();
@@ -692,7 +718,7 @@ void Autochess::UpdateInfoBoard()
 
     for (; piece != NULL; ++piece)
     {
-        if ((*piece)->icon->IsHoveredOver())
+        if ((*piece)->icon->IsHoveredOver() && !PopUpOpen)
         {
             activeInfoBoard = (*piece)->infoBoard;
             infoBoardTimer->Reset();
@@ -705,7 +731,7 @@ void Autochess::UpdateInfoBoard()
     {
         if ((*tile).piece != nullptr)
         {
-            if ((*tile).piece->icon->IsHoveredOver())
+            if ((*tile).piece->icon->IsHoveredOver() && !PopUpOpen)
             {
                 activeInfoBoard = (*tile).piece->infoBoard;
                 infoBoardTimer->Reset();
