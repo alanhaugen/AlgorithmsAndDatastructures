@@ -29,7 +29,7 @@ public:
     Camera* cam;
     Cursor* cursor;
     Board* gameBoard;
-    Shop* shop;
+    Shop* shop = nullptr;
     ITime* infoBoardTimer;
 
     Rulebook* rules;
@@ -52,6 +52,9 @@ public:
     Text* playerBlackTurn;
 
     Text* movesLeftText;
+
+    Text* settingsText;
+    Text* rulebookText;
 
     bool isDraw;
     bool replayAdded;
@@ -95,6 +98,9 @@ public:
 
     GameState state;
 
+    bool PopUpOpen = false;
+
+    void checkForPopUp();
     void Init();
     void SetTile(Tile* tile);
     void Update();

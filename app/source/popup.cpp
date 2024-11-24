@@ -28,10 +28,22 @@ void PopUp::Update()
             open();
         }
     }
+
+    if (isOpen == false)
+    {
+        if (openPopUp != nullptr && openPopUp->IsHoveredOver() && canOpen)
+        {
+            hoverText->Update();
+        }
+    }
 }
 
 void PopUp::open()
 {
+    if(canOpen == false)
+    {
+        return;
+    }
     isOpen = true;
 }
 

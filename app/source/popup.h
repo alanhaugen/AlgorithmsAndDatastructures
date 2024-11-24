@@ -6,11 +6,12 @@
 class PopUp : public IScene
 {
 public:
-
+    Text* hoverText;
     Sprite* openPopUp = nullptr;
     Sprite* closePopUp = nullptr;
     Sprite* BackGround;
     bool isOpen = false;
+    bool canOpen = true;
     virtual void Update();
     void open();
     void close();

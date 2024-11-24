@@ -37,6 +37,8 @@ public:
 
     bool isWhitesTurn;
 
+    bool PopUpOpen = false;
+
     const int WildcardCost = 100;
 
     const int RestockShopCost = 50;

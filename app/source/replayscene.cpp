@@ -70,7 +70,13 @@ void ReplayScene::Init()
     leftArrow->FlipHorizontal();
     rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
 
-    backArrow = new Sprite("data/backArrow.png", 10, 10, 0.25, 0.25);
+    backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
+
+    rules = new Rulebook(false);
+    settings = new Settings();
+
+    nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
+    nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
 
     index = 0;
     cursor = new Cursor();
@@ -90,13 +96,20 @@ void ReplayScene::Update()
     blueBanner->Update();
     yellowBanner->Update();
     turnsLeftBanner->Update();
+    nobilityIcon1->Update();
+    nobilityIcon2->Update();
+
+    rules->Update();
+    settings->Update();
+
+    checkForPopUp();
 
     if(index > 0)
     {
         leftArrow->Update();
     }
 
-    if(leftArrow->IsPressed())
+    if(leftArrow->IsPressed() && !PopUpOpen)
     {
         LastMove();
     }
@@ -106,32 +119,32 @@ void ReplayScene::Update()
         rightArrow->Update();
     }
 
-    if(rightArrow->IsPressed())
+    if(rightArrow->IsPressed() && !PopUpOpen)
     {
         NextMove();
     }
 
     backArrow->Update();
 
-    if(backArrow->IsPressed())
+    if(backArrow->IsPressed() && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
 
     cursor->Update();
 
-    if (input.Pressed(input.Key.ESCAPE))
+    if (input.Pressed(input.Key.ESCAPE) && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
-    if (input.Pressed(input.Key.RIGHT))
+    if (input.Pressed(input.Key.RIGHT) && !PopUpOpen)
     {
         NextMove();
 
         white->RecalculateNobility(gameBoard);
         black->RecalculateNobility(gameBoard);
     }
-    if (input.Pressed(input.Key.LEFT))
+    if (input.Pressed(input.Key.LEFT) && !PopUpOpen)
     {
         LastMove();
 
