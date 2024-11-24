@@ -53,6 +53,9 @@ public:
 
     Text* movesLeftText;
 
+    Text* settingsText;
+    Text* rulebookText;
+
     bool isDraw;
     bool replayAdded;
 

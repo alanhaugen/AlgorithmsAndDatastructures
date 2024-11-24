@@ -148,8 +148,12 @@ void Autochess::Init()
     watchReplay = new Sprite("data/Button-Watch_Replay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
+    Text* settingsText = new Text("Settings", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    Text* rulebookText = new Text("Rulebook", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     rules = new Rulebook(false);
     settings = new Settings();
+
+
 
     infoBoardTimer = Application::GetTime("Info board timer");
 
@@ -212,6 +216,8 @@ void Autochess::Update()
             replay.RemoveAt(replay.count);
         }
     }
+
+
 
     // Finite State Machine (FSM) for gameplay logic
     if (state == GameState::Shopping)
