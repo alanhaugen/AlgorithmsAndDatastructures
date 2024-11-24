@@ -148,12 +148,13 @@ void Autochess::Init()
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
     rules = new Rulebook(false);
+    settings = new Settings();
+
+    infoBoardTimer = Application::GetTime("Info board timer");
 
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
-
-    infoBoardTimer = Application::GetTime("Info board timer");
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -190,6 +191,7 @@ void Autochess::Update()
     nobilityIcon2->Update();
 
     rules->Update();
+    settings->Update();
 
     if (input.Pressed(input.Key.ESCAPE))
     {

@@ -9,6 +9,7 @@
 #include "board.h"
 #include "shop.h"
 #include "rulebook.h"
+#include "settings.h"
 
 enum GameState
 {
@@ -32,6 +33,7 @@ public:
     ITime* infoBoardTimer;
 
     Rulebook* rules;
+    Settings* settings;
 
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;

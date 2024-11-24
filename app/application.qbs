@@ -86,6 +86,8 @@ solid {
             "source/replayscene.h",
             "source/rulebook.cpp",
             "source/rulebook.h",
+            "source/settings.cpp",
+            "source/settings.h",
             "source/shop.cpp",
             "source/shop.h",
             "source/tile.cpp",

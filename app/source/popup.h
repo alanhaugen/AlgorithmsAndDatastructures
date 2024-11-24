@@ -3,17 +3,21 @@
 
 #include <core/application.h>
 
-class PopUp
+class PopUp : public IScene
 {
 public:
 
-    Sprite* openPopUp;
-    Sprite* closePopUp;
+    Sprite* openPopUp = nullptr;
+    Sprite* closePopUp = nullptr;
     Sprite* BackGround;
     bool isOpen = false;
-    void Update();
+    virtual void Update();
     void open();
     void close();
+    void createBackground();
+    void createClosePopUp();
+
+    void Init();
 
     PopUp();
 };
