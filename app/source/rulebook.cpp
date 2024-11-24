@@ -51,12 +51,12 @@ void Rulebook::Update()
             rightArrow->Update();
         }
 
-        if(leftArrow->IsPressed() == true && index > 0)
+        if((leftArrow->IsPressed() == true || input.Pressed(input.Key.LEFT)) && index > 0)
         {
             index--;
         }
 
-        if(rightArrow->IsPressed() == true && index + 1 < Pages.Size())
+        if((rightArrow->IsPressed() == true || input.Pressed(input.Key.RIGHT)) && index + 1 < Pages.Size())
         {
             index++;
         }

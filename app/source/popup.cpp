@@ -32,6 +32,10 @@ void PopUp::Update()
 
 void PopUp::open()
 {
+    if(canOpen == false)
+    {
+        return;
+    }
     isOpen = true;
 }
 
