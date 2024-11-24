@@ -1,7 +1,7 @@
 #ifndef RULEBOOK_H
 #define RULEBOOK_H
 
-#include "core/components/sprite.h"
+#include <core/application.h>
 
 class Rulebook : public Component
 {
@@ -9,7 +9,8 @@ class Rulebook : public Component
 #include <core/containers/array.h>
 
 public:
-    Sprite* closePopUp = nullptr;
+    Sprite* openPopUp;
+    Sprite* closePopUp;
     Sprite* leftArrow;
     Sprite* rightArrow;
     Sprite* BackGround;
@@ -18,7 +19,7 @@ public:
     bool isOpen = false;
     bool isMenu = false;
     void Update();
-
+    void open();
     Rulebook(bool isMenu_ = false);
 };
 
