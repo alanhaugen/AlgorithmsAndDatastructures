@@ -131,11 +131,17 @@ void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, 
     // Get moves from current depth of the tree
     Array<Move> moves = player->GetAllPossibleMoves(gameBoard);
 
+    int childrenQuantity = 1;
+
     // Do the layer above's move
-    node->data->move.Execute();
+    if (node != nullptr)
+    {
+        node->data->move.Execute();
+        childrenQuantity = node->children.Size();
+    }
 
     // Loop through all nodes on a childless level on the tree
-    for (unsigned int i = 0; i < node->children.Size(); i++)
+    for (unsigned int i = 0; i < childrenQuantity; i++)
     {
         // Put all the moves into a game tree to a given depth
         for (unsigned int j = 0; j < moves.Size(); j++)
@@ -145,10 +151,17 @@ void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, 
             state->data->depth = depth;
 
             state->parent = node;
-            node->children.Add(state);
+
+            if (node != nullptr)
+            {
+                node->children.Add(state);
+            }
         }
     }
 
     // Undo the layer obove's move
-    node->data->move.Undo();
+    if (node != nullptr)
+    {
+        node->data->move.Undo();
+    }
 }
