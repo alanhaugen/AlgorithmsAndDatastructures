@@ -2,13 +2,13 @@
 
 Shop::Shop()
 {
-    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 140, 265, 2.0, 2.0);
-    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 110, 450, 1.5, 1.5);
+    randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 65, 265, 2.0, 2.0, glm::vec2(0.5, 0));
+    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 65, 450, 1.5, 1.5, glm::vec2(0.5, 0));
 
-    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8);
-    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8);
-    nameTextRestockShop = new Text("Restock", 0, 0, 0.8, 0.8);
-    nameTextRestockShop2 = new Text("Shop", 0, 0, 0.8, 0.8);
+    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    nameTextRestockShop = new Text("Restock", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
+    nameTextRestockShop2 = new Text("Shop", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
 
     isWhitesTurn     = true;
 
@@ -804,8 +804,8 @@ void Shop::Update()
 
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false)
     {
-        *costTextRandomCard->matrix.x = *randomCard->matrix.x + 10;
-        *costTextRandomCard->matrix.y = *randomCard->matrix.y - 10*1.75;
+        *costTextRandomCard->matrix.x = *randomCard->matrix.x;
+        *costTextRandomCard->matrix.y = *randomCard->matrix.y - 5;
         costTextRandomCard->Update();
     }
     if (randomCard->IsPressed() && shopItems.Empty() == false)
@@ -823,10 +823,10 @@ void Shop::Update()
     if (restockShop->IsHoveredOver() && shopItems.Empty() == false)
     {
         *costTextRestockShop->matrix.x = *restockShop->matrix.x;
-        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 15*1.75;
-        *nameTextRestockShop->matrix.x = *restockShop->matrix.x - 15;
+        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 5;
+        *nameTextRestockShop->matrix.x = *restockShop->matrix.x;
         *nameTextRestockShop->matrix.y = *restockShop->matrix.y + 40*1.75;
-        *nameTextRestockShop2->matrix.x = *restockShop->matrix.x - 15;
+        *nameTextRestockShop2->matrix.x = *restockShop->matrix.x;
         *nameTextRestockShop2->matrix.y = *restockShop->matrix.y + 55*1.75;
 
         costTextRestockShop->Update();

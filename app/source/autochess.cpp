@@ -175,7 +175,11 @@ void Autochess::Update()
 
     blueBanner->Update();
     yellowBanner->Update();
-    turnsLeftBanner->Update();
+
+    if(state != GameState::Shopping)
+    {
+        turnsLeftBanner->Update();
+    }
 
     whitePiecesBanner->Update();
     blackPiecesBanner->Update();

@@ -40,7 +40,7 @@ void Player::Init(bool isWhite_)
         *buttonReady->matrix.y = 22;
     }
 
-    *buttonReady->matrix.x = renderer->windowWidth - 350;
+    *buttonReady->matrix.x = renderer->windowWidth - 410;
     goldText->x = 20;
 }
 
@@ -100,15 +100,16 @@ void Player::UpdateHand()
 {
     if (piecesInHand.Empty() == false)
     {
-        int x = 150;
-        int y = 35;
+        int x = 180;
+        int y = 32;
+
+
+        LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
         if (isWhite)
         {
-            y = 768 - 95;
+            y = renderer->windowHeight - y - (*piece)->icon->height * (*piece)->icon->scaleY;
         }
-
-        LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 
         for (; piece != NULL; ++piece)
         {
@@ -117,12 +118,14 @@ void Player::UpdateHand()
             *(*piece)->icon->matrix.y = y;
             (*piece)->Update();
 
-            x += 50;
-            if (x > renderer->windowWidth - 100)
-            {
-                y += 30;
-                x = 50;
-            }
+
+            x += (*piece)->icon->width * (*piece)->icon->scaleX;
+
+//            if (piecesInHand.count > 15)
+//            {
+//                y += 30;
+//                x = 50;
+//            }
         }
     }
 }
