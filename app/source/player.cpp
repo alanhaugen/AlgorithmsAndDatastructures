@@ -239,7 +239,7 @@ Move Player::GetNextMove(Board *gameBoard)
             {
                 bool legalTileClicked = false;
 
-                if (moves[i].captureTile1 != nullptr)
+                if (moves[i].captureTile1 != nullptr && moves[i].movedPiece->isHydra == false)
                 {
                     legalTileClicked = (moves[i].tileToMoveTo->x == clickedTile->x || moves[i].captureTile1->x == clickedTile->x) &&
                             (moves[i].tileToMoveTo->y == clickedTile->y || moves[i].captureTile1->y == clickedTile->y);

@@ -17,7 +17,7 @@ Board::Board()
 
     for (int i = 0; i < 10; i++)
     {
-        components.Add(new Text(nums[i], 395, (140 + (i*52)) - 6, 0.75, 0.75));
+        components.Add(new Text(nums[i], 396, (140 + (i*52)) - 6, 0.75, 0.75));
         components.Add(new Text(chars[i], 430 + (i*50), 635, 0.75, 0.75));
     }
 }
