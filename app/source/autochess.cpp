@@ -735,7 +735,7 @@ void Autochess::Animate(Move move)
     animationMoveStack.Push(nextpos);
 
     // We will not do any fancy A* animations for jumping pieces
-    if (animatedMove.movedPiece->isJumping)
+    if ((animatedMove.movedPiece->name == String("Deserter") || animatedMove.movedPiece->name == String("Monster")) == false)
     {
         return;
     }
@@ -841,6 +841,14 @@ void Autochess::Animate(Move move)
         Tile* south = gameBoard->GetTile(currentTile->x, currentTile->y + 1);
         Tile* east  = gameBoard->GetTile(currentTile->x + 1, currentTile->y);
         Tile* west  = gameBoard->GetTile(currentTile->x - 1, currentTile->y);
+
+        if (piece->name == String("Deserter"))
+        {
+            north = gameBoard->GetTile(currentTile->x - 1, currentTile->y - 1);
+            south = gameBoard->GetTile(currentTile->x - 1, currentTile->y + 1);
+            east  = gameBoard->GetTile(currentTile->x + 1, currentTile->y - 1);
+            west  = gameBoard->GetTile(currentTile->x + 1, currentTile->y + 1);
+        }
 
         // Add new search tiles
         searchTile(north, startTile, endTile, isDone, searchTiles, searchTree);
