@@ -3,12 +3,14 @@
 #include "autochess.h"
 #include "replayscene.h"
 #include "replaynew.h"
+#include "gamesettings.h"
 
 bool isTwoPlayer = false;
 bool vsAI = false;
 bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
+LinkedList<GameSettings*> Presets;
 
 #ifdef WIN32
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window

@@ -62,6 +62,10 @@ solid {
             "source/button.h",
             "source/cursor.cpp",
             "source/cursor.h",
+            "source/gamesettings.cpp",
+            "source/gamesettings.h",
+            "source/gamesettingsmenu.cpp",
+            "source/gamesettingsmenu.h",
             "source/main.cpp",
             "source/main.h",
             "source/mainmenu.cpp",
@@ -137,7 +141,7 @@ solid {
             cpp.dynamicLibraries: windowsSharedLibs
             cpp.staticLibraries: staticLibs
 
-            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/mingw32/x86"]
+            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/mingw32/x86_64"]
             cpp.includePaths: includePaths.concat("../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
         }
