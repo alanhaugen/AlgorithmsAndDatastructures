@@ -406,11 +406,7 @@ void Autochess::UpdateShop()
 void Autochess::UpdatePlacing()
 {
     gameBoard->highlight->Hide();
-
-    if (white->piecesInHand.Empty() != true && black->piecesInHand.Empty() != true)
-    {
-        autoPlacePieces->Update();
-    }
+    autoPlacePieces->Update();
 
     // Auto Place Pieces, activePlayer should be defined
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
