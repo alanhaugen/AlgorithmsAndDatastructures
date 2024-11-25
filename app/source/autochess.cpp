@@ -82,7 +82,7 @@ void Autochess::Init()
     undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
-
+    autoPlacePieces     = new Sprite("data/Button-AutoplacePieces.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     shop                = new Shop();
 
     // Player vs Player
@@ -247,7 +247,6 @@ void Autochess::Update()
         backArrowText->Update();
     }
 
-
     if(undoButton->IsPressed() && !PopUpOpen)
     {
         if(state == GameState::Placing && replay.End()->isPlacement == false)
@@ -407,6 +406,53 @@ void Autochess::UpdateShop()
 void Autochess::UpdatePlacing()
 {
     gameBoard->highlight->Hide();
+
+    if (white->piecesInHand.Empty() != true && black->piecesInHand.Empty() != true)
+    {
+        autoPlacePieces->Update();
+    }
+
+    // Auto Place Pieces, activePlayer should be defined
+    if (autoPlacePieces->IsPressed() && !PopUpOpen)
+    {
+
+        if (activePlayer->isWhite == true)
+        {
+            activePiece = *activePlayer->piecesInHand.Begin();
+            Tile*tile = nullptr;
+            while (tile == nullptr)
+            {
+                tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
+                if (tile->piece != nullptr)
+                {
+                    tile = nullptr;
+                }
+            }
+            SetTile(tile);
+            activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
+            activePlayer->activePiece = nullptr;
+            replay.Append(Move(tile->piece, tile, true));
+            NextPlayer();
+        }
+        else
+        {
+            activePiece = *activePlayer->piecesInHand.Begin();
+            Tile*tile = nullptr;
+            while (tile == nullptr)
+            {
+                tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(6,9));
+                if (tile->piece != nullptr)
+                {
+                    tile = nullptr;
+                }
+            }
+            SetTile(tile);
+            activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
+            activePlayer->activePiece = nullptr;
+            replay.Append(Move(tile->piece, tile, true));
+            NextPlayer();
+        }
+    }
 
     if (activePlayer->activePiece != nullptr)
     {

@@ -83,6 +83,7 @@ public:
     Sprite* victoryBanner;
     Sprite* returnToMainMenu;
     Sprite* watchReplay;
+    Sprite* autoPlacePieces;
 
     Sprite* background;
 
