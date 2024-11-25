@@ -21,19 +21,18 @@ void Mainmenu::Init()
 
     rulebook = new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1));
 
+    ruleMenu = new Menu(&menus);
+    ruleMenu->AddQuitButton(
+        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        );
+    rules = new Rulebook(true);
+
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
     playMenu->AddMenuButton(rulebook,ruleMenu);
-
-
-    ruleMenu = new Menu(&menus);
-    ruleMenu->AddQuitButton(
-        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
-        );
-    rules = new Rulebook(true);
 
 
     Menu* graphicsMenu = new Menu(&menus);
