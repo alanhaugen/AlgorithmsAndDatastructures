@@ -12,6 +12,21 @@ Move::Move(Piece* piece, Tile* tile, bool isPlacement_, Tile* captureTile1_, Til
     tileToMoveTo = tile;
     oldTile = piece->currentTile;
     movedPiece = piece;
+    unTransformedPiece = movedPiece;
+
+    if (movedPiece->transformedPiece != nullptr)
+    {
+        movedPiece->transformedPiece->isWhite = movedPiece->isWhite;
+
+        if (movedPiece->isWhite == true)
+        {
+            movedPiece->transformedPiece->icon = movedPiece->transformedPiece->iconWhite;
+        }
+        else
+        {
+            movedPiece->transformedPiece->icon = movedPiece->transformedPiece->iconBlack;
+        }
+    }
 
     captureTile1 = captureTile1_;
     captureTile2 = captureTile2_;
@@ -55,6 +70,18 @@ void Move::Execute()
         }
     }
 
+    if (movedPiece->transformedPiece != nullptr)
+    {
+        if (movedPiece->isWhite == true && tileToMoveTo->y == 9)
+        {
+            movedPiece = movedPiece->transformedPiece;
+        }
+        else if (movedPiece->isWhite != true && tileToMoveTo->y == 0)
+        {
+            movedPiece = movedPiece->transformedPiece;
+        }
+    }
+
     oldPiece = tileToMoveTo->piece;
 
     if(tileToMoveTo->piece != movedPiece && movedPiece->canReturnAfterCapture == true && captureTile1 != nullptr)
@@ -74,6 +101,18 @@ void Move::Undo()
     tileToMoveTo->piece = oldPiece;
     oldTile->piece = movedPiece;
     movedPiece->currentTile = oldTile;
+
+    if (movedPiece->transformedPiece != nullptr)
+    {
+        if (movedPiece->isWhite && oldTile->y == 9)
+        {
+            movedPiece = unTransformedPiece;
+        }
+        else if (movedPiece->isWhite == false && oldTile->y == 0)
+        {
+            movedPiece = unTransformedPiece;
+        }
+    }
 
     if (oldCapturePiece1 != nullptr)
     {
