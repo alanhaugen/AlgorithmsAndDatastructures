@@ -256,12 +256,12 @@ void Autochess::Update()
         }
     }
 
-    if (undoButton->IsHoveredOver())
+    /*if (undoButton->IsHoveredOver())
     {
         *undoButtonText->matrix.x = *undoButton->matrix.x;
         *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
         undoButtonText->Update();
-    }
+    }*/
 
     if (nobilityIcon2->IsHoveredOver())
     {
