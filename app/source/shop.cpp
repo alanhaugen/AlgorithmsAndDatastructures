@@ -188,7 +188,7 @@ Piece* CreatePrince()
                              "data/Piece-BlackPrince.png",
                              "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                              90,
-                             6,
+                             4,
                              "data/InfoboardWood_Prince.png",
                              4,
                              "Jumping",
@@ -353,7 +353,7 @@ Piece* CreateKnight()
                              "data/Piece-WhiteKnight.png",
                              "data/Piece-BlackKnight.png",
                              "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
-                             70,
+                             60,
                              2,
                              "data/InfoboardWood_Knight.png",
                              3,
@@ -389,7 +389,7 @@ Piece* CreatePeasant()
                              "data/Piece-WhitePeasant.png",
                              "data/Piece-BlackPeasant.png",
                              "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
-                             20,
+                             30,
                              0,
                              "data/InfoboardWood_Peasant.png",
                              1,
@@ -434,7 +434,7 @@ Piece* CreateHydra()
                              "data/Piece-WhiteHydra.png",
                              "data/Piece-BlackHydra.png",
                              "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
-                             80,
+                             60,
                              1,
                              "data/InfoboardWood_Hydra.png",
                              1,
@@ -540,8 +540,6 @@ Piece* CreateCannon()
                              "Ranged",
                              true,
                              true);
-
-    // TODO: Add special ability
 
     piece->animatedForm = new Sprite("data/Sprite-CannonballWHITE.png", 0, 0, 0.4, 0.4);
 

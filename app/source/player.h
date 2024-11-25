@@ -19,6 +19,7 @@ public:
     Sprite* buttonReady;
 
     bool isReady;
+    bool placingStarted = false;
 
     Text* goldText;
     Text* nobilityText;
@@ -39,6 +40,7 @@ public:
 
     void Update();
     Move GetNextMove(Board* gameBoard);
+    void RescalePiecesPlacing();
 };
 
 #endif
