@@ -411,7 +411,6 @@ void Autochess::UpdatePlacing()
     // Auto Place Pieces, activePlayer should be defined
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
     {
-
         if (activePlayer->isWhite == true)
         {
             activePiece = *activePlayer->piecesInHand.Begin();

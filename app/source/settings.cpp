@@ -10,7 +10,6 @@ Settings::Settings()
 
     *hoverText->matrix.x = *openPopUp->matrix.x;
     *hoverText->matrix.y = *openPopUp->matrix.y + 70;
-
 }
 
 void Settings::Update()

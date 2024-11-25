@@ -12,7 +12,7 @@ Move::Move(Piece* piece, Tile* tile, bool isPlacement_, Tile* captureTile1_, Til
     tileToMoveTo = tile;
     oldTile = piece->currentTile;
     movedPiece = piece;
-    unTransformedPiece = movedPiece;
+    unTransformedPiece = piece;
 
     if (movedPiece->transformedPiece != nullptr)
     {
@@ -84,7 +84,7 @@ void Move::Execute()
 
     oldPiece = tileToMoveTo->piece;
 
-    if(tileToMoveTo->piece != movedPiece && movedPiece->canReturnAfterCapture == true && captureTile1 != nullptr)
+    if (tileToMoveTo->piece != movedPiece && movedPiece->canReturnAfterCapture == true && captureTile1 != nullptr)
     {
         tileToMoveTo->piece = nullptr;
     }
@@ -98,21 +98,14 @@ void Move::Execute()
 
 void Move::Undo()
 {
+    if (movedPiece->transformedPiece != unTransformedPiece)
+    {
+        movedPiece = unTransformedPiece;
+    }
+
     tileToMoveTo->piece = oldPiece;
     oldTile->piece = movedPiece;
     movedPiece->currentTile = oldTile;
-
-    if (movedPiece->transformedPiece != nullptr)
-    {
-        if (movedPiece->isWhite && oldTile->y == 9)
-        {
-            movedPiece = unTransformedPiece;
-        }
-        else if (movedPiece->isWhite == false && oldTile->y == 0)
-        {
-            movedPiece = unTransformedPiece;
-        }
-    }
 
     if (oldCapturePiece1 != nullptr)
     {
