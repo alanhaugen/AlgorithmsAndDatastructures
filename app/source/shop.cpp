@@ -395,6 +395,8 @@ Piece* CreatePeasant()
                              1,
                              "Grounded");
 
+    piece->transformedPiece = CreateQueen();
+
     // TODO: Add promotion when reaching other side of board
     piece->movePattern.Add(glm::vec2(0,1));
     piece->movePattern.Add(glm::vec2(1,1));

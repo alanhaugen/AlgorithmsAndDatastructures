@@ -35,6 +35,7 @@ public:
     int range = 0;
     bool isWhite = true;
     bool isCurrentlyInAnimation = false;
+    Piece* transformedPiece = nullptr;
 
     Text* nameText = nullptr;
     Text* movementTypeText = nullptr;

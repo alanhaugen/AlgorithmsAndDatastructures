@@ -12,6 +12,7 @@ class Move : public Command
 {
 public:
     Piece* movedPiece;
+    Piece* unTransformedPiece = nullptr;
     Piece* oldPiece = nullptr;
     Tile* oldTile;
     Tile* tileToMoveTo;
