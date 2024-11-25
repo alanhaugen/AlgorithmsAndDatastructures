@@ -12,7 +12,7 @@ private:
     {
     public:
         Move move;
-        bool isWhite;
+        bool isMax;
         int nobility;
 
         int depth;
@@ -21,10 +21,10 @@ private:
         {
         }
 
-        GameState(Move move_, bool isWhite_)
+        GameState(Move move_, bool isMax_)
         {
             move  = move_;
-            isWhite = isWhite_;
+            isMax = isMax_;
         }
     };
 

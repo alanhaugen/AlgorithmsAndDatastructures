@@ -19,8 +19,6 @@ void Mainmenu::Init()
 
     input.Mouse.Pressed = false;
 
-    rulebook = new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1));
-
     ruleMenu = new Menu(&menus);
     ruleMenu->AddQuitButton(
         new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
@@ -35,9 +33,6 @@ void Mainmenu::Init()
     playMenu->AddMenuButton(
         new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1)),
         ruleMenu);
-
-
-
 
     Menu* graphicsMenu = new Menu(&menus);
     graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");

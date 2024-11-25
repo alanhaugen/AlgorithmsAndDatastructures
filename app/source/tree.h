@@ -1,7 +1,6 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include <core/containers/array.h>
 #include <core/containers/linkedlist.h>
 
 template<class Datatype>
@@ -14,7 +13,7 @@ public:
         Datatype data;
         Node* parent;
 
-        Array<Node*> children;
+        LinkedList<Node*> children;
 
         Node()
         {
@@ -30,6 +29,8 @@ public:
     LinkedList<Node*> nodes;
 
 public:
+    LinkedList<Node*> rootChildren;
+
     Tree()
     {
     }

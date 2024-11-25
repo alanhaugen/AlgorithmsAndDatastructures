@@ -55,6 +55,12 @@ public:
 
     Text* settingsText;
     Text* rulebookText;
+    Text* backArrowText;
+    Text* undoButtonText;
+    Text* whiteNobilityText;
+    Text* blackNobilityText;
+    Text* turnsLeftText1;
+    Text* turnsLeftText2;
 
     bool isDraw;
     bool replayAdded;
@@ -77,6 +83,7 @@ public:
     Sprite* victoryBanner;
     Sprite* returnToMainMenu;
     Sprite* watchReplay;
+    Sprite* autoPlacePieces;
 
     Sprite* background;
 
