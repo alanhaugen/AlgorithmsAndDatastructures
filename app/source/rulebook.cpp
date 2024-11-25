@@ -28,7 +28,7 @@ Rulebook::Rulebook(bool isMenu_)
     rightArrow->FlipHorizontal();
 
     //I don't like this ...  :(
-    Pages.Add(new Sprite("data/Rules-Page0.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
+    Pages.Add(new Sprite("data/Rules-Page01.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.8, 0.8, glm::vec2(0.5,0.5)));
     Pages.Add(new Sprite("data/Rules-Page1.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
     Pages.Add(new Sprite("data/Rules-Page2.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
     Pages.Add(new Sprite("data/Rules-Page3.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));

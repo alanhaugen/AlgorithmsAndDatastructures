@@ -78,6 +78,8 @@ void Autochess::Init()
     blackPiecesBanner   = new Sprite("data/DarkBanner.png",  renderer->windowWidth / 2, 0                     , 1.2, 0.45, glm::vec2(0.5, 0));
     whitePiecesBanner   = new Sprite("data/WhiteBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 1.2, 0.45, glm::vec2(0.5, 1));
 
+    backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
+    undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
 
@@ -116,6 +118,8 @@ void Autochess::Init()
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
+    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(-0.3, 0));
+    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0, 0));
     victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
 
     goldIcon1           = new Sprite("data/gold.png", 100, 140, 0.25, 0.25);
@@ -123,6 +127,8 @@ void Autochess::Init()
 
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
     nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
+    whiteNobilityText   = new Text("White Player Nobility", 0, 0, 0.7, 0.7, glm::vec2(0.2, 0.5));
+    blackNobilityText   = new Text("Black Player Nobility", 0, 0, 0.7, 0.7, glm::vec2(0.2, 0.5));
 
     playerWhiteWins     = new Text("PLAYER WHITE WINS!", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
     playerBlackWins     = new Text("PLAYER BLACK WINS!", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
@@ -234,6 +240,14 @@ void Autochess::Update()
         Application::LoadScene(Scenes::MainMenu);
     }
 
+    if (backArrow->IsHoveredOver())
+    {
+        *backArrowText->matrix.x = *backArrow->matrix.x;
+        *backArrowText->matrix.y = *backArrow->matrix.y + 70;
+        backArrowText->Update();
+    }
+
+
     if(undoButton->IsPressed() && !PopUpOpen)
     {
         if(state == GameState::Placing && replay.End()->isPlacement == false)
@@ -243,7 +257,36 @@ void Autochess::Update()
         }
     }
 
+    if (undoButton->IsHoveredOver())
+    {
+        *undoButtonText->matrix.x = *undoButton->matrix.x;
+        *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
+        undoButtonText->Update();
+    }
 
+    if (nobilityIcon2->IsHoveredOver())
+    {
+        *whiteNobilityText->matrix.x = *nobilityIcon2->matrix.x + 20;
+        *whiteNobilityText->matrix.y = *nobilityIcon2->matrix.y + 90;
+        whiteNobilityText->Update();
+    }
+
+    if (nobilityIcon1->IsHoveredOver())
+    {
+        *blackNobilityText->matrix.x = *nobilityIcon1->matrix.x + 20;
+        *blackNobilityText->matrix.y = *nobilityIcon1->matrix.y - 30;
+        blackNobilityText->Update();
+    }
+
+    if (turnsLeftBanner->IsHoveredOver())
+    {
+        *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
+        *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
+        *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
+        *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
+        turnsLeftText1->Update();
+        turnsLeftText2->Update();
+    }
 
     // Finite State Machine (FSM) for gameplay logic
     if (state == GameState::Shopping)
