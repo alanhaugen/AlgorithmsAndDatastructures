@@ -395,7 +395,7 @@ Piece* CreatePeasant()
                              1,
                              "Grounded");
 
-    //Transform into Queen when reaching the other side of the board
+    // Transform into Queen when reaching the other side of the board
     piece->transformedPiece = CreateQueen();
 
 
@@ -593,6 +593,56 @@ Piece *CreateRook()
     }
 
     return piece;
+}
+
+Piece* CreateRock()
+{
+    Piece* piece = new Piece("ObsRock",
+                             "data/Piece-ObstacleROCK.png",
+                             "data/Piece-ObstacleROCK.png",
+                             "Is obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Obstacle");
+}
+
+Piece* CreateTree()
+{
+    Piece* piece = new Piece("ObsTree",
+                             "data/Piece-ObstacleTREE.png",
+                             "data/Piece-ObstacleTREE.png",
+                             "Is obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Obstacle");
+}
+Piece* CreateWater()
+{
+    Piece* piece = new Piece("ObsWater",
+                             "data/Piece-ObstacleWATER.png",
+                             "data/Piece-ObstacleWATER.png",
+                             "Is obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Obstacle");
+}
+Piece* CreateRiver()
+{
+    Piece* piece = new Piece("ObsRiver",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "Is obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Obstacle");
 }
 
 Piece* Shop::CreateRandomPiece()
