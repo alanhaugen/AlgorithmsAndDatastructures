@@ -9,11 +9,14 @@
 #include "menu.h"
 #include "cursor.h"
 #include "rulebook.h"
+#include "gamesettingsmenu.h"
 
 class Mainmenu : public IScene
 {
 public:
 
+    GameSettingsMenu* gameSettings;
+    Menu* gameSettingsMenu;
     LinkedList<Text*> Timestamps;
     Rulebook* rules;
     Stack<Menu*> menus;
