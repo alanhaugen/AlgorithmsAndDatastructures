@@ -102,9 +102,16 @@ void Move::Undo()
     oldTile->piece = movedPiece;
     movedPiece->currentTile = oldTile;
 
-    if (movedPiece == unTransformedPiece)
+    if (movedPiece->transformedPiece != nullptr)
     {
-        movedPiece = unTransformedPiece;
+        if (movedPiece->isWhite && oldTile->y == 9)
+        {
+            movedPiece = unTransformedPiece;
+        }
+        else if (movedPiece->isWhite == false && oldTile->y == 0)
+        {
+            movedPiece = unTransformedPiece;
+        }
     }
 
     if (oldCapturePiece1 != nullptr)
