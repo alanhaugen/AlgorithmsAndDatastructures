@@ -395,9 +395,10 @@ Piece* CreatePeasant()
                              1,
                              "Grounded");
 
+    // Transform into Queen when reaching the other side of the board
     piece->transformedPiece = CreateQueen();
 
-    // TODO: Add promotion when reaching other side of board
+
     piece->movePattern.Add(glm::vec2(0,1));
     piece->movePattern.Add(glm::vec2(1,1));
     piece->movePattern.Add(glm::vec2(-1,1));
@@ -590,6 +591,20 @@ Piece *CreateRook()
     }
 
     return piece;
+}
+
+Piece* CreateRock()
+{
+}
+
+Piece* CreateTree()
+{
+}
+Piece* CreateWater()
+{
+}
+Piece* CreateRiver()
+{
 }
 
 Piece* Shop::CreateRandomPiece()

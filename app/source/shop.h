@@ -25,6 +25,10 @@ Piece* CreateCannon();
 Piece* CreateShieldMan();
 Piece* CreateFence();
 Piece* CreateRook();
+Piece* CreateRock();
+Piece* CreateTree();
+Piece* CreateWater();
+Piece* CreateRiver();
 
 class Shop : public Component
 {

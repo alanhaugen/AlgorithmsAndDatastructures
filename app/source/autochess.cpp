@@ -83,6 +83,7 @@ void Autochess::Init()
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     autoPlacePieces     = new Sprite("data/Button-AutoplacePieces.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
+    autoPlaceAllPieces  = new Sprite("data/Button-AutoplaceAllPieces.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
     shop                = new Shop();
 
     // Player vs Player
@@ -407,6 +408,7 @@ void Autochess::UpdatePlacing()
 {
     gameBoard->highlight->Hide();
     autoPlacePieces->Update();
+    autoPlaceAllPieces->Update();
 
     white->RescalePiecesPlacing();
     black->RescalePiecesPlacing();
@@ -451,6 +453,12 @@ void Autochess::UpdatePlacing()
             NextPlayer();
         }
     }
+
+    /*
+    if (autoPlaceAllPieces->IsPressed() && !PopUpOpen)
+    {
+
+    }*/
 
     if (activePlayer->activePiece != nullptr)
     {

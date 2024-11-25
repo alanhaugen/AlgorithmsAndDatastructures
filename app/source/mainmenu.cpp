@@ -19,15 +19,24 @@ void Mainmenu::Init()
 
     input.Mouse.Pressed = false;
 
+    gameSettings = new GameSettingsMenu();
+
     ruleMenu = new Menu(&menus);
     ruleMenu->AddQuitButton(
         new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
     rules = new Rulebook(true);
 
+    gameSettingsMenu = new Menu(&menus);
+    gameSettingsMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "vsPlayer");
+    gameSettingsMenu->AddQuitButton(
+        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        );
+
+
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
-    playMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 210 * (1.75), "vsPlayer");
+    playMenu->AddMenuButton("data/Button-2_Player.png", gameSettingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
     playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
     playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
     playMenu->AddMenuButton(
@@ -118,6 +127,11 @@ void Mainmenu::Update()
         title->Show();
     }
 
+    if (menus.Top() == gameSettingsMenu)
+    {
+        title->Hide();
+        gameSettings->Update();
+    }
 
     if(menus.count > 1 && input.Pressed(input.Key.ESCAPE) == true)
     {
