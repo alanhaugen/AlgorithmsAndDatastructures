@@ -21,10 +21,10 @@ private:
         {
         }
 
-        GameState(Move move_, bool isWhite_)
+        GameState(Move move_, bool isMax_)
         {
             move  = move_;
-            isMax = isWhite_;
+            isMax = isMax_;
         }
     };
 

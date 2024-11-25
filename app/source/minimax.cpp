@@ -12,7 +12,7 @@ int Minimax::CalculateMiniMaxValue(Board* gameBoard, Move move)
     // and the opponent's best move is the one which minimizes our collective nobility
 
     // The best strategy is assuming the opponent always respond with the best possible move
-    // The best move is the one where our opponent can screw us over the least.
+    // The best move in the end is the one where our opponent can screw us over the least.
     // Source: Ron Penton's book Data Structures for Game Programmers and chessengines.org
 
     // Do the move
@@ -27,9 +27,13 @@ int Minimax::CalculateMiniMaxValue(Board* gameBoard, Move move)
     {
         if ((*tile).piece != nullptr)
         {
-            if ((*tile).piece->isWhite == proponent->isWhite)
+            if ((*tile).piece->isWhite == opponent->isWhite)
             {
-                nobility += (*tile).piece->nobility;
+                nobility -= (*tile).piece->nobility; // min
+            }
+            else
+            {
+                nobility += (*tile).piece->nobility; // max
             }
         }
     }
@@ -94,8 +98,6 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
 
     // Traverse the tree and find the best move
     Move bestMove;
-    int bestLevel = -1;
-    int bestNobility = -10000000;
 
     LinkedList<Tree<Minimax::GameState *>::Node *>::Iterator node = gameTree.nodes.Begin();
     Tree<Minimax::GameState *>::Node* bestNode = NULL;
@@ -105,32 +107,18 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
     // one always trying to make the score more positive (maximizing) or more negative (minimizing).
     for (; node != NULL; ++node)
     {
-        if ((*node)->data->depth > bestLevel)
-        {
-            //  Reset level
-            bestLevel = -1;
-
-            // Max will want to maximize the heuristic score, so set initial target to negative
-            if ((*node)->data->isMax)
-            {
-                bestNobility = -1000000000;
-            }
-            // Min will want to minimize the heuristic score, so set initial target to something massive
-            else
-            {
-                bestNobility = 1000000000;
-            }
-        }
-
         // Set a new best node
-        if ((*node)->data->depth >= bestLevel)
+        if ((*node)->children.Empty() == true)
         {
-            bestLevel = (*node)->data->depth;
+            if (bestNode == NULL)
+            {
+                bestNode = (*node);
+            }
 
             // Max will want the biggest possible heuristic score
-            if ((*node)->data->isMax)
+            if ((*node)->data->isMax == true)
             {
-                if ((*node)->data->nobility > bestNobility)
+                if ((*node)->data->nobility > bestNode->data->nobility)
                 {
                     bestNode = (*node);
                 }
@@ -138,7 +126,7 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
             // Min will want the smallest possible heuristic score
             else
             {
-                if ((*node)->data->nobility < bestNobility)
+                if ((*node)->data->nobility < (*node)->data->nobility)
                 {
                     bestNode = (*node);
                 }
@@ -197,7 +185,7 @@ void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, 
     // Put all the moves into a game tree to a given depth
     for (unsigned int i = 0; i < moves.Size(); i++)
     {
-        Tree<GameState*>::Node* state = gameTree.AddNode(new GameState(moves[i], player->isWhite));
+        Tree<GameState*>::Node* state = gameTree.AddNode(new GameState(moves[i], player == opponent));
         state->data->nobility = CalculateMiniMaxValue(gameBoard, moves[i]);
         state->data->depth = depth;
 
