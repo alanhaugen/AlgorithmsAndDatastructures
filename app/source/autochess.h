@@ -84,6 +84,7 @@ public:
     Sprite* returnToMainMenu;
     Sprite* watchReplay;
     Sprite* autoPlacePieces;
+    Sprite* autoPlaceAllPieces;
 
     Sprite* background;
 
