@@ -592,7 +592,7 @@ Piece *CreateRook()
 
     return piece;
 }
-/*
+
 Piece* CreateRock()
 {
     Piece* piece = new Piece("Rook",
@@ -618,6 +618,7 @@ Piece* CreateTree()
                              0,
                              "Grounded");
 }
+
 Piece* CreateWater()
 {
     Piece* piece = new Piece("Rook",
@@ -630,6 +631,7 @@ Piece* CreateWater()
                              0,
                              "Grounded");
 }
+
 Piece* CreateRiver()
 {
     Piece* piece = new Piece("Rook",
@@ -642,7 +644,6 @@ Piece* CreateRiver()
                              0,
                              "Grounded");
 }
-*/
 
 Piece* Shop::CreateRandomPiece()
 {

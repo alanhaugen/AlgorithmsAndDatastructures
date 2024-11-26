@@ -35,6 +35,9 @@ public:
     Rulebook* rules;
     Settings* settings;
 
+    Sprite* volumeControl;
+    bool isMuted = false;
+
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;
     Array<Move> moves;

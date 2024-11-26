@@ -86,6 +86,15 @@ void Autochess::Init()
     autoPlaceAllPieces  = new Sprite("data/Button-AutoplaceAllPieces.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
     shop                = new Shop();
 
+    volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
+
+
+    if (isMuted == false)
+    {
+        audio->PlaySound("data/Music-BackgroupTheme01.wav");
+    }
+
+
     // Player vs Player
     if (isTwoPlayer == true && vsAI == false)
     {
@@ -179,8 +188,6 @@ void Autochess::Init()
     watchReplay = new Sprite("data/Button-Watch_Replay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
-    Text* settingsText = new Text("Settings", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
-    Text* rulebookText = new Text("Rulebook", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     rules = new Rulebook(false);
     settings = new Settings();
 
@@ -200,7 +207,21 @@ void Autochess::SetTile(Tile* tile)
 }
 
 void Autochess::Update()
-{   
+{
+    if (volumeControl->IsPressed())
+    {
+        if (isMuted == false)
+        {
+            isMuted = true;
+            audio->Stop();
+        }
+        else
+        {
+            isMuted = false;
+            audio->PlaySound("data/Music-BackgroupTheme01.wav");
+        }
+    }
+
     white->Update();
     black->Update();
 
