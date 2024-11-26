@@ -10,9 +10,6 @@ public:
     Sprite* Slider; //AnchorPoint should preferrably be 0, 0.5
     Sprite* Button; //AnchorPoint should preferrably be 0.5, 0.5
 
-    int lastX;
-    int lastY;
-
     float Value;
     float min;
     float max;
