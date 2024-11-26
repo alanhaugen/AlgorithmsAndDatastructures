@@ -17,7 +17,7 @@ Settings::Settings()
     fullscreenUnchecked = new Sprite("data/CheckboxEmpty.png", renderer->windowWidth / 2, renderer->windowHeight / 2 - 50, 0.25, 0.25, glm::vec2(0, 0.5));
 
     *fullscreenText->matrix.y = *fullscreenUnchecked->matrix.y;
-    *fullscreenText->matrix.x = *fullscreenUnchecked->matrix.x - 10;
+    *fullscreenText->matrix.x = *fullscreenUnchecked->matrix.x - 186;
 
     //Audio
     audioText = new Text("Audio", 0, renderer->windowHeight / 2, 1, 1, glm::vec2(1, 0.5));
