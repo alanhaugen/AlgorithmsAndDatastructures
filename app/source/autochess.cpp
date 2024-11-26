@@ -77,6 +77,7 @@ void Autochess::Init()
 
     blackPiecesBanner   = new Sprite("data/BannerPiecesTop.png",  renderer->windowWidth / 2, 0, 1, 1, glm::vec2(0.5, 0));
     whitePiecesBanner   = new Sprite("data/BannerPiecesBottom.png", renderer->windowWidth / 2, renderer->windowHeight, 1, 1, glm::vec2(0.5, 1));
+    goldBackground      = new Sprite("data/BannerGOLDBackground2.png", 160, renderer->windowHeight - 95, 1.5, 1.5, glm::vec2(0.5, 1));
 
     backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
     undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
@@ -133,7 +134,7 @@ void Autochess::Init()
     victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
 
     goldIcon1           = new Sprite("data/gold.png", 100, 22, 0.25, 0.25);
-    goldIcon2           = new Sprite("data/gold.png", 100, renderer->windowHeight - 55, 0.25, 0.25);
+    goldIcon2           = new Sprite("data/gold.png", 100, renderer->windowHeight - 135, 0.25, 0.25);
 
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
     nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
@@ -246,6 +247,7 @@ void Autochess::Update()
 
     whitePiecesBanner->Update();
     blackPiecesBanner->Update();
+    goldBackground->Update();
 
     backArrow->Update();
 

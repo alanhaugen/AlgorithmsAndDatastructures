@@ -76,6 +76,7 @@ public:
 
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
+    Sprite* goldBackground;
 
     Sprite* nobilityIcon1;
     Sprite* nobilityIcon2;
