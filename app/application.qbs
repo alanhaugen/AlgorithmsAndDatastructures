@@ -82,6 +82,8 @@ solid {
             "source/player.h",
             "source/popup.cpp",
             "source/popup.h",
+            "source/rangeinput.cpp",
+            "source/rangeinput.h",
             "source/replay.cpp",
             "source/replay.h",
             "source/replaynew.cpp",

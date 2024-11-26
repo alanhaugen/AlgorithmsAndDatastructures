@@ -7,6 +7,12 @@ class Settings : public PopUp
 {
 public:
 
+
+    Sprite* FullscreenHighlight;
+    Sprite* WindowedHighlight;
+    Sprite* Windowed;
+    Sprite* Fullscreen;
+
     void Update() override;
 
 
