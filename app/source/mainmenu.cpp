@@ -23,42 +23,42 @@ void Mainmenu::Init()
 
     ruleMenu = new Menu(&menus);
     ruleMenu->AddQuitButton(
-        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
     rules = new Rulebook(true);
 
     gameSettingsMenu = new Menu(&menus);
-    gameSettingsMenu->AddNextSceneButton("data/Button-2_Player.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "vsPlayer");
+    gameSettingsMenu->AddNextSceneButton("data/B_2Player.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "vsPlayer");
     gameSettingsMenu->AddQuitButton(
-        new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
 
 
     Menu* playMenu = new Menu(&menus);
-    playMenu->AddNextSceneButton("data/Button-Play_Against_AI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
-    playMenu->AddMenuButton("data/Button-2_Player.png", gameSettingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
-    playMenu->AddNextSceneButton("data/Button-Auto_Battler.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
-    playMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    playMenu->AddNextSceneButton("data/B_PlayAgainstAI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
+    playMenu->AddMenuButton("data/B_2Player.png", gameSettingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
+    playMenu->AddNextSceneButton("data/B_AiVsAi.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "AIvsAI");
+    playMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
     playMenu->AddMenuButton(
         new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1)),
         ruleMenu);
 
     Menu* graphicsMenu = new Menu(&menus);
-    graphicsMenu->AddMenuButton("data/Button-Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");
-    graphicsMenu->AddMenuButton("data/Button-Windowed.png", NULL, renderer->windowWidth / 2 - 200, 210 * (1.75), "windowed");
-    graphicsMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    graphicsMenu->AddMenuButton("data/B_Fullscreen.png", NULL, renderer->windowWidth / 2 - 200, 130 * (1.75), "fullscreen");
+    graphicsMenu->AddMenuButton("data/B_Windowed.png", NULL, renderer->windowWidth / 2 - 200, 210 * (1.75), "windowed");
+    graphicsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     Menu* audioMenu = new Menu(&menus);
-    audioMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     Menu* settingsMenu = new Menu(&menus);
-    settingsMenu->AddMenuButton("data/Button-Audio.png", audioMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
-    settingsMenu->AddMenuButton("data/Button-Graphics.png", graphicsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
-    settingsMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    settingsMenu->AddMenuButton("data/B_Audio.png", audioMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
+    settingsMenu->AddMenuButton("data/B_Graphics.png", graphicsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
+    settingsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
     replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2, 75, 1, 1, glm::vec2(0.5,0));
-    replaysMenu->AddQuitButton("data/Button-Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    replaysMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     //replays.Append(ReplayNew()); //for test, skal fjernes
 
@@ -83,10 +83,10 @@ void Mainmenu::Init()
     }
 
     Menu* firstMenu = new Menu(&menus);
-    firstMenu->AddMenuButton("data/Button-Play_Game.png", playMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
-    firstMenu->AddMenuButton("data/Button-Settings.png", settingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
-    firstMenu->AddMenuButton("data/Button-Load_Replay.png", replaysMenu, renderer->windowWidth / 2 - 200, 290 * (1.75));
-    firstMenu->AddQuitButton("data/Button-Quit_to_Desktop.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    firstMenu->AddMenuButton("data/B_PlayGame.png", playMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
+    firstMenu->AddMenuButton("data/B_Settings.png", settingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
+    firstMenu->AddMenuButton("data/B_LoadReplay.png", replaysMenu, renderer->windowWidth / 2 - 200, 290 * (1.75));
+    firstMenu->AddQuitButton("data/B_Quit.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
     firstMenu->AddMenuButton(
         new Sprite("data/SPRITE-RulebookPNG.png", 20, renderer->windowHeight -20, 3, 3, glm::vec2(0, 1)),
         ruleMenu);
