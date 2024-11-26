@@ -22,10 +22,10 @@ void Mainmenu::Init()
     gameSettings = new GameSettingsMenu();
 
     ruleMenu = new Menu(&menus);
+    rules = new Rulebook(true);
     ruleMenu->AddQuitButton(
         new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
-    rules = new Rulebook(true);
 
     gameSettingsMenu = new Menu(&menus);
     gameSettingsMenu->AddNextSceneButton("data/B_2Player.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "vsPlayer");
