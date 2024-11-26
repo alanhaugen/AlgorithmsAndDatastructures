@@ -12,7 +12,6 @@ LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 LinkedList<GameSettings*> Presets;
 bool isFullscreen = true;
-float audioSetting = 50;
 
 #ifdef WIN32
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window

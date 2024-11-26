@@ -1,7 +1,5 @@
 #include "settings.h"
 
-extern float audioSetting;
-
 Settings::Settings()
 {
 
@@ -15,7 +13,8 @@ Settings::Settings()
         );
     *rangeSlider->matrix.x = renderer->windowWidth / 2 - rangeSlider->width * rangeSlider->scaleX / 2;
     Sprite* rangeButton = new Sprite("data/CheckboxEmpty.png", 0, 0, 0.2, 0.2, glm::vec2(0.5, 0.5));
-    Audio = new RangeInput(rangeButton, rangeSlider, 0, 100, 50);
+
+    Audio = new RangeInput(rangeButton, rangeSlider, 0.0f, 2.0f, audio->audioVolume);
 
     *hoverText->matrix.x = *openPopUp->matrix.x;
     *hoverText->matrix.y = *openPopUp->matrix.y + 70;
@@ -27,7 +26,9 @@ void Settings::Update()
 
     if(isOpen)
     {
-        audioSetting = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+        //audio->audioVolume =
+        Log(audio->audioVolume);
+        audio->audioVolume = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
     }
 }
 
