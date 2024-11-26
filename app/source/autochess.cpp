@@ -75,15 +75,15 @@ void Autochess::Init()
 
     gameBoard           = new Board();
 
-    blackPiecesBanner   = new Sprite("data/DarkBanner.png",  renderer->windowWidth / 2, 0                     , 1.2, 0.45, glm::vec2(0.5, 0));
-    whitePiecesBanner   = new Sprite("data/WhiteBanner.png", renderer->windowWidth / 2, renderer->windowHeight, 1.2, 0.45, glm::vec2(0.5, 1));
+    blackPiecesBanner   = new Sprite("data/BannerPiecesTop.png",  renderer->windowWidth / 2, 0, 1, 1, glm::vec2(0.5, 0));
+    whitePiecesBanner   = new Sprite("data/BannerPiecesBottom.png", renderer->windowWidth / 2, renderer->windowHeight, 1, 1, glm::vec2(0.5, 1));
 
     backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
     undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
-    autoPlacePieces     = new Sprite("data/Button-AutoplacePieces.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
-    autoPlaceAllPieces  = new Sprite("data/Button-AutoplaceAllPieces.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
+    autoPlacePieces     = new Sprite("data/B_Autoplace.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
+    autoPlaceAllPieces  = new Sprite("data/B_AutoplaceAll.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
     shop                = new Shop();
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
