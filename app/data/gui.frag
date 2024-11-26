@@ -23,6 +23,7 @@ in float o_totalheight;
 in float o_flip;
 in float o_flipVertical;
 in float o_time;
+//in vec2 o_rotation;
 
 void main ()
 {
