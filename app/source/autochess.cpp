@@ -183,9 +183,9 @@ void Autochess::Init()
     replay.Append(firstMove);
     components.Add(background);
 
-    returnToMainMenu = new Sprite("data/Button-ReturnToMainMenu.png", renderer->windowWidth / 2,
+    returnToMainMenu = new Sprite("data/B_BackToMain.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 100,0.5,0.5, glm::vec2(0.5, 0.5));
-    watchReplay = new Sprite("data/Button-Watch_Replay.png", renderer->windowWidth / 2,
+    watchReplay = new Sprite("data/B_WatchReplay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
     rules = new Rulebook(false);
