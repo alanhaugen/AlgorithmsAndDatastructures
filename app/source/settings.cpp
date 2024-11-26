@@ -1,5 +1,7 @@
 #include "settings.h"
 
+extern float audioSetting;
+
 Settings::Settings()
 {
 
@@ -24,7 +26,7 @@ void Settings::Update()
 
     if(isOpen)
     {
-        Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+        audioSetting = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
     }
 }
 
