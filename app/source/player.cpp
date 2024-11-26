@@ -96,6 +96,22 @@ void Player::UpdateGoldText()
     goldText->Update();
 }
 
+void Player::RescalePiecesPlacing()
+{
+    if(placingStarted == true)
+        return;
+
+    LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
+    for (; piece != NULL; ++piece)
+    {
+        (*piece)->icon->scaleX = 0.4;
+        (*piece)->icon->scaleY = 0.4;
+    }
+
+    placingStarted = true;
+}
+
 void Player::UpdateHand()
 {
     if (piecesInHand.Empty() == false)
@@ -103,8 +119,8 @@ void Player::UpdateHand()
         int x = 180;
         int y = 32;
 
-
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
 
         if (isWhite)
         {
@@ -120,6 +136,27 @@ void Player::UpdateHand()
 
 
             x += (*piece)->icon->width * (*piece)->icon->scaleX;
+
+            if(placingStarted == false)
+            {
+                if(piecesInHand.count > 15 && piecesInHand.count <=  21)
+                {
+                    if((*piece)->icon->scaleX >= 0.4)
+                    {
+                        (*piece)->icon->scaleX = 0.3;
+                        (*piece)->icon->scaleY = 0.3;
+                    }
+                }
+                if(piecesInHand.count > 20)
+                {
+                    if((*piece)->icon->scaleX >= 0.3)
+                    {
+                        (*piece)->icon->scaleX = 0.25;
+                        (*piece)->icon->scaleY = 0.25;
+                    }
+                }
+            }
+
 
 //            if (piecesInHand.count > 15)
 //            {

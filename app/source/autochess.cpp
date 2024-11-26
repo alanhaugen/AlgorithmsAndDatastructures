@@ -410,6 +410,9 @@ void Autochess::UpdatePlacing()
     autoPlacePieces->Update();
     autoPlaceAllPieces->Update();
 
+    white->RescalePiecesPlacing();
+    black->RescalePiecesPlacing();
+
     // Auto Place Pieces, activePlayer should be defined
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
     {
