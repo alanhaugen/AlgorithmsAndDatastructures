@@ -57,7 +57,7 @@ void Mainmenu::Init()
     settingsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
-    replayBG = new Sprite("data/ReplayMenuBackground.png", renderer->windowWidth / 2, 75, 1, 1, glm::vec2(0.5,0));
+    replayBG = new Sprite("data/SettingsMenuBackground.png", renderer->windowWidth / 2, 75, 1, 1, glm::vec2(0.5,0));
     replaysMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     //replays.Append(ReplayNew()); //for test, skal fjernes

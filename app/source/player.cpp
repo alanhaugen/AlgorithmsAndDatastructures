@@ -18,7 +18,7 @@ void Player::Init(bool isWhite_)
     score    = 0;
     nobility = 0;
 
-    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
+    buttonReady = new Sprite("data/B_Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
     goldText    = new Text("");
 
     activePiece = nullptr;
