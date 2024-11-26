@@ -594,20 +594,57 @@ Piece *CreateRook()
 
     return piece;
 }
-
+/*
 Piece* CreateRock()
 {
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-ObstacleROCK.png",
+                             "data/Piece-ObstacleROCK.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
 }
 
 Piece* CreateTree()
 {
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-ObstacleTREE.png",
+                             "data/Piece-ObstacleTREE.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
 }
 Piece* CreateWater()
 {
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-ObstacleWATER.png",
+                             "data/Piece-ObstacleWATER.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
 }
 Piece* CreateRiver()
 {
+    Piece* piece = new Piece("Rook",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
 }
+*/
 
 Piece* Shop::CreateRandomPiece()
 {
