@@ -82,7 +82,7 @@ void Mainmenu::Init()
 
         // + replayBG->width * replayBG->scaleX/2 - 15
         replayI->PlayDate.TrimRight();
-        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + 500, 210 + i*80, 1, 1, glm::vec2(1, 0.5));
+        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + 500, 210 + i*77, 1, 1, glm::vec2(1, 0.5));
         Timestamps.Append(text);
         i++;
     }
