@@ -2,12 +2,13 @@
 #define SETTINGS_H
 
 #include "popup.h"
+#include "rangeinput.h"
 
 class Settings : public PopUp
 {
 public:
 
-
+    RangeInput* Audio;
     Sprite* FullscreenHighlight;
     Sprite* WindowedHighlight;
     Sprite* Windowed;
