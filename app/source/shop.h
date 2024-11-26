@@ -60,6 +60,8 @@ public:
     Text* nameTextRestockShop;
     Text* nameTextRestockShop2;
     Text* costTextRandomCard;
+    Text* randomCardText1;
+    Text* randomCardText2;
     Piece* activePiece   = nullptr;
 
 

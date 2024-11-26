@@ -5,10 +5,12 @@ Shop::Shop()
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 65, 265, 2.0, 2.0, glm::vec2(0.5, 0));
     restockShop = new Sprite("data/B_Restock.png", renderer->windowWidth - 65, 450, 0.5, 0.5, glm::vec2(0.5, 0));
 
-    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
-    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
-    nameTextRestockShop = new Text("Restock", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
-    nameTextRestockShop2 = new Text("Shop", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
+    costTextRandomCard      = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    randomCardText1         = new Text("Draw", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    randomCardText2         = new Text("Random", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    costTextRestockShop     = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    nameTextRestockShop     = new Text("Restock", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
+    nameTextRestockShop2    = new Text("Shop", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
 
     isWhitesTurn     = true;
 
@@ -860,8 +862,14 @@ void Shop::Update()
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRandomCard->matrix.x = *randomCard->matrix.x;
-        *costTextRandomCard->matrix.y = *randomCard->matrix.y - 5;
+        *costTextRandomCard->matrix.y = *randomCard->matrix.y + 135;
+        *randomCardText1->matrix.x = *randomCard->matrix.x;
+        *randomCardText1->matrix.y = *randomCard->matrix.y - 5;
+        *randomCardText2->matrix.x = *randomCard->matrix.x;
+        *randomCardText2->matrix.y = *randomCard->matrix.y - 25;
         costTextRandomCard->Update();
+        randomCardText1->Update();
+        randomCardText2->Update();
     }
     if (randomCard->IsPressed() && shopItems.Empty() == false && !PopUpOpen)
     {
