@@ -191,6 +191,9 @@ void Autochess::Init()
     cursor = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
+
+    audio->Stop();
+    audio->PlaySound("data/Music-BackgroupTheme01.wav");
 }
 
 void Autochess::SetTile(Tile* tile)
