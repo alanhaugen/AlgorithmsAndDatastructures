@@ -27,12 +27,20 @@ float RangeInput::Update(int mouseX, int mouseY, bool mouseDown)
 
     if(pressedLastUpdate && mouseDown)
     {
-        if(mouseX > *Slider->matrix.x && mouseX < *Slider->matrix.x + Slider->width * Slider->scaleX)
+        if(mouseX >= *Slider->matrix.x && mouseX <= *Slider->matrix.x + Slider->width * Slider->scaleX)
         {
             *Button->matrix.x += mouseX - lastX;
 
             lastY = mouseY;
             lastX = mouseX;
+        }
+        else if(mouseX < *Slider->matrix.x && mouseX)
+        {
+            *Button->matrix.x = *Slider->matrix.x;
+        }
+        else
+        {
+            *Button->matrix.x = *Slider ->matrix.x + Slider->width * Slider->scaleX;
         }
     }
     else if(Button->IsPressed() == true)
