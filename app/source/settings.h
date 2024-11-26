@@ -8,8 +8,8 @@ class Settings : public PopUp
 {
 public:
     Text* fullscreenText;
-    Sprite* fullscreenCheckBoxUnchecked;
-    Sprite* fullscreenCheckBoxChecked;
+    Sprite* fullscreenUnchecked;
+    Sprite* fullscreenChecked;
     Text* audioText;
     RangeInput* Audio;
 
