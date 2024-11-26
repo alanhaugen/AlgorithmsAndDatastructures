@@ -7,12 +7,12 @@
 class Settings : public PopUp
 {
 public:
-
+    Text* fullscreenText;
+    Sprite* fullscreenCheckBoxUnchecked;
+    Sprite* fullscreenCheckBoxChecked;
+    Text* audioText;
     RangeInput* Audio;
-    Sprite* FullscreenHighlight;
-    Sprite* WindowedHighlight;
-    Sprite* Windowed;
-    Sprite* Fullscreen;
+
 
     void Update() override;
 

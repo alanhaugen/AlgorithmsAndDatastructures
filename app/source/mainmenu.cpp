@@ -68,21 +68,21 @@ void Mainmenu::Init()
         if(replayI->Draw == true)
         {
             replaysMenu->AddNextSceneButton(new Sprite("data/B_ReplayDRAW.png", renderer->windowWidth/2,
-                                                       175 + i*100, 0.8, 0.8, glm::vec2(0.5, 0.5)), "Replay", i);
+                                                       210 + i*77, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         } else
         if(replayI->WinColor == true)
         {
             replaysMenu->AddNextSceneButton(new Sprite("data/B_ReplayWHITE.png", renderer->windowWidth/2,
-                                                       175 + i*100, 0.8, 0.8, glm::vec2(0.5, 0.5)), "Replay", i);
+                                                       210 + i*77, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         } else
         {
             replaysMenu->AddNextSceneButton(new Sprite("data/B_ReplayBLACK.png", renderer->windowWidth/2,
-                                                       175 + i*100, 0.8, 0.8, glm::vec2(0.5, 0.5)), "Replay", i);
+                                                       210 + i*77, 1, 1, glm::vec2(0.5, 0.5)), "Replay", i);
         }
 
         // + replayBG->width * replayBG->scaleX/2 - 15
         replayI->PlayDate.TrimRight();
-        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + 300, 175 + i*100, 1, 1, glm::vec2(1, 0.5));
+        Text* text = new Text(replayI->PlayDate, renderer->windowWidth/2 + 500, 210 + i*80, 1, 1, glm::vec2(1, 0.5));
         Timestamps.Append(text);
         i++;
     }
