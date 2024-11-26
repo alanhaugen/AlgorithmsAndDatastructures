@@ -132,7 +132,7 @@ void Autochess::Init()
     turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0, 0));
     victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
 
-    goldIcon1           = new Sprite("data/gold.png", 100, 45, 0.25, 0.25);
+    goldIcon1           = new Sprite("data/gold.png", 100, 22, 0.25, 0.25);
     goldIcon2           = new Sprite("data/gold.png", 100, renderer->windowHeight - 55, 0.25, 0.25);
 
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);

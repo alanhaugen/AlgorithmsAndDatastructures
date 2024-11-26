@@ -3,7 +3,7 @@
 Shop::Shop()
 {
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 65, 265, 2.0, 2.0, glm::vec2(0.5, 0));
-    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 65, 450, 1.5, 1.5, glm::vec2(0.5, 0));
+    restockShop = new Sprite("data/B_Restock.png", renderer->windowWidth - 65, 450, 0.5, 0.5, glm::vec2(0.5, 0));
 
     costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
@@ -878,11 +878,11 @@ void Shop::Update()
     if (restockShop->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRestockShop->matrix.x = *restockShop->matrix.x;
-        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 5;
+        *costTextRestockShop->matrix.y = *restockShop->matrix.y + 90;
         *nameTextRestockShop->matrix.x = *restockShop->matrix.x;
-        *nameTextRestockShop->matrix.y = *restockShop->matrix.y + 40*1.75;
+        *nameTextRestockShop->matrix.y = *restockShop->matrix.y -50;
         *nameTextRestockShop2->matrix.x = *restockShop->matrix.x;
-        *nameTextRestockShop2->matrix.y = *restockShop->matrix.y + 55*1.75;
+        *nameTextRestockShop2->matrix.y = *restockShop->matrix.y - 25;
 
         costTextRestockShop->Update();
         nameTextRestockShop->Update();
