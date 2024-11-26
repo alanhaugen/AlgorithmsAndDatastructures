@@ -7,14 +7,13 @@
 class GameSettingsMenu : public PopUp
 {
 public:
+    GameSettingsMenu();
 
     Sprite* CreateNewSettings;
     GameSettings* CurrentSettings;
     int index = 0;
     Text* GameSettingsNumber = nullptr;
     void Update() override;
-
-    GameSettingsMenu();
 };
 
 #endif // GAMESETTINGSMENU_H
