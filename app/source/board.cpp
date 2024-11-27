@@ -619,7 +619,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                     // Add weight to board
                     for (unsigned int i = 0; i < weightPattern.Size(); i++)
                     {
-                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y))
+                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y) && GetTile((*newNode).x, (*newNode).y)->piece == nullptr)
                         {
                             (*newNode).weight = 1;
                             (*newNode).weightBorder->Show();
