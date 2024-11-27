@@ -57,6 +57,7 @@ void Board::GenerateTiles()
 
             tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
             tile.attackBorder = new Sprite("data/TileBorder-Red.png", 0, 0, scale, scale);
+            tile.weightBorder = new Sprite("data/TileBorder-Blue.png", 0, 0, scale, scale);
 
             *sprite->matrix.x = x * (sprite->width  * sprite->scaleX) + offsetX;
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
@@ -79,6 +80,7 @@ void Board::HideDots()
     {
         (*tile).moveDot->Hide();
         (*tile).attackBorder->Hide();
+        (*tile).weightBorder->Hide();
     }
 }
 
@@ -620,6 +622,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                         if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y))
                         {
                             (*newNode).weight = 1;
+                            (*newNode).weightBorder->Show();
                         }
                     }
                 }
