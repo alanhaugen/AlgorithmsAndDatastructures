@@ -66,9 +66,10 @@ void ReplayScene::Init()
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
-    leftArrow = new Sprite("data/arrow.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
-    leftArrow->FlipHorizontal();
-    rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
+    leftArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
+
+    rightArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
+    rightArrow->FlipHorizontal();
 
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
 
