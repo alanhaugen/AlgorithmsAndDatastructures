@@ -532,7 +532,7 @@ Array<Move> Board::QueenMoves(Tile* tile, int left, int up, bool showDot)
     int x = tile->x;
     int y = tile->y;
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 1; i < 10; i++)
     {
         Tile* searchTile = GetTile(x + (i * left), y + (i * up));
 
@@ -564,6 +564,10 @@ Array<Move> Board::QueenMoves(Tile* tile, int left, int up, bool showDot)
                 searchTile->attackBorder->Show();
             }
 
+            break;
+        }
+        else if (searchTile->piece->isWhite == tile->piece->isWhite)
+        {
             break;
         }
     }
