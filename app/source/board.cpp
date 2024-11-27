@@ -279,11 +279,6 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                     {
                     (*node).searched = true;
 
-                    if (tile->piece->name == "Queen" && frontier > 3)
-                    {
-                        break;
-                    }
-
                     for (unsigned int i = 0; i < pattern.Size(); i++)
                     {
                         if ((*node).x == x + pattern[i].x && (*node).y == y + (yDirectionInvert * pattern[i].y))
