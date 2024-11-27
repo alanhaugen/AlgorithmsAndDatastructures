@@ -132,7 +132,9 @@ void Autochess::Init()
     turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(-0.3, 0));
     turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0, 0));
-    victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
+    //victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
+    victoryBanner       = new Sprite("data/VictoryScreenGradient.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
+    victoryBanner2      = new Sprite("data/victoryBannerGoldBlue.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
 
     goldIcon1           = new Sprite("data/gold.png", 100, 105, 0.25, 0.25);
     goldIcon2           = new Sprite("data/gold.png", 100, renderer->windowHeight - 135, 0.25, 0.25);
@@ -667,6 +669,7 @@ void Autochess::UpdateDone()
     black->nobilityText->Update();
 
     victoryBanner->Update();
+    victoryBanner2->Update();
     returnToMainMenu->Update();
     watchReplay->Update();
 

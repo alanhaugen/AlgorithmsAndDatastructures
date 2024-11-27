@@ -86,6 +86,7 @@ public:
     Sprite* yellowBanner;
     Sprite* turnsLeftBanner;
     Sprite* victoryBanner;
+    Sprite* victoryBanner2;
     Sprite* returnToMainMenu;
     Sprite* watchReplay;
     Sprite* autoPlacePieces;
