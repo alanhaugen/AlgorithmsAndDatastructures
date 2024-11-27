@@ -543,6 +543,13 @@ Array<Move> Board::QueenMoves(Tile* tile, int left, int up, bool showDot)
 
         if (searchTile->weight != 0)
         {
+            moves.Add(Move(tile->piece, searchTile, false, searchTile));
+
+            if (showDot)
+            {
+                searchTile->moveDot->Show();
+            }
+
             break;
         }
 
