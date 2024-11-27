@@ -170,8 +170,8 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
     int x = tile->x;
     int y = tile->y;
 
-    Array<glm::vec2> pattern = tile->piece->movePattern;
-    Array<Capture> capturePattern = tile->piece->captureOnlyMovePattern;
+    Array<glm::vec2> pattern       = tile->piece->movePattern;
+    Array<Capture> capturePattern  = tile->piece->captureOnlyMovePattern;
 
     LinkedList<Tile>::Iterator node = tiles.Begin();
 
@@ -279,7 +279,7 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
 
                                     Tile* attackTile1 = nullptr;
                                     Tile* attackTile2 = nullptr;
-                                    Tile* tileGotten = nullptr;
+                                    Tile* tileGotten;
 
                                     if (tile->piece->isHydra == true)
                                     {
@@ -380,7 +380,7 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
                                     Tile* attackTile1 = GetTile((*node).x, (*node).y);
                                     Tile* attackTile2 = nullptr;
                                     Tile* attackTile3 = nullptr;
-                                    Tile* tileGotten = nullptr;
+                                    Tile* tileGotten;
 
                                     if (tile->piece->isHydra == true)
                                     {
@@ -525,6 +525,52 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
     return moves;
 }
 
+Array<Move> Board::QueenMoves(Tile* tile, int left, int up, bool showDot)
+{
+    Array<Move> moves;
+
+    int x = tile->x;
+    int y = tile->y;
+
+    for (int i = 0; i < 10; i++)
+    {
+        Tile* searchTile = GetTile(x + (i * left), y + (i * up));
+
+        if (searchTile == nullptr)
+        {
+            break;
+        }
+
+        if (searchTile->weight != 0)
+        {
+            break;
+        }
+
+        if (searchTile->piece == nullptr)
+        {
+            moves.Add(Move(tile->piece, searchTile, false));
+
+            if (showDot)
+            {
+                searchTile->moveDot->Show();
+            }
+        }
+        else if (searchTile->piece->isWhite != tile->piece->isWhite)
+        {
+            moves.Add(Move(tile->piece, searchTile, false, searchTile));
+
+            if (showDot)
+            {
+                searchTile->attackBorder->Show();
+            }
+
+            break;
+        }
+    }
+
+    return moves;
+}
+
 Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 {
     Array<glm::vec2> pattern = tile->piece->movePattern;
@@ -575,7 +621,21 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         return JumpingMoves(tile, showDot, isCaptureOnly);
     }
 
-    moves += DijkstraMoves(tile, showDot, isCaptureOnly);
+    if (tile->piece->name == String("Queen"))
+    {
+        moves += QueenMoves(tile,  1, 0, showDot);
+        moves += QueenMoves(tile, -1, 0, showDot);
+        moves += QueenMoves(tile, 0,  1, showDot);
+        moves += QueenMoves(tile, 0, -1, showDot);
+        moves += QueenMoves(tile, 1,  1, showDot);
+        moves += QueenMoves(tile,-1, -1, showDot);
+        moves += QueenMoves(tile,-1,  1, showDot);
+        moves += QueenMoves(tile, 1, -1, showDot);
+    }
+    else
+    {
+        moves += DijkstraMoves(tile, showDot, isCaptureOnly);
+    }
 
     // Reset tile state
     for (node = tiles.Begin(); node != NULL; ++node)
