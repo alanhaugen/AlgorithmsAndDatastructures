@@ -400,7 +400,6 @@ Piece* CreatePeasant()
     // Transform into Queen when reaching the other side of the board
     piece->transformedPiece = CreateQueen();
 
-
     piece->movePattern.Add(glm::vec2(0,1));
     piece->movePattern.Add(glm::vec2(1,1));
     piece->movePattern.Add(glm::vec2(-1,1));

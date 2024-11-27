@@ -23,6 +23,10 @@ public:
     Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 
+    Array<Move> JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly);
+    Array<Move> DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly);
+    Array<Move> QueenMoves(Tile* tile, int left, int up, bool showDot);
+
     void Init();
     void Update();
 };

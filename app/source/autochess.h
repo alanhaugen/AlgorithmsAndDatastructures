@@ -99,6 +99,7 @@ public:
     Array<Player*> players;
     Player* white;
     Player* black;
+    Player* firstPlayer;
     Player* activePlayer;
     Player* opponentPlayer;
 

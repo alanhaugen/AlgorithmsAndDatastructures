@@ -494,8 +494,6 @@ void Autochess::UpdatePlacing()
     {
         //undoButton->Update(); //Button does not work, and not working on it currently.
 
-        isFirstPlaythrough = false;
-
         movesLeftText->Update();
         //gameBoard->highlight->Show();
         moves.Clear();
@@ -583,6 +581,8 @@ void Autochess::UpdatePlacing()
                 NextPlayer();
             }
         }
+
+        firstPlayer = activePlayer;
     }
     else if (activePlayer->piecesInHand.Empty())
     {
@@ -592,9 +592,6 @@ void Autochess::UpdatePlacing()
 
 void Autochess::UpdatePlaying()
 {
-    // Disable further tutorials
-    isFirstPlaythrough = false;
-
     // Update text
     movesLeftText->Update();
 
@@ -634,10 +631,13 @@ void Autochess::UpdatePlaying()
         replay.Append(nextMove);
 
         // Add to number of moves counter after white and black has played their turns
-        if (isWhitesTurn == false)
+        if (firstPlayer != activePlayer && isFirstPlaythrough == false)
         {
             movesCompleted++;
         }
+
+        // Disable further tutorials
+        isFirstPlaythrough = false;
 
         // Recalculate and show new nobility for the player
         white->RecalculateNobility(gameBoard);
