@@ -27,7 +27,7 @@ void Player::Init(bool isWhite_)
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 46, 569, 1, 1, glm::vec2(0.5, 0));
+        nobilityText = new Text(String(nobility), 49, renderer->windowHeight - 227, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 125, renderer->windowHeight - 135);
         goldText->y = 100;
 
@@ -35,7 +35,7 @@ void Player::Init(bool isWhite_)
     }
     else
     {
-        nobilityText = new Text(String(nobility), 46    , 175, 1, 1, glm::vec2(0.5, 0));
+        nobilityText = new Text(String(nobility), 49    , 222, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 125, 105);
         *buttonReady->matrix.y = 22;
     }
