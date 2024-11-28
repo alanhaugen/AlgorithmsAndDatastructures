@@ -82,6 +82,8 @@ solid {
             "source/player.h",
             "source/popup.cpp",
             "source/popup.h",
+            "source/rangeinput.cpp",
+            "source/rangeinput.h",
             "source/replay.cpp",
             "source/replay.h",
             "source/replaynew.cpp",
@@ -141,7 +143,7 @@ solid {
             cpp.dynamicLibraries: windowsSharedLibs
             cpp.staticLibraries: staticLibs
 
-            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/mingw32/x86_64"]
+            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/mingw32/x86"]
             cpp.includePaths: includePaths.concat("../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
         }

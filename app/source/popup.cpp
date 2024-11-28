@@ -55,8 +55,8 @@ void PopUp::close()
 void PopUp::createBackground()
 {
     BackGround = new Sprite(
-        "data/stdPopUp.png",
-        renderer->windowWidth / 2, 100,
+        "data/SettingsMenuBackground.png",
+        renderer->windowWidth / 2, 50,
         1, 1,
         glm::vec2(0.5, 0)
         );
@@ -64,7 +64,7 @@ void PopUp::createBackground()
 
 void PopUp::createClosePopUp()
 {
-    closePopUp = new Sprite("data/Button-Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1));
+    closePopUp = new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 90, 0.7, 0.7, glm::vec2(0.5, 1));
 }
 
 void PopUp::Init()

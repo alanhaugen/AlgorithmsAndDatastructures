@@ -19,6 +19,7 @@ public:
     Sprite* buttonReady;
 
     bool isReady;
+    bool placingStarted = false;
 
     Text* goldText;
     Text* nobilityText;
@@ -26,6 +27,8 @@ public:
     Piece* activePiece;
     Array<Move> moves;
     int nobility;
+
+    Tile* clickedTile = nullptr;
 
     Player();
     Player(bool isWhitePlayer);
@@ -35,10 +38,11 @@ public:
     void UpdateNobilityText();
     void UpdateGoldText();
     void UpdateHand();
-    Array<Move> GetAllPossibleMoves(Board* gameBoard);
+    Array<Move> GetAllPossibleMoves(Board* gameBoard, bool isFirstMove = false);
 
     void Update();
-    Move GetNextMove(Board* gameBoard);
+    Move GetNextMove(Board* gameBoard, bool isFirstMove = true);
+    void RescalePiecesPlacing();
 };
 
 #endif

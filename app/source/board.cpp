@@ -57,6 +57,7 @@ void Board::GenerateTiles()
 
             tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
             tile.attackBorder = new Sprite("data/TileBorder-Red.png", 0, 0, scale, scale);
+            tile.weightBorder = new Sprite("data/TileBorder-Blue.png", 0, 0, scale, scale);
 
             *sprite->matrix.x = x * (sprite->width  * sprite->scaleX) + offsetX;
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
@@ -79,10 +80,11 @@ void Board::HideDots()
     {
         (*tile).moveDot->Hide();
         (*tile).attackBorder->Hide();
+        (*tile).weightBorder->Hide();
     }
 }
 
-Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
+Array<Move> Board::JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly, bool isRangedAttacksLegal)
 {
     int x = tile->x;
     int y = tile->y;
@@ -101,100 +103,86 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         yDirectionInvert = -1;
     }
 
-    // Calculate tile weights
     for (node = tiles.Begin(); node != NULL; ++node)
     {
-        if ((*node).piece != nullptr)
+        for (unsigned int i = 0; i < pattern.Size(); i++)
         {
-            if ((*node).piece->isWhite != tile->piece->isWhite &&(*node).piece->weightPattern.Empty() == false)
+            if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
             {
-                Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
-
-                LinkedList<Tile>::Iterator newNode = tiles.Begin();
-
-                int x = (*node).x;
-                int y = (*node).y;
-
-                for (; newNode != NULL; ++newNode)
+                if ((*node).piece == nullptr)
                 {
-                    // Add weight to board
-                    for (unsigned int i = 0; i < weightPattern.Size(); i++)
+                    if (isCaptureOnly == false)
                     {
-                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y))
+                        if (showDot)
                         {
-                            (*newNode).weight = 1;
+                            (*node).moveDot->Show();
                         }
+
+                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                    }
+                }
+                else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
+                {
+                    if (tile->piece->canCapture)
+                    {
+                        if (showDot)
+                        {
+                            (*node).attackBorder->Show();
+                        }
+
+                        moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
                     }
                 }
             }
         }
-    }
-
-    if (tile->piece->isJumping)
-    {
-        for (node = tiles.Begin(); node != NULL; ++node)
+        for (unsigned int i = 0; i < capturePattern.Size(); i++)
         {
-            for (unsigned int i = 0; i < pattern.Size(); i++)
+            if (isRangedAttacksLegal == false)
             {
-                if ((*node).x == x + pattern[i].x && (*node).y == y + pattern[i].y)
+                continue;
+            }
+
+            if ((*node).x == x + capturePattern[i].capture.x && (*node).y == y + (yDirectionInvert * capturePattern[i].capture.y))
+            {
+                if ((*node).piece != nullptr)
                 {
-                    if ((*node).piece == nullptr)
+                    if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
                     {
-                        if (isCaptureOnly == false)
+                        if (showDot)
                         {
-                            if (showDot)
-                            {
-                                (*node).moveDot->Show();
-                            }
-
-                            moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y)));
+                            (*node).attackBorder->Show();
                         }
-                    }
-                    else if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
-                    {
-                        if (tile->piece->canCapture)
-                        {
-                            if (showDot)
-                            {
-                                (*node).attackBorder->Show();
-                            }
 
+                        // TODO: Add attack pattern here
+
+                        if (tile->x + capturePattern[i].moveTo.x != (*node).x && tile->y + (yDirectionInvert * capturePattern[i].moveTo.y) != (*node).y)
+                        {
+                            moves.Add(Move(tile->piece, GetTile(tile->x + capturePattern[i].moveTo.x, tile->y + (yDirectionInvert * capturePattern[i].moveTo.y)), false, GetTile((*node).x, (*node).y)));
+                        }
+                        else
+                        {
                             moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
                         }
                     }
                 }
             }
-            for (unsigned int i = 0; i < capturePattern.Size(); i++)
-            {
-                if ((*node).x == x + capturePattern[i].capture.x && (*node).y == y + (yDirectionInvert * capturePattern[i].capture.y))
-                {
-                    if ((*node).piece != nullptr)
-                    {
-                        if (tile->piece->isWhite != (*node).piece->isWhite && (*node).piece->invinsible == false)
-                        {
-                            if (showDot)
-                            {
-                                (*node).attackBorder->Show();
-                            }
-
-                            // TODO: Add attack pattern here
-
-                            if (tile->x + capturePattern[i].moveTo.x != (*node).x && tile->y + (yDirectionInvert * capturePattern[i].moveTo.y) != (*node).y)
-                            {
-                                moves.Add(Move(tile->piece, GetTile(tile->x + capturePattern[i].moveTo.x, tile->y + (yDirectionInvert * capturePattern[i].moveTo.y)), false, GetTile((*node).x, (*node).y)));
-                            }
-                            else
-                            {
-                                moves.Add(Move(tile->piece, GetTile((*node).x, (*node).y), false, GetTile((*node).x, (*node).y)));
-                            }
-                        }
-                    }
-                }
-            }
         }
-
-        return moves;
     }
+
+    return moves;
+}
+
+Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
+{
+    int x = tile->x;
+    int y = tile->y;
+
+    Array<glm::vec2> pattern       = tile->piece->movePattern;
+    Array<Capture> capturePattern  = tile->piece->captureOnlyMovePattern;
+
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    Array<Move> moves;
 
     // The following is Dijkstra’s Algorithm: takes into account movement costs
     Queue<Tile> searchTiles; // TODO: Use a priority queue instead (can use only one container)
@@ -204,7 +192,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
     searchTiles.Append(startTile);
 
-    yDirectionInvert = 1;
+    int yDirectionInvert = 1;
 
     if (startTile.piece->isWhite == false)
     {
@@ -298,7 +286,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
                                     Tile* attackTile1 = nullptr;
                                     Tile* attackTile2 = nullptr;
-                                    Tile* tileGotten = nullptr;
+                                    Tile* tileGotten;
 
                                     if (tile->piece->isHydra == true)
                                     {
@@ -399,7 +387,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                     Tile* attackTile1 = GetTile((*node).x, (*node).y);
                                     Tile* attackTile2 = nullptr;
                                     Tile* attackTile3 = nullptr;
-                                    Tile* tileGotten = nullptr;
+                                    Tile* tileGotten;
 
                                     if (tile->piece->isHydra == true)
                                     {
@@ -459,7 +447,6 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
                                             attackTile2 = GetTile((*node).x + 1, (*node).y);
                                             attackTile3 = GetTile((*node).x, (*node).y + 1);
                                         }
-
 
                                         if (attackTile2 != nullptr && attackTile2->piece == nullptr)
                                         {
@@ -539,6 +526,144 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
         {
             break;
         }
+    }
+
+    return moves;
+}
+
+Array<Move> Board::SimpleMoves(Tile* tile, int left, int up, bool showDot, int length)
+{
+    Array<Move> moves;
+
+    int x = tile->x;
+    int y = tile->y;
+
+    for (int i = 1; i < length; i++)
+    {
+        Tile* searchTile = GetTile(x + (i * left), y + (i * up));
+
+        if (searchTile == nullptr)
+        {
+            break;
+        }
+
+        if (searchTile->weight != 0)
+        {
+            moves.Add(Move(tile->piece, searchTile, false, searchTile));
+
+            if (showDot)
+            {
+                searchTile->moveDot->Show();
+            }
+
+            break;
+        }
+
+        if (searchTile->piece == nullptr)
+        {
+            moves.Add(Move(tile->piece, searchTile, false));
+
+            if (showDot)
+            {
+                searchTile->moveDot->Show();
+            }
+        }
+        else if (searchTile->piece->isWhite != tile->piece->isWhite)
+        {
+            moves.Add(Move(tile->piece, searchTile, false, searchTile));
+
+            if (showDot)
+            {
+                searchTile->attackBorder->Show();
+            }
+
+            break;
+        }
+        else if (searchTile->piece->isWhite == tile->piece->isWhite)
+        {
+            break;
+        }
+    }
+
+    return moves;
+}
+
+Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly, bool isRangedAttacksLegal)
+{
+    Array<glm::vec2> pattern = tile->piece->movePattern;
+    Array<Capture> capturePattern = tile->piece->captureOnlyMovePattern;
+
+    LinkedList<Tile>::Iterator node = tiles.Begin();
+
+    Array<Move> moves;
+
+    int yDirectionInvert = 1;
+
+    if (tile->piece->isWhite == false)
+    {
+        yDirectionInvert = -1;
+    }
+
+    // Calculate tile weights
+    for (node = tiles.Begin(); node != NULL; ++node)
+    {
+        if ((*node).piece != nullptr)
+        {
+            if ((*node).piece->isWhite != tile->piece->isWhite &&(*node).piece->weightPattern.Empty() == false)
+            {
+                Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
+
+                LinkedList<Tile>::Iterator newNode = tiles.Begin();
+
+                int x = (*node).x;
+                int y = (*node).y;
+
+                for (; newNode != NULL; ++newNode)
+                {
+                    // Add weight to board
+                    for (unsigned int i = 0; i < weightPattern.Size(); i++)
+                    {
+                        if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y) && GetTile((*newNode).x, (*newNode).y)->piece == nullptr)
+                        {
+                            (*newNode).weight = 1;
+                            (*newNode).weightBorder->Show();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (tile->piece->isJumping)
+    {
+        return JumpingMoves(tile, showDot, isCaptureOnly, isRangedAttacksLegal);
+    }
+
+    if (tile->piece->name == String("Queen"))
+    {
+        moves += SimpleMoves(tile,  1, 0, showDot);
+        moves += SimpleMoves(tile, -1, 0, showDot);
+        moves += SimpleMoves(tile, 0,  1, showDot);
+        moves += SimpleMoves(tile, 0, -1, showDot);
+        moves += SimpleMoves(tile, 1,  1, showDot);
+        moves += SimpleMoves(tile,-1, -1, showDot);
+        moves += SimpleMoves(tile,-1,  1, showDot);
+        moves += SimpleMoves(tile, 1, -1, showDot);
+    }
+    else if (tile->piece->name == String("Rogue"))
+    {
+        moves += SimpleMoves(tile,  1, 0, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, -1, 0, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 0,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 0, -1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 1,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile,-1, -1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile,-1,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 1, -1, showDot, tile->piece->range + 1);
+    }
+    else
+    {
+        moves += DijkstraMoves(tile, showDot, isCaptureOnly);
     }
 
     // Reset tile state

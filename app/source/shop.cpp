@@ -3,12 +3,14 @@
 Shop::Shop()
 {
     randomCard = new Sprite("data/Card-Random.png", renderer->windowWidth - 65, 265, 2.0, 2.0, glm::vec2(0.5, 0));
-    restockShop = new Sprite("data/Card-Reshuffle.png", renderer->windowWidth - 65, 450, 1.5, 1.5, glm::vec2(0.5, 0));
+    restockShop = new Sprite("data/B_Restock.png", renderer->windowWidth - 65, 450, 0.5, 0.5, glm::vec2(0.5, 0));
 
-    costTextRandomCard = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
-    costTextRestockShop = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
-    nameTextRestockShop = new Text("Restock", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
-    nameTextRestockShop2 = new Text("Shop", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
+    costTextRandomCard      = new Text("Cost " + String(WildcardCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    randomCardText1         = new Text("Draw", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    randomCardText2         = new Text("Random", 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    costTextRestockShop     = new Text("Cost " + String(RestockShopCost), 0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    nameTextRestockShop     = new Text("Restock", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
+    nameTextRestockShop2    = new Text("Shop", 0, 0, 0.8, 0.8, glm::vec2(0.5, 0));
 
     isWhitesTurn     = true;
 
@@ -87,11 +89,20 @@ Shop::Shop()
     unshuffledDeckOfCards.Append(CreateRook());
     unshuffledDeckOfCards.Append(CreateRook());
 
+    obstacleCards.Append(CreateRock());
+    obstacleCards.Append(CreateRock());
+    obstacleCards.Append(CreateTree());
+    obstacleCards.Append(CreateTree());
+    obstacleCards.Append(CreateWater());
+    obstacleCards.Append(CreateWater());
+
     // Populize shop deck
     while (unshuffledDeckOfCards.Empty() == false)
     {
         shopItems.Push(unshuffledDeckOfCards.RemoveAt(random.RandomRange(0, unshuffledDeckOfCards.Size())));
     }
+
+    //
 
     StockShopFront();
 }
@@ -102,7 +113,7 @@ Piece* CreateKing()
                              "data/Piece-WhiteKing.png",
                              "data/Piece-BlackKing.png",
                              "Moves like a king in chess. Can move 1 tile in any direction.",
-                             200,
+                             130,
                              10,
                              "data/InfoboardWood_King.png",
                              1);
@@ -188,7 +199,7 @@ Piece* CreatePrince()
                              "data/Piece-BlackPrince.png",
                              "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                              90,
-                             6,
+                             4,
                              "data/InfoboardWood_Prince.png",
                              4,
                              "Jumping",
@@ -243,7 +254,7 @@ Piece* CreateShieldMan()
                              "data/Piece-WhiteShield.png",
                              "data/Piece-BlackShield.png",
                              "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
-                             50,
+                             70,
                              1,
                              "data/InfoboardWood_ShieldMan.png",
                              1);
@@ -353,7 +364,7 @@ Piece* CreateKnight()
                              "data/Piece-WhiteKnight.png",
                              "data/Piece-BlackKnight.png",
                              "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
-                             70,
+                             80,
                              2,
                              "data/InfoboardWood_Knight.png",
                              3,
@@ -389,7 +400,7 @@ Piece* CreatePeasant()
                              "data/Piece-WhitePeasant.png",
                              "data/Piece-BlackPeasant.png",
                              "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
-                             20,
+                             30,
                              0,
                              "data/InfoboardWood_Peasant.png",
                              1,
@@ -397,7 +408,6 @@ Piece* CreatePeasant()
 
     // Transform into Queen when reaching the other side of the board
     piece->transformedPiece = CreateQueen();
-
 
     piece->movePattern.Add(glm::vec2(0,1));
     piece->movePattern.Add(glm::vec2(1,1));
@@ -435,7 +445,7 @@ Piece* CreateHydra()
                              "data/Piece-WhiteHydra.png",
                              "data/Piece-BlackHydra.png",
                              "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
-                             80,
+                             40,
                              1,
                              "data/InfoboardWood_Hydra.png",
                              1,
@@ -502,7 +512,7 @@ Piece* CreateDeserter()
                              "data/Piece-WhiteDeserter.png",
                              "data/Piece-BlackDeserter.png",
                              "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
-                             70,
+                             90,
                              0,
                              "data/InfoboardWood_Deserter.png",
                              4,
@@ -534,15 +544,13 @@ Piece* CreateCannon()
                              "data/Piece-WhiteCannon.png",
                              "data/Piece-BlackCannon.png",
                              "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
-                             200,
+                             150,
                              1,
                              "data/InfoboardWood_Cannon.png",
                              1,
                              "Ranged",
                              true,
                              true);
-
-    // TODO: Add special ability
 
     piece->animatedForm = new Sprite("data/Sprite-CannonballWHITE.png", 0, 0, 0.4, 0.4);
 
@@ -564,6 +572,8 @@ Piece* CreateCannon()
     for (int i = 3; i < 10; ++i)
     {
         piece->captureOnlyMovePattern.Add(Capture(glm::vec2(0,i), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(i,0), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-i,0), glm::vec2()));
     }
 
     piece->canCapture = false;
@@ -595,23 +605,76 @@ Piece *CreateRook()
     return piece;
 }
 
-Piece* CreateRock()
+Piece *CreateRock()
 {
+    Piece* piece = new Piece("RockObs",
+                             "data/Piece-ObstacleROCK.png",
+                             "data/Piece-ObstacleROCK.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
+    piece->invinsible = true;
+
+    return piece;
 }
 
-Piece* CreateTree()
+Piece *CreateTree()
 {
+    Piece* piece = new Piece("TreeObs",
+                             "data/Piece-ObstacleTREE.png",
+                             "data/Piece-ObstacleTREE.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
+
+    piece->invinsible = true;
+
+    return piece;
 }
-Piece* CreateWater()
+
+Piece *CreateWater()
 {
+    Piece* piece = new Piece("WaterObs",
+                             "data/Piece-ObstacleWATER.png",
+                             "data/Piece-ObstacleWATER.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
+
+    piece->invinsible = true;
+
+    return piece;
 }
-Piece* CreateRiver()
+
+Piece *CreateRiver()
 {
+    Piece* piece = new Piece("RiverObs",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "data/Piece-ObstacleRIVERHORIZ.png",
+                             "Obstacle",
+                             0,
+                             0,
+                             "data/InfoboardWood_Cannon.png",
+                             0,
+                             "Grounded");
+
+    piece->invinsible = true;
+
+    return piece;
 }
 
 Piece* Shop::CreateRandomPiece()
 {
-    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
+    int randomNumber = random.RandomRange(PIECE_TYPES_QUANTITY-4, PIECE_TYPES_QUANTITY-1);
 
     Piece* piece = nullptr;
 
@@ -824,8 +887,14 @@ void Shop::Update()
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRandomCard->matrix.x = *randomCard->matrix.x;
-        *costTextRandomCard->matrix.y = *randomCard->matrix.y - 5;
+        *costTextRandomCard->matrix.y = *randomCard->matrix.y + 135;
+        *randomCardText1->matrix.x = *randomCard->matrix.x;
+        *randomCardText1->matrix.y = *randomCard->matrix.y - 5;
+        *randomCardText2->matrix.x = *randomCard->matrix.x;
+        *randomCardText2->matrix.y = *randomCard->matrix.y - 25;
         costTextRandomCard->Update();
+        randomCardText1->Update();
+        randomCardText2->Update();
     }
     if (randomCard->IsPressed() && shopItems.Empty() == false && !PopUpOpen)
     {
@@ -842,11 +911,11 @@ void Shop::Update()
     if (restockShop->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
     {
         *costTextRestockShop->matrix.x = *restockShop->matrix.x;
-        *costTextRestockShop->matrix.y = *restockShop->matrix.y - 5;
+        *costTextRestockShop->matrix.y = *restockShop->matrix.y + 90;
         *nameTextRestockShop->matrix.x = *restockShop->matrix.x;
-        *nameTextRestockShop->matrix.y = *restockShop->matrix.y + 40*1.75;
+        *nameTextRestockShop->matrix.y = *restockShop->matrix.y -50;
         *nameTextRestockShop2->matrix.x = *restockShop->matrix.x;
-        *nameTextRestockShop2->matrix.y = *restockShop->matrix.y + 55*1.75;
+        *nameTextRestockShop2->matrix.y = *restockShop->matrix.y - 25;
 
         costTextRestockShop->Update();
         nameTextRestockShop->Update();

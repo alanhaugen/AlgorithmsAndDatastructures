@@ -14,6 +14,7 @@ Tile::Tile()
 void Tile::Update()
 {
     sprite->Update();
+
     *moveDot->matrix.x = *sprite->matrix.x;
     *moveDot->matrix.y = *sprite->matrix.y;
     moveDot->Update();
@@ -21,6 +22,10 @@ void Tile::Update()
     *attackBorder->matrix.x = *sprite->matrix.x;
     *attackBorder->matrix.y = *sprite->matrix.y;
     attackBorder->Update();
+
+    *weightBorder->matrix.x = *sprite->matrix.x;
+    *weightBorder->matrix.y = *sprite->matrix.y;
+    weightBorder->Update();
 
     if (piece != nullptr)
     {

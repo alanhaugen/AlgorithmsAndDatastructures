@@ -18,7 +18,7 @@ void Player::Init(bool isWhite_)
     score    = 0;
     nobility = 0;
 
-    buttonReady = new Sprite("data/ButtonReady.png", 0.0f, 0.0f, 1.5f, 1.5f);
+    buttonReady = new Sprite("data/B_Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
     goldText    = new Text("");
 
     activePiece = nullptr;
@@ -27,17 +27,17 @@ void Player::Init(bool isWhite_)
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 46, 569, 1, 1, glm::vec2(0.5, 0));
-        goldText = new Text(String(gold), 130, 540);
+        nobilityText = new Text(String(nobility), 49, renderer->windowHeight - 227, 1, 1, glm::vec2(0.5, 0));
+        goldText = new Text(String(gold), 125, renderer->windowHeight - 135);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 22;
+        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 10;
     }
     else
     {
-        nobilityText = new Text(String(nobility), 46    , 175, 1, 1, glm::vec2(0.5, 0));
-        goldText = new Text(String(gold), 130, 140);
-        *buttonReady->matrix.y = 22;
+        nobilityText = new Text(String(nobility), 49    , 222, 1, 1, glm::vec2(0.5, 0));
+        goldText = new Text(String(gold), 125, 105);
+        *buttonReady->matrix.y = 10;
     }
 
     *buttonReady->matrix.x = renderer->windowWidth - 410;
@@ -96,15 +96,31 @@ void Player::UpdateGoldText()
     goldText->Update();
 }
 
+void Player::RescalePiecesPlacing()
+{
+    if(placingStarted == true)
+        return;
+
+    LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
+    for (; piece != NULL; ++piece)
+    {
+        (*piece)->icon->scaleX = 0.4;
+        (*piece)->icon->scaleY = 0.4;
+    }
+
+    placingStarted = true;
+}
+
 void Player::UpdateHand()
 {
     if (piecesInHand.Empty() == false)
     {
         int x = 180;
-        int y = 32;
-
+        int y = 16;
 
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
+
 
         if (isWhite)
         {
@@ -121,6 +137,27 @@ void Player::UpdateHand()
 
             x += (*piece)->icon->width * (*piece)->icon->scaleX;
 
+            if(placingStarted == false)
+            {
+                if(piecesInHand.count > 15 && piecesInHand.count <=  21)
+                {
+                    if((*piece)->icon->scaleX >= 0.4)
+                    {
+                        (*piece)->icon->scaleX = 0.3;
+                        (*piece)->icon->scaleY = 0.3;
+                    }
+                }
+                if(piecesInHand.count > 20)
+                {
+                    if((*piece)->icon->scaleX >= 0.3)
+                    {
+                        (*piece)->icon->scaleX = 0.25;
+                        (*piece)->icon->scaleY = 0.25;
+                    }
+                }
+            }
+
+
 //            if (piecesInHand.count > 15)
 //            {
 //                y += 30;
@@ -130,7 +167,7 @@ void Player::UpdateHand()
     }
 }
 
-Array<Move> Player::GetAllPossibleMoves(Board* gameBoard)
+Array<Move> Player::GetAllPossibleMoves(Board* gameBoard, bool isFirstMove)
 {
     moves.Clear();
 
@@ -143,7 +180,7 @@ Array<Move> Player::GetAllPossibleMoves(Board* gameBoard)
         {
             if ((*tile).piece->isWhite == isWhite)
             {
-                moves += gameBoard->UpdateDots(&(*tile), false);
+                moves += gameBoard->UpdateDots(&(*tile), false, false, isFirstMove == false);
             }
         }
     }
@@ -190,12 +227,17 @@ void Player::Update()
     goldText->Update();
 }
 
-Move Player::GetNextMove(Board *gameBoard)
+Move Player::GetNextMove(Board *gameBoard, bool isFirstMove)
 {
     // Check what the user has clicked on the game board
     if (input.Mouse.Pressed)
     {
-        Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
+        bool deselect = false;
+        if(clickedTile != nullptr && clickedTile->piece != activePiece)
+        {
+            deselect = true;
+        }
+        clickedTile = gameBoard->GetBoardTileUnderMouse();
 
         // IF the user has not selected anything, return without a move
         if (clickedTile == nullptr)
@@ -214,7 +256,7 @@ Move Player::GetNextMove(Board *gameBoard)
             {
                 activePiece = clickedTile->piece;
                 gameBoard->HideDots();
-                gameBoard->UpdateDots(clickedTile, true);
+                gameBoard->UpdateDots(clickedTile, true, false, isFirstMove == false);
             }
             else
             {
@@ -229,10 +271,10 @@ Move Player::GetNextMove(Board *gameBoard)
         }
 
         // Try to make a move
-        if (activePiece != nullptr)
+        if (activePiece != nullptr && deselect == false)
         {
             // Make a list of all the possible moves
-            GetAllPossibleMoves(gameBoard);
+            GetAllPossibleMoves(gameBoard, isFirstMove);
 
             // Check if the move is in the list of possible moves
             for (unsigned int i = 0; i < moves.Size(); i++)

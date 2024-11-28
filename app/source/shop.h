@@ -38,14 +38,15 @@ public:
     Stack<Piece*> shopItems;
 
     LinkedList<Piece*> unshuffledDeckOfCards;
+    LinkedList<Piece*> obstacleCards;
 
     bool isWhitesTurn;
 
     bool PopUpOpen = false;
 
-    const int WildcardCost = 100;
+    const int WildcardCost = 80;
 
-    const int RestockShopCost = 50;
+    const int RestockShopCost = 30;
     const bool RestockShopNextPlayer = true;
 
     LinkedList<Piece*> itemsStoreFront;
@@ -58,6 +59,8 @@ public:
     Text* nameTextRestockShop;
     Text* nameTextRestockShop2;
     Text* costTextRandomCard;
+    Text* randomCardText1;
+    Text* randomCardText2;
     Piece* activePiece   = nullptr;
 
 

@@ -14,7 +14,7 @@ private:
 public:
     AIPlayer(bool isWhite = false);
     Array<Move> GetAllPossibleMoves(Board* gameBoard);
-    Move GetNextMove(Board* gameBoard, Player* opponent = nullptr);
+    Move GetNextMove(Board* gameBoard, Player* opponent = nullptr, bool isFirstMove = false);
 
     ITime* thinkingTimer;
 };

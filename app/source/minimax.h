@@ -42,7 +42,7 @@ public:
     // The job of a heuristic function is to look at a move in a game and evaluate if it is a good move or a bad move.
     // Source: Ron Penton, Data Structures for Games Programmers (2003)
     int CalculateMiniMaxValue(Board *gameBoard, Move move);
-    Move FindBestMove(Player* min, Player* max, Board* gameBoard, int depth);
+    Move FindBestMove(Player* min, Player* max, Board* gameBoard, int depth, bool isFirstMove);
     void AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player, int depth);
 };
 

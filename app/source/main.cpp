@@ -11,6 +11,7 @@ bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 LinkedList<GameSettings*> Presets;
+bool isFullscreen = true;
 
 #ifdef WIN32
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window

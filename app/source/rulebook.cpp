@@ -14,7 +14,7 @@ Rulebook::Rulebook(bool isMenu_)
     }
     else
     {
-        openPopUp = new Sprite("data/SPRITE-RulebookPNG.png", 50, renderer->windowHeight - 10, 1.2, 1.2, glm::vec2(0.5, 1));
+        openPopUp = new Sprite("data/SPRITE-RulebookPNG.png", 70, renderer->windowHeight - 10, 1.2, 1.2, glm::vec2(0.5, 1));
         createClosePopUp();
 
         hoverText = new Text("Rulebook", 0, 0, 0.7, 0.7, glm::vec2(0.5, 1));
@@ -23,8 +23,8 @@ Rulebook::Rulebook(bool isMenu_)
         *hoverText->matrix.y = *openPopUp->matrix.y - 70;
     }
 
-    leftArrow  = new Sprite("data/Rulebook-Arrow.png", 50, renderer->windowHeight / 2, 1, 1, glm::vec2(0, 0.5));
-    rightArrow = new Sprite("data/Rulebook-Arrow.png", renderer->windowWidth - 50, renderer->windowHeight / 2, 1, 1, glm::vec2(1, 0.5));
+    leftArrow  = new Sprite("data/B_ArrowLEFT.png", 250, renderer->windowHeight - 135, 1, 1, glm::vec2(0, 0.5));
+    rightArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 220, renderer->windowHeight - 135, 1, 1, glm::vec2(1, 0.5));
     rightArrow->FlipHorizontal();
 
     //I don't like this ...  :(

@@ -35,6 +35,9 @@ public:
     Rulebook* rules;
     Settings* settings;
 
+    Sprite* volumeControl;
+    bool isMuted = false;
+
     LinkedList<Move> history;
     Stack<Text*> topPreviousMoves;
     Array<Move> moves;
@@ -73,6 +76,8 @@ public:
 
     Sprite* whitePiecesBanner;
     Sprite* blackPiecesBanner;
+    Sprite* goldBackground;
+    Sprite* goldBackground2;
 
     Sprite* nobilityIcon1;
     Sprite* nobilityIcon2;
@@ -81,10 +86,12 @@ public:
     Sprite* yellowBanner;
     Sprite* turnsLeftBanner;
     Sprite* victoryBanner;
+    Sprite* victoryBanner2;
     Sprite* returnToMainMenu;
     Sprite* watchReplay;
     Sprite* autoPlacePieces;
     Sprite* autoPlaceAllPieces;
+    Sprite* autoPlaceObstacles;
 
     Sprite* background;
 
@@ -93,6 +100,7 @@ public:
     Array<Player*> players;
     Player* white;
     Player* black;
+    Player* firstPlayer;
     Player* activePlayer;
     Player* opponentPlayer;
 

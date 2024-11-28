@@ -25,6 +25,8 @@ void ReplayScene::NextMove()
 
         index++;
     }
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::LastMove()
@@ -42,6 +44,8 @@ void ReplayScene::LastMove()
         --move;
         index--;
     }
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::Init()
@@ -61,28 +65,34 @@ void ReplayScene::Init()
     white   = new Player(true);
     black   = new Player(false);
 
-    blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
-    yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
+    blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
+    yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
-    leftArrow = new Sprite("data/arrow.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
-    leftArrow->FlipHorizontal();
-    rightArrow = new Sprite("data/arrow.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
+    leftArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
+
+    rightArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
+    rightArrow->FlipHorizontal();
 
     backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
 
     rules = new Rulebook(false);
     settings = new Settings();
 
-    nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
-    nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
+    nobilityIcon1       = new Sprite("data/NobilityIcon.png", 32, 190, 0.25, 0.25);
+    nobilityIcon2       = new Sprite("data/NobilityIcon.png", 32, renderer->windowHeight - 260, 0.25, 0.25);
+    whiteNobilityText   = new Text("White Player Nobility", 0, 0, 0.7, 0.7, glm::vec2(0.2, 0.5));
+    blackNobilityText   = new Text("Black Player Nobility", 0, 0, 0.7, 0.7, glm::vec2(0.2, 0.5));
+
 
     index = 0;
     cursor = new Cursor();
 
     white->RecalculateNobility(gameBoard);
     black->RecalculateNobility(gameBoard);
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::Update()

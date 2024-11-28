@@ -9,7 +9,7 @@ AIPlayer::AIPlayer(bool isWhite)
 
 // In order to choose the best possible move,
 // we have to consider the game from our opponents perspective
-Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent)
+Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent, bool isFirstMove)
 {
     // Wait about a second before making a move
     if (thinkingTimer->TimeSinceStarted() < 900.0f)
@@ -26,7 +26,7 @@ Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent)
     }
 
     // Get best move
-    return minimax.FindBestMove(this, opponent, gameBoard, Depth);
+    return minimax.FindBestMove(this, opponent, gameBoard, Depth, isFirstMove);
 
     // Do a random move
     //Player::GetAllPossibleMoves(gameBoard);

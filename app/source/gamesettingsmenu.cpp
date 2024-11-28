@@ -3,38 +3,39 @@
 
 extern LinkedList<GameSettings*> Presets;
 
+GameSettingsMenu::GameSettingsMenu()
+{
+    if (Presets.Empty())
+    {
+        Presets.Append(new GameSettings());
+    }
+
+    createBackground();
+    isOpen = true;
+
+    CreateNewSettings  = new Sprite("data/Rules-Page3.png", renderer->windowWidth/2, 160, 0.2, 0.2, glm::vec2(0.5, 0));
+    GameSettingsNumber = new Text("Game Settings " + String(index), renderer->windowWidth/2, 130, 1, 1, glm::vec2(0.5, 0));
+    AddGold = new Sprite("data/arrow.png", renderer->windowWidth/2, 300, 0.7, 0.7, glm::vec2(0.5, 0));
+}
+
 void GameSettingsMenu::Update()
 {
     PopUp::Update();
-
-
-
-    if(GameSettingsNumber != nullptr)
-    {
-        delete GameSettingsNumber;
-    }
-    GameSettingsNumber = new Text("Game Settings " + String(index), renderer->windowWidth/2, 130, 1, 1, glm::vec2(0.5, 0));
     GameSettingsNumber->Update();
-
     CreateNewSettings->Update();
     AddGold->Update();
     if(CreateNewSettings->IsPressed() == true)
     {
         Presets.Append(new GameSettings());
         index++;
+
         Log(String(Presets.count));
+        if (GameSettingsNumber != nullptr)
+        {
+            delete GameSettingsNumber;
+        }
+
+        GameSettingsNumber = new Text("Game Settings " + String(index), renderer->windowWidth/2, 130, 1, 1, glm::vec2(0.5, 0));
+
     }
-}
-
-GameSettingsMenu::GameSettingsMenu() {
-    if(Presets.Empty())
-    {
-        Presets.Append(new GameSettings());
-    }
-    createBackground();
-    isOpen = true;
-
-    CreateNewSettings = new Sprite("data/Rules-Page3.png", renderer->windowWidth/2, 160, 0.2, 0.2, glm::vec2(0.5, 0));
-    AddGold = new Sprite("data/arrow.png", renderer->windowWidth/2, 300, 0.7, 0.7, glm::vec2(0.5, 0));
-
 }
