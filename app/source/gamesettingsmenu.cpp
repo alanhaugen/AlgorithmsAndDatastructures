@@ -15,6 +15,7 @@ GameSettingsMenu::GameSettingsMenu()
 
     CreateNewSettings  = new Sprite("data/Rules-Page3.png", renderer->windowWidth/2, 160, 0.2, 0.2, glm::vec2(0.5, 0));
     GameSettingsNumber = new Text("Game Settings " + String(index), renderer->windowWidth/2, 130, 1, 1, glm::vec2(0.5, 0));
+    AddGold = new Sprite("data/arrow.png", renderer->windowWidth/2, 300, 0.7, 0.7, glm::vec2(0.5, 0));
 }
 
 void GameSettingsMenu::Update()
@@ -22,7 +23,7 @@ void GameSettingsMenu::Update()
     PopUp::Update();
     GameSettingsNumber->Update();
     CreateNewSettings->Update();
-
+    AddGold->Update();
     if(CreateNewSettings->IsPressed() == true)
     {
         Presets.Append(new GameSettings());
