@@ -232,7 +232,12 @@ Move Player::GetNextMove(Board *gameBoard)
     // Check what the user has clicked on the game board
     if (input.Mouse.Pressed)
     {
-        Tile* clickedTile = gameBoard->GetBoardTileUnderMouse();
+        bool deselect = false;
+        if(clickedTile != nullptr && clickedTile->piece != activePiece)
+        {
+            deselect = true;
+        }
+        clickedTile = gameBoard->GetBoardTileUnderMouse();
 
         // IF the user has not selected anything, return without a move
         if (clickedTile == nullptr)
@@ -266,7 +271,7 @@ Move Player::GetNextMove(Board *gameBoard)
         }
 
         // Try to make a move
-        if (activePiece != nullptr)
+        if (activePiece != nullptr && deselect == false)
         {
             // Make a list of all the possible moves
             GetAllPossibleMoves(gameBoard);

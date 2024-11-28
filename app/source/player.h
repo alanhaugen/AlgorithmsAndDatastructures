@@ -28,6 +28,8 @@ public:
     Array<Move> moves;
     int nobility;
 
+    Tile* clickedTile = nullptr;
+
     Player();
     Player(bool isWhitePlayer);
 
