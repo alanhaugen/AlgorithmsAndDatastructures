@@ -616,6 +616,7 @@ Piece *CreateRock()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+    piece->invinsible = true;
 
     return piece;
 }
@@ -632,6 +633,8 @@ Piece *CreateTree()
                              0,
                              "Grounded");
 
+    piece->invinsible = true;
+
     return piece;
 }
 
@@ -647,6 +650,8 @@ Piece *CreateWater()
                              0,
                              "Grounded");
 
+    piece->invinsible = true;
+
     return piece;
 }
 
@@ -661,6 +666,8 @@ Piece *CreateRiver()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+
+    piece->invinsible = true;
 
     return piece;
 }
