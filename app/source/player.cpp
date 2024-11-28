@@ -31,13 +31,13 @@ void Player::Init(bool isWhite_)
         goldText = new Text(String(gold), 125, renderer->windowHeight - 135);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 22;
+        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 10;
     }
     else
     {
         nobilityText = new Text(String(nobility), 49    , 222, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 125, 105);
-        *buttonReady->matrix.y = 22;
+        *buttonReady->matrix.y = 10;
     }
 
     *buttonReady->matrix.x = renderer->windowWidth - 410;
@@ -117,7 +117,7 @@ void Player::UpdateHand()
     if (piecesInHand.Empty() == false)
     {
         int x = 180;
-        int y = 32;
+        int y = 16;
 
         LinkedList<Piece*>::Iterator piece = piecesInHand.Begin();
 

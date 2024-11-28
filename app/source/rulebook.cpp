@@ -14,7 +14,7 @@ Rulebook::Rulebook(bool isMenu_)
     }
     else
     {
-        openPopUp = new Sprite("data/SPRITE-RulebookPNG.png", 50, renderer->windowHeight - 10, 1.2, 1.2, glm::vec2(0.5, 1));
+        openPopUp = new Sprite("data/SPRITE-RulebookPNG.png", 70, renderer->windowHeight - 10, 1.2, 1.2, glm::vec2(0.5, 1));
         createClosePopUp();
 
         hoverText = new Text("Rulebook", 0, 0, 0.7, 0.7, glm::vec2(0.5, 1));

@@ -44,9 +44,9 @@ public:
 
     bool PopUpOpen = false;
 
-    const int WildcardCost = 100;
+    const int WildcardCost = 80;
 
-    const int RestockShopCost = 50;
+    const int RestockShopCost = 30;
     const bool RestockShopNextPlayer = true;
 
     LinkedList<Piece*> itemsStoreFront;
