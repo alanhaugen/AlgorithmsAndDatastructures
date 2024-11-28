@@ -89,11 +89,20 @@ Shop::Shop()
     unshuffledDeckOfCards.Append(CreateRook());
     unshuffledDeckOfCards.Append(CreateRook());
 
+    obstacleCards.Append(CreateRock());
+    obstacleCards.Append(CreateRock());
+    obstacleCards.Append(CreateTree());
+    obstacleCards.Append(CreateTree());
+    obstacleCards.Append(CreateWater());
+    obstacleCards.Append(CreateWater());
+
     // Populize shop deck
     while (unshuffledDeckOfCards.Empty() == false)
     {
         shopItems.Push(unshuffledDeckOfCards.RemoveAt(random.RandomRange(0, unshuffledDeckOfCards.Size())));
     }
+
+    //
 
     StockShopFront();
 }
@@ -563,6 +572,8 @@ Piece* CreateCannon()
     for (int i = 3; i < 10; ++i)
     {
         piece->captureOnlyMovePattern.Add(Capture(glm::vec2(0,i), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(i,0), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-i,0), glm::vec2()));
     }
 
     piece->canCapture = false;
@@ -594,9 +605,9 @@ Piece *CreateRook()
     return piece;
 }
 
-Piece* CreateRock()
+Piece *CreateRock()
 {
-    Piece* piece = new Piece("Rook",
+    Piece* piece = new Piece("RockObs",
                              "data/Piece-ObstacleROCK.png",
                              "data/Piece-ObstacleROCK.png",
                              "Obstacle",
@@ -605,11 +616,13 @@ Piece* CreateRock()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+
+    return piece;
 }
 
-Piece* CreateTree()
+Piece *CreateTree()
 {
-    Piece* piece = new Piece("Rook",
+    Piece* piece = new Piece("TreeObs",
                              "data/Piece-ObstacleTREE.png",
                              "data/Piece-ObstacleTREE.png",
                              "Obstacle",
@@ -618,11 +631,13 @@ Piece* CreateTree()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+
+    return piece;
 }
 
-Piece* CreateWater()
+Piece *CreateWater()
 {
-    Piece* piece = new Piece("Rook",
+    Piece* piece = new Piece("WaterObs",
                              "data/Piece-ObstacleWATER.png",
                              "data/Piece-ObstacleWATER.png",
                              "Obstacle",
@@ -631,11 +646,13 @@ Piece* CreateWater()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+
+    return piece;
 }
 
-Piece* CreateRiver()
+Piece *CreateRiver()
 {
-    Piece* piece = new Piece("Rook",
+    Piece* piece = new Piece("RiverObs",
                              "data/Piece-ObstacleRIVERHORIZ.png",
                              "data/Piece-ObstacleRIVERHORIZ.png",
                              "Obstacle",
@@ -644,11 +661,13 @@ Piece* CreateRiver()
                              "data/InfoboardWood_Cannon.png",
                              0,
                              "Grounded");
+
+    return piece;
 }
 
 Piece* Shop::CreateRandomPiece()
 {
-    int randomNumber = random.RandomRange(0, PIECE_TYPES_QUANTITY);
+    int randomNumber = random.RandomRange(PIECE_TYPES_QUANTITY-4, PIECE_TYPES_QUANTITY-1);
 
     Piece* piece = nullptr;
 

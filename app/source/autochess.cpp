@@ -88,6 +88,7 @@ void Autochess::Init()
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     autoPlacePieces     = new Sprite("data/B_Autoplace.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     autoPlaceAllPieces  = new Sprite("data/B_AutoplaceAll.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
+    autoPlaceObstacles  = new Sprite("data/B_PlaceObstacles.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)+100, 0.5, 0.5);
     shop                = new Shop();
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
@@ -441,6 +442,10 @@ void Autochess::UpdatePlacing()
     gameBoard->highlight->Hide();
     autoPlacePieces->Update();
     autoPlaceAllPieces->Update();
+    if (shop->obstacleCards.Empty() != true)
+    {
+        autoPlaceObstacles->Update();
+    }
 
     white->RescalePiecesPlacing();
     black->RescalePiecesPlacing();
@@ -472,7 +477,7 @@ void Autochess::UpdatePlacing()
             Tile*tile = nullptr;
             while (tile == nullptr)
             {
-                tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(6,9));
+                tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(6,9));
                 if (tile->piece != nullptr)
                 {
                     tile = nullptr;
@@ -491,6 +496,46 @@ void Autochess::UpdatePlacing()
     {
 
     }*/
+
+    if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true)
+    {
+
+        for (int i = 0; i < 6; i++)
+        {
+            activePiece = *shop->obstacleCards.Begin();
+            Tile*tile = nullptr;
+            while (tile == nullptr && shop->obstacleCards.Empty() != true)
+            {
+                //tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(0,9));
+
+
+                if (shop->obstacleCards.count > 3)
+                {
+                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(0,4));
+                }
+                else
+                {
+                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(5,9));
+                }
+
+
+                if (tile->piece != nullptr)
+                {
+                    tile = nullptr;
+                    continue;
+                }
+
+                SetTile(tile);
+                shop->obstacleCards.RemoveAt(0);
+                activePiece = nullptr;
+                replay.Append(Move(tile->piece, tile, true));
+            }
+
+
+        }
+
+    }
+
 
     if (activePlayer->activePiece != nullptr)
     {

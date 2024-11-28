@@ -25,12 +25,10 @@ Piece* CreateCannon();
 Piece* CreateShieldMan();
 Piece* CreateFence();
 Piece* CreateRook();
-/*
 Piece* CreateRock();
 Piece* CreateTree();
 Piece* CreateWater();
 Piece* CreateRiver();
-*/
 
 class Shop : public Component
 {
@@ -40,6 +38,7 @@ public:
     Stack<Piece*> shopItems;
 
     LinkedList<Piece*> unshuffledDeckOfCards;
+    LinkedList<Piece*> obstacleCards;
 
     bool isWhitesTurn;
 
