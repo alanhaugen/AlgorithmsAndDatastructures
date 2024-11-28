@@ -511,11 +511,11 @@ void Autochess::UpdatePlacing()
 
                 if (shop->obstacleCards.count > 3)
                 {
-                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(0,4));
+                    tile = gameBoard->GetTile(random.RandomRange(1,8), random.RandomRange(1,4));
                 }
                 else
                 {
-                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(5,9));
+                    tile = gameBoard->GetTile(random.RandomRange(1,8), random.RandomRange(5,8));
                 }
 
 
