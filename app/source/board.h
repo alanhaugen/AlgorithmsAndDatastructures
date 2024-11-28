@@ -25,7 +25,7 @@ public:
 
     Array<Move> JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly);
     Array<Move> DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly);
-    Array<Move> QueenMoves(Tile* tile, int left, int up, bool showDot);
+    Array<Move> SimpleMoves(Tile* tile, int left, int up, bool showDot, int length = 10);
 
     void Init();
     void Update();
