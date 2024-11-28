@@ -91,6 +91,7 @@ public:
     Sprite* watchReplay;
     Sprite* autoPlacePieces;
     Sprite* autoPlaceAllPieces;
+    Sprite* autoPlaceObstacles;
 
     Sprite* background;
 
