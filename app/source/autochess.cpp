@@ -623,7 +623,7 @@ void Autochess::UpdatePlaying()
     // If casting fails => the player is human. Update human player
     else
     {
-        nextMove = activePlayer->GetNextMove(gameBoard);
+        nextMove = activePlayer->GetNextMove(gameBoard, MovesTotal == (MovesTotal - movesCompleted));
     }
 
     // Do the next move

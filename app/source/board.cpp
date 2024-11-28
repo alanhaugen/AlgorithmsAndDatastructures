@@ -84,7 +84,7 @@ void Board::HideDots()
     }
 }
 
-Array<Move> Board::JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly)
+Array<Move> Board::JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly, bool isRangedAttacksLegal)
 {
     int x = tile->x;
     int y = tile->y;
@@ -137,6 +137,11 @@ Array<Move> Board::JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly)
         }
         for (unsigned int i = 0; i < capturePattern.Size(); i++)
         {
+            if (isRangedAttacksLegal == false)
+            {
+                continue;
+            }
+
             if ((*node).x == x + capturePattern[i].capture.x && (*node).y == y + (yDirectionInvert * capturePattern[i].capture.y))
             {
                 if ((*node).piece != nullptr)
@@ -443,7 +448,6 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
                                             attackTile3 = GetTile((*node).x, (*node).y + 1);
                                         }
 
-
                                         if (attackTile2 != nullptr && attackTile2->piece == nullptr)
                                         {
                                             attackTile2 = nullptr;
@@ -584,7 +588,7 @@ Array<Move> Board::SimpleMoves(Tile* tile, int left, int up, bool showDot, int l
     return moves;
 }
 
-Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
+Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly, bool isRangedAttacksLegal)
 {
     Array<glm::vec2> pattern = tile->piece->movePattern;
     Array<Capture> capturePattern = tile->piece->captureOnlyMovePattern;
@@ -632,7 +636,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
     if (tile->piece->isJumping)
     {
-        return JumpingMoves(tile, showDot, isCaptureOnly);
+        return JumpingMoves(tile, showDot, isCaptureOnly, isRangedAttacksLegal);
     }
 
     if (tile->piece->name == String("Queen"))

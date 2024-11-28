@@ -44,7 +44,7 @@ int Minimax::CalculateMiniMaxValue(Board* gameBoard, Move move)
     return nobility;
 }
 
-Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth)
+Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth, bool isFirstMove)
 {
     gameTree.Clear();
 

@@ -41,7 +41,7 @@ public:
     Array<Move> GetAllPossibleMoves(Board* gameBoard);
 
     void Update();
-    Move GetNextMove(Board* gameBoard);
+    Move GetNextMove(Board* gameBoard, bool isFirstMove = true);
     void RescalePiecesPlacing();
 };
 

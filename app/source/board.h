@@ -19,11 +19,11 @@ public:
 
     void GenerateTiles();
     void HideDots();
-    Array<Move> UpdateDots(Tile *tile, bool showDot = true, bool isCaptureOnly = false);
+    Array<Move> UpdateDots(Tile *tile, bool showDot = true, bool isCaptureOnly = false, bool isRangedAttacksLegal = true);
     Tile* GetTile(int x, int y);
     Tile* GetBoardTileUnderMouse();
 
-    Array<Move> JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly);
+    Array<Move> JumpingMoves(Tile* tile, bool showDot, bool isCaptureOnly, bool isRangedAttacksLegal);
     Array<Move> DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly);
     Array<Move> SimpleMoves(Tile* tile, int left, int up, bool showDot, int length = 10);
 

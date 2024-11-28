@@ -227,7 +227,7 @@ void Player::Update()
     goldText->Update();
 }
 
-Move Player::GetNextMove(Board *gameBoard)
+Move Player::GetNextMove(Board *gameBoard, bool isFirstMove)
 {
     // Check what the user has clicked on the game board
     if (input.Mouse.Pressed)
@@ -256,7 +256,7 @@ Move Player::GetNextMove(Board *gameBoard)
             {
                 activePiece = clickedTile->piece;
                 gameBoard->HideDots();
-                gameBoard->UpdateDots(clickedTile, true);
+                gameBoard->UpdateDots(clickedTile, true, false, isFirstMove == false);
             }
             else
             {
