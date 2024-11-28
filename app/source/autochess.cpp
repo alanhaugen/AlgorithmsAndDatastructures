@@ -105,15 +105,15 @@ void Autochess::Init()
             break;
 
         case 1:
-            audio->PlaySound("data/Music-02.wav");
+            audio->PlaySound("data/sound-theme02.wav");
             break;
 
         case 2:
-            audio->PlaySound("data/Music-03.wav");
+            audio->PlaySound("data/sound-theme03.wav");
             break;
 
         case 3:
-            audio->PlaySound("data/Music-Battle.wav");
+            audio->PlaySound("data/sound-battleTheme01.wav");
             break;
         }
     }*/
