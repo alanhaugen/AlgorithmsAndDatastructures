@@ -93,11 +93,31 @@ void Autochess::Init()
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
 
-
+    /*
     if (isMuted == false)
     {
-        audio->PlaySound("data/Music-BackgroupTheme01.wav");
-    }
+        int randomNumber = random.RandomRange(0, 4);
+
+        switch(randomNumber)
+        {
+        case 0:
+            audio->PlaySound("data/Music-BackgroupTheme01.wav");
+            break;
+
+        case 1:
+            audio->PlaySound("data/Music-02.wav");
+            break;
+
+        case 2:
+            audio->PlaySound("data/Music-03.wav");
+            break;
+
+        case 3:
+            audio->PlaySound("data/Music-Battle.wav");
+            break;
+        }
+    }*/
+
 
 
     // Player vs Player
