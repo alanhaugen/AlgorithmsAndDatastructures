@@ -227,7 +227,7 @@ void Autochess::Init()
     components.Add(cursor);
 
     audio->Stop();
-    audio->PlaySound("data/Music-BackgroupTheme01.wav");
+    audio->PlaySound("data/sound-theme01.wav");
 }
 
 void Autochess::SetTile(Tile* tile)

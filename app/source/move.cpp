@@ -1,3 +1,4 @@
+#include <core/application.h>
 #include "move.h"
 #include "piece.h"
 
@@ -55,6 +56,9 @@ void Move::Update()
 
 void Move::Execute()
 {
+    Application::audio->Stop();
+    Application::audio->PlaySound("data/sound-piecePlacement.wav");
+
     if (captureTile1 != nullptr)
     {
         captureTile1->piece = nullptr;
