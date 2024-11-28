@@ -9,6 +9,7 @@ class GameSettingsMenu : public PopUp
 public:
 
     Sprite* CreateNewSettings;
+    Sprite*  AddGold;
     GameSettings* CurrentSettings;
     int index = 0;
     Text* GameSettingsNumber = nullptr;
