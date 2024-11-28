@@ -442,6 +442,7 @@ void Autochess::UpdatePlacing()
     gameBoard->highlight->Hide();
     autoPlacePieces->Update();
     autoPlaceAllPieces->Update();
+
     if (shop->obstacleCards.Empty() != true)
     {
         autoPlaceObstacles->Update();
@@ -450,9 +451,10 @@ void Autochess::UpdatePlacing()
     white->RescalePiecesPlacing();
     black->RescalePiecesPlacing();
 
-    // Auto Place Pieces, activePlayer should be defined
+    //Auto Place One Piece at the time
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
     {
+
         if (activePlayer->isWhite == true)
         {
             activePiece = *activePlayer->piecesInHand.Begin();
@@ -465,12 +467,14 @@ void Autochess::UpdatePlacing()
                     tile = nullptr;
                 }
             }
+
             SetTile(tile);
             activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
             activePlayer->activePiece = nullptr;
             replay.Append(Move(tile->piece, tile, true));
             NextPlayer();
         }
+
         else
         {
             activePiece = *activePlayer->piecesInHand.Begin();
@@ -483,19 +487,65 @@ void Autochess::UpdatePlacing()
                     tile = nullptr;
                 }
             }
+
             SetTile(tile);
-            activePlayer->piecesInHand.Remove(activePlayer->activePiece->listNode);
+            activePlayer->piecesInHand.RemoveAt(0);
             activePlayer->activePiece = nullptr;
             replay.Append(Move(tile->piece, tile, true));
             NextPlayer();
         }
     }
 
-    /*
+    //Auto Place All Pieces
     if (autoPlaceAllPieces->IsPressed() && !PopUpOpen)
     {
+        int total = white->piecesInHand.Size() + black->piecesInHand.Size();
 
-    }*/
+        for (int i = 0; i < total; i++)
+        {
+            while (activePlayer->isWhite == true && activePlayer->piecesInHand.Empty() != true)
+            {
+                activePiece = *activePlayer->piecesInHand.Begin();
+                Tile*tile = nullptr;
+                while (tile == nullptr)
+                    {
+                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
+                        if (tile->piece != nullptr)
+                        {
+                            tile = nullptr;
+                        }
+                    }
+                SetTile(tile);
+                activePlayer->piecesInHand.RemoveAt(0);
+                activePlayer->activePiece = nullptr;
+                replay.Append(Move(tile->piece, tile, true));
+                total++;
+                //NextPlayer();
+            }
+            NextPlayer();
+
+            while (activePlayer->isWhite != true && activePlayer->piecesInHand.Empty() != true)
+            {
+                activePiece = *activePlayer->piecesInHand.Begin();
+                Tile*tile = nullptr;
+                while (tile == nullptr)
+                {
+                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(6,9));
+                    if (tile->piece != nullptr)
+                    {
+                        tile = nullptr;
+                    }
+                }
+                SetTile(tile);
+                activePlayer->piecesInHand.RemoveAt(0);
+                activePlayer->activePiece = nullptr;
+                replay.Append(Move(tile->piece, tile, true));
+                total++;
+                //NextPlayer();
+            }
+
+        }
+    }
 
     if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true)
     {
