@@ -527,14 +527,14 @@ Array<Move> Board::DijkstraMoves(Tile* tile, bool showDot, bool isCaptureOnly)
     return moves;
 }
 
-Array<Move> Board::QueenMoves(Tile* tile, int left, int up, bool showDot)
+Array<Move> Board::SimpleMoves(Tile* tile, int left, int up, bool showDot, int length)
 {
     Array<Move> moves;
 
     int x = tile->x;
     int y = tile->y;
 
-    for (int i = 1; i < 10; i++)
+    for (int i = 1; i < length; i++)
     {
         Tile* searchTile = GetTile(x + (i * left), y + (i * up));
 
@@ -637,14 +637,25 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly)
 
     if (tile->piece->name == String("Queen"))
     {
-        moves += QueenMoves(tile,  1, 0, showDot);
-        moves += QueenMoves(tile, -1, 0, showDot);
-        moves += QueenMoves(tile, 0,  1, showDot);
-        moves += QueenMoves(tile, 0, -1, showDot);
-        moves += QueenMoves(tile, 1,  1, showDot);
-        moves += QueenMoves(tile,-1, -1, showDot);
-        moves += QueenMoves(tile,-1,  1, showDot);
-        moves += QueenMoves(tile, 1, -1, showDot);
+        moves += SimpleMoves(tile,  1, 0, showDot);
+        moves += SimpleMoves(tile, -1, 0, showDot);
+        moves += SimpleMoves(tile, 0,  1, showDot);
+        moves += SimpleMoves(tile, 0, -1, showDot);
+        moves += SimpleMoves(tile, 1,  1, showDot);
+        moves += SimpleMoves(tile,-1, -1, showDot);
+        moves += SimpleMoves(tile,-1,  1, showDot);
+        moves += SimpleMoves(tile, 1, -1, showDot);
+    }
+    else if (tile->piece->name == String("Rogue"))
+    {
+        moves += SimpleMoves(tile,  1, 0, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, -1, 0, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 0,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 0, -1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 1,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile,-1, -1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile,-1,  1, showDot, tile->piece->range + 1);
+        moves += SimpleMoves(tile, 1, -1, showDot, tile->piece->range + 1);
     }
     else
     {

@@ -572,6 +572,8 @@ Piece* CreateCannon()
     for (int i = 3; i < 10; ++i)
     {
         piece->captureOnlyMovePattern.Add(Capture(glm::vec2(0,i), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(i,0), glm::vec2()));
+        piece->captureOnlyMovePattern.Add(Capture(glm::vec2(-i,0), glm::vec2()));
     }
 
     piece->canCapture = false;

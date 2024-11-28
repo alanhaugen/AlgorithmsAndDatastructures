@@ -25,6 +25,8 @@ void ReplayScene::NextMove()
 
         index++;
     }
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::LastMove()
@@ -42,6 +44,8 @@ void ReplayScene::LastMove()
         --move;
         index--;
     }
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::Init()
@@ -84,6 +88,8 @@ void ReplayScene::Init()
 
     white->RecalculateNobility(gameBoard);
     black->RecalculateNobility(gameBoard);
+
+    gameBoard->HideDots();
 }
 
 void ReplayScene::Update()
