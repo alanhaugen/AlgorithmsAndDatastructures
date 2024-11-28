@@ -50,10 +50,10 @@ void ReplayScene::LastMove()
 
 void ReplayScene::Init()
 {
-    move = replay.Begin();
+    move            = replay.Begin();
 
-    gameBoard = (*move).gameBoard;
-    background = (*move).background;
+    gameBoard       = (*move).gameBoard;
+    background      = (*move).background;
 
     LinkedList<Tile>::Iterator tile = gameBoard->tiles.Begin();
 
@@ -62,29 +62,29 @@ void ReplayScene::Init()
         (*tile).piece = nullptr;
     }
 
-    white   = new Player(true);
-    black   = new Player(false);
+    white           = new Player(true);
+    black           = new Player(false);
 
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 135, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, 530, 0.75, 0.75);
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
-    leftArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 120, renderer->windowHeight - 60, 0.5, 0.5);
+    leftArrow       = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth/2 - 150, renderer->windowHeight - 120, 1, 1);
 
-    rightArrow = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth - 60, renderer->windowHeight - 60, 0.5, 0.5);
+    rightArrow      = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth/2 + 32, renderer->windowHeight - 120, 1, 1);
     rightArrow->FlipHorizontal();
 
-    backArrow           = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
+    backArrow       = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
 
     rules = new Rulebook(false);
     settings = new Settings();
 
-    nobilityIcon1       = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
-    nobilityIcon2       = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
+    nobilityIcon1   = new Sprite("data/NobilityIcon.png", 30, 148, 0.25, 0.25);
+    nobilityIcon2   = new Sprite("data/NobilityIcon.png", 30, 543, 0.25, 0.25);
 
-    index = 0;
-    cursor = new Cursor();
+    index           = 0;
+    cursor          = new Cursor();
 
     white->RecalculateNobility(gameBoard);
     black->RecalculateNobility(gameBoard);

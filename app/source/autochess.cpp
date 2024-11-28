@@ -161,9 +161,9 @@ void Autochess::Init()
     isAnyBlackPieces    = false;
     activePiece         = nullptr;
 
-    movesCompleted = 0;
-    isDraw = false;
-    replayAdded = false;
+    movesCompleted      = 0;
+    isDraw              = false;
+    replayAdded         = false;
 
     movesLeftText       = new Text(String(MovesTotal - movesCompleted), renderer->windowWidth - 120, 165);
 
@@ -185,24 +185,24 @@ void Autochess::Init()
 
     replay.Clear();
     Move firstMove;
-    firstMove.gameBoard = gameBoard;
-    firstMove.background = background;
+    firstMove.gameBoard     = gameBoard;
+    firstMove.background    = background;
     replay.Append(firstMove);
     components.Add(background);
 
-    returnToMainMenu = new Sprite("data/B_BackToMain.png", renderer->windowWidth / 2,
+    returnToMainMenu        = new Sprite("data/B_BackToMain.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 100,0.5,0.5, glm::vec2(0.5, 0.5));
-    watchReplay = new Sprite("data/B_WatchReplay.png", renderer->windowWidth / 2,
+    watchReplay             = new Sprite("data/B_WatchReplay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
-    rules = new Rulebook(false);
-    settings = new Settings();
+    rules                   = new Rulebook(false);
+    settings                = new Settings();
 
 
 
-    infoBoardTimer = Application::GetTime("Info board timer");
+    infoBoardTimer          = Application::GetTime("Info board timer");
 
-    cursor = new Cursor();
+    cursor                  = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
 

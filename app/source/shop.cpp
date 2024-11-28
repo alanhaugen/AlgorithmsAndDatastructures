@@ -641,8 +641,8 @@ Piece *CreateTree()
 Piece *CreateWater()
 {
     Piece* piece = new Piece("WaterObs",
-                             "data/Piece-ObstacleWATER.png",
-                             "data/Piece-ObstacleWATER.png",
+                             "data/Piece-ObstacleTombstone.png",
+                             "data/Piece-ObstacleTombstone.png",
                              "Obstacle",
                              0,
                              0,

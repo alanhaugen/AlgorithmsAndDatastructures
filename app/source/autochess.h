@@ -26,30 +26,30 @@ class Autochess : public IScene
 {
 public:
     Autochess();
-    Camera* cam;
-    Cursor* cursor;
-    Board* gameBoard;
-    Shop* shop = nullptr;
-    ITime* infoBoardTimer;
+    Camera*             cam;
+    Cursor*             cursor;
+    Board*              gameBoard;
+    Shop*               shop = nullptr;
+    ITime*              infoBoardTimer;
 
-    Rulebook* rules;
-    Settings* settings;
+    Rulebook*           rules;
+    Settings*           settings;
 
-    Sprite* volumeControl;
-    bool isMuted = false;
+    Sprite*             volumeControl;
+    bool                isMuted = false;
 
-    LinkedList<Move> history;
-    Stack<Text*> topPreviousMoves;
-    Array<Move> moves;
-    bool swapPlayers;
+    LinkedList<Move>    history;
+    Stack<Text*>        topPreviousMoves;
+    Array<Move>         moves;
+    bool                swapPlayers;
 
-    int movesCompleted;
+    int   movesCompleted;
 
     Text* playerWhiteWins;
     Text* playerBlackWins;
     Text* playerDraw;
-    bool isAnyWhitePieces;
-    bool isAnyBlackPieces;
+    bool  isAnyWhitePieces;
+    bool  isAnyBlackPieces;
 
     Text* playerWhiteTurn;
     Text* playerBlackTurn;
