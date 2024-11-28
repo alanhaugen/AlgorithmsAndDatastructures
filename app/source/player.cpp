@@ -167,7 +167,7 @@ void Player::UpdateHand()
     }
 }
 
-Array<Move> Player::GetAllPossibleMoves(Board* gameBoard)
+Array<Move> Player::GetAllPossibleMoves(Board* gameBoard, bool isFirstMove)
 {
     moves.Clear();
 
@@ -180,7 +180,7 @@ Array<Move> Player::GetAllPossibleMoves(Board* gameBoard)
         {
             if ((*tile).piece->isWhite == isWhite)
             {
-                moves += gameBoard->UpdateDots(&(*tile), false);
+                moves += gameBoard->UpdateDots(&(*tile), false, false, isFirstMove == false);
             }
         }
     }
@@ -274,7 +274,7 @@ Move Player::GetNextMove(Board *gameBoard, bool isFirstMove)
         if (activePiece != nullptr && deselect == false)
         {
             // Make a list of all the possible moves
-            GetAllPossibleMoves(gameBoard);
+            GetAllPossibleMoves(gameBoard, isFirstMove);
 
             // Check if the move is in the list of possible moves
             for (unsigned int i = 0; i < moves.Size(); i++)
