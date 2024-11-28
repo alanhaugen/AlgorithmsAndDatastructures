@@ -38,7 +38,7 @@ public:
     void UpdateNobilityText();
     void UpdateGoldText();
     void UpdateHand();
-    Array<Move> GetAllPossibleMoves(Board* gameBoard);
+    Array<Move> GetAllPossibleMoves(Board* gameBoard, bool isFirstMove = false);
 
     void Update();
     Move GetNextMove(Board* gameBoard, bool isFirstMove = true);
