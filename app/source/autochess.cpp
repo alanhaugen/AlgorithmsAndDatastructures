@@ -67,6 +67,8 @@ void Autochess::NextPlayer()
         activePlayer   = black;
         opponentPlayer = white;
     }
+
+    gameBoard->HideDots();
 }
 
 void Autochess::Init()
