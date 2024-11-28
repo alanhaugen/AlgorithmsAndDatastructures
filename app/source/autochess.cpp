@@ -281,14 +281,14 @@ void Autochess::Update()
         backArrowText->Update();
     }
 
-    if(undoButton->IsPressed() && !PopUpOpen)
+    /*if(undoButton->IsPressed() && !PopUpOpen)
     {
         if(state == GameState::Placing && replay.End()->isPlacement == false)
         {
             replay.End()->Undo();
             replay.RemoveAt(replay.count);
         }
-    }
+    }*/
 
     /*if (undoButton->IsHoveredOver())
     {
@@ -454,7 +454,6 @@ void Autochess::UpdatePlacing()
     //Auto Place One Piece at the time
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
     {
-
         if (activePlayer->isWhite == true)
         {
             activePiece = *activePlayer->piecesInHand.Begin();
@@ -474,7 +473,6 @@ void Autochess::UpdatePlacing()
             replay.Append(Move(tile->piece, tile, true));
             NextPlayer();
         }
-
         else
         {
             activePiece = *activePlayer->piecesInHand.Begin();
