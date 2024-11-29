@@ -219,7 +219,7 @@ void Autochess::Init()
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
     rules                   = new Rulebook(false);
-    settings                = new Settings();
+    settings                = new Settings(false);
 
 
 

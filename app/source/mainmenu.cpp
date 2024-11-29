@@ -24,6 +24,8 @@ void Mainmenu::Init()
 
     gameSettings = new GameSettingsMenu();
 
+    settings = new Settings();
+
     ruleMenu = new Menu(&menus);
     rules = new Rulebook(true);
     ruleMenu->AddQuitButton(
@@ -52,26 +54,9 @@ void Mainmenu::Init()
 
     Menu* audioMenu = new Menu(&menus);
     audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
-    audioMenu->AddCheckBox("data/B_boxUnchecked.png",
-                           "data/B_boxChecked.png",
-                           "Music", &playMusic, renderer->windowWidth / 2 - 400, 170 * (1.75));
-    audioMenu->AddCheckBox("data/B_boxUnchecked.png",
-                           "data/B_boxChecked.png",
-                           "Sfx", &playSfx, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
-    Menu* gameplayMenu = new Menu(&menus);
-    gameplayMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
-    gameplayMenu->AddCheckBox("data/B_boxUnchecked.png",
-                           "data/B_boxChecked.png",
-                           "Music", &playMusic, renderer->windowWidth / 2 - 400, 170 * (1.75));
-    gameplayMenu->AddCheckBox("data/B_boxUnchecked.png",
-                           "data/B_boxChecked.png",
-                           "Sfx", &playSfx, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
-    Menu* settingsMenu = new Menu(&menus);
-    settingsMenu->AddMenuButton("data/B_Audio.png", audioMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
-    settingsMenu->AddMenuButton("data/B_Graphics.png", graphicsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
-    settingsMenu->AddMenuButton("data/B_Gameplay.png", gameplayMenu, renderer->windowWidth / 2 - 200, 290 * (1.75));
+    settingsMenu = new Menu(&menus);
     settingsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
@@ -145,16 +130,22 @@ void Mainmenu::Update()
         {
             (*PlayDateI)->Update();
         }
-    } else
-    {
-        title->Show();
     }
-
-    if (menus.Top() == gameSettingsMenu)
+    else if(menus.Top() == gameSettingsMenu)
     {
         title->Hide();
         gameSettings->Update();
     }
+    else if(menus.Top() == gameSettingsMenu)
+    {
+        gameSettings->Update();
+    }
+    else
+    {
+        title->Show();
+    }
+
+
 
     if(menus.count > 1 && input.Pressed(input.Key.ESCAPE) == true)
     {

@@ -1,9 +1,14 @@
 #include "settings.h"
 
-extern bool isFullscreen;
+Settings::Settings(){}
 
-Settings::Settings()
+Settings::Settings(bool isMenu_)
 {
+    if(isMenu_)
+    {
+        isOpen = true;
+    }
+
     createBackground();
     createClosePopUp();
     openPopUp = new Sprite("data/Cog.png", renderer->windowWidth - 90, 10, 2, 2, glm::vec2(0.5, 0));
@@ -12,17 +17,17 @@ Settings::Settings()
     //Fullscreen/Windowed
     fullscreenText = new Text("Fullscreen", 0, 0, 1, 1, glm::vec2(1, 0.5));
 
-    fullscreenChecked = new Sprite("data/CheckboxChecked.png", renderer->windowWidth / 2, renderer->windowHeight / 2 - 50, 0.25, 0.25, glm::vec2(0, 0.5));
-    fullscreenUnchecked = new Sprite("data/CheckboxEmpty.png", renderer->windowWidth / 2, renderer->windowHeight / 2 - 50, 0.25, 0.25, glm::vec2(0, 0.5));
+    fullscreenChecked = new Sprite("data/CheckboxChecked.png", renderer->windowWidth / 2 - 215, renderer->windowHeight / 2 - 125, 0.25, 0.25, glm::vec2(0, 0.5));
+    fullscreenUnchecked = new Sprite("data/CheckboxEmpty.png", renderer->windowWidth / 2 - 215, renderer->windowHeight / 2 - 125, 0.25, 0.25, glm::vec2(0, 0.5));
 
     *fullscreenText->matrix.y = *fullscreenUnchecked->matrix.y;
-    *fullscreenText->matrix.x = *fullscreenUnchecked->matrix.x - 186;
+    *fullscreenText->matrix.x = *fullscreenUnchecked->matrix.x - 50;
 
-    //Audio
-    audioText = new Text("Audio", 0, renderer->windowHeight / 2, 1, 1, glm::vec2(1, 0.5));
+    //SFX Audio
+    audioText = new Text("SFX volume", 0, renderer->windowHeight / 2 - 25, 1, 1, glm::vec2(1, 0.5));
 
     Sprite* rangeSlider = new Sprite(
-        "data/ButtonBASE-Rectangle.png", 0, renderer->windowHeight / 2, 1, 0.1, glm::vec2(0, 0.5)
+        "data/ButtonBASE-Rectangle.png", 0, renderer->windowHeight / 2 - 25, 1, 0.1, glm::vec2(0, 0.5)
         );
     *rangeSlider->matrix.x = renderer->windowWidth / 2 - rangeSlider->width * rangeSlider->scaleX / 2;
 
@@ -32,6 +37,22 @@ Settings::Settings()
 
     *audioText->matrix.x = *rangeSlider->matrix.x - 10;
 
+    //Music Audio
+    musicAudioText = new Text("Music volume", 0, renderer->windowHeight / 2 + 75, 1, 1, glm::vec2(1, 0.5));
+
+
+    Sprite* musicRangeSlider = new Sprite (
+        "data/ButtonBASE-Rectangle.png", 0, renderer->windowHeight / 2 + 75, 1, 0.1, glm::vec2(0, 0.5)
+        );
+
+    *musicRangeSlider->matrix.x = renderer->windowWidth / 2 - musicRangeSlider->width * musicRangeSlider->scaleX / 2;
+
+
+    Sprite* musicRangeButton = new Sprite("data/CheckboxEmpty.png", 0, 0, 0.2, 0.2, glm::vec2(0.5, 0.5));
+
+    *musicAudioText->matrix.x = *musicRangeSlider->matrix.x - 10;
+
+    musicAudio = new RangeInput(musicRangeButton, musicRangeSlider, 0.0f, 2.0f, audio->audioVolumeMusic);
 
 
     *hoverText->matrix.x = *openPopUp->matrix.x;
@@ -68,6 +89,9 @@ void Settings::Update()
         //Audio
         audioText->Update();
         audio->audioVolume = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+
+        musicAudioText->Update();
+        audio->audioVolumeMusic = musicAudio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
     }
 }
 

@@ -98,8 +98,8 @@ void ReplayScene::Init()
 
     backArrow       = new Sprite("data/backArrow.png", 25, 25, 0.5, 0.5);
 
-    rules = new Rulebook(false);
-    settings = new Settings();
+    rules    = new Rulebook(false);
+    settings = new Settings(false);
 
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 32, 190, 0.25, 0.25);
     nobilityIcon2       = new Sprite("data/NobilityIcon.png", 32, renderer->windowHeight - 260, 0.25, 0.25);
