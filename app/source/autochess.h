@@ -138,6 +138,8 @@ public:
     glm::vec2 prevpos;
     glm::vec2 nextpos;
 
+    bool firstUpdateInPlaying = true;
+
     // This will start as the final node in the tree
     Tree<Tile*>::Node* activeNode = NULL;
 
