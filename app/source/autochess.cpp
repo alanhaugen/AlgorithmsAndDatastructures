@@ -737,7 +737,7 @@ void Autochess::UpdatePlaying()
     // Update AI player if the casting succeeded
     if (aiPlayer != nullptr)
     {
-        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer);
+        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer, MovesTotal == (MovesTotal - movesCompleted));
     }
     // If casting fails => the player is human. Update human player
     else
