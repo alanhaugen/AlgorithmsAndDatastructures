@@ -56,7 +56,7 @@ void Move::Update()
 
 void Move::Execute()
 {
-    Application::audio->Stop();
+    //Application::audio->Stop();
     Application::audio->PlaySound("data/sound-piecePlacement.wav");
 
     if (captureTile1 != nullptr)
