@@ -55,7 +55,6 @@ void Mainmenu::Init()
     Menu* audioMenu = new Menu(&menus);
     audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
-
     settingsMenu = new Menu(&menus);
     settingsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
@@ -111,6 +110,8 @@ void Mainmenu::Init()
     components.Add(title);
     components.Add(cam);
     components.Add(cursor);
+
+    audio->Stop();
 }
 
 void Mainmenu::Update()
