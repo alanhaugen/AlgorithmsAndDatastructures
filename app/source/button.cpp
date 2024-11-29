@@ -8,7 +8,6 @@ extern bool vsAI;
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
-
 Button::Button(String filePath, int x, int y, Stack<Menu*> *menuStack_)
 {
     buttonImage = new Sprite(filePath, x, y, 0.75f, 0.75f);

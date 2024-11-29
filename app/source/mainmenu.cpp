@@ -4,6 +4,9 @@
 
 extern LinkedList<ReplayNew> replays;
 
+bool playMusic = false;
+bool playSfx = true;
+
 Mainmenu::Mainmenu()
 {
 //#ifdef WIN32
@@ -49,13 +52,21 @@ void Mainmenu::Init()
 
     Menu* audioMenu = new Menu(&menus);
     audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
-    audioMenu->AddMenuButton("data/B_boxUnchecked.png", nullptr, renderer->windowWidth / 2 - 400, 170 * (1.75));
-    audioMenu->AddMenuButton("data/B_boxChecked.png", nullptr, renderer->windowWidth / 2 - 400, 270 * (1.75));
+    audioMenu->AddCheckBox("data/B_boxUnchecked.png",
+                           "data/B_boxChecked.png",
+                           "Music", &playMusic, renderer->windowWidth / 2 - 400, 170 * (1.75));
+    audioMenu->AddCheckBox("data/B_boxUnchecked.png",
+                           "data/B_boxChecked.png",
+                           "Sfx", &playSfx, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
     Menu* gameplayMenu = new Menu(&menus);
     gameplayMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
-    gameplayMenu->AddMenuButton("data/B_boxUnchecked.png", nullptr, renderer->windowWidth / 2 - 400, 170 * (1.75));
-    gameplayMenu->AddMenuButton("data/B_boxChecked.png", nullptr, renderer->windowWidth / 2 - 400, 270 * (1.75));
+    gameplayMenu->AddCheckBox("data/B_boxUnchecked.png",
+                           "data/B_boxChecked.png",
+                           "Music", &playMusic, renderer->windowWidth / 2 - 400, 170 * (1.75));
+    gameplayMenu->AddCheckBox("data/B_boxUnchecked.png",
+                           "data/B_boxChecked.png",
+                           "Sfx", &playSfx, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
     Menu* settingsMenu = new Menu(&menus);
     settingsMenu->AddMenuButton("data/B_Audio.png", audioMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
@@ -148,6 +159,24 @@ void Mainmenu::Update()
     if(menus.count > 1 && input.Pressed(input.Key.ESCAPE) == true)
     {
         menus.Pop();
+    }
+
+    if (playMusic == true)
+    {
+        audio->audioVolumeMusic = 1.0f;
+    }
+    else
+    {
+        audio->audioVolumeMusic = 0.0f;
+    }
+
+    if (playSfx == true)
+    {
+        audio->audioVolume = 1.0f;
+    }
+    else
+    {
+        audio->audioVolume = 0.0f;
     }
 
     //delete cords;
