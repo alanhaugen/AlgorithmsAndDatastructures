@@ -33,7 +33,6 @@ void Mainmenu::Init()
         new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
 
-
     Menu* playMenu = new Menu(&menus);
     playMenu->AddNextSceneButton("data/B_PlayAgainstAI.png", renderer->windowWidth / 2 - 200, 130 * (1.75), "vsAI");
     playMenu->AddMenuButton("data/B_2Player.png", gameSettingsMenu, renderer->windowWidth / 2 - 200, 210 * (1.75));
@@ -50,11 +49,13 @@ void Mainmenu::Init()
 
     Menu* audioMenu = new Menu(&menus);
     audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    audioMenu->AddMenuButton("data/B_boxUnchecked.png", nullptr, renderer->windowWidth / 2 - 400, 170 * (1.75));
+    audioMenu->AddMenuButton("data/B_boxChecked.png", nullptr, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
     Menu* gameplayMenu = new Menu(&menus);
     gameplayMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
-    gameplayMenu->AddMenuButton("data/B_boxUnchecked.png", gameplayMenu, renderer->windowWidth / 2 - 400, 170 * (1.75));
-    gameplayMenu->AddMenuButton("data/B_boxChecked.png", gameplayMenu, renderer->windowWidth / 2 - 400, 270 * (1.75));
+    gameplayMenu->AddMenuButton("data/B_boxUnchecked.png", nullptr, renderer->windowWidth / 2 - 400, 170 * (1.75));
+    gameplayMenu->AddMenuButton("data/B_boxChecked.png", nullptr, renderer->windowWidth / 2 - 400, 270 * (1.75));
 
     Menu* settingsMenu = new Menu(&menus);
     settingsMenu->AddMenuButton("data/B_Audio.png", audioMenu, renderer->windowWidth / 2 - 200, 130 * (1.75));
