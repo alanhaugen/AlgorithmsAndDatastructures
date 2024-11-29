@@ -1,0 +1,1156 @@
+# Final UML
+
+[Game Application|
+  
+  [
+  <<Abstract class>>
+  Scene]<-[MainMenu]
+  
+  [
+  <<Abstract class>>
+  Scene
+  |
+  +id : unsigned int
+  
+  +components : Array<Component>
+  |
+  +Init() : virtual void
+  
+  +Update() : virtual void
+  
+  +UpdateAfterPhyics() : virtual void
+  ]<-
+  [Autochess|
+  +MovesTotal : const Integer
+  
+    +cam : Camera*
+  
+    +cursor : Cursor*
+    
+    +gameBoard : Board*
+    
+    +shop : Shop*
+    
+    +infoBoardTimer : ITime*
+
+    +rules : Rulebook*
+    
+    +settings : Settings*
+
+    +volumeControl : Sprite*
+    
+    +isMuted : Boolean
+
+    +history : LinkedList<Move>
+    
+    +topPreviousMoves : Stack<Text*>
+    
+    +moves : Array<Move>
+    
+    +swapPlayers : Boolean
+
+    +movesCompleted : Integer
+
+    +playerWhiteWins : Text* 
+    
+    +playerBlackWins : Text* 
+    
+    +playerDraw : Text* 
+    
+    +isAnyWhitePieces : Boolean
+    
+    +isAnyBlackPieces : Boolean
+
+    +playerWhiteTurn : Text* 
+    
+    +playerBlackTurn : Text* 
+
+    +movesLeftText : Text* 
+
+    +settingsText : Text* 
+    
+    +rulebookText : Text* 
+    
+    +backArrowText : Text* 
+    
+    +undoButtonText : Text* 
+    
+    +whiteNobilityText : Text*
+    
+    +blackNobilityText : Text* 
+    
+    +turnsLeftText1 : Text* 
+    
+    +turnsLeftText2 : Text* 
+
+    +isDraw : Boolean
+    
+    +replayAdded : Boolean
+
+    +goldIcon1 : Sprite* 
+    
+    +goldIcon2 : Sprite* 
+
+    +backArrow : Sprite* 
+    
+    +undoButton : Sprite* 
+
+    +whitePiecesBanner : Sprite* 
+    
+    +blackPiecesBanner : Sprite* 
+    
+    +goldBackground : Sprite* 
+    
+    +goldBackground2 : Sprite* 
+
+    +nobilityIcon1 : Sprite* 
+    
+    +nobilityIcon2 : Sprite*
+
+    +blueBanner : Sprite* 
+    
+    +yellowBanner : Sprite* 
+    
+    +turnsLeftBanner : Sprite* 
+    
+    +victoryBanner : Sprite* 
+    
+    +victoryBanner2 : Sprite*
+    
+    +returnToMainMenu : Sprite*
+    
+    +watchReplay : Sprite*
+    
+    +autoPlacePieces : Sprite*
+    
+    +autoPlaceAllPieces : Sprite* 
+    
+    +autoPlaceObstacles : Sprite*
+    
+    +background : Sprite*
+
+    +activePiece : Piece*
+
+    +players : Array<Player*> 
+    
+    +white : Player*
+    
+    +black : Player*
+    
+    +firstPlaye : Player*
+    
+    +activePlayer : Player* 
+    
+    +opponentPlayer : Player*
+
+    +activeInfoBoard : Sprite*
+    
+    +isWhitesTurn : Boolean
+
+    +hydraAttacks : Integer
+
+    +state : GameState
+
+    +PopUpOpen : Boolean
+|
+    +NextPlayer() : void
+	
+    +checkForPopUp() : void
+    
+    +Init() : void
+    
+    +SetTile(tile : Tile*) : void
+    
+    +Update() : void
+    
+    +UpdateShop() : void
+    
+    +UpdatePlacing() : void
+    
+    +UpdatePlaying() : void
+    
+    +UpdateDone() : void
+    
+    +UpdateAnimation() : void
+    
+    +IsGameDone() : GameState
+
+    +UpdateInfoBoardShop() : void
+    
+    +UpdateInfoBoard() : void
+
+    +Animate(move : Move) : void
+
+    +searchTile(tile : Tile*, startTile : Tile*, endTile : Tile*, isDone : bool&, searchTiles : Array<Tile *>&, searchTree : Tree<Tile *>&) : void
+
+    +animatedMove : Move
+    
+    +prevpos : glm::vec2
+    
+    +nextpos : glm::vec2
+
+    +activeNode : Tree<Tile*>::Node* 
+
+    +animationMoveStack : Stack<glm::vec2> 
+  ]
+  
+  [MainMenu|
+  
+  +gameSettings : GameSettingsMenu*
+  
+  +gameSettingsMenu : Menu*
+  
+  +Timestamps : LinkedList<Text*>
+  
+  +rules : Rulebook*
+  
+  +menus : Stack<Menu*>
+  
+  +ruleMenu : Menu*
+  
+  +replaysMenu : Menu*
+  
+  +title : Sprite* 
+  
+  +bg : Sprite*
+  
+  +rulebook : Sprite*
+  
+  +replayBG : Sprite*
+  
+  +testPopUp : Sprite*
+  
+  +cursor : Cursor*
+  
+  +cam : Camera*
+  
+  +cords : Text*
+
+  |
+  +Init() : virtual void
+  
+  +Update() : virtual void
+  ]o-
+  [Menu|
+  -menuStack : Stack<Menu*>*
+  
+  -buttons : Array<Button*>
+    
+  |
+  +AddNextSceneButton(image : String, x : Integer, y : Integer, type : String, index : Integer) : void
+  
+  +AddNextSceneButton(image : Sprite*, type : String, index : Integer) : void
+
+  +AddMenuButton(image : String, menu : Menu*, x : Integer, y : Integer, type : String) : void
+  
+  +AddMenuButton(image : Sprite*, menu : Menu*, type : String) : void
+
+  +AddQuitButton(image : String, x : Integer, y : Integer) : void
+    
+  +AddQuitButton(image : Sprite*) : void
+
+  +Update() : void
+  ]
+  
+  [Button|
+  
+  -buttonImage : Sprite*
+  
+  -menuStack : Stack<Menu*>*
+
+   +index : Integer
+    
+   +gotoMenu : Menu*
+  |
+  +Update() : void
+  ]-o[Menu]
+  
+  [Board]o-[Tile |
+  +x : Integer
+  
+  +y : Integer
+  
+  +sprite : Sprite*
+    
+  +moveDot : Sprite*
+    
+  +attackBorder : Sprite*
+    
+	+weightBorder : Sprite*
+    
+    +piece : Piece*
+    
+    +weight : Integer
+    
+    +searched : Boolean
+    
+    +visited : Boolean
+    
+    +F : Integer
+    
+    +G : Integer
+    
+    +H : Integer
+    
+    +node : Tree<Tile*>::Node*
+
+  |
+    +Update() : void
+    
+    +ManhattenDistanceToOrigin(originX : Integer, originY : Integer) : Integer
+  ]
+  
+  [Autochess]o-
+  [Board |
+	+tiles : LinkedList<Tile>
+  
+    +highlight : Sprite*
+    
+    +bg : Sprite*
+    
+    |
+
+    +GenerateTiles() : void
+    
+    +HideDots() : void
+    
+    +UpdateDots(tile : Tile*, showDot : Boolean, isCaptureOnly : Boolean, isRangedAttacksLegal : Boolean) : Array<Move>
+    
+    +GetTile(x : Integer, y : Integer) : Tile*
+    
+    +GetBoardTileUnderMouse() : Tile* 
+
+    +JumpingMoves(tile : Tile*, showDot : Boolean, isCaptureOnly : Boolean, isRangedAttacksLegal : Boolean) : Array<Move>
+    
+    +DijkstraMoves(tile : Tile*, showDot : Boolean, isCaptureOnly : Boolean) : Array<Move>
+    
+    +SimpleMoves(tile : Tile*, left : Integer, up : Integer, showDot : Boolean, length : Integer) : Array<Move>
+
+    +Init() : void
+    
+    +Update() : void]
+  
+  [Cursor]-o[Autochess]
+  [Cursor]-o[MainMenu]
+  
+  [Cursor|
+  whiteCursor : Sprite*
+  
+  blackCursor : Sprite*
+
+  activeCursor : Sprite*
+	|
+    Update() : void
+
+    SetCursorToWhiteColour(isWhite : bool) : void
+  ]
+  
+  
+    [ReplayScene|
+  +index : unsigned Integer
+  
+  +leftArrow : Sprite*
+  
+  +rightArrow : Sprite*
+  |
+    +NextMove() : void
+    
+    +LastMove() : void
+    
+    +Init() : void
+    
+    +Update() : void
+  ]->[Autochess]
+
+ [Shop]o-[Piece]
+ [Move]o-[Piece]
+  [Autochess]o-[Player |
+    +piecesInHand : LinkedList<Piece*> 
+  
+    +score : Integer
+    
+    +gold : Integer
+    
+    +isWhite : Boolean
+    
+    +avatar : Sprite* 
+    
+    +buttonReady : Sprite* 
+
+    +isReady : Boolean
+    
+    +placingStarted : Boolean
+
+    +goldText : Text*
+    
+    +nobilityText : Text*
+
+    +activePiece : Piece*
+    
+    +moves : Array<Move>
+    
+    +nobility : Integer
+
+    +clickedTile : Tile*
+    |
+    +Init(isWhite : Boolean) : void
+    
+    +RecalculateNobility(gameBoard : Board*) : void
+    
+    +UpdateNobilityText() : void
+    
+    +UpdateGoldText() : void
+    
+    +UpdateHand() : void
+    
+    +GetAllPossibleMoves(gameBoard : Board*, isFirstMove : Boolean) : Array<Move> 
+
+    +Update() : void
+    
+    +GetNextMove(gameBoard : Board*, isFirstMove : Boolean) : Move
+    
+    +RescalePiecesPlacing() : void
+  ]
+  [Autochess]o-[Shop |
+  +CreateKing() : Piece*
+  
+  +CreateQueen() : Piece*
+  
+  +CreatePrince() : Piece*
+  
+  +CreatePrincess() : Piece*
+  
+  +CreateMonster() : Piece*
+  
+  +CreateBishop() : Piece*
+  
+  +CreateHydra() : Piece*
+  
+  +CreateKnight() : Piece*
+  
+  +CreatePeasant() : Piece*
+  
+  +CreateRogue() : Piece*
+  
+  +CreateStallion() : Piece*
+  
+  +CreateJester() : Piece*
+  
+  +CreateDeserter() : Piece*
+  
+  +CreateCannon() : Piece*
+  
+  +CreateShieldMan() : Piece* 
+  
+  +CreateFence() : Piece*
+  
+  +CreateRook() : Piece*
+  
+  +CreateRock() : Piece* 
+  
+  +CreateTree() : Piece* 
+  
+  +CreateWater() : Piece* 
+  
+  +CreateRiver() : Piece* 
+  
+  +shopItems : Stack<Piece*>
+
+  +unshuffledDeckOfCards : LinkedList<Piece*>
+  
+  +obstacleCards : LinkedList<Piece*>
+
+  +isWhitesTurn : Boolean
+
+  +PopUpOpen : Boolean
+
+  +WildcardCost : const Integer
+
+  +RestockShopCost : const Integer
+  
+  +RestockShopNextPlayer : const Boolean
+
+  +itemsStoreFront : LinkedList<Piece*>
+  
+  +wildcardPiece : Piece*
+  
+  +shopFront : Sprite*
+  
+  +randomCard : Sprite*
+  
+  +restockShop : Sprite*
+
+  +costTextRestockShop : Text* 
+  
+  +nameTextRestockShop : Text* 
+  
+  +nameTextRestockShop2 : Text* 
+  
+  +costTextRandomCard : Text* 
+  
+  +randomCardText1 : Text*
+  
+  +randomCardText2 : Text*
+  
+  +activePiece : Piece* 
+
+  +PIECE_TYPES_QUANTITY : const Integer
+  |
+    +CreateRandomPiece() : Piece*
+    
+    +SetShopPiecesToWhite(isWhite : Boolean) : void
+    
+    +StockShopFront() : void
+    
+    +DiscardShopFront() : void
+
+    +Update() : void
+  ]
+  [Player]o-
+  [Piece |
+    +name : String
+  
+    +description : String
+    
+    +price : Integer
+    
+    +nobility : Integer
+    
+    +range : Integer
+    
+    +isWhite : Boolean
+    
+    +isCurrentlyInAnimation : Boolean
+    
+    +transformedPiece : Piece*
+
+    +nameText : Text*
+    
+    +movementTypeText : Text*
+    
+    +movementText : Text*
+    
+    +rangeText : Text* 
+    
+    +descriptionText : Text*
+    
+    +nobilityText : Text*
+    
+    +costText : Text*
+
+    +buyText : Text*
+
+    +flavorText : Text*
+
+    +invinsible : Boolean
+
+    +listNode : LinkedList<Piece*>::LinkedNode* 
+    
+    +iconWhite : Sprite* 
+    
+    +iconBlack : Sprite* 
+
+    +icon : Sprite* 
+    
+    +animatedForm : Sprite* 
+    
+    +backgroundCard : Sprite* 
+    
+    +infoBoard : Sprite* 
+
+    +currentTile : Tile* 
+    
+    +idleSprite : Sprite*
+    
+    +walkingSprite : Sprite*
+    
+    +attackSprite : Sprite* 
+    
+    +deathSprite : Sprite*
+
+    +tileBorderBlue : Sprite* 
+    
+    +tileBorderGold : Sprite*
+
+    +footstepSound : String
+    
+    +attackSound : String
+    
+    +dieSound : String
+    
+    +Type : String
+
+    +movePattern : Array<glm::vec2> 
+    
+    +captureOnlyMovePattern : Array<Capture> 
+    
+    +weightPattern : Array<glm::vec2> 
+    
+    +weights : Array<glm::vec2> 
+    
+    +walkingPath : Queue<glm::vec2> 
+
+    +isJumping : Boolean
+    
+    +isActive : Boolean
+    
+    +canCapture : Boolean
+    
+    +canReturnAfterCapture : Boolean
+    
+    +isHydra : Boolean
+    
+    +isJester : Boolean
+
+    +isPerpendicularOnly : Boolean
+    
+    +isDiagonalOnly : Boolean
+|
+    +PossibleMoves() : Array<Move>
+
+    +Update() : void
+  ]
+  
+  [Move]<-[Command|
+  |
+  Execute() : virtual void
+  
+  Undo() : virtual void
+  
+  Redo() : virtual void]--[The Command pattern from https://gameprogrammingpatterns.com/command.html]
+  
+  [Autochess]o-[Tree|
+  [Node|
+  +data : Datatype
+  
+  +parent : Node*
+
+  +children : LinkedList<Node*>
+        |]
+        [+rootChildren : LinkedList<Node*>]
+        
+        |
+      +Clear() : void
+      
+      +AddNode(Datatype data) : Node*
+        ]
+  
+  [Minimax]o-[Tree]
+  
+  [Autochess]o-
+  [Move |
+  +movedPiece : Piece*
+  
+  +unTransformedPiece : Piece*
+    
+  +oldPiece : Piece*
+    
+  +oldTile : Tile*
+    
+  +tileToMoveTo : Tile* 
+    
+  +isPlacement : Boolean
+    
+  +gameBoard : Board* 
+    
+  +background : Sprite* 
+    
+  +captureTile1 : Tile* 
+    
+  +captureTile2 : Tile* 
+    
+  +captureTile3 : Tile* 
+    
+  +oldCapturePiece1 : Piece* 
+    
+  +oldCapturePiece2 : Piece* 
+    
+  +oldCapturePiece3 : Piece* 
+  |
+    +Update() : void
+
+    +Execute() : void
+    
+    +Undo() : void
+    
+    +Redo() : void
+  ]
+  
+  [Minimax]-o[AIPlayer]
+  
+  [AIPlayer|
+    -Depth : const Integer
+
+    -minimax : Minimax
+  
+    +GetAllPossibleMoves(Board* gameBoard) : Array<Move>
+    
+    +GetNextMove(gameBoard : Board*, opponent : Player*, isFirstMove : Boolean) : Move
+
+    +thinkingTimer : ITime*
+  ]->[Player]
+  [Minimax|
+  [GameState|
+        +move : Move
+        
+        +isMax : Boolean
+        
+        +nobility : Integer
+
+        +depth : Integer
+        |
+    ]
+
+    [-gameTree : Tree<GameState*>
+    
+    +proponent : Player*
+    
+    +opponent : Player*
+	
+    +CalculateMiniMaxValue(gameBoard : Board*, move : Move) : Integer
+    
+    +FindBestMove(min : Player*, max : Player*, gameBoard : Board*, depth : Integer, isFirstMove : Boolean) : Move
+    
+    +AddLayer(gameBoard : Board*, node : Tree<Minimax::GameState*>::Node* , player : Player*, depth : Integer) : void
+    ]
+  ]
+]
+
+[Game Application]+-[Game Engine|
+
+[Core|
+[Input
+|
++Key : EnumKeyMap
+
++Mouse : MouseStruct
+|
++Define(controlName : const String &, key : unsigned int) : void
+
++Update() : void
+
++Held(key : const unsigned Integer) : Boolean
+
++Held(controlName : String) : Boolean
+ 
++Pressed(key : const unsigned Integer) : Boolean
+
++Pressed(controlName : String) : Boolean
+
++Released(key : const unsigned Integer) : Boolean
+ 
++Released(controlName : String) : Boolean
+ 
++OnButton(button : const unsigned Integer, isDown : const Boolean) : void
+]o-[MouseStruct|
++x : Integer
+
++y : Integer
+
++deltaX : Integer
+
++deltaY : Integer
+
++Up : Boolean
+
++Down : Boolean
+
++Pressed : Boolean
+
++Released : Boolean
+
++Hidden : Boolean
+
++Dragging : Boolean|]
+]
+[Modules|
+
+[NullAudio]<-[PortaudioAudio|
+|
++Init() : virtual Boolean
+ 
++Shutdown() : virtual Boolean
+ 
++Stop() : virtual void
+ 
++PlaySound(sound : const char*) : virtual void
+ 
++Update() : virtual void
+]
+[
+<<Abstract class>>
+Audio]<-[NullAudio|
+|
++Init() : virtual Boolean
+ 
++Shutdown() : virtual Boolean
+ 
++Stop() : virtual void
+
++PlaySound(sound : const char*) : virtual void
+ 
++Update() : virtual void
+]
+[
+<<Abstract class>>
+Audio|
++audioLevel : float
+|
++Init() : virtual Boolean
+ 
++Shutdown() : virtual Boolean
+ 
++Stop() : virtual void
+ 
++PlaySound(sound : const char*) : virtual void
+ 
++Update() : virtual void
+]
+[
+<<Abstract class>> Filesystem|
+|
++Init() : virtual Boolean
+ 
++Shutdown() : virtual Boolean
+ 
++Open(url : URL, fileType=DATA : const unsigned int) : virtual IFile *
+]
+[
+<<Abstract class>> Filesystem]<-[NullFilesystem|
+|
++Init() : virtual Boolean
+ 
++Shutdown() : virtual Boolean
+ 
++Open(url : URL, fileType=DATA : const unsigned int) : virtual NullFile *
+]
+[NullFilesystem]<-[StdFilesystem|
+|
++Shutdown() : Boolean
+ 
++Open(path : URL, dataType=DATA : const unsigned int) : StdFile *
+]
+
+[
+<<Abstract class>> Physics
+|
+|
++Collide(hitbox=NULL : HitBox*, type="solid" : const char*) : virtual Collider*
+ 
++Intersect(ray : const Ray&, hitbox : const HitBox*) : virtual bool
+ 
++CreateHitBox(dimensions : glm::vec3, matrix : Mat*, type="solid" : const char*) : virtual HitBox*
+ 
++RemoveHitBox(hitbox : HitBox*) : virtual void
+
++Update () : virtual void
+]
+
+[
+<<Abstract class>> Physics]<-[NullPhysics]
+
+[NullPhysics]<-[BulletPhysics
+|
+|
++Update() : void
+]
+
+[
+BouncePhysics]--[There are a host of fast intersection algorithms at https://www.realtimerendering.com/intersections.html.]
+
+[NullPhysics
+|
+|
++Intersect(r : const Ray&, hitbox : const HitBox*) : Boolean
+ 
++Collide(hitbox : HitBox*, type="Box Collidable" : const char*) : Collider*
+ 
++CreateHitBox(dimensions : glm::vec3, matrix : Mat*, type : const char*) : HitBox*
+ 
++RemoveHitBox(hitbox : HitBox*) : void
+ 
++Update() : void
+]<-[BouncePhysics
+|
+\#colliders : Array< Ptr< IPhysics::Collider * > >
+|
++Intersect (r : const Ray&, hitbox : const HitBox*) : Boolean
+
++Collide (hitbox=NULL : HitBox*, type="solid" : const char*) : Collider*
+ 
++CreateHitBox (dimensions : glm::vec3, matrix : Mat*, type : const char*) : HitBox *
+ 
++Update() : void
+]
+
+[
+<<Abstract class>> Physics]o-[Collider
+|
++collisions : Array< HitBox * >
+ 
++direction : glm::vec3
+ 
++hitbox : HitBox*
+|
+]o-[HitBox]
+
+[
+<<Abstract class>> Physics]o-[HitBox
+|
++type : const char*
+ 
++dimensions : glm::vec3
+ 
++position : glm::vec3*
+ 
++oldPosition : glm::vec3
+|
+]
+
+[
+<<Abstract class>> Physics]o-[Ray
+|
++origin : glm::vec3
+ 
++dir : glm::vec3
+ 
++invdir : glm::vec3
+ 
++sign : Array<Integer>
+|
+]
+
+[
+<<Abstract class>> Renderer
+|
++windowWidth : Integer
+ 
++windowHeight : Integer
+ 
++framebufferdata : Integer*
+|
+\#PreRender() : virtual void
+ 
+\#PostRender() : virtual void
+
++Init(fullscreen : Boolean, windowTitle: const char*, windowLength : const unsigned int, windowHeight : const unsigned int) : virtual Boolean
+ 
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+ 
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+ 
++Resize(length : Integer, height : Integer) : virtual void
+ 
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=Array< ITexture * >() : Array< ITexture * >) : virtual IDrawable *
+ 
++CeateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : virtual IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : virtual void
+ 
++CreateTexture(filename : String) : virtual ITexture*
+ 
++CreateTexture(front : String, back : String, top : String, bottom : String, left : String, right : String) : virtual ITexture*
+ 
++CreateTexture(width : Integer, height : Integer) : virtual ITexture*
+ 
++RemoveTexture(texture : ITexture*) : virtual void
+ 
++SetDirectionalLight(direction : glm::vec3, light : ILight*) : virtual void
+ 
++ResetDirectionalLight() : virtual void
+ 
++AddPointLight(position : glm::vec3, quadricEquation : glm::vec3, light : ILight*) : virtual ILight *
+ 
++RemovePointLight(light : ILight*) : virtual void
+ 
++CreateCamera(viewport : Integer, position : glm::vec3, orientation : glm::vec3) : virtual ICamera*
+ 
++RemoveCamera (camera : ICamera*) : virtual void
+ 
++Draw (drawable : IDrawable*) : virtual void
+]
+[NullRenderer]<-[DX11Renderer
+|
+|
+\#PreRender() : void
+ 
+\#PostRender() : void
+]
+[
+NullRenderer
+|
+|
+\#PreRender() : virtual void
+ 
+\#PostRender() : virtual void
+
++Init(fullscreen : Boolean, windowTitle: const char*, windowLength : const unsigned int, windowHeight : const unsigned int) : virtual Boolean
+ 
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+ 
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+ 
++Resize(length : Integer, height : Integer) : virtual void
+ 
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=Array< ITexture * >() : Array< ITexture * >) : virtual IDrawable *
+ 
++CeateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : virtual IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : virtual void
+ 
++CreateTexture(filename : String) : virtual ITexture*
+ 
++CreateTexture(front : String, back : String, top : String, bottom : String, left : String, right : String) : virtual ITexture*
+ 
++CreateTexture(width : Integer, height : Integer) : virtual ITexture*
+ 
++RemoveTexture(texture : ITexture*) : virtual void
+ 
++SetDirectionalLight(direction : glm::vec3, light : ILight*) : virtual void
+ 
++ResetDirectionalLight() : virtual void
+ 
++AddPointLight(position : glm::vec3, quadricEquation : glm::vec3, light : ILight*) : virtual ILight *
+ 
++RemovePointLight(light : ILight*) : virtual void
+ 
++CreateCamera(viewport : Integer, position : glm::vec3, orientation : glm::vec3) : virtual ICamera*
+ 
++RemoveCamera (camera : ICamera*) : virtual void
+ 
++Draw (drawable : IDrawable*) : virtual void
+]<-[GLES2Renderer
+|
+\#vaos : Array<GLuint>
+ 
+\#buffers : Array<GLuint>
+|
+\#GetError() : void
+ 
+\#GetError() : void
+
++Init(fullscreen : Boolean, windowTitle : const char*, windowLength : const unsigned Integer, windowHeight : const unsigned Integer) : virtual Boolean
+
++Render(projViewMatrixArray : const Array< glm::mat4 >&, viewBoundsArray : const Array< glm::vec4 >&) : virtual void
+
++DrawDebugText(x : float, y : float, str : const char*) : virtual void
+
++Resize(width : Integer, height : Integer) : virtual void
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures : Array< ITexture * >) : IDrawable*
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, texture : ITexture*) : IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : void
+
++CreateTexture(filename : String) : ITexture *
+
++CreateTexture (front : String, back : String, top : String, bottom : String, left : String, right : String) : ITexture*
+
++CreateTexture (width : Integer, height : Integer) : ITexture*
+
++RemoveTexture(texture : ITexture*) : void
+
++ClearDrawables() : void
+
++ClearTextures() : void
+
++Init (fullscreen : Boolean, windowTitle : const char*, windowLength : const unsigned Integer, windowHeight : const unsigned Integer) : Boolean
+
++Resize(width : Integer, height : Integer) : void
+
++Render() : void
+
++CreateDrawable(vertices : Array< IDrawable::Vertex >&, indices : Array< unsigned int >&, shaders : Array< String >&, textures=NULL : Array< IFile * >*) : IDrawable*
+
++RemoveDrawable(drawable : IDrawable*) : void
+
++ClearDrawables() : void
+]
+[
+<<Abstract class>> Renderer]<-[NullRenderer]
+]
+
+[Containers|
+[Array
+|
++array : Datatype*
+|
+\#Init() : void
+ 
+\#Copy(fromArray : const Datatype*, toArray : Datatype*, elements : const int) : void
+ 
++Size() : unsigned Integer
+ 
++Empty() : unsigned Integer
+ 
++Resize (newSize : const unsigned) : void
+ 
++Insert (item : Datatype, index : const unsigned) : void
+ 
++Add (item : Datatype) : void
+ 
++RemoveAt(const unsigned i) : void
+ 
++Clear() : void
+]
+[LinkedList
+|
+\#unsigned int 	count
+|
+\#Append (node : LinkedNode*) : void
+ 
+\#Remove (node : LinkedNode*) : void
+
++Begin() : Iterator
+ 
++End() : Iterator
+ 
++Empty() : Boolean
+ 
++Count() : Integer
+ 
++Append (val : Datatype) : void
+ 
++RemoveAt (index : Integer) : void
+ 
++Clear() : void
+]
+
+[LinkedList]<-[Queue
+|
+|
++Enqueue(data : Datatype) : void
+ 
++Dequeue() : Datatype
+ 
++Front() : Datatype
+ 
++Count() : Integer
+]
+[LinkedList]<-[Stack
+|
+|
++Push (data : Datatype) : void
+ 
++Pop() : Datatype
+ 
++Top() : Datatype
+ 
++Size() : Integer
+ 
++Empty() : Integer
+]
+[LinkedList]o-[Iterator
+|
+|
++Item() : Datatype*
+]
+
+]
+
+]
+
+
+
+
