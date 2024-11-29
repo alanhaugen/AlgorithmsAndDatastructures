@@ -2,6 +2,8 @@
 #include "move.h"
 #include "piece.h"
 
+extern bool vsAI;
+
 Move::Move()
 {
     movedPiece = nullptr;
@@ -57,7 +59,10 @@ void Move::Update()
 void Move::Execute()
 {
     //Application::audio->Stop();
-    Application::audio->PlaySound("data/sound-piecePlacement.wav");
+    if (vsAI == false)
+    {
+        Application::audio->PlaySound("data/sound-piecePlacement.wav");
+    }
 
     if (captureTile1 != nullptr)
     {
