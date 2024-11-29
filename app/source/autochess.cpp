@@ -93,15 +93,16 @@ void Autochess::Init()
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
 
-    /*
+
     if (isMuted == false)
     {
-        int randomNumber = random.RandomRange(0, 4);
+        audio->Stop();
+        int randomNumber = random.RandomRange(0, 3);
 
         switch(randomNumber)
         {
         case 0:
-            audio->PlaySound("data/Music-BackgroupTheme01.wav");
+            audio->PlaySound("data/sound-theme01");
             break;
 
         case 1:
@@ -116,7 +117,7 @@ void Autochess::Init()
             audio->PlaySound("data/sound-battleTheme01.wav");
             break;
         }
-    }*/
+    }
 
 
 
@@ -227,9 +228,6 @@ void Autochess::Init()
     cursor                  = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
-
-    audio->Stop();
-    audio->PlaySound("data/sound-theme01.wav");
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -250,7 +248,7 @@ void Autochess::Update()
         else
         {
             isMuted = false;
-            audio->PlaySound("data/Music-BackgroupTheme01.wav");
+            audio->PlaySound("data/sound-theme01.wav");
         }
     }
 
