@@ -36,7 +36,7 @@ public:
     Settings*           settings;
 
     Sprite*             volumeControl;
-    bool                isMuted = false;
+    bool                isMuted = true;
 
     LinkedList<Move>    history;
     Stack<Text*>        topPreviousMoves;
