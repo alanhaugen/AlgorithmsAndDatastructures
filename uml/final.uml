@@ -1,6 +1,88 @@
 # Final UML
 
 [Game Application|
+  [Autochess]o-[Settings]
+  
+  [Replay|
+  +Moves : LinkedList<Move>
+  +Draw : Boolean
+  +WinColor : Boolean
+  +PlayDate : String
+    |
+    ] 
+    #-o[Autochess]
+  
+  [Replay]-o[ReplayScene]
+  
+  [Settings]->[Popup|
+  +hoverText : Text*
+  
+    +openPopUp : Sprite*
+    
+    +closePopUp : Sprite*
+    
+    +BackGround : Sprite*
+    
+    +isOpen : Boolean
+    
+    +canOpen : Boolean
+    |
+    +Update() : virtual void
+    
+    +open() : void
+    
+    +close() : void
+    
+    +createBackground() : void
+    
+    +createClosePopUp() : void
+
+    +Init() : void
+    ]
+  
+  [Settings|
+  +fullscreenText : Text*
+  
+    +fullscreenUnchecked : Sprite* 
+    
+    +fullscreenChecked : Sprite* 
+    
+    +audioText : Text*
+    
+    +Audio : RangeInput*
+|
+    +Update() : void
+    ]o-[RangeInput|
+    +Slider : Sprite*  
+    
+    +Button : Sprite*  
+
+    +Value : float
+    
+    +min : float
+    
+    +max : float
+
+    +pressedLastUpdate : Boolean
+    |
+    +Update(x : Integer, y : Integer, mouseDown : Boolean) : float
+    ]
+  
+  [MainMenu]o-[RuleBook|
+  +leftArrow : Sprite* 
+  
+    +rightArrow : Sprite*
+    
+    +Pages : Array<Sprite*>
+    
+    +index : unsigned Integer
+    
+    +isMenu : Boolean
+    |
+    +Update() : void
+    ]
+  
+  [Autochess]o-[RuleBook]
   
   [
   <<Abstract class>>
