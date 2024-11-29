@@ -115,7 +115,7 @@ Piece* CreateKing()
                              "Moves like a king in chess. Can move 1 tile in any direction.",
                              130,
                              10,
-                             "data/info_King2.png",
+                             "data/info_King.png",
                              1);
 
     for (int i = 1; i <= 1; i++)

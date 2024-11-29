@@ -102,7 +102,7 @@ void Autochess::Init()
         switch(randomNumber)
         {
         case 0:
-            audio->PlaySound("data/sound-theme01");
+            audio->PlaySound("data/sound-theme01.wav");
             break;
 
         case 1:
