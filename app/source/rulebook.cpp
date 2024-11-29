@@ -33,9 +33,9 @@ Rulebook::Rulebook(bool isMenu_)
     Pages.Add(new Sprite("data/rules_Page03.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
     Pages.Add(new Sprite("data/rules_Page04.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
     Pages.Add(new Sprite("data/rules_Page05.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
-    Pages.Add(new Sprite("data/Rules-Page5.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
-    Pages.Add(new Sprite("data/Rules-Page6.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
-    Pages.Add(new Sprite("data/Rules-Page7.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
+    //Pages.Add(new Sprite("data/Rules-Page5.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
+    //Pages.Add(new Sprite("data/Rules-Page6.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
+    //Pages.Add(new Sprite("data/Rules-Page7.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5,0.5)));
 
 }
 
