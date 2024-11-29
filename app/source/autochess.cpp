@@ -102,19 +102,19 @@ void Autochess::Init()
         switch(randomNumber)
         {
         case 0:
-            audio->PlaySound("data/sound-theme01.wav");
+            audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
             break;
 
         case 1:
-            audio->PlaySound("data/sound-theme02.wav");
+            audio->PlaySound("data/sound-theme02.wav", Audio::MUSIC);
             break;
 
         case 2:
-            audio->PlaySound("data/sound-theme03.wav");
+            audio->PlaySound("data/sound-theme03.wav", Audio::MUSIC);
             break;
 
         case 3:
-            audio->PlaySound("data/sound-battleTheme01.wav");
+            audio->PlaySound("data/sound-battleTheme01.wav", Audio::MUSIC);
             break;
         }
     }
@@ -248,7 +248,7 @@ void Autochess::Update()
         else
         {
             isMuted = false;
-            audio->PlaySound("data/sound-theme01.wav");
+            audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
         }
     }
 
