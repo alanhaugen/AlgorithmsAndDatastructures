@@ -147,6 +147,8 @@ void Autochess::Init()
     players.Add(white);
     players.Add(black);
 
+    firstUpdateInPlaying = true;
+
     isWhitesTurn        = true;
     activePlayer        = white;
     opponentPlayer      = black;
@@ -602,7 +604,6 @@ void Autochess::UpdatePlacing()
 
     }
 
-
     if (activePlayer->activePiece != nullptr)
     {
         //undoButton->Update(); //Button does not work, and not working on it currently.
@@ -705,6 +706,13 @@ void Autochess::UpdatePlacing()
 
 void Autochess::UpdatePlaying()
 {
+    // Check if a player has played himself by choosing a piece with no moves as only piece
+    if (firstUpdateInPlaying)
+    {
+        state = IsGameDone();
+        firstUpdateInPlaying = false;
+    }
+
     // Update text
     movesLeftText->Update();
 

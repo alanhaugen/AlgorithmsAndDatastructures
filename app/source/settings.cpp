@@ -4,7 +4,6 @@ extern bool isFullscreen;
 
 Settings::Settings()
 {
-
     createBackground();
     createClosePopUp();
     openPopUp = new Sprite("data/Cog.png", renderer->windowWidth - 90, 10, 2, 2, glm::vec2(0.5, 0));
