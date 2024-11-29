@@ -10,7 +10,6 @@
   +PlayDate : String
     |
     ] 
-    #-o[Autochess]
   
   [Replay]-o[ReplayScene]
   
