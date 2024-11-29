@@ -93,30 +93,26 @@ void Autochess::Init()
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
 
+    audio->Stop();
+    int randomNumber = random.RandomRange(0, 3);
 
-    if (isMuted == false)
+    switch(randomNumber)
     {
-        audio->Stop();
-        int randomNumber = random.RandomRange(0, 3);
+    case 0:
+        audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
+        break;
 
-        switch(randomNumber)
-        {
-        case 0:
-            audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
-            break;
+    case 1:
+        audio->PlaySound("data/sound-theme02.wav", Audio::MUSIC);
+        break;
 
-        case 1:
-            audio->PlaySound("data/sound-theme02.wav", Audio::MUSIC);
-            break;
+    case 2:
+        audio->PlaySound("data/sound-theme03.wav", Audio::MUSIC);
+        break;
 
-        case 2:
-            audio->PlaySound("data/sound-theme03.wav", Audio::MUSIC);
-            break;
-
-        case 3:
-            audio->PlaySound("data/sound-battleTheme01.wav", Audio::MUSIC);
-            break;
-        }
+    case 3:
+        audio->PlaySound("data/sound-battleTheme01.wav", Audio::MUSIC);
+        break;
     }
 
 
@@ -240,16 +236,9 @@ void Autochess::Update()
 {
     if (volumeControl->IsPressed())
     {
-        if (isMuted == false)
-        {
-            isMuted = true;
-            audio->Stop();
-        }
-        else
-        {
-            isMuted = false;
-            audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
-        }
+
+        audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
+
     }
 
     white->Update();

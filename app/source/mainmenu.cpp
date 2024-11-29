@@ -22,20 +22,17 @@ void Mainmenu::Init()
 
     input.Mouse.Pressed = false;
 
-    gameSettings = new GameSettingsMenu();
-
-    settings = new Settings();
-
     ruleMenu = new Menu(&menus);
     rules = new Rulebook(true);
     ruleMenu->AddQuitButton(
         new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
         );
 
+    gameSettings = new GameSettingsMenu();
     gameSettingsMenu = new Menu(&menus);
     gameSettingsMenu->AddNextSceneButton("data/B_2Player.png", renderer->windowWidth / 2 - 200, 290 * (1.75), "vsPlayer");
     gameSettingsMenu->AddQuitButton(
-        new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 0.7, 0.7, glm::vec2(0.5, 1))
+        new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 30, 1, 1, glm::vec2(0.5, 1))
         );
 
     Menu* playMenu = new Menu(&menus);
@@ -55,12 +52,13 @@ void Mainmenu::Init()
     Menu* audioMenu = new Menu(&menus);
     audioMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
+    settings = new Settings(true);
     settingsMenu = new Menu(&menus);
     settingsMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
 
     replaysMenu = new Menu(&menus);
     replayBG = new Sprite("data/SettingsMenuBackground.png", renderer->windowWidth / 2, 75, 1, 1, glm::vec2(0.5,0));
-    replaysMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 370 * (1.75));
+    replaysMenu->AddQuitButton("data/B_Back.png", renderer->windowWidth / 2 - 200, 382 * (1.75));
 
     //replays.Append(ReplayNew()); //for test, skal fjernes
 
@@ -104,7 +102,7 @@ void Mainmenu::Init()
     title = new Sprite("data/Title.png", 0, 5.0f * (1.75), 1.00f, 1.00f);
     *title->matrix.x = (renderer->windowWidth / 2) - (title->width / 2);
     cursor = new Cursor();
-    cords = new Text("X,Y");
+//    cords = new Text("X,Y");
 
     components.Add(bg);
     components.Add(title);
@@ -137,9 +135,9 @@ void Mainmenu::Update()
         title->Hide();
         gameSettings->Update();
     }
-    else if(menus.Top() == gameSettingsMenu)
+    else if(menus.Top() == settingsMenu)
     {
-        gameSettings->Update();
+        settings->Update();
     }
     else
     {
@@ -151,24 +149,6 @@ void Mainmenu::Update()
     if(menus.count > 1 && input.Pressed(input.Key.ESCAPE) == true)
     {
         menus.Pop();
-    }
-
-    if (playMusic == true)
-    {
-        audio->audioVolumeMusic = 1.0f;
-    }
-    else
-    {
-        audio->audioVolumeMusic = 0.0f;
-    }
-
-    if (playSfx == true)
-    {
-        audio->audioVolume = 1.0f;
-    }
-    else
-    {
-        audio->audioVolume = 0.0f;
     }
 
     //delete cords;
