@@ -21,16 +21,37 @@ void ReplayScene::NextMove()
         } else
         {
             (*move).Execute();
+            Animate((*move));
         }
 
         index++;
     }
 
     gameBoard->HideDots();
+
 }
 
 void ReplayScene::LastMove()
 {
+    if (state == GameState::Animate)
+    {
+        animationMoveStack.Clear();
+        *animatedMove.movedPiece->icon->matrix.x = *animatedMove.oldTile->sprite->matrix.x;
+        *animatedMove.movedPiece->icon->matrix.y = *animatedMove.oldTile->sprite->matrix.y;
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            if (animatedMove.movedPiece->isWhite)
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
+            }
+            else
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
+            }
+        }
+        state = GameState::Playing;
+    }
+
     if(index > 0)
     {
         if((*move).isPlacement)
@@ -65,8 +86,8 @@ void ReplayScene::Init()
     white           = new Player(true);
     black           = new Player(false);
 
-    blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
-    yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
+    blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
+    yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
     turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
 
@@ -80,7 +101,6 @@ void ReplayScene::Init()
     rules = new Rulebook(false);
     settings = new Settings();
 
-
     nobilityIcon1       = new Sprite("data/NobilityIcon.png", 32, 190, 0.25, 0.25);
     nobilityIcon2       = new Sprite("data/NobilityIcon.png", 32, renderer->windowHeight - 260, 0.25, 0.25);
     whiteNobilityText   = new Text("White Player Nobility", 0, 0, 0.7, 0.7, glm::vec2(0.2, 0.5));
@@ -93,6 +113,12 @@ void ReplayScene::Init()
     black->RecalculateNobility(gameBoard);
 
     gameBoard->HideDots();
+
+    state = GameState::Playing;
+
+    movesLeftText = nullptr;
+
+    animationMoveStack.Clear();
 }
 
 void ReplayScene::Update()
@@ -113,6 +139,11 @@ void ReplayScene::Update()
     settings->Update();
 
     checkForPopUp();
+
+    if (state == GameState::Animate)
+    {
+        UpdateAnimation();
+    }
 
     if(index > 0)
     {

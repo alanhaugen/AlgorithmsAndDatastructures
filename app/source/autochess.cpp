@@ -803,7 +803,6 @@ void Autochess::UpdateDone()
         Application::LoadScene(Scenes::Replay);
     }
 
-
     if (isDraw)
     {
         playerDraw->Update();
@@ -842,7 +841,10 @@ void Autochess::UpdateDone()
 void Autochess::UpdateAnimation()
 {
     // Update text
-    movesLeftText->Update();
+    if (movesLeftText != nullptr)
+    {
+        movesLeftText->Update();
+    }
 
     // Update animations
     if (animatedMove.captureTile1 != nullptr)
@@ -990,6 +992,25 @@ void Autochess::UpdateInfoBoard()
 
 void Autochess::Animate(Move move)
 {
+    if (state == GameState::Animate)
+    {
+        animationMoveStack.Clear();
+        *animatedMove.movedPiece->icon->matrix.x = *animatedMove.tileToMoveTo->sprite->matrix.x;
+        *animatedMove.movedPiece->icon->matrix.y = *animatedMove.tileToMoveTo->sprite->matrix.y;
+
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            if (animatedMove.movedPiece->isWhite)
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
+            }
+            else
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
+            }
+        }
+    }
+
     state = GameState::Animate;
 
     animatedMove = move;

@@ -125,6 +125,9 @@ void Move::Undo()
             }
         }
     }
+
+    *movedPiece->icon->matrix.x = *movedPiece->currentTile->sprite->matrix.x;
+    *movedPiece->icon->matrix.y = *movedPiece->currentTile->sprite->matrix.y;
 }
 
 void Move::Redo()
