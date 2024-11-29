@@ -306,21 +306,21 @@ void Autochess::Update()
         undoButtonText->Update();
     }*/
 
-    if (nobilityIcon2->IsHoveredOver())
+    if (nobilityIcon2->IsHoveredOver() && !PopUpOpen)
     {
         *whiteNobilityText->matrix.x = *nobilityIcon2->matrix.x + 20;
         *whiteNobilityText->matrix.y = *nobilityIcon2->matrix.y + 90;
         whiteNobilityText->Update();
     }
 
-    if (nobilityIcon1->IsHoveredOver())
+    if (nobilityIcon1->IsHoveredOver() && !PopUpOpen)
     {
         *blackNobilityText->matrix.x = *nobilityIcon1->matrix.x + 20;
         *blackNobilityText->matrix.y = *nobilityIcon1->matrix.y - 30;
         blackNobilityText->Update();
     }
 
-    if (turnsLeftBanner->IsHoveredOver())
+    if (turnsLeftBanner->IsHoveredOver() && state != GameState::Shopping)
     {
         *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
         *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
