@@ -7,7 +7,7 @@
 class ReplayNew
 {
 public:
-    LinkedList<Move> Moves;
+    LinkedList<Move>* Moves;
     bool Draw = false;
     bool WinColor = true;
     String PlayDate;

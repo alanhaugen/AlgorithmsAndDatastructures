@@ -2,7 +2,7 @@ import "../solid/solid.qbs" as solid
 
 solid {
     Application {
-        name: "App.exe"
+        name: "App"
 
         files: [
             "data/BackgroundImage.png",
