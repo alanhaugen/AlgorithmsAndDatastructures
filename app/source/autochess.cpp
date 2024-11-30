@@ -372,13 +372,23 @@ void Autochess::Update()
         else if(replay.End()->isPlacement == true)
         {
             Log("we got here at least");
-            if(activePlayer->isWhite)
+            if(activePlayer->isWhite && replay.End()->oldTile->piece->isWhite == false)
             {
                 black->piecesInHand.Append(replay.End()->oldTile->piece);
             }
-            else
+            else if(activePlayer->isWhite && replay.End()->oldTile->piece->isWhite)
             {
                 white->piecesInHand.Append(replay.End()->oldTile->piece);
+                NextPlayer();
+            }
+            else if(activePlayer->isWhite == false && replay.End()->oldTile->piece->isWhite)
+            {
+                white->piecesInHand.Append(replay.End()->oldTile->piece);
+            }
+            else
+            {
+                black->piecesInHand.Append(replay.End()->oldTile->piece);
+                NextPlayer();
             }
             replay.End()->oldTile->piece = nullptr;
             replay.Remove(replay.End().curNode);
