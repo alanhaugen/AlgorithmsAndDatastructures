@@ -20,8 +20,6 @@ enum GameState
     Animate
 };
 
-const int MovesTotal = 20;
-
 class Autochess : public IScene
 {
 public:

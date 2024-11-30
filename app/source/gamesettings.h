@@ -3,17 +3,17 @@
 
 #include <core/application.h>
 
+extern int Gold;
+extern int Rounds;
+extern int RestockCost;
+extern bool RestockEndTurn;
+extern int RandomCardCost;
+extern int PlacementsPerTurn;
+extern int MovesPerTurn;
+
 class GameSettings
 {
 public:
-    int Gold = 1000;
-    int Rounds = 20;
-    int RestockCost = 50;
-    bool RestockEndTurn = true;
-    int RandomCardCost = 100;
-    int PlacementsPerTurn = 1;
-    int MovesPerTurn = 1;
-
     //Count of each piece in deck
     int King = 2;
     int Monster = 3;
