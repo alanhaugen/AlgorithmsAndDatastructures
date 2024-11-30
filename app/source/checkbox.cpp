@@ -24,6 +24,18 @@ CheckBox::CheckBox(String text, bool *option, int x, int y)
     toggled = *option;
 }
 
+void CheckBox::UpdatePlacement(float x, float y)
+{
+    *selected->matrix.x = x;
+    *selected->matrix.y = y;
+
+    *unSelected->matrix.x = x;
+    *unSelected->matrix.y = y;
+
+    *textSprite->matrix.x = x + 50;
+    *textSprite->matrix.y = y;
+}
+
 void CheckBox::Update()
 {
     if (toggled)
