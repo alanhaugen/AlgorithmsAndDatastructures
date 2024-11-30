@@ -11,6 +11,7 @@ bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 LinkedList<GameSettings*> Presets;
+int MovesTotal = 20;
 
 #ifdef WIN32
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window

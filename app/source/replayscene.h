@@ -13,6 +13,7 @@ public:
     void LastMove();
     void Init();
     void Update();
+    int MovesLeft;
 };
 
 #endif // REPLAYSCENE_H

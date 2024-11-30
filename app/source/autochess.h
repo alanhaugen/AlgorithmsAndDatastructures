@@ -20,8 +20,6 @@ enum GameState
     Animate
 };
 
-const int MovesTotal = 20;
-
 class Autochess : public IScene
 {
 public:
@@ -53,7 +51,7 @@ public:
     Text* playerWhiteTurn;
     Text* playerBlackTurn;
 
-    Text* movesLeftText;
+    Text* movesLeftText = nullptr;
 
     Text* settingsText;
     Text* rulebookText;

@@ -12,6 +12,8 @@ extern bool isFirstPlaythrough;
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
+extern int MovesTotal;
+
 Autochess::Autochess()
 {
 }
@@ -151,9 +153,13 @@ void Autochess::Init()
 
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
-    turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
-    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(-0.3, 0));
-    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0, 0));
+    turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 60, 135, 0.75, 0.75, glm::vec2(0.5, 0));
+    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
+    *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
     //victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
     victoryBanner       = new Sprite("data/VictoryScreenGradient.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
     victoryBanner2      = new Sprite("data/victoryBannerGoldBlue.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
@@ -184,7 +190,7 @@ void Autochess::Init()
     isDraw              = false;
     replayAdded         = false;
 
-    movesLeftText       = new Text(String(MovesTotal - movesCompleted), renderer->windowWidth - 120, 165);
+    movesLeftText       = new Text(String(MovesTotal - movesCompleted), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
 
     state               = GameState::Shopping;
 
@@ -320,12 +326,8 @@ void Autochess::Update()
         blackNobilityText->Update();
     }
 
-    if (turnsLeftBanner->IsHoveredOver() && state != GameState::Shopping)
+    if (turnsLeftBanner->IsHoveredOver() && state != GameState::Shopping && !PopUpOpen)
     {
-        *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
-        *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
-        *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
-        *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
         turnsLeftText1->Update();
         turnsLeftText2->Update();
     }
@@ -763,7 +765,7 @@ void Autochess::UpdatePlaying()
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
         delete movesLeftText;
-        movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y);
+        movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y, 1, 1, glm::vec2(0.5, 0));
 
         // Check if the game is over
         state = IsGameDone();

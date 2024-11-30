@@ -4,11 +4,9 @@
 
 extern LinkedList<Move> replay;
 LinkedList<Move>::Iterator move = replay.Begin();
+extern int MovesTotal;
 
-ReplayScene::ReplayScene()
-{
-
-}
+ReplayScene::ReplayScene(){}
 
 void ReplayScene::NextMove()
 {
@@ -20,6 +18,7 @@ void ReplayScene::NextMove()
             (*move).oldTile->piece = (*move).movedPiece;
         } else
         {
+            MovesLeft--;
             (*move).Execute();
             Animate((*move));
         }
@@ -60,6 +59,7 @@ void ReplayScene::LastMove()
         }
         else
         {
+            MovesLeft++;
             (*move).Undo();
         }
         --move;
@@ -71,6 +71,7 @@ void ReplayScene::LastMove()
 
 void ReplayScene::Init()
 {
+    MovesLeft = MovesTotal * 2;
     move            = replay.Begin();
 
     gameBoard       = (*move).gameBoard;
@@ -88,8 +89,15 @@ void ReplayScene::Init()
 
     blueBanner      = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
     yellowBanner    = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
-    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
+    turnsLeftBanner = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 70, 135, 0.75, 0.75, glm::vec2(0.5, 0));
     victoryBanner   = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2 - 250, 250, 0.55, 0.55);
+
+    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
+    *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
 
     leftArrow       = new Sprite("data/B_ArrowLEFT.png", renderer->windowWidth/2 - 150, renderer->windowHeight - 120, 1, 1);
 
@@ -116,7 +124,7 @@ void ReplayScene::Init()
 
     state = GameState::Playing;
 
-    movesLeftText = nullptr;
+    movesLeftText = new Text(String(MovesTotal), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
 
     animationMoveStack.Clear();
 }
@@ -138,11 +146,33 @@ void ReplayScene::Update()
     rules->Update();
     settings->Update();
 
+    if(movesLeftText != nullptr)
+    {
+        delete movesLeftText;
+    }
+
+    if(MovesLeft % 2 == 0)
+    {
+        movesLeftText       = new Text(String(MovesLeft / 2), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
+    }
+    else
+    {
+        movesLeftText       = new Text(String((MovesLeft + 1) / 2), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
+    }
+
+    movesLeftText->Update();
+
     checkForPopUp();
 
     if (state == GameState::Animate)
     {
-        UpdateAnimation();
+        UpdateAnimation();     
+    }
+
+    if (turnsLeftBanner->IsHoveredOver() && !PopUpOpen)
+    {
+        turnsLeftText1->Update();
+        turnsLeftText2->Update();
     }
 
     if(index > 0)
