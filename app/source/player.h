@@ -20,6 +20,7 @@ public:
     Sprite* buttonReadyGray;
 
 
+    bool hasBeenActive = false;
     bool isActivePlayer = false;
     bool isReady;
     bool placingStarted = false;

@@ -19,6 +19,7 @@ void Player::Init(bool isWhite_)
     gold     = Gold;
     score    = 0;
     nobility = 0;
+    hasBeenActive = false;
 
     buttonReady = new Sprite("data/B_Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
     buttonReadyGray = new Sprite("data/B_ReadyGray.png", 0.0f, 0.0f, 0.5f, 0.5f);
@@ -226,7 +227,14 @@ void Player::Update()
         {
             if(isActivePlayer)
             {
-                buttonReady->Update();
+                if(hasBeenActive)
+                {
+                    buttonReady->Update();
+                }
+                else
+                {
+                    hasBeenActive = true;
+                }
             }
             else
             {
