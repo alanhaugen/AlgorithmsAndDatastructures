@@ -818,7 +818,10 @@ void Shop::Update()
 {
     activePiece = nullptr;
 
-    restockShop->Update();
+    if(shopItems.Empty() == false)
+    {
+        restockShop->Update();
+    }
 
     if (itemsStoreFront.Empty() && shopItems.Empty() == false)
     {

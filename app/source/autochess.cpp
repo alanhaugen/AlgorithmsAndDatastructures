@@ -374,7 +374,7 @@ void Autochess::UpdateShop()
 {
     shop->Update();
 
-    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen)
+    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen && shop->shopItems.Empty() == false)
     {
         shop->StockShopFront();
         activePlayer->gold -= shop->RestockShopCost;
