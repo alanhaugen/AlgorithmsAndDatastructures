@@ -56,6 +56,7 @@ void Board::GenerateTiles()
             }
 
             tile.weightBorder = new Sprite("data/TileBorder-Shielded.png", 0, 0, scale, scale);
+            tile.weightBorderWhite = new Sprite("data/TileBorder-Shielded_White.png", 0, 0, scale, scale);
             tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
             tile.attackBorder = new Sprite("data/TileBorder-Red.png", 0, 0, scale, scale);
 
@@ -81,6 +82,7 @@ void Board::HideDots()
         (*tile).moveDot->Hide();
         (*tile).attackBorder->Hide();
         (*tile).weightBorder->Hide();
+        (*tile).weightBorderWhite->Hide();
     }
 }
 
@@ -616,7 +618,7 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly, bool
     {
         if ((*node).piece != nullptr)
         {
-            if ((*node).piece->isWhite != tile->piece->isWhite &&(*node).piece->weightPattern.Empty() == false)
+            if ((*node).piece->isWhite != tile->piece->isWhite && (*node).piece->weightPattern.Empty() == false)
             {
                 Array<glm::vec2> weightPattern = (*node).piece->weightPattern;
 
@@ -633,7 +635,18 @@ Array<Move> Board::UpdateDots(Tile* tile, bool showDot, bool isCaptureOnly, bool
                         if ((*newNode).x == x + weightPattern[i].x && (*newNode).y == y + (-yDirectionInvert * weightPattern[i].y) && GetTile((*newNode).x, (*newNode).y)->piece == nullptr)
                         {
                             (*newNode).weight = 1;
-                            (*newNode).weightBorder->Show();
+
+                            if (showDot)
+                            {
+                                if ((*node).piece->isWhite)
+                                {
+                                    (*newNode).weightBorderWhite->Show();
+                                }
+                                else
+                                {
+                                    (*newNode).weightBorder->Show();
+                                }
+                            }
                         }
                     }
                 }

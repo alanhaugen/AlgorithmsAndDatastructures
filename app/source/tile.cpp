@@ -27,6 +27,10 @@ void Tile::Update()
     *weightBorder->matrix.y = *sprite->matrix.y;
     weightBorder->Update();
 
+    *weightBorderWhite->matrix.x = *sprite->matrix.x;
+    *weightBorderWhite->matrix.y = *sprite->matrix.y;
+    weightBorderWhite->Update();
+
     if (piece != nullptr)
     {
         if (piece->isCurrentlyInAnimation == false)
