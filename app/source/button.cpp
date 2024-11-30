@@ -34,7 +34,7 @@ void Button::Update()
             {
                 if(i == index)
                 {
-                    replay = *(*Replay_).Moves;
+                    replay = (*Replay_).Moves;
                     break;
                 }
                 i++;

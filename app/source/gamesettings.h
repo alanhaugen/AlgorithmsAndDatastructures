@@ -3,6 +3,14 @@
 
 #include <core/application.h>
 
+extern int Gold;
+extern int Rounds;
+extern int RestockCost;
+extern bool RestockEndTurn;
+extern int RandomCardCost;
+extern int PlacementsPerTurn;
+extern int MovesPerTurn;
+
 class GameSettings
 {
 public:
@@ -34,6 +42,7 @@ public:
     int Rook = 3;
 
     GameSettings();
+    GameSettings(int gold, int rounds);
 };
 
 #endif // GAMESETTINGS_H

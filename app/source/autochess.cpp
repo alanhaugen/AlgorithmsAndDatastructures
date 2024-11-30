@@ -13,7 +13,7 @@ extern bool isFirstPlaythrough;
 extern LinkedList<Move> replay;
 extern LinkedList<ReplayNew> replays;
 
-extern int MovesTotal;
+extern int Rounds;
 
 Autochess::Autochess()
 {
@@ -191,7 +191,7 @@ void Autochess::Init()
     isDraw              = false;
     replayAdded         = false;
 
-    movesLeftText       = new Text(String(MovesTotal - movesCompleted), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
+    movesLeftText       = new Text(String(Rounds - movesCompleted), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
 
     state               = GameState::Shopping;
 
@@ -294,7 +294,7 @@ void Autochess::Update()
         Application::LoadScene(Scenes::MainMenu);
     }
 
-    if (backArrow->IsPressed() && !PopUpOpen)
+    if (backArrow->IsPressed())
     {
         Application::LoadScene(Scenes::MainMenu);
     }
@@ -768,12 +768,12 @@ void Autochess::UpdatePlaying()
     // Update AI player if the casting succeeded
     if (aiPlayer != nullptr)
     {
-        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer, MovesTotal == (MovesTotal - movesCompleted));
+        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer, Rounds == (Rounds - movesCompleted));
     }
     // If casting fails => the player is human. Update human player
     else
     {
-        nextMove = activePlayer->GetNextMove(gameBoard, MovesTotal == (MovesTotal - movesCompleted));
+        nextMove = activePlayer->GetNextMove(gameBoard, Rounds == (Rounds - movesCompleted));
     }
 
     // Do the next move
@@ -805,7 +805,7 @@ void Autochess::UpdatePlaying()
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
         delete movesLeftText;
-        movesLeftText = new Text(String(MovesTotal - movesCompleted), x, y, 1, 1, glm::vec2(0.5, 0));
+        movesLeftText = new Text(String(Rounds - movesCompleted), x, y, 1, 1, glm::vec2(0.5, 0));
 
         // Check if the game is over
         state = IsGameDone();
@@ -935,7 +935,7 @@ GameState Autochess::IsGameDone()
     // The game over states
     if (    black->GetAllPossibleMoves(gameBoard).Empty() == true ||
             white->GetAllPossibleMoves(gameBoard).Empty() == true ||
-            movesCompleted >= MovesTotal)
+            movesCompleted >= Rounds)
     {
         // Nobility dicates the winner, if they are equal it is a draw
         if (white->nobility == black->nobility)

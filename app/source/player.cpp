@@ -1,5 +1,7 @@
 #include "player.h"
 
+extern int Gold;
+
 Player::Player()
 {
     Init(true);
@@ -14,7 +16,7 @@ void Player::Init(bool isWhite_)
 {
     isWhite  = isWhite_;
     isReady  = false;
-    gold     = 1000;
+    gold     = Gold;
     score    = 0;
     nobility = 0;
 

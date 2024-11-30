@@ -9,11 +9,22 @@ class GameSettingsMenu : public PopUp
 public:
     GameSettingsMenu();
 
-    Sprite* CreateNewSettings;
     Sprite*  AddGold;
+    Sprite*  ReduceGold;
+    Sprite* AddRounds;
+    Sprite* ReduceRounds;
     GameSettings* CurrentSettings;
+    Sprite* ReducePresett;
+    Sprite* AddPresett;
     int index = 0;
+    int numberOfSettings = 0;
+
+    Text* GoldNumber = nullptr;
+    Text* RoundNumber = nullptr;
     Text* GameSettingsNumber = nullptr;
+
+    void UpdateNumbers();
+    void AddPreset();
     void Update() override;
 };
 
