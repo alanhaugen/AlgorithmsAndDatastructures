@@ -55,9 +55,9 @@ void Board::GenerateTiles()
                 sprite = new Sprite("data/BlackTile.png", 0, 0, scale, scale);
             }
 
+            tile.weightBorder = new Sprite("data/TileBorder-Shielded.png", 0, 0, scale, scale);
             tile.moveDot = new Sprite("data/MoveDot.png", 0, 0, scale, scale);
             tile.attackBorder = new Sprite("data/TileBorder-Red.png", 0, 0, scale, scale);
-            tile.weightBorder = new Sprite("data/TileBorder-Blue.png", 0, 0, scale, scale);
 
             *sprite->matrix.x = x * (sprite->width  * sprite->scaleX) + offsetX;
             *sprite->matrix.y = y * (sprite->height * sprite->scaleY) + offsetY;
