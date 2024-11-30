@@ -87,7 +87,7 @@ void Autochess::Init()
     backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
     undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 50, 15, 0.5, 0.5);
-    undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
+    undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight - 200, 0.5, 0.5);
     autoPlacePieces     = new Sprite("data/B_Autoplace.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     autoPlaceAllPieces  = new Sprite("data/B_AutoplaceAll.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
     autoPlaceObstacles  = new Sprite("data/B_PlaceObstacles.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)+100, 0.5, 0.5);
@@ -399,6 +399,11 @@ void Autochess::Update()
         }
 
         NextPlayer();
+
+        if (firstPlayer != activePlayer && isFirstPlaythrough == false && state != GameState::Placing)
+        {
+            movesCompleted--;
+        }
     }
 
     if (undoButton->IsHoveredOver() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
@@ -560,7 +565,14 @@ void Autochess::UpdatePlacing()
             Tile*tile = nullptr;
             while (tile == nullptr)
                 {
-                    tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
+                    if(isWhitesTurn)
+                    {
+                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,4));
+                    }
+                    else
+                    {
+                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(6,10));
+                    }
                     if (tile->piece != nullptr)
                     {
                         tile = nullptr;
