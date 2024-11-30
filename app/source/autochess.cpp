@@ -5,6 +5,7 @@
 #include "replaynew.h"
 #include <ctime>
 
+extern bool option;
 extern bool isTwoPlayer;
 extern bool vsAI;
 extern bool isFirstPlaythrough;
@@ -498,7 +499,7 @@ void Autochess::UpdatePlacing()
     autoPlacePieces->Update();
     autoPlaceAllPieces->Update();
 
-    if (shop->obstacleCards.Empty() != true)
+    if (shop->obstacleCards.Empty() != true && option == true)
     {
         autoPlaceObstacles->Update();
     }
@@ -587,7 +588,7 @@ void Autochess::UpdatePlacing()
         }
     }
 
-    if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true)
+    if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true && option == true)
     {
 
         for (int i = 0; i < 6; i++)

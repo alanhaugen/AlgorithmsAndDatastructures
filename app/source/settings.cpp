@@ -1,6 +1,6 @@
 #include "settings.h"
 
-bool option = false;
+extern bool option;
 
 Settings::Settings()
 {
@@ -127,11 +127,19 @@ void Settings::Update()
         }
 
         //Audio
-        audioText->Update();
-        audio->audioVolume = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+        if(option == true)
+        {
+            audioText->Update();
+            audio->audioVolume = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
 
-        musicAudioText->Update();
-        audio->audioVolumeMusic = musicAudio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+            musicAudioText->Update();
+            audio->audioVolumeMusic = musicAudio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
+        }
+        else
+        {
+            audio->audioVolume = 0.0f;
+            audio->audioVolumeMusic = 0.0f;
+        }
     }
 }
 
