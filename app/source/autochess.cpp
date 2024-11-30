@@ -285,7 +285,7 @@ void Autochess::Update()
         Application::LoadScene(Scenes::MainMenu);
     }
 
-    if (backArrow->IsPressed() && !PopUpOpen)
+    if (backArrow->IsPressed())
     {
         Application::LoadScene(Scenes::MainMenu);
     }
