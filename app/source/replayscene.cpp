@@ -32,27 +32,27 @@ void ReplayScene::NextMove()
 
 void ReplayScene::LastMove()
 {
-    if (state == GameState::Animate)
-    {
-        animationMoveStack.Clear();
-        *animatedMove.movedPiece->icon->matrix.x = *animatedMove.oldTile->sprite->matrix.x;
-        *animatedMove.movedPiece->icon->matrix.y = *animatedMove.oldTile->sprite->matrix.y;
-        if (animatedMove.movedPiece->animatedForm != nullptr)
-        {
-            if (animatedMove.movedPiece->isWhite)
-            {
-                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
-            }
-            else
-            {
-                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
-            }
-        }
-        state = GameState::Playing;
-    }
 
     if(index > 0)
     {
+        if (state == GameState::Animate)
+        {
+            animationMoveStack.Clear();
+            *animatedMove.movedPiece->icon->matrix.x = *animatedMove.oldTile->sprite->matrix.x;
+            *animatedMove.movedPiece->icon->matrix.y = *animatedMove.oldTile->sprite->matrix.y;
+            if (animatedMove.movedPiece->animatedForm != nullptr)
+            {
+                if (animatedMove.movedPiece->isWhite)
+                {
+                    animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
+                }
+                else
+                {
+                    animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
+                }
+            }
+            state = GameState::Playing;
+        }
         if((*move).isPlacement)
         {
             (*move).oldTile->piece = nullptr;
