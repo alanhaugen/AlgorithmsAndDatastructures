@@ -96,10 +96,11 @@ Settings::Settings(bool isMenu_)
 void Settings::Update()
 {
     PopUp::Update();
-    experimentalCheckbox->Update();
 
     if(isOpen)
     {
+        experimentalCheckbox->Update();
+
         //Fullscreen
         fullscreenText->Update();
         if(Locator::renderer->fullscreen == true)
