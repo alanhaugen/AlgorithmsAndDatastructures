@@ -577,6 +577,10 @@ Array<Move> Board::SimpleMoves(Tile* tile, int left, int up, bool showDot, int l
                 searchTile->moveDot->Show();
             }
         }
+        else if (searchTile->piece->invinsible == true)
+        {
+            break;
+        }
         else if (searchTile->piece->isWhite != tile->piece->isWhite)
         {
             moves.Add(Move(tile->piece, searchTile, false, searchTile));
