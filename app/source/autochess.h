@@ -56,7 +56,7 @@ public:
     Text* settingsText;
     Text* rulebookText;
     Text* backArrowText;
-    Text* undoButtonText;
+    //Text* undoButtonText;
     Text* whiteNobilityText;
     Text* blackNobilityText;
     Text* turnsLeftText1;

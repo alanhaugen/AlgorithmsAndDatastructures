@@ -86,7 +86,7 @@ void Autochess::Init()
     goldBackground2     = new Sprite("data/BannerGOLDBackground3.png", 160, 192, 1.5, 1.5, glm::vec2(0.5, 1));
 
     backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
-    undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
+    //undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 50, 15, 0.5, 0.5);
     undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight - 200, 0.5, 0.5);
     autoPlacePieces     = new Sprite("data/B_Autoplace.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
@@ -416,12 +416,12 @@ void Autochess::Update()
         }
     }
 
-    if (undoButton->IsHoveredOver() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    /*if (undoButton->IsHoveredOver() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
     {
         *undoButtonText->matrix.x = *undoButton->matrix.x;
         *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
         undoButtonText->Update();
-    }
+    }*/
 }
 
 void Autochess::UpdateShop()
