@@ -16,6 +16,7 @@ public:
     Sprite* moveDot;
     Sprite* attackBorder;
     Sprite* weightBorder;
+    Sprite* weightBorderWhite;
     Piece* piece;
     //bool blockedSouth;
     //bool blockedNorth;
