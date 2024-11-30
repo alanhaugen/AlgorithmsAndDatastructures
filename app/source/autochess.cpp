@@ -296,21 +296,7 @@ void Autochess::Update()
         backArrowText->Update();
     }
 
-    /*if(undoButton->IsPressed() && !PopUpOpen)
-    {
-        if(state == GameState::Placing && replay.End()->isPlacement == false)
-        {
-            replay.End()->Undo();
-            replay.RemoveAt(replay.count);
-        }
-    }*/
 
-    /*if (undoButton->IsHoveredOver())
-    {
-        *undoButtonText->matrix.x = *undoButton->matrix.x;
-        *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
-        undoButtonText->Update();
-    }*/
 
     if (nobilityIcon2->IsHoveredOver() && !PopUpOpen)
     {
@@ -367,6 +353,49 @@ void Autochess::Update()
     if (activeInfoBoard != nullptr && infoBoardTimer->TimeSinceStarted() < 5000.0f)
     {
         activeInfoBoard->Update();
+    }
+
+    //Undo-button
+    if(replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        undoButton->Update(); //Button does not work, and not working on it currently.
+    }
+
+    if(undoButton->IsPressed() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        if(replay.End()->isPlacement == false)
+        {
+            replay.End()->Undo();
+            replay.Remove(replay.End().curNode);
+        }
+
+        else if(replay.End()->isPlacement == true)
+        {
+            Log("we got here at least");
+            if(activePlayer->isWhite)
+            {
+                black->piecesInHand.Append(replay.End()->oldTile->piece);
+            }
+            else
+            {
+                white->piecesInHand.Append(replay.End()->oldTile->piece);
+            }
+            replay.End()->oldTile->piece = nullptr;
+            replay.Remove(replay.End().curNode);
+            if(state == GameState::Playing)
+            {
+                state = GameState::Placing;
+            }
+        }
+
+        NextPlayer();
+    }
+
+    if (undoButton->IsHoveredOver() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        *undoButtonText->matrix.x = *undoButton->matrix.x;
+        *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
+        undoButtonText->Update();
     }
 }
 
@@ -597,7 +626,6 @@ void Autochess::UpdatePlacing()
 
     if (activePlayer->activePiece != nullptr)
     {
-        //undoButton->Update(); //Button does not work, and not working on it currently.
 
         movesLeftText->Update();
         //gameBoard->highlight->Show();
