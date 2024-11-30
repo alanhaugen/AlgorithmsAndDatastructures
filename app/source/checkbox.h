@@ -9,6 +9,7 @@ class CheckBox : public Component
 {
 public:
     CheckBox(String imageUnselected, String imageSelected, String text, bool* option, int x, int y);
+    CheckBox(String text, bool* option, int x, int y);
 
     void Update();
 
