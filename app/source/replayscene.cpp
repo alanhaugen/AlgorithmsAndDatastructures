@@ -53,17 +53,20 @@ void ReplayScene::LastMove()
             }
             state = GameState::Playing;
         }
-        if((*move).isPlacement)
+        if (move.curNode != nullptr)
         {
-            (*move).oldTile->piece = nullptr;
+            if((*move).isPlacement)
+            {
+                (*move).oldTile->piece = nullptr;
+            }
+            else
+            {
+                MovesLeft++;
+                (*move).Undo();
+            }
+            --move;
+            index--;
         }
-        else
-        {
-            MovesLeft++;
-            (*move).Undo();
-        }
-        --move;
-        index--;
     }
 
     gameBoard->HideDots();
