@@ -1,6 +1,10 @@
 #include "settings.h"
 
-Settings::Settings(){}
+bool option = false;
+
+Settings::Settings()
+{
+}
 
 Settings::Settings(bool isMenu_)
 {
@@ -28,6 +32,8 @@ Settings::Settings(bool isMenu_)
 
     fullscreenChecked = new Sprite("data/CheckboxChecked.png", renderer->windowWidth / 2 - 215, renderer->windowHeight / 2 - 125, 0.25, 0.25, glm::vec2(0, 0.5));
     fullscreenUnchecked = new Sprite("data/CheckboxEmpty.png", renderer->windowWidth / 2 - 215, renderer->windowHeight / 2 - 125, 0.25, 0.25, glm::vec2(0, 0.5));
+
+    experimentalCheckbox = new CheckBox("Experimental features", &option, renderer->windowWidth / 2, renderer->windowHeight / 2 - 100);
 
     if(isMenu_ == true)
     {
@@ -58,11 +64,8 @@ Settings::Settings(bool isMenu_)
 
     Audio = new RangeInput(rangeButton, rangeSlider, 0.0f, 2.0f, audio->audioVolume);
 
-
-
     //Music Audio
     musicAudioText = new Text("Music volume", 0, renderer->windowHeight / 2 + 75, 1, 1, glm::vec2(1, 0.5));
-
 
     Sprite* musicRangeSlider = new Sprite (
         "data/ButtonBASE-Rectangle.png", 0, renderer->windowHeight / 2 + 75, 1, 0.1, glm::vec2(0, 0.5)
@@ -93,6 +96,7 @@ Settings::Settings(bool isMenu_)
 void Settings::Update()
 {
     PopUp::Update();
+    experimentalCheckbox->Update();
 
     if(isOpen)
     {

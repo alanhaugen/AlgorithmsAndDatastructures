@@ -3,6 +3,7 @@
 
 #include "popup.h"
 #include "rangeinput.h"
+#include "checkbox.h"
 
 class Settings : public PopUp
 {
@@ -17,6 +18,8 @@ public:
 
     Text* musicAudioText;
     RangeInput* musicAudio;
+
+    CheckBox* experimentalCheckbox;
 
 
     void Update() override;

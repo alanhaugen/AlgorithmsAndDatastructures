@@ -12,6 +12,18 @@ CheckBox::CheckBox(String imageUnSelected, String imageSelected, String text, bo
     toggled = *option;
 }
 
+CheckBox::CheckBox(String text, bool *option, int x, int y)
+{
+    selected = new Sprite("data/CheckboxChecked.png", x, y, 0.25f, 0.25f);
+    unSelected = new Sprite("data/CheckboxEmpty.png", x, y, 0.25f, 0.25f);
+
+    textSprite = new Text(text, x + 50, y, 1.0f, 1.0f);
+
+    origOption = option;
+
+    toggled = *option;
+}
+
 void CheckBox::Update()
 {
     if (toggled)
