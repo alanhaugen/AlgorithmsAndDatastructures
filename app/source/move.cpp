@@ -61,7 +61,7 @@ void Move::Execute()
     //Application::audio->Stop();
     if (vsAI == false)
     {
-        Application::audio->PlaySound("data/sound-piecePlacement.wav");
+        Application::audio->PlaySound("data/sound-piecePlacement.wav", Audio::SFX);
     }
 
     if (captureTile1 != nullptr)
