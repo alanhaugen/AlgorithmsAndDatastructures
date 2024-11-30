@@ -60,6 +60,8 @@ solid {
             "source/board.h",
             "source/button.cpp",
             "source/button.h",
+            "source/checkbox.cpp",
+            "source/checkbox.h",
             "source/cursor.cpp",
             "source/cursor.h",
             "source/gamesettings.cpp",

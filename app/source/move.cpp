@@ -1,5 +1,8 @@
+#include <core/application.h>
 #include "move.h"
 #include "piece.h"
+
+extern bool vsAI;
 
 Move::Move()
 {
@@ -55,6 +58,12 @@ void Move::Update()
 
 void Move::Execute()
 {
+    //Application::audio->Stop();
+    if (vsAI == false)
+    {
+        Application::audio->PlaySound("data/sound-piecePlacement.wav", Audio::SFX);
+    }
+
     if (captureTile1 != nullptr)
     {
         captureTile1->piece = nullptr;
@@ -121,6 +130,9 @@ void Move::Undo()
             }
         }
     }
+
+    *movedPiece->icon->matrix.x = *movedPiece->currentTile->sprite->matrix.x;
+    *movedPiece->icon->matrix.y = *movedPiece->currentTile->sprite->matrix.y;
 }
 
 void Move::Redo()

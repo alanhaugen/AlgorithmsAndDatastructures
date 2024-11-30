@@ -3,6 +3,7 @@
 
 #include <core/components/component.h>
 #include <core/components/command.h>
+#include <core/application.h>
 #include "tile.h"
 #include "board.h"
 

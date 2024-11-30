@@ -11,7 +11,8 @@ bool isFirstPlaythrough = true;
 LinkedList<Move> replay;
 LinkedList<ReplayNew> replays;
 LinkedList<GameSettings*> Presets;
-bool isFullscreen = true;
+int MovesTotal = 20;
+bool option = false;
 
 int Gold = 1000;
 int Rounds = 20;

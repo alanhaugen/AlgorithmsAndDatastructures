@@ -23,7 +23,7 @@ Piece::Piece(String name_,
     isHydra                 = isHydra_;
 
     backgroundCard          = new Sprite("data/Card-Standard.png", 0,0, 2.2 * 1.5, 3.1 * 1.5);
-    infoBoard               = new Sprite(infoBoardPath, 50, 200, 0.7, 0.7);
+    infoBoard               = new Sprite(infoBoardPath, 100, 250, 0.7, 0.7);
 
     iconWhite               = new Sprite(iconWhitePath, 0, 0, 0.4, 0.4);
     iconBlack               = new Sprite(iconBlackPath, 0, 0, 0.4, 0.4);

@@ -6,6 +6,12 @@ Menu::Menu(Stack<Menu*> *menuStack_)
     menuStack  = menuStack_;
 }
 
+void Menu::AddCheckBox(String imageUnselected, String imageSelected, String text, bool* option, int x, int y)
+{
+    CheckBox* checkBox = new CheckBox(imageUnselected, imageSelected, text, option, x, y);
+    checkBoxes.Add(checkBox);
+}
+
 void Menu::AddNextSceneButton(String image, int x, int y, String type, int index)
 {
     Button* button = new Button(image, x, y, menuStack);
@@ -57,5 +63,10 @@ void Menu::Update()
     for (unsigned int i = 0; i < buttons.Size(); i++)
     {
         buttons[i]->Update();
+    }
+
+    for (unsigned int i = 0; i < checkBoxes.Size(); i++)
+    {
+        checkBoxes[i]->Update();
     }
 }

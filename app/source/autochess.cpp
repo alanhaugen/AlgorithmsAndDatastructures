@@ -5,6 +5,7 @@
 #include "replaynew.h"
 #include <ctime>
 
+extern bool option;
 extern bool isTwoPlayer;
 extern bool vsAI;
 extern bool isFirstPlaythrough;
@@ -87,7 +88,7 @@ void Autochess::Init()
     backArrowText       = new Text("Return",0, 0, 0.8, 0.8, glm::vec2(0.2, 0.5));
     undoButtonText      = new Text("Undo",0, 0, 0.8, 0.8, glm::vec2(0.5, 1));
     backArrow           = new Sprite("data/backArrow.png", 50, 15, 0.5, 0.5);
-    undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
+    undoButton          = new Sprite("data/Button-Undo_Move.png", renderer->windowWidth - 350, renderer->windowHeight - 200, 0.5, 0.5);
     autoPlacePieces     = new Sprite("data/B_Autoplace.png", renderer->windowWidth - 350, renderer->windowHeight / 2, 0.5, 0.5);
     autoPlaceAllPieces  = new Sprite("data/B_AutoplaceAll.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)-100, 0.5, 0.5);
     autoPlaceObstacles  = new Sprite("data/B_PlaceObstacles.png", renderer->windowWidth - 350, (renderer->windowHeight / 2)+100, 0.5, 0.5);
@@ -95,11 +96,28 @@ void Autochess::Init()
 
     volumeControl       = new Sprite("data/VolumeIcon.png", 0,0,0,0,glm::vec2(0,9));
 
+    audio->Stop();
+    int randomNumber = random.RandomRange(0, 3);
 
-    if (isMuted == false)
+    switch(randomNumber)
     {
-        audio->PlaySound("data/Music-BackgroupTheme01.wav");
+    case 0:
+        audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
+        break;
+
+    case 1:
+        audio->PlaySound("data/sound-theme02.wav", Audio::MUSIC);
+        break;
+
+    case 2:
+        audio->PlaySound("data/sound-theme03.wav", Audio::MUSIC);
+        break;
+
+    case 3:
+        audio->PlaySound("data/sound-battleTheme01.wav", Audio::MUSIC);
+        break;
     }
+
 
 
     // Player vs Player
@@ -128,15 +146,21 @@ void Autochess::Init()
     players.Add(white);
     players.Add(black);
 
+    firstUpdateInPlaying = true;
+
     isWhitesTurn        = true;
     activePlayer        = white;
     opponentPlayer      = black;
 
     blueBanner          = new Sprite("data/FightOfKingsBlueBanner.png", 0, 175, 0.75, 0.75);
     yellowBanner        = new Sprite("data/FightOfKingsYellowBanner.png", 0, renderer->windowHeight-275, 0.75, 0.75);
-    turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 140, 135, 0.75, 0.75);
-    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(-0.3, 0));
-    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0, 0));
+    turnsLeftBanner     = new Sprite("data/FightOfKingsYellowBanner.png", renderer->windowWidth - 60, 135, 0.75, 0.75, glm::vec2(0.5, 0));
+    turnsLeftText1      = new Text("Turns", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    turnsLeftText2      = new Text("remaining", 0, 0, 0.7, 0.7, glm::vec2(0.5, 0));
+    *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
+    *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
+    *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
     //victoryBanner       = new Sprite("data/victoryBanner.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 0.55, 0.55, glm::vec2(0.5, 0.5));
     victoryBanner       = new Sprite("data/VictoryScreenGradient.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
     victoryBanner2      = new Sprite("data/victoryBannerGoldBlue.png", renderer->windowWidth / 2, renderer->windowHeight / 2, 1, 1, glm::vec2(0.5, 0.5));
@@ -163,11 +187,11 @@ void Autochess::Init()
     isAnyBlackPieces    = false;
     activePiece         = nullptr;
 
-    movesCompleted = 0;
-    isDraw = false;
-    replayAdded = false;
+    movesCompleted      = 0;
+    isDraw              = false;
+    replayAdded         = false;
 
-    movesLeftText       = new Text(String(Rounds - movesCompleted), renderer->windowWidth - 120, 165);
+    movesLeftText       = new Text(String(Rounds - movesCompleted), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
 
     state               = GameState::Shopping;
 
@@ -187,29 +211,26 @@ void Autochess::Init()
 
     replay.Clear();
     Move firstMove;
-    firstMove.gameBoard = gameBoard;
-    firstMove.background = background;
+    firstMove.gameBoard     = gameBoard;
+    firstMove.background    = background;
     replay.Append(firstMove);
     components.Add(background);
 
-    returnToMainMenu = new Sprite("data/B_BackToMain.png", renderer->windowWidth / 2,
+    returnToMainMenu        = new Sprite("data/B_BackToMain.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 100,0.5,0.5, glm::vec2(0.5, 0.5));
-    watchReplay = new Sprite("data/B_WatchReplay.png", renderer->windowWidth / 2,
+    watchReplay             = new Sprite("data/B_WatchReplay.png", renderer->windowWidth / 2,
                                   renderer->windowHeight / 2 + 180,0.5,0.5, glm::vec2(0.5, 0.5));
 
-    rules = new Rulebook(false);
-    settings = new Settings();
+    rules                   = new Rulebook(false);
+    settings                = new Settings(false);
 
 
 
-    infoBoardTimer = Application::GetTime("Info board timer");
+    infoBoardTimer          = Application::GetTime("Info board timer");
 
-    cursor = new Cursor();
+    cursor                  = new Cursor();
     cursor->SetCursorToWhiteColour(isWhitesTurn);
     components.Add(cursor);
-
-    audio->Stop();
-    audio->PlaySound("data/Music-BackgroupTheme01.wav");
 }
 
 void Autochess::SetTile(Tile* tile)
@@ -222,16 +243,9 @@ void Autochess::Update()
 {
     if (volumeControl->IsPressed())
     {
-        if (isMuted == false)
-        {
-            isMuted = true;
-            audio->Stop();
-        }
-        else
-        {
-            isMuted = false;
-            audio->PlaySound("data/Music-BackgroupTheme01.wav");
-        }
+
+        audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
+
     }
 
     white->Update();
@@ -283,42 +297,24 @@ void Autochess::Update()
         backArrowText->Update();
     }
 
-    if(undoButton->IsPressed() && !PopUpOpen)
-    {
-        if(state == GameState::Placing && replay.End()->isPlacement == false)
-        {
-            replay.End()->Undo();
-            replay.RemoveAt(replay.count);
-        }
-    }
 
-    /*if (undoButton->IsHoveredOver())
-    {
-        *undoButtonText->matrix.x = *undoButton->matrix.x;
-        *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
-        undoButtonText->Update();
-    }*/
 
-    if (nobilityIcon2->IsHoveredOver())
+    if (nobilityIcon2->IsHoveredOver() && !PopUpOpen)
     {
         *whiteNobilityText->matrix.x = *nobilityIcon2->matrix.x + 20;
         *whiteNobilityText->matrix.y = *nobilityIcon2->matrix.y + 90;
         whiteNobilityText->Update();
     }
 
-    if (nobilityIcon1->IsHoveredOver())
+    if (nobilityIcon1->IsHoveredOver() && !PopUpOpen)
     {
         *blackNobilityText->matrix.x = *nobilityIcon1->matrix.x + 20;
         *blackNobilityText->matrix.y = *nobilityIcon1->matrix.y - 30;
         blackNobilityText->Update();
     }
 
-    if (turnsLeftBanner->IsHoveredOver())
+    if (turnsLeftBanner->IsHoveredOver() && state != GameState::Shopping && !PopUpOpen)
     {
-        *turnsLeftText1->matrix.x = *turnsLeftBanner->matrix.x;
-        *turnsLeftText1->matrix.y = *turnsLeftBanner->matrix.y + 105;
-        *turnsLeftText2->matrix.x = *turnsLeftBanner->matrix.x;
-        *turnsLeftText2->matrix.y = *turnsLeftBanner->matrix.y + 120;
         turnsLeftText1->Update();
         turnsLeftText2->Update();
     }
@@ -359,13 +355,71 @@ void Autochess::Update()
     {
         activeInfoBoard->Update();
     }
+
+    //Undo-button
+    if(replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        undoButton->Update(); //Button does not work, and not working on it currently.
+    }
+
+    if(undoButton->IsPressed() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        if(replay.End()->isPlacement == false)
+        {
+            replay.End()->Undo();
+            replay.Remove(replay.End().curNode);
+        }
+
+        else if(replay.End()->isPlacement == true)
+        {
+            Log("we got here at least");
+            if(activePlayer->isWhite && replay.End()->oldTile->piece->isWhite == false)
+            {
+                black->piecesInHand.Append(replay.End()->oldTile->piece);
+            }
+            else if(activePlayer->isWhite && replay.End()->oldTile->piece->isWhite)
+            {
+                white->piecesInHand.Append(replay.End()->oldTile->piece);
+                NextPlayer();
+            }
+            else if(activePlayer->isWhite == false && replay.End()->oldTile->piece->isWhite)
+            {
+                white->piecesInHand.Append(replay.End()->oldTile->piece);
+            }
+            else
+            {
+                black->piecesInHand.Append(replay.End()->oldTile->piece);
+                NextPlayer();
+            }
+            replay.End()->oldTile->piece = nullptr;
+            replay.Remove(replay.End().curNode);
+            if(state == GameState::Playing)
+            {
+                state = GameState::Placing;
+            }
+        }
+
+        NextPlayer();
+
+        if (firstPlayer != activePlayer && isFirstPlaythrough == false && state != GameState::Placing)
+        {
+            movesCompleted--;
+        }
+    }
+
+    if (undoButton->IsHoveredOver() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
+    {
+        *undoButtonText->matrix.x = *undoButton->matrix.x;
+        *undoButtonText->matrix.y = *undoButton->matrix.y - 70;
+        undoButtonText->Update();
+    }
 }
 
 void Autochess::UpdateShop()
 {
     shop->Update();
 
-    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen)
+    if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen && shop->shopItems.Empty() == false)
     {
         shop->StockShopFront();
         activePlayer->gold -= shop->RestockShopCost;
@@ -445,7 +499,7 @@ void Autochess::UpdatePlacing()
     autoPlacePieces->Update();
     autoPlaceAllPieces->Update();
 
-    if (shop->obstacleCards.Empty() != true)
+    if (shop->obstacleCards.Empty() != true && option == true)
     {
         autoPlaceObstacles->Update();
     }
@@ -456,7 +510,6 @@ void Autochess::UpdatePlacing()
     //Auto Place One Piece at the time
     if (autoPlacePieces->IsPressed() && !PopUpOpen)
     {
-
         if (activePlayer->isWhite == true)
         {
             activePiece = *activePlayer->piecesInHand.Begin();
@@ -476,7 +529,6 @@ void Autochess::UpdatePlacing()
             replay.Append(Move(tile->piece, tile, true));
             NextPlayer();
         }
-
         else
         {
             activePiece = *activePlayer->piecesInHand.Begin();
@@ -505,51 +557,38 @@ void Autochess::UpdatePlacing()
 
         for (int i = 0; i < total; i++)
         {
-            while (activePlayer->isWhite == true && activePlayer->piecesInHand.Empty() != true)
+            if(activePlayer->piecesInHand.Empty())
             {
-                activePiece = *activePlayer->piecesInHand.Begin();
-                Tile*tile = nullptr;
-                while (tile == nullptr)
-                    {
-                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
-                        if (tile->piece != nullptr)
-                        {
-                            tile = nullptr;
-                        }
-                    }
-                SetTile(tile);
-                activePlayer->piecesInHand.RemoveAt(0);
-                activePlayer->activePiece = nullptr;
-                replay.Append(Move(tile->piece, tile, true));
-                total++;
-                //NextPlayer();
+                NextPlayer();
+                continue;
             }
-            NextPlayer();
-
-            while (activePlayer->isWhite != true && activePlayer->piecesInHand.Empty() != true)
-            {
-                activePiece = *activePlayer->piecesInHand.Begin();
-                Tile*tile = nullptr;
-                while (tile == nullptr)
+            activePiece = *activePlayer->piecesInHand.Begin();
+            Tile*tile = nullptr;
+            while (tile == nullptr)
                 {
-                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(6,9));
+                    if(isWhitesTurn)
+                    {
+                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,4));
+                    }
+                    else
+                    {
+                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(6,10));
+                    }
                     if (tile->piece != nullptr)
                     {
                         tile = nullptr;
                     }
                 }
-                SetTile(tile);
-                activePlayer->piecesInHand.RemoveAt(0);
-                activePlayer->activePiece = nullptr;
-                replay.Append(Move(tile->piece, tile, true));
-                total++;
-                //NextPlayer();
-            }
-
+            SetTile(tile);
+            activePlayer->piecesInHand.RemoveAt(0);
+            activePlayer->activePiece = nullptr;
+            replay.Append(Move(tile->piece, tile, true));
+            total++;
+            NextPlayer();
         }
     }
 
-    if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true)
+    if (autoPlaceObstacles->IsPressed() && shop->obstacleCards.Empty() != true && option == true)
     {
 
         for (int i = 0; i < 6; i++)
@@ -588,10 +627,8 @@ void Autochess::UpdatePlacing()
 
     }
 
-
     if (activePlayer->activePiece != nullptr)
     {
-        //undoButton->Update(); //Button does not work, and not working on it currently.
 
         movesLeftText->Update();
         //gameBoard->highlight->Show();
@@ -691,6 +728,13 @@ void Autochess::UpdatePlacing()
 
 void Autochess::UpdatePlaying()
 {
+    // Check if a player has played himself by choosing a piece with no moves as only piece
+    if (firstUpdateInPlaying)
+    {
+        state = IsGameDone();
+        firstUpdateInPlaying = false;
+    }
+
     // Update text
     movesLeftText->Update();
 
@@ -715,7 +759,7 @@ void Autochess::UpdatePlaying()
     // Update AI player if the casting succeeded
     if (aiPlayer != nullptr)
     {
-        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer);
+        nextMove = aiPlayer->GetNextMove(gameBoard, opponentPlayer, Rounds == (Rounds - movesCompleted));
     }
     // If casting fails => the player is human. Update human player
     else
@@ -752,7 +796,7 @@ void Autochess::UpdatePlaying()
         int x = *movesLeftText->matrix.x;
         int y = *movesLeftText->matrix.y;
         delete movesLeftText;
-        movesLeftText = new Text(String(Rounds - movesCompleted), x, y);
+        movesLeftText = new Text(String(Rounds - movesCompleted), x, y, 1, 1, glm::vec2(0.5, 0));
 
         // Check if the game is over
         state = IsGameDone();
@@ -780,7 +824,6 @@ void Autochess::UpdateDone()
     {
         Application::LoadScene(Scenes::Replay);
     }
-
 
     if (isDraw)
     {
@@ -820,7 +863,10 @@ void Autochess::UpdateDone()
 void Autochess::UpdateAnimation()
 {
     // Update text
-    movesLeftText->Update();
+    if (movesLeftText != nullptr)
+    {
+        movesLeftText->Update();
+    }
 
     // Update animations
     if (animatedMove.captureTile1 != nullptr)
@@ -968,6 +1014,25 @@ void Autochess::UpdateInfoBoard()
 
 void Autochess::Animate(Move move)
 {
+    if (state == GameState::Animate)
+    {
+        animationMoveStack.Clear();
+        *animatedMove.movedPiece->icon->matrix.x = *animatedMove.tileToMoveTo->sprite->matrix.x;
+        *animatedMove.movedPiece->icon->matrix.y = *animatedMove.tileToMoveTo->sprite->matrix.y;
+
+        if (animatedMove.movedPiece->animatedForm != nullptr)
+        {
+            if (animatedMove.movedPiece->isWhite)
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconWhite;
+            }
+            else
+            {
+                animatedMove.movedPiece->icon = animatedMove.movedPiece->iconBlack;
+            }
+        }
+    }
+
     state = GameState::Animate;
 
     animatedMove = move;

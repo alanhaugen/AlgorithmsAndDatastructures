@@ -115,7 +115,7 @@ Piece* CreateKing()
                              "Moves like a king in chess. Can move 1 tile in any direction.",
                              130,
                              10,
-                             "data/InfoboardWood_King.png",
+                             "data/info_King.png",
                              1);
 
     for (int i = 1; i <= 1; i++)
@@ -142,7 +142,7 @@ Piece* CreateQueen()
                              "Moves like a queen in chess.",
                              150,
                              5,
-                             "data/InfoboardWood_Queen.png",
+                             "data/info_Queen.png",
                              10);
 
     for (int i = 1; i <= 10; i++)
@@ -169,7 +169,7 @@ Piece* CreateMonster()
                              "Can move into any adjacent square for 5 tiles.",
                              210,
                              0,
-                             "data/InfoboardWood_Monster.png",
+                             "data/info_Monster.png",
                              5);
 
     for (int y = 1; y <= piece->range; y++)
@@ -200,7 +200,7 @@ Piece* CreatePrince()
                              "Can move 4 tiles forwards/back/left/right, then attack left/right diagonal. Can jump over fences.",
                              90,
                              4,
-                             "data/InfoboardWood_Prince.png",
+                             "data/info_Prince.png",
                              4,
                              "Jumping",
                              true);
@@ -225,7 +225,7 @@ Piece* CreatePrincess()
                              "Moves like a queen in chess. Can move 3 tiles in any direction. Transformer. Can acquire the qualities of adjacent friendly pieces at will.",
                              160,
                              8,
-                             "data/InfoboardWood_Princess.png",
+                             "data/info_Princess.png",
                              3,
                              "Jumping",
                              true);
@@ -256,7 +256,7 @@ Piece* CreateShieldMan()
                              "Can move 1 tile forward or 1 tile sideways. This piece cannot capture other pieces. The tiles in front will become heavy.",
                              70,
                              1,
-                             "data/InfoboardWood_ShieldMan.png",
+                             "data/info_Shieldman.png",
                              1);
 
     // TODO: Special weight quality and capture quality
@@ -284,7 +284,7 @@ Piece* CreateStallion()
                              "Moves like a knight in chess. Either two steps forward and one to the side, or one step forward and two to the side. Can jump over fences.",
                              60,
                              1,
-                             "data/InfoboardWood_Stallion.png",
+                             "data/info_Stallion.png",
                              3,
                              "Jumping",
                              true);
@@ -309,7 +309,7 @@ Piece* CreateJester()
                              "Moves diagonally 2 spaces in any direction.",
                              110,
                              3,
-                             "data/InfoboardWood_Jester.png",
+                             "data/info_Jester.png",
                              10,
                              "Jumping",
                              false);
@@ -349,7 +349,7 @@ Piece* CreateFence()
                              "Can be placed on the edge of tiles, is 3 spaces long. Blocks non-jumping pieces from passing. Can only be placed horizontally.",
                              10,
                              0,
-                             "data/InfoboardWood_Fence.png",
+                             "data/info_Fence.png",
                              0,
                              "Blocking");
 
@@ -366,7 +366,7 @@ Piece* CreateKnight()
                              "Moves like a rook, but only 4 tiles. Can attack diagonally forward left/right if oponent",
                              80,
                              2,
-                             "data/InfoboardWood_Knight.png",
+                             "data/info_Knight.png",
                              3,
                              "Grounded");
 
@@ -402,7 +402,7 @@ Piece* CreatePeasant()
                              "Only move forward by 1 space, can capture if there is an opponent piece on that space.",
                              30,
                              0,
-                             "data/InfoboardWood_Peasant.png",
+                             "data/info_Peasant.png",
                              1,
                              "Grounded");
 
@@ -424,7 +424,7 @@ Piece* CreateBishop()
                              "Moves like a bishop. Can move unlimited amount of spaces diagonally in any direction.",
                              80,
                              4,
-                             "data/InfoboardWood_Bishop.png",
+                             "data/info_Bishop.png",
                              10,
                              "Grounded");
 
@@ -447,7 +447,7 @@ Piece* CreateHydra()
                              "Can only move 1 space at the time. Can attack up to 3 adjacent enemies.",
                              40,
                              1,
-                             "data/InfoboardWood_Hydra.png",
+                             "data/info_Hydra.png",
                              1,
                              "Grounded",
                              false,
@@ -481,7 +481,7 @@ Piece* CreateRogue()
                              "Can move 2 tiles in any direction. If the rogue eliminates an enemy piece, the rogue moves back to its original position.",
                              100,
                              2,
-                             "data/InfoboardWood_Rogue.png",
+                             "data/info_Rogue.png",
                              2,
                              "Ranged",
                              false,
@@ -514,7 +514,7 @@ Piece* CreateDeserter()
                              "Haunts the piece with the highest nobility. Moves up to 4 adjacent tiles.",
                              90,
                              0,
-                             "data/InfoboardWood_Deserter.png",
+                             "data/info_Deserter.png",
                              4,
                              "Grounded");
 
@@ -546,7 +546,7 @@ Piece* CreateCannon()
                              "Can move 1 space in any direction. Can shoot a cannon ball straight forwards. The cannon ball can only hit the 4th and 5th space infront of the cannon. After use, the cannon is removed from the board.",
                              150,
                              1,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Cannon.png",
                              1,
                              "Ranged",
                              true,
@@ -590,7 +590,7 @@ Piece *CreateRook()
                              "Moves perpendicularly",
                              100,
                              3,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Rook.png",
                              10,
                              "Grounded");
 
@@ -613,7 +613,7 @@ Piece *CreateRock()
                              "Obstacle",
                              0,
                              0,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Obstacle.png",
                              0,
                              "Grounded");
     piece->invinsible = true;
@@ -629,7 +629,7 @@ Piece *CreateTree()
                              "Obstacle",
                              0,
                              0,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Obstacle.png",
                              0,
                              "Grounded");
 
@@ -641,12 +641,12 @@ Piece *CreateTree()
 Piece *CreateWater()
 {
     Piece* piece = new Piece("WaterObs",
-                             "data/Piece-ObstacleWATER.png",
-                             "data/Piece-ObstacleWATER.png",
+                             "data/Piece-ObstacleTombstone.png",
+                             "data/Piece-ObstacleTombstone.png",
                              "Obstacle",
                              0,
                              0,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Obstacle.png",
                              0,
                              "Grounded");
 
@@ -663,7 +663,7 @@ Piece *CreateRiver()
                              "Obstacle",
                              0,
                              0,
-                             "data/InfoboardWood_Cannon.png",
+                             "data/info_Obstacle.png",
                              0,
                              "Grounded");
 
@@ -818,7 +818,10 @@ void Shop::Update()
 {
     activePiece = nullptr;
 
-    restockShop->Update();
+    if(shopItems.Empty() == false)
+    {
+        restockShop->Update();
+    }
 
     if (itemsStoreFront.Empty() && shopItems.Empty() == false)
     {

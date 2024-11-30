@@ -6,7 +6,7 @@
 class PopUp : public IScene
 {
 public:
-    Text* hoverText;
+    Text* hoverText = nullptr;
     Sprite* openPopUp = nullptr;
     Sprite* closePopUp = nullptr;
     Sprite* BackGround;

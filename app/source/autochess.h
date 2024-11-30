@@ -24,35 +24,34 @@ class Autochess : public IScene
 {
 public:
     Autochess();
-    Camera* cam;
-    Cursor* cursor;
-    Board* gameBoard;
-    Shop* shop = nullptr;
-    ITime* infoBoardTimer;
+    Camera*             cam;
+    Cursor*             cursor;
+    Board*              gameBoard;
+    Shop*               shop = nullptr;
+    ITime*              infoBoardTimer;
 
-    Rulebook* rules;
-    Settings* settings;
+    Rulebook*           rules;
+    Settings*           settings;
 
-    Sprite* volumeControl;
-    bool isMuted = false;
+    Sprite*             volumeControl;
 
-    LinkedList<Move> history;
-    Stack<Text*> topPreviousMoves;
-    Array<Move> moves;
-    bool swapPlayers;
+    LinkedList<Move>    history;
+    Stack<Text*>        topPreviousMoves;
+    Array<Move>         moves;
+    bool                swapPlayers;
 
-    int movesCompleted;
+    int   movesCompleted;
 
     Text* playerWhiteWins;
     Text* playerBlackWins;
     Text* playerDraw;
-    bool isAnyWhitePieces;
-    bool isAnyBlackPieces;
+    bool  isAnyWhitePieces;
+    bool  isAnyBlackPieces;
 
     Text* playerWhiteTurn;
     Text* playerBlackTurn;
 
-    Text* movesLeftText;
+    Text* movesLeftText = nullptr;
 
     Text* settingsText;
     Text* rulebookText;
@@ -135,6 +134,8 @@ public:
     Move animatedMove;
     glm::vec2 prevpos;
     glm::vec2 nextpos;
+
+    bool firstUpdateInPlaying = true;
 
     // This will start as the final node in the tree
     Tree<Tile*>::Node* activeNode = NULL;

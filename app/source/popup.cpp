@@ -31,7 +31,7 @@ void PopUp::Update()
 
     if (isOpen == false)
     {
-        if (openPopUp != nullptr && openPopUp->IsHoveredOver() && canOpen)
+        if (hoverText != nullptr && openPopUp != nullptr && openPopUp->IsHoveredOver() && canOpen)
         {
             hoverText->Update();
         }
@@ -64,7 +64,7 @@ void PopUp::createBackground()
 
 void PopUp::createClosePopUp()
 {
-    closePopUp = new Sprite("data/B_Back.png", renderer->windowWidth / 2, renderer->windowHeight - 90, 0.7, 0.7, glm::vec2(0.5, 1));
+    closePopUp = new Sprite("data/B_Close.png", renderer->windowWidth / 2, renderer->windowHeight - 90, 0.7, 0.7, glm::vec2(0.5, 1));
 }
 
 void PopUp::Init()

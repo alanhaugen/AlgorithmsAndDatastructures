@@ -66,7 +66,7 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
             parentNode = nullptr;
 
             // Add the first layer to the tree
-            AddLayer(gameBoard, parentNode, currentPlayer, i);
+            AddLayer(gameBoard, parentNode, currentPlayer, i, isFirstMove);
         }
         else
         {
@@ -80,7 +80,7 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
                     parentNode = (*node);
 
                     // Add layer to tree
-                    AddLayer(gameBoard, parentNode, currentPlayer, i);
+                    AddLayer(gameBoard, parentNode, currentPlayer, i, isFirstMove);
                 }
             }
         }
@@ -147,7 +147,7 @@ Move Minimax::FindBestMove(Player* min, Player* max, Board* gameBoard, int depth
     return bestMove;
 }
 
-void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player, int depth)
+void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, Player* player, int depth, bool isFirstMove)
 {
     // Do moves of all layers above
     Tree<Minimax::GameState*>::Node* traversalNode = node;
@@ -177,10 +177,12 @@ void Minimax::AddLayer(Board* gameBoard, Tree<Minimax::GameState*>::Node* node, 
 
             iterator.curNode = iterator.curNode->GetPrev();
         }
+
+        isFirstMove = false;
     }
 
     // Get moves from current depth of the tree
-    Array<Move> moves = player->GetAllPossibleMoves(gameBoard);
+    Array<Move> moves = player->GetAllPossibleMoves(gameBoard, isFirstMove);
 
     // Put all the moves into a game tree to a given depth
     for (unsigned int i = 0; i < moves.Size(); i++)
