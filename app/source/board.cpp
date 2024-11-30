@@ -549,7 +549,14 @@ Array<Move> Board::SimpleMoves(Tile* tile, int left, int up, bool showDot, int l
 
         if (searchTile->weight != 0)
         {
-            moves.Add(Move(tile->piece, searchTile, false, searchTile));
+            if(searchTile->piece == nullptr)
+            {
+                moves.Add(Move(tile->piece, searchTile, false));
+            }
+            else
+            {
+                moves.Add(Move(tile->piece, searchTile, false, searchTile));
+            }
 
             if (showDot)
             {
