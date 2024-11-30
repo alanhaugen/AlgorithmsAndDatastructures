@@ -551,47 +551,27 @@ void Autochess::UpdatePlacing()
 
         for (int i = 0; i < total; i++)
         {
-            while (activePlayer->isWhite == true && activePlayer->piecesInHand.Empty() != true)
+            if(activePlayer->piecesInHand.Empty())
             {
-                activePiece = *activePlayer->piecesInHand.Begin();
-                Tile*tile = nullptr;
-                while (tile == nullptr)
-                    {
-                        tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
-                        if (tile->piece != nullptr)
-                        {
-                            tile = nullptr;
-                        }
-                    }
-                SetTile(tile);
-                activePlayer->piecesInHand.RemoveAt(0);
-                activePlayer->activePiece = nullptr;
-                replay.Append(Move(tile->piece, tile, true));
-                total++;
-                //NextPlayer();
+                NextPlayer();
+                continue;
             }
-            NextPlayer();
-
-            while (activePlayer->isWhite != true && activePlayer->piecesInHand.Empty() != true)
-            {
-                activePiece = *activePlayer->piecesInHand.Begin();
-                Tile*tile = nullptr;
-                while (tile == nullptr)
+            activePiece = *activePlayer->piecesInHand.Begin();
+            Tile*tile = nullptr;
+            while (tile == nullptr)
                 {
-                    tile = gameBoard->GetTile(random.RandomRange(0,9), random.RandomRange(6,9));
+                    tile = gameBoard->GetTile(random.RandomRange(0,10), random.RandomRange(0,3));
                     if (tile->piece != nullptr)
                     {
                         tile = nullptr;
                     }
                 }
-                SetTile(tile);
-                activePlayer->piecesInHand.RemoveAt(0);
-                activePlayer->activePiece = nullptr;
-                replay.Append(Move(tile->piece, tile, true));
-                total++;
-                //NextPlayer();
-            }
-
+            SetTile(tile);
+            activePlayer->piecesInHand.RemoveAt(0);
+            activePlayer->activePiece = nullptr;
+            replay.Append(Move(tile->piece, tile, true));
+            total++;
+            NextPlayer();
         }
     }
 
