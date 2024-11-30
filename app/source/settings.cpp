@@ -40,6 +40,10 @@ Settings::Settings(bool isMenu_)
         *fullscreenChecked->matrix.y += 40;
         *fullscreenUnchecked->matrix.y += 40;
     }
+    else
+    {
+        experimentalCheckbox->UpdatePlacement(renderer->windowWidth / 2, renderer->windowHeight / 2 - 140);
+    }
 
     *fullscreenText->matrix.y = *fullscreenUnchecked->matrix.y;
     *fullscreenText->matrix.x = *fullscreenUnchecked->matrix.x - 50;

@@ -11,6 +11,7 @@ public:
     CheckBox(String imageUnselected, String imageSelected, String text, bool* option, int x, int y);
     CheckBox(String text, bool* option, int x, int y);
 
+    void UpdatePlacement(float x, float y);
     void Update();
 
     bool* origOption;
