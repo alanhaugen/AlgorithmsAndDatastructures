@@ -243,9 +243,18 @@ void Autochess::Update()
 {
     if (volumeControl->IsPressed())
     {
-
         audio->PlaySound("data/sound-theme01.wav", Audio::MUSIC);
+    }
 
+    if(isWhitesTurn)
+    {
+        white->isActivePlayer = true;
+        black->isActivePlayer = false;
+    }
+    else
+    {
+        white->isActivePlayer = false;
+        black->isActivePlayer = true;
     }
 
     white->Update();

@@ -19,6 +19,7 @@ void Player::Init(bool isWhite_)
     nobility = 0;
 
     buttonReady = new Sprite("data/B_Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
+    buttonReadyGray = new Sprite("data/B_ReadyGray.png", 0.0f, 0.0f, 0.5f, 0.5f);
     goldText    = new Text("");
 
     activePiece = nullptr;
@@ -31,16 +32,19 @@ void Player::Init(bool isWhite_)
         goldText = new Text(String(gold), 125, renderer->windowHeight - 135);
         goldText->y = 100;
 
-        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height*buttonReady->scaleY - 10;
+        *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height * buttonReady->scaleY - 10;
+        *buttonReadyGray->matrix.y = *buttonReady->matrix.y;
     }
     else
     {
-        nobilityText = new Text(String(nobility), 49    , 222, 1, 1, glm::vec2(0.5, 0));
+        nobilityText = new Text(String(nobility), 49, 222, 1, 1, glm::vec2(0.5, 0));
         goldText = new Text(String(gold), 125, 105);
         *buttonReady->matrix.y = 10;
+        *buttonReadyGray->matrix.y = *buttonReady->matrix.y;
     }
 
     *buttonReady->matrix.x = renderer->windowWidth - 410;
+    *buttonReadyGray->matrix.x = *buttonReady->matrix.x;
     goldText->x = 20;
 }
 
@@ -218,7 +222,14 @@ void Player::Update()
     {
         if (piecesInHand.Empty() == false)
         {
-            buttonReady->Update();
+            if(isActivePlayer)
+            {
+                buttonReady->Update();
+            }
+            else
+            {
+                buttonReadyGray->Update();
+            }
         }
 
         nobilityText->Update();

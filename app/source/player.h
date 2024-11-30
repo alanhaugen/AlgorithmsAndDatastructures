@@ -17,7 +17,10 @@ public:
     bool isWhite;
     Sprite* avatar;
     Sprite* buttonReady;
+    Sprite* buttonReadyGray;
 
+
+    bool isActivePlayer = false;
     bool isReady;
     bool placingStarted = false;
 
