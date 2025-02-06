@@ -29,6 +29,7 @@ public:
     Tile();
 
     void Update();
+    void UpdateAfterPhysics();
     int ManhattenDistanceToOrigin(int originX, int originY);
 };
 

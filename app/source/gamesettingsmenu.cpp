@@ -217,3 +217,7 @@ void GameSettingsMenu::Update()
     AddPresett->Update();
     ReducePresett->Update();
 }
+
+void GameSettingsMenu::UpdateAfterPhysics()
+{
+}

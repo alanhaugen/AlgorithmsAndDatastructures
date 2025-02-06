@@ -226,3 +226,7 @@ void ReplayScene::Update()
         black->RecalculateNobility(gameBoard);
     }
 }
+
+void ReplayScene::UpdateAfterPhysics()
+{
+}

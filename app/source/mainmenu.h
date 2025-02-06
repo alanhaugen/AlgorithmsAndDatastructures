@@ -37,6 +37,7 @@ public:
 
     void Init();
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

@@ -13,6 +13,7 @@ public:
 
     void UpdatePlacement(float x, float y);
     void Update();
+    void UpdateAfterPhysics();
 
     bool* origOption;
     bool toggled;

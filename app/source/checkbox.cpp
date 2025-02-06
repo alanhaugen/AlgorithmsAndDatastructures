@@ -55,3 +55,7 @@ void CheckBox::Update()
 
     textSprite->Update();
 }
+
+void CheckBox::UpdateAfterPhysics()
+{
+}

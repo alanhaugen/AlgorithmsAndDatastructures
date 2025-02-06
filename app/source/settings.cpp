@@ -2,6 +2,10 @@
 
 extern bool option;
 
+void Settings::UpdateAfterPhysics()
+{
+}
+
 Settings::Settings()
 {
 }

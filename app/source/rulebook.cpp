@@ -1,5 +1,9 @@
 #include "rulebook.h"
 
+void Rulebook::UpdateAfterPhysics()
+{
+}
+
 Rulebook::Rulebook(bool isMenu_)
 {
     createBackground();

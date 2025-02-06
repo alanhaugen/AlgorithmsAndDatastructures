@@ -70,3 +70,7 @@ void Menu::Update()
         checkBoxes[i]->Update();
     }
 }
+
+void Menu::UpdateAfterPhysics()
+{
+}

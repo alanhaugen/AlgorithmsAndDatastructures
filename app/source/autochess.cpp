@@ -424,6 +424,11 @@ void Autochess::Update()
     }*/
 }
 
+void Autochess::UpdateAfterPhysics()
+{
+
+}
+
 void Autochess::UpdateShop()
 {
     shop->Update();

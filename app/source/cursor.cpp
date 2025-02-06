@@ -16,6 +16,10 @@ void Cursor::Update()
     activeCursor->Update();
 }
 
+void Cursor::UpdateAfterPhysics()
+{
+}
+
 void Cursor::SetCursorToWhiteColour(bool isWhite)
 {
     if (isWhite)

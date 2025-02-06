@@ -23,7 +23,7 @@ public:
 
 
     void Update() override;
-
+    void UpdateAfterPhysics();
 
     Settings();
     Settings(bool isMenu_);

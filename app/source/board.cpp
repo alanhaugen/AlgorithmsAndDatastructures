@@ -773,3 +773,7 @@ void Board::Update()
         (*components[i])->Update();
     }
 }
+
+void Board::UpdateAfterPhysics()
+{
+}

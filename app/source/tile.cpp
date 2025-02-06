@@ -43,6 +43,10 @@ void Tile::Update()
     }
 }
 
+void Tile::UpdateAfterPhysics()
+{
+}
+
 int Tile::ManhattenDistanceToOrigin(int originX, int originY)
 {
     return abs(x - originX) + abs(y - originY);

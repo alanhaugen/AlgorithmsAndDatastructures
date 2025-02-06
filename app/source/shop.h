@@ -72,6 +72,7 @@ public:
     void DiscardShopFront();
 
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

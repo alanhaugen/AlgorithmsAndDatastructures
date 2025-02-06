@@ -117,6 +117,7 @@ public:
     void Init();
     void SetTile(Tile* tile);
     void Update();
+    void UpdateAfterPhysics();
     void UpdateShop();
     void UpdatePlacing();
     void UpdatePlaying();

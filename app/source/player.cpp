@@ -248,6 +248,10 @@ void Player::Update()
     goldText->Update();
 }
 
+void Player::UpdateAfterPhysics()
+{
+}
+
 Move Player::GetNextMove(Board *gameBoard, bool isFirstMove)
 {
     // Check what the user has clicked on the game board

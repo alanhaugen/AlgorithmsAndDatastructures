@@ -155,3 +155,7 @@ void Mainmenu::Update()
     //cords = new Text(String(input.Mouse.x) + ", " + String(input.Mouse.y));
     //cords->Update();
 }
+
+void Mainmenu::UpdateAfterPhysics()
+{
+}

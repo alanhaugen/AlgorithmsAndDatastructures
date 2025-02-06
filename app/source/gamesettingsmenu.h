@@ -25,7 +25,8 @@ public:
 
     void UpdateNumbers();
     void AddPreset();
-    void Update() override;
+    void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif // GAMESETTINGSMENU_H

@@ -13,6 +13,7 @@ public:
     unsigned int index = 0;
     bool isMenu = false;
     void Update() override;
+    void UpdateAfterPhysics();
 
     Rulebook(bool isMenu_ = false);
 };

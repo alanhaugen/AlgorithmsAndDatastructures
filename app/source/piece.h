@@ -110,6 +110,7 @@ public:
     bool isDiagonalOnly = false;
 
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

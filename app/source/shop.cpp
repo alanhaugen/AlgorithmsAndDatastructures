@@ -925,3 +925,7 @@ void Shop::Update()
         nameTextRestockShop2->Update();
     }
 }
+
+void Shop::UpdateAfterPhysics()
+{
+}

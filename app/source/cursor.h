@@ -14,6 +14,7 @@ public:
     Sprite* activeCursor;
 
     void Update();
+    void UpdateAfterPhysics();
 
     void SetCursorToWhiteColour(bool isWhite);
 };

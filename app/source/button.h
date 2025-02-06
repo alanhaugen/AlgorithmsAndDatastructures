@@ -18,6 +18,7 @@ public:
     Button(Sprite* image, Stack<Menu *> *menuStack_);
 
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

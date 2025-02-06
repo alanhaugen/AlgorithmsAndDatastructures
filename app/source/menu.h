@@ -31,6 +31,7 @@ public:
     void AddQuitButton(Sprite *image);
 
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

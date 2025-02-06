@@ -13,6 +13,7 @@ public:
     void LastMove();
     void Init();
     void Update();
+    void UpdateAfterPhysics();
     int MovesLeft;
 };
 
