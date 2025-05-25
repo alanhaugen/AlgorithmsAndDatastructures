@@ -77,7 +77,7 @@ void GameSettingsMenu::AddPreset()
     UpdateNumbers();
 }
 
-void GameSettingsMenu::Update()
+void GameSettingsMenu::Update(float dt)
 {
     PopUp::Update();
 

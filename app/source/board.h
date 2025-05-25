@@ -28,7 +28,7 @@ public:
     Array<Move> SimpleMoves(Tile* tile, int left, int up, bool showDot, int length = 10);
 
     void Init();
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

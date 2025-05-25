@@ -22,7 +22,7 @@ public:
     CheckBox* experimentalCheckbox;
 
 
-    void Update() override;
+    void Update(float dt) override;
     void UpdateAfterPhysics();
 
     Settings();

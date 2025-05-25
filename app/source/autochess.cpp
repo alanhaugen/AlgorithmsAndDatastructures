@@ -239,7 +239,7 @@ void Autochess::SetTile(Tile* tile)
     tile->piece = activePiece;
 }
 
-void Autochess::Update()
+void Autochess::Update(float dt)
 {
     if (volumeControl->IsPressed())
     {
@@ -286,8 +286,8 @@ void Autochess::Update()
     nobilityIcon1->Update();
     nobilityIcon2->Update();
 
-    rules->Update();
-    settings->Update();
+    rules->Update(dt);
+    settings->Update(dt);
 
     if (input.Pressed(input.Key.ESCAPE) && !PopUpOpen)
     {
@@ -337,7 +337,7 @@ void Autochess::Update()
     }
     else
     {
-        gameBoard->Update();
+        gameBoard->Update(dt);
     }
 
     if (state == GameState::Placing)
@@ -817,7 +817,7 @@ void Autochess::UpdatePlaying()
     }
 
     // Update the game board
-    gameBoard->Update();
+    gameBoard->Update(Application::deltaTime);
 }
 
 void Autochess::UpdateDone()

@@ -135,7 +135,7 @@ void ReplayScene::Init()
 void ReplayScene::Update()
 {
     background->Update();
-    gameBoard->Update();
+    gameBoard->Update(Application::deltaTime);
 
     white->UpdateNobilityText();
     black->UpdateNobilityText();
@@ -146,8 +146,8 @@ void ReplayScene::Update()
     nobilityIcon1->Update();
     nobilityIcon2->Update();
 
-    rules->Update();
-    settings->Update();
+    rules->Update(Application::deltaTime);
+    settings->Update(Application::deltaTime);
 
     if(movesLeftText != nullptr)
     {

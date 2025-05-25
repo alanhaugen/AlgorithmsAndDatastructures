@@ -12,7 +12,7 @@ public:
     Array<Sprite*> Pages;
     unsigned int index = 0;
     bool isMenu = false;
-    void Update() override;
+    void Update(float dt) override;
     void UpdateAfterPhysics();
 
     Rulebook(bool isMenu_ = false);

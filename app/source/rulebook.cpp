@@ -43,7 +43,7 @@ Rulebook::Rulebook(bool isMenu_)
 
 }
 
-void Rulebook::Update()
+void Rulebook::Update(float dt)
 {
 
     PopUp::Update();

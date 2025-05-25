@@ -26,9 +26,22 @@ Move AIPlayer::GetNextMove(Board *gameBoard, Player* opponent, bool isFirstMove)
     }
 
     // Get best move
-    return minimax.FindBestMove(this, opponent, gameBoard, Depth, isFirstMove);
+    //return minimax.FindBestMove(this, opponent, gameBoard, Depth, isFirstMove);
 
     // Do a random move
     //Player::GetAllPossibleMoves(gameBoard);
     //return moves[random.RandomRange(0, moves.Size())];
+
+    // Do a random move or capture
+    Player::GetAllPossibleMoves(gameBoard);
+
+    for (unsigned int i = 0; i < moves.Size(); i++)
+    {
+        if (moves[i].captureTile1 != nullptr)
+        {
+            return moves[i];
+        }
+    }
+
+    return moves[random.RandomRange(0, moves.Size())];
 }

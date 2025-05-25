@@ -112,13 +112,13 @@ void Mainmenu::Init()
     audio->Stop();
 }
 
-void Mainmenu::Update()
+void Mainmenu::Update(float dt)
 {
     menus.Top()->Update();
     if(menus.Top() == ruleMenu)
     {
         title->Hide();
-        rules->Update();
+        rules->Update(dt);
     }
     else if(menus.Top() == replaysMenu)
     {
@@ -133,11 +133,11 @@ void Mainmenu::Update()
     else if(menus.Top() == gameSettingsMenu)
     {
         title->Hide();
-        gameSettings->Update();
+        gameSettings->Update(dt);
     }
     else if(menus.Top() == settingsMenu)
     {
-        settings->Update();
+        settings->Update(dt);
     }
     else
     {

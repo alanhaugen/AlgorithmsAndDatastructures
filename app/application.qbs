@@ -1,4 +1,4 @@
-import "../solid/solid.qbs" as solid
+import "../../solid/solid.qbs" as solid
 
 solid {
     Application {
@@ -21,27 +21,14 @@ solid {
             "data/MainMenuScene.png",
             "data/Title.png",
             "data/WhiteCursor.png",
-            "data/bg.frag",
-            "data/bg.vert",
             "data/cubemap.frag",
             "data/cubemap.vert",
-            "data/gouraud.frag",
-            "data/gouraud.vert",
             "data/gui.frag",
             "data/gui.vert",
             "data/icon.png",
-            "data/icon_1024x1024.png",
-            "data/icon_128x128.png",
-            "data/icon_16x16.png",
-            "data/icon_256x256.png",
-            "data/icon_32x32.png",
-            "data/icon_512x512.png",
-            "data/icon_64x64.png",
-            "data/icon_96x96.png",
             "data/level1.json",
             "data/logo.png",
             "data/logo_inv.png",
-            "data/logo_inv_jpg.jpg",
             "data/phong.frag",
             "data/phong.vert",
             "data/project.json",
@@ -109,11 +96,11 @@ solid {
         Depends { name: "nullaudio"  }
         Depends { name: "nullphysics"  }
         Depends { name: "nullfilesystem"  }
-        Depends { name: "gles2renderer"  }
+        Depends { name: "gles3renderer"  }
         Depends { name: "stdfilesystem"  }
         Depends { name: "portaudioaudio"  }
 
-        property stringList includePaths: "../solid/source"
+        property stringList includePaths: "../../solid/source"
 
         Properties {
             condition: qbs.targetOS.contains("macos")
@@ -123,8 +110,8 @@ solid {
             cpp.dynamicLibraries: macosSharedLibs
             cpp.staticLibraries: staticLibs.concat("SDL2")
 
-            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/darwin/x86_64"]
-            cpp.includePaths: includePaths.concat("../solid/include/darwin")
+            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/darwin/x86_64"]
+            cpp.includePaths: includePaths.concat("../../solid/include/darwin")
             cpp.defines: project.defines.concat(project.sdlDefines)
         }
 
@@ -134,8 +121,8 @@ solid {
             //cpp.dynamicLibraries: linuxSharedLibs
             cpp.staticLibraries: staticLibs.concat("SDL2")
 
-            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/linux/x86_64"]
-            cpp.includePaths: includePaths.concat("../solid/include/linux")
+            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/linux/x86_64"]
+            cpp.includePaths: includePaths.concat("../../solid/include/linux")
             cpp.defines: project.defines.concat(project.sdlDefines)
         }
 
@@ -145,8 +132,8 @@ solid {
             cpp.dynamicLibraries: windowsSharedLibs
             cpp.staticLibraries: staticLibs
 
-            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/mingw32/x86_64"]
-            cpp.includePaths: includePaths.concat("../solid/include/mingw32")
+            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/mingw32/x86_64"]
+            cpp.includePaths: includePaths.concat("../../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
         }
 

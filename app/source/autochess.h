@@ -116,7 +116,7 @@ public:
     void checkForPopUp();
     void Init();
     void SetTile(Tile* tile);
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
     void UpdateShop();
     void UpdatePlacing();

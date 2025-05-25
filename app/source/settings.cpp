@@ -101,7 +101,7 @@ Settings::Settings(bool isMenu_)
     }
 }
 
-void Settings::Update()
+void Settings::Update(float dt)
 {
     PopUp::Update();
 

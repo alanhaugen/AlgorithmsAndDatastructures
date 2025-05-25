@@ -736,7 +736,7 @@ void Board::Init()
 {
 }
 
-void Board::Update()
+void Board::Update(float dt)
 {
     LinkedList<Tile>::Iterator tile = tiles.Begin();
 

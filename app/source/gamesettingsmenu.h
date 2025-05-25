@@ -25,7 +25,7 @@ public:
 
     void UpdateNumbers();
     void AddPreset();
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

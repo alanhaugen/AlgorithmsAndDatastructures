@@ -22,13 +22,9 @@ int RandomCardCost = 100;
 int PlacementsPerTurn = 1;
 int MovesPerTurn = 1;
 
-#ifdef WIN32
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") // Hide cmd window
-#endif
-
 int main(int argc, char **argv)
 {
-    Application application(argc, argv);
+    Application application(argc, argv, "Fight of Kings");
     application.AddScene(new Mainmenu());
     application.AddScene(new Autochess());
     application.AddScene(new ReplayScene());

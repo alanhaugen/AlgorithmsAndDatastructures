@@ -23,6 +23,7 @@ in float o_totalheight;
 in float o_flip;
 in float o_flipVertical;
 in float o_time;
+in vec4 o_colourTint;
 //in vec2 o_rotation;
 
 void main ()
@@ -45,11 +46,11 @@ void main ()
         sum--;
     }
 
-    if (o_flip == 1)
+    if (o_flip > 0.5)
     {
         x = -x;
     }
-    if (o_flipVertical == 1)
+    if (o_flipVertical > 0.5)
     {
         y = -y;
     }
@@ -59,8 +60,12 @@ void main ()
 
     final = texture(textureSampler, coords);
 
+    if (final.a < 0.9f)
+        discard;
     if (final.r == 1.0f && final.g == 0.0f && final.b == 1.0f)
         discard;
+
+    //final += o_colourTint;
 
     vFragColor = final;
 }
