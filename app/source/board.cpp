@@ -5,21 +5,21 @@
 Board::Board()
 {
     GenerateTiles();
-    bg = new Sprite("data/bg.png", 403, 103, 0.7, 0.7);
+    //bg = new Sprite("data/bg.png", 403, 103, 0.7, 0.7);
 
     HideDots();
     highlight = new Sprite("data/TileBorder.png", 0, 0, tileScale, tileScale);
     highlight->Hide();
 
     // Adding board coords
-    String chars[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
+    /*String chars[10] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
     String nums[10] = {" 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10"};
 
     for (int i = 0; i < 10; i++)
     {
         components.Add(new Text(nums[i], 396, (140 + (i*52)) - 6, 0.75, 0.75));
         components.Add(new Text(chars[i], 430 + (i*50), 635, 0.75, 0.75));
-    }
+    }*/
 }
 
 void Board::GenerateTiles()
@@ -765,7 +765,7 @@ void Board::Update(float dt)
     }
 
     highlight->Update();
-    bg->Update();
+    //bg->Update();
 
     // Update components manually
     for (unsigned int i = 0; i < components.Size(); i++)
