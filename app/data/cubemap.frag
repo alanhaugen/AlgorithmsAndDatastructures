@@ -14,3 +14,4 @@ void main()
 {
     frag_colour = texture(cube_texture, vSmoothTexcoord);
 }
+
