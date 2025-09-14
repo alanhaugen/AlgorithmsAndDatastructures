@@ -377,6 +377,13 @@ void Autochess::Update(float dt)
         {
             replay.End()->Undo();
             replay.Remove(replay.End().curNode);
+
+            // Do it twice if vs AI
+            if (vsAI)
+            {
+                replay.End()->Undo();
+                replay.Remove(replay.End().curNode);
+            }
         }
 
         else if(replay.End()->isPlacement == true)
@@ -408,7 +415,10 @@ void Autochess::Update(float dt)
             }
         }
 
-        NextPlayer();
+        if (vsAI == false)
+        {
+            NextPlayer();
+        }
 
         if (firstPlayer != activePlayer && isFirstPlaythrough == false && state != GameState::Placing)
         {
