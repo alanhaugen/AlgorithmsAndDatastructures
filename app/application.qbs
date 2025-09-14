@@ -1,8 +1,9 @@
-import "../../solid/solid.qbs" as solid
+import "../solid/solid.qbs" as solid
 
 solid {
     Application {
         name: "App"
+        cpp.cxxLanguageVersion: "c++23"
 
         files: [
             "data/BackgroundImage.png",
@@ -100,30 +101,39 @@ solid {
         Depends { name: "stdfilesystem"  }
         Depends { name: "portaudioaudio"  }
 
-        property stringList includePaths: "../../solid/source"
+        property stringList includePaths: "../solid/source"
 
         Properties {
             condition: qbs.targetOS.contains("macos")
 
-            cpp.frameworks: macosFrameworks
+            cpp.frameworks: {
+                if (qbs.architecture.includes("arm64"))
+                    return macosFrameworks.concat(
+                           "CoreHaptics",
+                           "MediaPlayer",
+                           "GameController",
+                           "QuartzCore",
+                           "IOSurface")
+                return macosFrameworks
+            }
 
             cpp.dynamicLibraries: macosSharedLibs
-            cpp.staticLibraries: staticLibs.concat("SDL2")
+            cpp.staticLibraries: staticLibs.concat("SDL2", "MoltenVK")
 
-            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/darwin/x86_64"]
-            cpp.includePaths: includePaths.concat("../../solid/include/darwin")
+            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/darwin/" + qbs.architecture]
+            cpp.includePaths: includePaths.concat("../solid/include/darwin")
             cpp.defines: project.defines.concat(project.sdlDefines)
         }
 
         Properties {
             condition: qbs.targetOS.contains("linux")
 
-            //cpp.dynamicLibraries: linuxSharedLibs
-            cpp.staticLibraries: staticLibs.concat("SDL2")
+            cpp.dynamicLibraries: linuxSharedLibs
+            cpp.staticLibraries: staticLibs.concat("glfw3")
 
-            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/linux/x86_64"]
-            cpp.includePaths: includePaths.concat("../../solid/include/linux")
-            cpp.defines: project.defines.concat(project.sdlDefines)
+            cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/linux" + qbs.architecture]
+            cpp.includePaths: includePaths.concat("../solid/include/linux")
+            cpp.defines: project.defines.concat(project.glfwDefines)
         }
 
         Properties {
