@@ -24,7 +24,7 @@ int MovesPerTurn = 1;
 
 int main(int argc, char **argv)
 {
-    Application application(argc, argv, "Fight of Kings");
+    Application application(argc, argv, "Fight of Kings", 1366, 800);
     application.AddScene(new Mainmenu());
     application.AddScene(new Autochess());
     application.AddScene(new ReplayScene());

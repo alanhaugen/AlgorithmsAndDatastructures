@@ -19,8 +19,8 @@ Autochess::Autochess()
 {
 }
 
-void Autochess::checkForPopUp(){
-
+void Autochess::checkForPopUp()
+{
     if(settings->isOpen)
     {
         rules->canOpen = false;
@@ -263,9 +263,6 @@ void Autochess::Update(float dt)
     goldIcon1->Update();
     goldIcon2->Update();
 
-    white->nobilityText->Update();
-    black->nobilityText->Update();
-
     blueBanner->Update();
     yellowBanner->Update();
 
@@ -436,7 +433,6 @@ void Autochess::Update(float dt)
 
 void Autochess::UpdateAfterPhysics()
 {
-
 }
 
 void Autochess::UpdateShop()
@@ -449,10 +445,10 @@ void Autochess::UpdateShop()
         activePlayer->gold -= shop->RestockShopCost;
         activePlayer->UpdateGoldText();
 
-        if(shop->RestockShopNextPlayer == true && opponentPlayer->isReady == false)
+        /*if(shop->RestockShopNextPlayer == true && opponentPlayer->isReady == false)
         {
             NextPlayer();
-        }
+        }*/
     }
 
     if (input.Mouse.Pressed)
@@ -832,9 +828,6 @@ void Autochess::UpdatePlaying()
 
 void Autochess::UpdateDone()
 {
-    white->nobilityText->Update();
-    black->nobilityText->Update();
-
     victoryBanner->Update();
     victoryBanner2->Update();
     returnToMainMenu->Update();

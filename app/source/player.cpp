@@ -23,32 +23,34 @@ void Player::Init(bool isWhite_)
 
     buttonReady = new Sprite("data/B_Ready.png", 0.0f, 0.0f, 0.5f, 0.5f);
     buttonReadyGray = new Sprite("data/B_ReadyGray.png", 0.0f, 0.0f, 0.5f, 0.5f);
-    goldText    = new Text("");
 
     activePiece = nullptr;
 
-    delete goldText;
+    nobilityTextPos.x = 49;
+    goldTextPos.x = 125;
 
     if (isWhite)
     {
-        nobilityText = new Text(String(nobility), 49, renderer->windowHeight - 227, 1, 1, glm::vec2(0.5, 0));
-        goldText = new Text(String(gold), 125, renderer->windowHeight - 135);
-        goldText->y = 100;
+        nobilityTextPos.y = renderer->windowHeight - 227;
+        goldTextPos.y = renderer->windowHeight - 135;
+        //goldText->y = 100;
 
         *buttonReady->matrix.y = renderer->windowHeight - buttonReady->height * buttonReady->scaleY - 10;
         *buttonReadyGray->matrix.y = *buttonReady->matrix.y;
     }
     else
     {
-        nobilityText = new Text(String(nobility), 49, 222, 1, 1, glm::vec2(0.5, 0));
-        goldText = new Text(String(gold), 125, 105);
+        nobilityTextPos.y = 222;
+        goldTextPos.y = 105;
         *buttonReady->matrix.y = 10;
         *buttonReadyGray->matrix.y = *buttonReady->matrix.y;
     }
 
+    nobilityText = new Text(String(nobility), nobilityTextPos.x, nobilityTextPos.y, 1, 1, glm::vec2(0.5, 0));
+    goldText = new Text(String(gold), goldTextPos.x, goldTextPos.y);
     *buttonReady->matrix.x = renderer->windowWidth - 410;
     *buttonReadyGray->matrix.x = *buttonReady->matrix.x;
-    goldText->x = 20;
+    //goldText->x = 20;
 }
 
 void Player::RecalculateNobility(Board* gameBoard)
@@ -74,33 +76,18 @@ void Player::RecalculateNobility(Board* gameBoard)
 
 void Player::UpdateNobilityText()
 {
-    float x = *nobilityText->matrix.x;
-    float y = *nobilityText->matrix.y;
-
-    glm::vec2 anchorPoint = nobilityText->anchorPoint;
+    /*glm::vec2 anchorPoint = nobilityText->anchorPoint;
 
     delete nobilityText;
-    nobilityText = new Text(String(nobility), x, y, 1, 1, anchorPoint);
-    nobilityText->Update();
+
+    nobilityText = new Text(String(nobility), nobilityTextPos.x, nobilityTextPos.y, 1, 1, anchorPoint);*/
 }
 
 void Player::UpdateGoldText()
 {
-    int x = *goldText->matrix.x;
-    int y = *goldText->matrix.y;
+    /*delete goldText;
 
-    delete goldText;
-
-    if (isWhite)
-    {
-        goldText = new Text(String(gold), x, y);
-    }
-    else
-    {
-        goldText = new Text(String(gold), x, y);
-    }
-
-    goldText->Update();
+    goldText = new Text(String(gold), goldTextPos.x, goldTextPos.y);*/
 }
 
 void Player::RescalePiecesPlacing()
@@ -241,11 +228,10 @@ void Player::Update()
                 buttonReadyGray->Update();
             }
         }
-
-        nobilityText->Update();
     }
 
     goldText->Update();
+    nobilityText->Update();
 }
 
 void Player::UpdateAfterPhysics()

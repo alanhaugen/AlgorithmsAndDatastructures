@@ -28,6 +28,9 @@ public:
     Text* goldText;
     Text* nobilityText;
 
+    glm::vec2 goldTextPos;
+    glm::vec2 nobilityTextPos;
+
     Piece* activePiece;
     Array<Move> moves;
     int nobility;
