@@ -303,8 +303,6 @@ void Autochess::Update(float dt)
         backArrowText->Update();
     }
 
-
-
     if (nobilityIcon2->IsHoveredOver() && !PopUpOpen)
     {
         *whiteNobilityText->matrix.x = *nobilityIcon2->matrix.x + 20;

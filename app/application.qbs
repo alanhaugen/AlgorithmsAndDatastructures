@@ -103,6 +103,20 @@ solid {
 
         property stringList includePaths: "../solid/source"
 
+        Depends { name: "cpp" }
+        Depends { name: "core" }
+        Depends { name: "nullrenderer"  }
+        Depends { name: "nullphysics"  }
+        Depends { name: "nullaudio"  }
+        Depends { name: "nullphysics"  }
+        Depends { name: "nullfilesystem"  }
+        Depends { name: "nullscript" }
+        Depends { name: "vulkanrenderer"  }
+        Depends { name: "stdfilesystem"  }
+        Depends { name: "portaudioaudio"  }
+        Depends { name: "nullphysics" }
+        Depends { name: "bouncephysics" }
+
         Properties {
             condition: qbs.targetOS.contains("macos")
 
@@ -146,10 +160,5 @@ solid {
             cpp.includePaths: includePaths.concat("../../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
         }
-
-        Depends { name: "cpp" }
-        Depends { name: "core" }
-        Depends { name: "nullphysics" }
-        Depends { name: "bulletphysics" }
     }
 }
