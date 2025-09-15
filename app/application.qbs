@@ -91,16 +91,6 @@ solid {
             "source/tree.h",
         ]
 
-        Depends { name: "core"  }
-        Depends { name: "nullrenderer"  }
-        Depends { name: "nullphysics"  }
-        Depends { name: "nullaudio"  }
-        Depends { name: "nullphysics"  }
-        Depends { name: "nullfilesystem"  }
-        Depends { name: "gles3renderer"  }
-        Depends { name: "stdfilesystem"  }
-        Depends { name: "portaudioaudio"  }
-
         property stringList includePaths: "../solid/source"
 
         Depends { name: "cpp" }
