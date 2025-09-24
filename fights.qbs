@@ -101,7 +101,7 @@ solid {
         Depends { name: "nullphysics"  }
         Depends { name: "nullfilesystem"  }
         Depends { name: "nullscript" }
-        Depends { name: "vulkanrenderer"  }
+        Depends { name: "gles3renderer"  }
         Depends { name: "stdfilesystem"  }
         Depends { name: "portaudioaudio"  }
         Depends { name: "nullphysics" }
