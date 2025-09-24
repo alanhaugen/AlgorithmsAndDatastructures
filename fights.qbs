@@ -95,17 +95,6 @@ solid {
 
         Depends { name: "cpp" }
         Depends { name: "core" }
-        Depends { name: "nullrenderer"  }
-        Depends { name: "nullphysics"  }
-        Depends { name: "nullaudio"  }
-        Depends { name: "nullphysics"  }
-        Depends { name: "nullfilesystem"  }
-        Depends { name: "nullscript" }
-        Depends { name: "gles3renderer"  }
-        Depends { name: "stdfilesystem"  }
-        Depends { name: "portaudioaudio"  }
-        Depends { name: "nullphysics" }
-        Depends { name: "bouncephysics" }
 
         Properties {
             condition: qbs.targetOS.contains("macos")
@@ -146,7 +135,7 @@ solid {
             cpp.dynamicLibraries: windowsSharedLibs
             cpp.staticLibraries: staticLibs
 
-            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/mingw32/x86_64"]
+            cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/mingw32/" + qbs.architecture]
             cpp.includePaths: includePaths.concat("../../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
         }
