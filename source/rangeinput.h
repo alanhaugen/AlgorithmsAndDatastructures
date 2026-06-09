@@ -2,6 +2,7 @@
 #define RANGEINPUT_H
 
 #include <core/application.h>
+#include <core/components/sprite.h>
 
 class RangeInput
 {

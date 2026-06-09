@@ -132,19 +132,19 @@ void ReplayScene::Init()
     animationMoveStack.Clear();
 }
 
-void ReplayScene::Update()
+void ReplayScene::Update(float dt)
 {
-    background->Update();
+    background->Update(dt);
     gameBoard->Update(Application::deltaTime);
 
     white->UpdateNobilityText();
     black->UpdateNobilityText();
 
-    blueBanner->Update();
-    yellowBanner->Update();
-    turnsLeftBanner->Update();
-    nobilityIcon1->Update();
-    nobilityIcon2->Update();
+    blueBanner->Update(dt);
+    yellowBanner->Update(dt);
+    turnsLeftBanner->Update(dt);
+    nobilityIcon1->Update(dt);
+    nobilityIcon2->Update(dt);
 
     rules->Update(Application::deltaTime);
     settings->Update(Application::deltaTime);
@@ -163,7 +163,7 @@ void ReplayScene::Update()
         movesLeftText       = new Text(String((MovesLeft + 1) / 2), *turnsLeftBanner->matrix.x, 165, 1, 1, glm::vec2(0.5, 0.0));
     }
 
-    movesLeftText->Update();
+    movesLeftText->Update(dt);
 
     checkForPopUp();
 
@@ -174,13 +174,13 @@ void ReplayScene::Update()
 
     if (turnsLeftBanner->IsHoveredOver() && !PopUpOpen)
     {
-        turnsLeftText1->Update();
-        turnsLeftText2->Update();
+        turnsLeftText1->Update(dt);
+        turnsLeftText2->Update(dt);
     }
 
     if(index > 0)
     {
-        leftArrow->Update();
+        leftArrow->Update(dt);
     }
 
     if(leftArrow->IsPressed() && !PopUpOpen)
@@ -190,7 +190,7 @@ void ReplayScene::Update()
 
     if(index + 1 < replay.count)
     {
-        rightArrow->Update();
+        rightArrow->Update(dt);
     }
 
     if(rightArrow->IsPressed() && !PopUpOpen)
@@ -198,14 +198,14 @@ void ReplayScene::Update()
         NextMove();
     }
 
-    backArrow->Update();
+    backArrow->Update(dt);
 
     if(backArrow->IsPressed() && !PopUpOpen)
     {
         Application::LoadScene(Scenes::MainMenu);
     }
 
-    cursor->Update();
+    cursor->Update(dt);
 
     if (input.Pressed(input.Key.ESCAPE) && !PopUpOpen)
     {

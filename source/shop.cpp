@@ -759,7 +759,7 @@ void Shop::SetShopPiecesToWhite(bool isWhite)
 {
     isWhitesTurn = isWhite;
 
-    Update();
+    Update(0);
 
     LinkedList<Piece*>::Iterator piece = itemsStoreFront.Begin();
 
@@ -814,13 +814,13 @@ void Shop::StockShopFront()
     SetShopPiecesToWhite(isWhitesTurn);
 }
 
-void Shop::Update()
+void Shop::Update(float dt)
 {
     activePiece = nullptr;
 
     if(shopItems.Empty() == false)
     {
-        restockShop->Update();
+        restockShop->Update(dt);
     }
 
     if (itemsStoreFront.Empty() && shopItems.Empty() == false)
@@ -844,26 +844,26 @@ void Shop::Update()
             activePiece->listNode = piece.curNode;
         }
 
-        (*piece)->Update();
+        (*piece)->Update(dt);
 
         if ((*piece)->backgroundCard->IsHoveredOver() && !PopUpOpen)
         {
             *(*piece)->buyText->matrix.x = *(*piece)->icon->matrix.x - 10*1.55;
             *(*piece)->buyText->matrix.y = *(*piece)->icon->matrix.y - 20*1.55;
-            (*piece)->buyText->Update();
+            (*piece)->buyText->Update(dt);
         }
 
         *(*piece)->nameText->matrix.x = *(*piece)->icon->matrix.x;
         *(*piece)->nameText->matrix.y = *(*piece)->icon->matrix.y + 30*1.75;
-        (*piece)->nameText->Update();
+        (*piece)->nameText->Update(dt);
 
         *(*piece)->movementTypeText->matrix.x = *(*piece)->icon->matrix.x - 5;
         *(*piece)->movementTypeText->matrix.y = *(*piece)->icon->matrix.y + 40*1.75;
-        (*piece)->movementTypeText->Update();
+        (*piece)->movementTypeText->Update(dt);
 
         *(*piece)->movementText->matrix.x = *(*piece)->icon->matrix.x - 5;
         *(*piece)->movementText->matrix.y = *(*piece)->icon->matrix.y + 50*1.75;
-        (*piece)->movementText->Update();
+        (*piece)->movementText->Update(dt);
 
         /**(*piece)->descriptionText->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
         *(*piece)->descriptionText->matrix.y = *(*piece)->icon->matrix.y + 30*1.75;
@@ -871,20 +871,20 @@ void Shop::Update()
 
         *(*piece)->nobilityText->matrix.x = *(*piece)->icon->matrix.x - 5;
         *(*piece)->nobilityText->matrix.y = *(*piece)->icon->matrix.y + 60*1.75;
-        (*piece)->nobilityText->Update();
+        (*piece)->nobilityText->Update(dt);
 
         *(*piece)->costText->matrix.x = *(*piece)->icon->matrix.x - 5;
         *(*piece)->costText->matrix.y = *(*piece)->icon->matrix.y + 70*1.75;
-        (*piece)->costText->Update();
+        (*piece)->costText->Update(dt);
 
         *(*piece)->backgroundCard->matrix.x = *(*piece)->icon->matrix.x - 10*1.75;
         *(*piece)->backgroundCard->matrix.y = *(*piece)->icon->matrix.y - 10*1.75;
-        (*piece)->backgroundCard->Update();
+        (*piece)->backgroundCard->Update(dt);
     }
 
     if (shopItems.Empty() == false)
     {
-        randomCard->Update();
+        randomCard->Update(dt);
     }
 
     if (randomCard->IsHoveredOver() && shopItems.Empty() == false && !PopUpOpen)
@@ -895,9 +895,9 @@ void Shop::Update()
         *randomCardText1->matrix.y = *randomCard->matrix.y - 5;
         *randomCardText2->matrix.x = *randomCard->matrix.x;
         *randomCardText2->matrix.y = *randomCard->matrix.y - 25;
-        costTextRandomCard->Update();
-        randomCardText1->Update();
-        randomCardText2->Update();
+        costTextRandomCard->Update(dt);
+        randomCardText1->Update(dt);
+        randomCardText2->Update(dt);
     }
     if (randomCard->IsPressed() && shopItems.Empty() == false && !PopUpOpen)
     {
@@ -920,9 +920,9 @@ void Shop::Update()
         *nameTextRestockShop2->matrix.x = *restockShop->matrix.x;
         *nameTextRestockShop2->matrix.y = *restockShop->matrix.y - 25;
 
-        costTextRestockShop->Update();
-        nameTextRestockShop->Update();
-        nameTextRestockShop2->Update();
+        costTextRestockShop->Update(dt);
+        nameTextRestockShop->Update(dt);
+        nameTextRestockShop2->Update(dt);
     }
 }
 

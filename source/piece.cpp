@@ -54,11 +54,11 @@ Piece::Piece(String name_,
     animatedForm = nullptr;
 }
 
-void Piece::Update()
+void Piece::Update(float dt)
 {
     if (icon != nullptr)
     {
-        icon->Update();
+        icon->Update(dt);
 
         if (tileBorderBlue != nullptr)
         {

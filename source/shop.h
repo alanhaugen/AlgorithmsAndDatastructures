@@ -71,7 +71,7 @@ public:
     void StockShopFront();
     void DiscardShopFront();
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

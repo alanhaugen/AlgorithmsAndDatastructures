@@ -11,25 +11,25 @@ Tile::Tile()
     node = nullptr;
 }
 
-void Tile::Update()
+void Tile::Update(float dt)
 {
-    sprite->Update();
+    sprite->Update(dt);
 
     *moveDot->matrix.x = *sprite->matrix.x;
     *moveDot->matrix.y = *sprite->matrix.y;
-    moveDot->Update();
+    moveDot->Update(dt);
 
     *attackBorder->matrix.x = *sprite->matrix.x;
     *attackBorder->matrix.y = *sprite->matrix.y;
-    attackBorder->Update();
+    attackBorder->Update(dt);
 
     *weightBorder->matrix.x = *sprite->matrix.x;
     *weightBorder->matrix.y = *sprite->matrix.y;
-    weightBorder->Update();
+    weightBorder->Update(dt);
 
     *weightBorderWhite->matrix.x = *sprite->matrix.x;
     *weightBorderWhite->matrix.y = *sprite->matrix.y;
-    weightBorderWhite->Update();
+    weightBorderWhite->Update(dt);
 
     if (piece != nullptr)
     {
@@ -39,7 +39,7 @@ void Tile::Update()
             *piece->icon->matrix.y = *sprite->matrix.y;
         }
 
-        piece->Update();
+        piece->Update(dt);
     }
 }
 

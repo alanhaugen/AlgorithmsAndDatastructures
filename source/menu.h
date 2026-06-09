@@ -30,7 +30,7 @@ public:
     void AddQuitButton(String image, int x, int y);
     void AddQuitButton(Sprite *image);
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

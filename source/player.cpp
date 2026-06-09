@@ -126,7 +126,7 @@ void Player::UpdateHand()
             (*piece)->listNode = piece.curNode;
             *(*piece)->icon->matrix.x = x;
             *(*piece)->icon->matrix.y = y;
-            (*piece)->Update();
+            (*piece)->Update(0);
 
 
             x += (*piece)->icon->width * (*piece)->icon->scaleX;
@@ -182,7 +182,7 @@ Array<Move> Player::GetAllPossibleMoves(Board* gameBoard, bool isFirstMove)
     return moves;
 }
 
-void Player::Update()
+void Player::Update(float dt)
 {
     if (piecesInHand.Empty() == false)
     {
@@ -216,7 +216,7 @@ void Player::Update()
             {
                 if(hasBeenActive)
                 {
-                    buttonReady->Update();
+                    buttonReady->Update(dt);
                 }
                 else
                 {
@@ -225,13 +225,13 @@ void Player::Update()
             }
             else
             {
-                buttonReadyGray->Update();
+                buttonReadyGray->Update(dt);
             }
         }
     }
 
-    goldText->Update();
-    nobilityText->Update();
+    goldText->Update(dt);
+    nobilityText->Update(dt);
 }
 
 void Player::UpdateAfterPhysics()

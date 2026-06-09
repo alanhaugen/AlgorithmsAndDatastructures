@@ -2,6 +2,7 @@
 #define POPUP_H
 
 #include <core/application.h>
+#include <core/components/text.h>
 
 class PopUp : public IScene
 {
@@ -12,7 +13,7 @@ public:
     Sprite* BackGround;
     bool isOpen = false;
     bool canOpen = true;
-    virtual void Update();
+    virtual void Update(float dt);
     void open();
     void close();
     void createBackground();

@@ -20,9 +20,9 @@ Button::Button(Sprite *image, Stack<Menu *> *menuStack_)
     menuStack = menuStack_;
 }
 
-void Button::Update()
+void Button::Update(float dt)
 {
-    buttonImage->Update();
+    buttonImage->Update(dt);
 
     if (buttonImage->IsPressed())
     {

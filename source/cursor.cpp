@@ -8,12 +8,12 @@ Cursor::Cursor()
     activeCursor = blackCursor;
 }
 
-void Cursor::Update()
+void Cursor::Update(float dt)
 {
     *activeCursor->matrix.x = input.Mouse.x - 5;
     *activeCursor->matrix.y = input.Mouse.y - 5;
 
-    activeCursor->Update();
+    activeCursor->Update(dt);
 }
 
 void Cursor::UpdateAfterPhysics()

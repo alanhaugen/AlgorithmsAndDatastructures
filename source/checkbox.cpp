@@ -36,15 +36,15 @@ void CheckBox::UpdatePlacement(float x, float y)
     *textSprite->matrix.y = y;
 }
 
-void CheckBox::Update()
+void CheckBox::Update(float dt)
 {
     if (toggled)
     {
-        selected->Update();
+        selected->Update(0);
     }
     else
     {
-        unSelected->Update();
+        unSelected->Update(0);
     }
 
     if (selected->IsPressed() || unSelected->IsPressed())
@@ -53,7 +53,7 @@ void CheckBox::Update()
         *origOption = toggled;
     }
 
-    textSprite->Update();
+    textSprite->Update(0);
 }
 
 void CheckBox::UpdateAfterPhysics()

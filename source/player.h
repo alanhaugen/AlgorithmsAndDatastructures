@@ -47,7 +47,7 @@ public:
     void UpdateHand();
     Array<Move> GetAllPossibleMoves(Board* gameBoard, bool isFirstMove = false);
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
     Move GetNextMove(Board* gameBoard, bool isFirstMove = true);
     void RescalePiecesPlacing();

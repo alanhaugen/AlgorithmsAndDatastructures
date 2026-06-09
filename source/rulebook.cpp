@@ -46,18 +46,18 @@ Rulebook::Rulebook(bool isMenu_)
 void Rulebook::Update(float dt)
 {
 
-    PopUp::Update();
+    PopUp::Update(dt);
 
     if(isOpen)
     {
         if(index != 0)
         {
-            leftArrow->Update();
+            leftArrow->Update(dt);
         }
 
         if(index != Pages.Size() - 1)
         {
-            rightArrow->Update();
+            rightArrow->Update(dt);
         }
 
         if((leftArrow->IsPressed() == true || input.Pressed(input.Key.LEFT)) && index > 0)
@@ -69,6 +69,6 @@ void Rulebook::Update(float dt)
         {
             index++;
         }
-        Pages[index]->Update();
+        Pages[index]->Update(dt);
     }
 }

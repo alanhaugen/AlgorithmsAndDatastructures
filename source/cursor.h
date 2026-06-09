@@ -13,7 +13,7 @@ public:
     Sprite* blackCursor;
     Sprite* activeCursor;
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 
     void SetCursorToWhiteColour(bool isWhite);

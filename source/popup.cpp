@@ -5,15 +5,15 @@ PopUp::PopUp()
     createBackground();
 }
 
-void PopUp::Update()
+void PopUp::Update(float dt)
 {
     if(isOpen)
     {
-        BackGround->Update();
+        BackGround->Update(dt);
 
         if(closePopUp != nullptr)
         {
-            closePopUp->Update();
+            closePopUp->Update(dt);
             if(closePopUp->IsPressed() == true)
             {
                 close();
@@ -22,7 +22,7 @@ void PopUp::Update()
     }
     if(openPopUp != nullptr)
     {
-        openPopUp->Update();
+        openPopUp->Update(dt);
         if(openPopUp->IsPressed() == true)
         {
             open();
@@ -33,7 +33,7 @@ void PopUp::Update()
     {
         if (hoverText != nullptr && openPopUp != nullptr && openPopUp->IsHoveredOver() && canOpen)
         {
-            hoverText->Update();
+            hoverText->Update(dt);
         }
     }
 }

@@ -742,7 +742,7 @@ void Board::Update(float dt)
 
     for (; tile != NULL; ++tile)
     {
-        (*tile).Update();
+        (*tile).Update(dt);
         Sprite* sprite = (*tile).sprite;
 
         if (input.Mouse.Pressed)
@@ -764,13 +764,13 @@ void Board::Update(float dt)
         }
     }
 
-    highlight->Update();
+    highlight->Update(dt);
     //bg->Update();
 
     // Update components manually
     for (unsigned int i = 0; i < components.Size(); i++)
     {
-        (*components[i])->Update();
+        (*components[i])->Update(dt);
     }
 }
 

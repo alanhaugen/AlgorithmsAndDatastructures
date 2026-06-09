@@ -17,7 +17,7 @@ public:
     Button(String filePath, int x, int y, Stack<Menu *> *menuStack_);
     Button(Sprite* image, Stack<Menu *> *menuStack_);
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

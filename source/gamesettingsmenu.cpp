@@ -79,7 +79,7 @@ void GameSettingsMenu::AddPreset()
 
 void GameSettingsMenu::Update(float dt)
 {
-    PopUp::Update();
+    PopUp::Update(dt);
 
     if(AddGold->IsPressed() == true)
     {
@@ -207,15 +207,15 @@ void GameSettingsMenu::Update(float dt)
         }
     }
 
-    GameSettingsNumber->Update();
-    GoldNumber->Update();
-    AddGold->Update();
-    ReduceGold->Update();
-    RoundNumber->Update();
-    AddRounds->Update();
-    ReduceRounds->Update();
-    AddPresett->Update();
-    ReducePresett->Update();
+    GameSettingsNumber->Update(dt);
+    GoldNumber->Update(dt);
+    AddGold->Update(dt);
+    ReduceGold->Update(dt);
+    RoundNumber->Update(dt);
+    AddRounds->Update(dt);
+    ReduceRounds->Update(dt);
+    AddPresett->Update(dt);
+    ReducePresett->Update(dt);
 }
 
 void GameSettingsMenu::UpdateAfterPhysics()

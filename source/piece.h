@@ -109,7 +109,7 @@ public:
     bool isPerpendicularOnly = false;
     bool isDiagonalOnly = false;
 
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 };
 

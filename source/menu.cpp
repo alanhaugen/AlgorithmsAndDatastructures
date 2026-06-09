@@ -58,16 +58,16 @@ void Menu::AddQuitButton(Sprite* image)
     buttons.Add(button);
 }
 
-void Menu::Update()
+void Menu::Update(float dt)
 {
     for (unsigned int i = 0; i < buttons.Size(); i++)
     {
-        buttons[i]->Update();
+        buttons[i]->Update(dt);
     }
 
     for (unsigned int i = 0; i < checkBoxes.Size(); i++)
     {
-        checkBoxes[i]->Update();
+        checkBoxes[i]->Update(dt);
     }
 }
 

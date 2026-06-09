@@ -54,8 +54,8 @@ float RangeInput::Update(int mouseX, int mouseY, bool mouseDown)
 
     Value = ButtonPosRatio * difference + min;
 
-    Button->Update();
-    Slider->Update();
+    Button->Update(0);
+    Slider->Update(0);
 
     return Value;
 }

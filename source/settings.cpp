@@ -103,17 +103,17 @@ Settings::Settings(bool isMenu_)
 
 void Settings::Update(float dt)
 {
-    PopUp::Update();
+    PopUp::Update(dt);
 
     if(isOpen)
     {
-        experimentalCheckbox->Update();
+        experimentalCheckbox->Update(dt);
 
         //Fullscreen
-        fullscreenText->Update();
+        fullscreenText->Update(dt);
         if(Locator::renderer->fullscreen == true)
         {
-            fullscreenChecked->Update();
+            fullscreenChecked->Update(dt);
 
             if(fullscreenChecked->IsPressed() == true)
             {
@@ -122,7 +122,7 @@ void Settings::Update(float dt)
         }
         else
         {
-            fullscreenUnchecked->Update();
+            fullscreenUnchecked->Update(dt);
 
             if(fullscreenUnchecked->IsPressed() == true)
             {
@@ -133,10 +133,10 @@ void Settings::Update(float dt)
         //Audio
         if(option == true)
         {
-            audioText->Update();
+            audioText->Update(dt);
             audio->audioVolume = Audio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
 
-            musicAudioText->Update();
+            musicAudioText->Update(dt);
             audio->audioVolumeMusic = musicAudio->Update(input.Mouse.x, input.Mouse.y, input.Mouse.Down);
         }
         else

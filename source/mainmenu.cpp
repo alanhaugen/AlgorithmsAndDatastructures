@@ -114,7 +114,7 @@ void Mainmenu::Init()
 
 void Mainmenu::Update(float dt)
 {
-    menus.Top()->Update();
+    menus.Top()->Update(dt);
     if(menus.Top() == ruleMenu)
     {
         title->Hide();
@@ -122,12 +122,12 @@ void Mainmenu::Update(float dt)
     }
     else if(menus.Top() == replaysMenu)
     {
-        replayBG->Update();
+        replayBG->Update(dt);
         title->Hide();
         LinkedList<Text*>::Iterator PlayDateI = Timestamps.Begin();
         for(; PlayDateI != NULL; ++PlayDateI)
         {
-            (*PlayDateI)->Update();
+            (*PlayDateI)->Update(dt);
         }
     }
     else if(menus.Top() == gameSettingsMenu)

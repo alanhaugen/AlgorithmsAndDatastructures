@@ -257,31 +257,31 @@ void Autochess::Update(float dt)
         black->isActivePlayer = true;
     }
 
-    white->Update();
-    black->Update();
+    white->Update(dt);
+    black->Update(dt);
 
-    goldIcon1->Update();
-    goldIcon2->Update();
+    goldIcon1->Update(dt);
+    goldIcon2->Update(dt);
 
-    blueBanner->Update();
-    yellowBanner->Update();
+    blueBanner->Update(dt);
+    yellowBanner->Update(dt);
 
     checkForPopUp();
 
     if(state != GameState::Shopping)
     {
-        turnsLeftBanner->Update();
+        turnsLeftBanner->Update(dt);
     }
 
-    whitePiecesBanner->Update();
-    blackPiecesBanner->Update();
-    goldBackground->Update();
-    goldBackground2->Update();
+    whitePiecesBanner->Update(dt);
+    blackPiecesBanner->Update(dt);
+    goldBackground->Update(dt);
+    goldBackground2->Update(dt);
 
-    backArrow->Update();
+    backArrow->Update(dt);
 
-    nobilityIcon1->Update();
-    nobilityIcon2->Update();
+    nobilityIcon1->Update(dt);
+    nobilityIcon2->Update(dt);
 
     rules->Update(dt);
     settings->Update(dt);
@@ -300,27 +300,27 @@ void Autochess::Update(float dt)
     {
         *backArrowText->matrix.x = *backArrow->matrix.x;
         *backArrowText->matrix.y = *backArrow->matrix.y + 70;
-        backArrowText->Update();
+        backArrowText->Update(dt);
     }
 
     if (nobilityIcon2->IsHoveredOver() && !PopUpOpen)
     {
         *whiteNobilityText->matrix.x = *nobilityIcon2->matrix.x + 20;
         *whiteNobilityText->matrix.y = *nobilityIcon2->matrix.y + 90;
-        whiteNobilityText->Update();
+        whiteNobilityText->Update(dt);
     }
 
     if (nobilityIcon1->IsHoveredOver() && !PopUpOpen)
     {
         *blackNobilityText->matrix.x = *nobilityIcon1->matrix.x + 20;
         *blackNobilityText->matrix.y = *nobilityIcon1->matrix.y - 30;
-        blackNobilityText->Update();
+        blackNobilityText->Update(dt);
     }
 
     if (turnsLeftBanner->IsHoveredOver() && state != GameState::Shopping && !PopUpOpen)
     {
-        turnsLeftText1->Update();
-        turnsLeftText2->Update();
+        turnsLeftText1->Update(dt);
+        turnsLeftText2->Update(dt);
     }
 
     // Finite State Machine (FSM) for gameplay logic
@@ -357,13 +357,13 @@ void Autochess::Update(float dt)
 
     if (activeInfoBoard != nullptr && infoBoardTimer->TimeSinceStarted() < 5000.0f)
     {
-        activeInfoBoard->Update();
+        activeInfoBoard->Update(dt);
     }
 
     //Undo-button
     if(replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
     {
-        undoButton->Update(); //Button does not work, and not working on it currently.
+        undoButton->Update(dt); //Button does not work, and not working on it currently.
     }
 
     if(undoButton->IsPressed() && !PopUpOpen && replay.count > 1 && state != GameState::Shopping && state != GameState::Done)
@@ -435,7 +435,7 @@ void Autochess::UpdateAfterPhysics()
 
 void Autochess::UpdateShop()
 {
-    shop->Update();
+    shop->Update(0);
 
     if(shop->restockShop->IsPressed() == true && activePlayer->gold >= shop->RestockShopCost && !PopUpOpen && shop->shopItems.Empty() == false)
     {
@@ -487,7 +487,7 @@ void Autochess::UpdateShop()
                 }
 
                 //to update the players nobility before updating the text.
-                activePlayer->Update();
+                activePlayer->Update(0);
 
                 activePlayer->UpdateNobilityText();
 
@@ -514,12 +514,12 @@ void Autochess::UpdateShop()
 void Autochess::UpdatePlacing()
 {
     gameBoard->highlight->Hide();
-    autoPlacePieces->Update();
-    autoPlaceAllPieces->Update();
+    autoPlacePieces->Update(0);
+    autoPlaceAllPieces->Update(0);
 
     if (shop->obstacleCards.Empty() != true && option == true)
     {
-        autoPlaceObstacles->Update();
+        autoPlaceObstacles->Update(0);
     }
 
     white->RescalePiecesPlacing();
@@ -648,17 +648,17 @@ void Autochess::UpdatePlacing()
     if (activePlayer->activePiece != nullptr)
     {
 
-        movesLeftText->Update();
+        movesLeftText->Update(0);
         //gameBoard->highlight->Show();
         moves.Clear();
 
         if (isWhitesTurn)
         {
-            activePlayer->activePiece->tileBorderGold->Update();
+            activePlayer->activePiece->tileBorderGold->Update(0);
         }
         else
         {
-            activePlayer->activePiece->tileBorderBlue->Update();
+            activePlayer->activePiece->tileBorderBlue->Update(0);
         }
     }
 
@@ -754,16 +754,16 @@ void Autochess::UpdatePlaying()
     }
 
     // Update text
-    movesLeftText->Update();
+    movesLeftText->Update(0);
 
     // Show whose turn it is text
     if (isWhitesTurn)
     {
-        playerWhiteTurn->Update();
+        playerWhiteTurn->Update(0);
     }
     else
     {
-        playerBlackTurn->Update();
+        playerBlackTurn->Update(0);
     }
 
     // Update the current player's hand
@@ -826,10 +826,10 @@ void Autochess::UpdatePlaying()
 
 void Autochess::UpdateDone()
 {
-    victoryBanner->Update();
-    victoryBanner2->Update();
-    returnToMainMenu->Update();
-    watchReplay->Update();
+    victoryBanner->Update(0);
+    victoryBanner2->Update(0);
+    returnToMainMenu->Update(0);
+    watchReplay->Update(0);
 
     if (returnToMainMenu->IsPressed() == true && !PopUpOpen)
     {
@@ -842,7 +842,7 @@ void Autochess::UpdateDone()
 
     if (isDraw)
     {
-        playerDraw->Update();
+        playerDraw->Update(0);
         if(!replayAdded)
         {
             time_t timestamp = std::time(NULL);
@@ -852,7 +852,7 @@ void Autochess::UpdateDone()
     }
     else if (isAnyBlackPieces)
     {
-        playerBlackWins->Update();
+        playerBlackWins->Update(0);
         if(!replayAdded)
         {
             time_t timestamp = std::time(NULL);
@@ -862,7 +862,7 @@ void Autochess::UpdateDone()
     }
     else if (isAnyWhitePieces)
     {
-        playerWhiteWins->Update();
+        playerWhiteWins->Update(0);
         if(!replayAdded)
         {
             time_t timestamp = std::time(NULL);
@@ -880,7 +880,7 @@ void Autochess::UpdateAnimation()
     // Update text
     if (movesLeftText != nullptr)
     {
-        movesLeftText->Update();
+        movesLeftText->Update(0);
     }
 
     // Update animations
@@ -890,11 +890,11 @@ void Autochess::UpdateAnimation()
         {
             if (animatedMove.movedPiece->isWhite)
             {
-                animatedMove.movedPiece->iconWhite->Update();
+                animatedMove.movedPiece->iconWhite->Update(0);
             }
             else
             {
-                animatedMove.movedPiece->iconBlack->Update();
+                animatedMove.movedPiece->iconBlack->Update(0);
             }
         }
     }

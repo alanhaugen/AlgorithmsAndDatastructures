@@ -12,7 +12,7 @@ public:
     CheckBox(String text, bool* option, int x, int y);
 
     void UpdatePlacement(float x, float y);
-    void Update();
+    void Update(float dt);
     void UpdateAfterPhysics();
 
     bool* origOption;
