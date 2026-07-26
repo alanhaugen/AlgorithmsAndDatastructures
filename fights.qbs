@@ -116,6 +116,8 @@ solid {
             cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/darwin/" + qbs.architecture]
             cpp.includePaths: includePaths.concat("../solid/include/darwin")
             cpp.defines: project.defines.concat(project.sdlDefines)
+
+            workingDirectory: project.sourceDirectory + "/data"
         }
 
         Properties {
@@ -127,6 +129,8 @@ solid {
             cpp.libraryPaths: [project.buildDirectory, "../solid/lib/debug/linux" + qbs.architecture]
             cpp.includePaths: includePaths.concat("../solid/include/linux")
             cpp.defines: project.defines.concat(project.glfwDefines)
+
+            workingDirectory: project.sourceDirectory + "/data"
         }
 
         Properties {
@@ -138,6 +142,8 @@ solid {
             cpp.libraryPaths: [project.buildDirectory, "../../solid/lib/debug/mingw32/" + qbs.architecture]
             cpp.includePaths: includePaths.concat("../../solid/include/mingw32")
             cpp.defines: project.defines.concat(project.windowsDefines)
+
+            workingDirectory: project.sourceDirectory + "/data"
         }
     }
 }
